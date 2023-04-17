@@ -2,6 +2,8 @@
 
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\MainController;
+use App\Http\Controllers\MailerController;
 
 /*
 |--------------------------------------------------------------------------
@@ -14,9 +16,31 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::get('/', [MainController::class, 'home'])->name('home');
+
+Route::get('/o-kompanii', [MainController::class, 'o_kompanii']);
+
+Route::get('/dostavka-i-oplata', [MainController::class, 'dostavka_i_oplata']);
+
+Route::get('/otzyvy', [MainController::class, 'otzyvy']);
+
+Route::get('/kontakty', [MainController::class, 'kontakty']);
+
+Route::get('/catalog', [MainController::class, 'catalog']);
+
+Route::get('/cart', [MainController::class, 'cart']);
+
+Route::get('/politika-konfidencialnosti', [MainController::class, 'politika_konfidencialnosti']);
+
+Route::get('/polzovatelskoe-soglashenie-s-publichnoj-ofertoj', [MainController::class, 'polzovatelskoe_soglashenie_s_publichnoj_ofertoj']);
+
+Route::get('/garantiya-vozvrata-denezhnyh-sredstv', [MainController::class, 'garantiya_vozvrata_denezhnyh_sredstv']);
+
+
+
+
+Route::post('/ajax/callback', MailerController::class)->name('callback');
+
 
 Route::get('/dashboard', function () {
     return view('dashboard');
