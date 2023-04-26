@@ -5,12 +5,9 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Http;
 
-class SdekController extends Controller
+class DeliveryController extends Controller
 {
-    /**
-     * Handle the incoming request.
-     */
-    public function __invoke(Request $request)
+    public function sdek(Request $request)
     {
         // $weight = $request->input("weight");
         $weight = 3000;
@@ -78,7 +75,7 @@ class SdekController extends Controller
 
         $tariff = $response_tariff->json();
 
-        dd($tariff);
+        // dd($tariff);
 
         // Сумма
         // $tariff["delivery_sum"]
@@ -86,7 +83,52 @@ class SdekController extends Controller
         // Срок доставки
         // $tariff["period_min"] . "-" . $tariff["period_max"] . " дней";
         
-        return false;
+        return $tariff["delivery_sum"];
 
+    }
+
+    /*
+    * Документация https://tariff.pochta.ru/post-calculator-api.pdf?99
+    * Онлайн калькулятор https://tariff.pochta.ru/
+    * Пример https://tariff.pochta.ru/#/106?object=4020&weight=1000&closed=1&sumoc=10000&date=20220617&time=1652
+    * Онлайн калькулятор от заказчиков https://www.pochta.ru/parcel-new
+    * method GET
+    * format JSON
+    */
+    public function russian_post(Request $request)
+    {
+        // $postcode = $request->input('postсode');
+        // $weight = $request->input('weight');
+        // $city = $_COOKIE['city'];
+        // $postcode = DB::table('cities')
+        //             ->where('city', $city)
+        //             ->value('postal_code');
+
+        // Параметры: вес, город получатель, объявленная ценность (сумма всех товаров * 100)
+
+        $weight = 3000; // Вес в граммах
+        $postcode = 101000; // Москва
+        
+        $params = array(
+            // 'object' => '23030', // организация
+            'object' => '4020', // физлицо
+            'from' => '456320',
+            'to' => $postcode,
+            'weight' => $weight,
+            // 'pack' => '40', // Упаковка
+            'closed'=> '1',
+            'sumoc'=> '50000', // Объявленная ценность. Сумма товара * 100
+        );
+
+        $url = "https://tariff.pochta.ru/v2/calculate/tariff?";
+
+        $tariff = Http::get($url, $params);
+
+        $tariff = $tariff->json();
+
+        // return ($tariff["paymoneynds"]) / 100; // Итоговая сумма платы за дополнительные услуги с НДС в копейках
+
+        // return ($tariff["paynds"]) / 100; // Итоговая сумма платы с НДС в копейках
+        return $tariff["paynds"] / 100;
     }
 }

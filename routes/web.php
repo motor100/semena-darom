@@ -4,6 +4,7 @@ use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\MainController;
 use App\Http\Controllers\MailerController;
+use App\Http\Controllers\DeliveryController;
 
 /*
 |--------------------------------------------------------------------------
@@ -36,6 +37,11 @@ Route::get('/polzovatelskoe-soglashenie-s-publichnoj-ofertoj', [MainController::
 
 Route::get('/garantiya-vozvrata-denezhnyh-sredstv', [MainController::class, 'garantiya_vozvrata_denezhnyh_sredstv']);
 
+
+
+Route::get('/sdek', [DeliveryController::class, 'sdek']);
+
+Route::get('/russian-post', [DeliveryController::class, 'russian_post']);
 
 
 

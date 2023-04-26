@@ -43,7 +43,7 @@
   <footer class="footer">
     <div class="container">
       <p>Footer</p>
-      <div class="item"><?= date("Y"); ?></div>
+      <div class="item">@php echo date("Y") @endphp</div>
       <div class="author">
         <span class="author-text">Дизайн&nbsp;</span>
         <a href="https://nhfuture.ru/" class="author-name" target="_blank">Andrewwebnh</a>
@@ -163,7 +163,6 @@
     </div>
   </div>
 
-  <?php // if (empty($_COOKIE['we-use-cookie'])): ?>
   @if(empty($_COOKIE['we-use-cookie']))
     <div class="messages-cookies">
       <div class="container">
@@ -174,7 +173,6 @@
       </div>
     </div>
   @endif
-  <?php //endif; ?>
 
   <div class="fixed-bottom-menu hidden-desktop">
     <div class="menu-wrapper">
@@ -217,8 +215,10 @@
   @endif
 
   @yield('script')
+  <!-- jivosite -->
+  <!-- <script src="//code-ya.jivosite.com/widget/K7CaDjczmW" async></script> -->
   <script src="{{ asset('/js/main.js') }}"></script>
-  <!-- <script src="{{ asset('/js/main.js') }}"></script> -->
+  <!-- <script src="{{ asset('/js/imask.min.js') }}"></script> -->
   
 </body>
 </html>
