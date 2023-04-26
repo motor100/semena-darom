@@ -34,9 +34,7 @@ class MainController extends Controller
     }
     public function kontakty()
     {
-        $text = '';
-
-        return view('kontakty', compact('text'));
+        return view('kontakty');
     }
     public function catalog()
     {

@@ -8,7 +8,7 @@
   <meta name="keywords" content="Семена, овощи, цветы, удобрения, агрохимия, садовый инвентарь">
   <meta name="csrf-token" content="{{ csrf_token() }}">
   @yield('robots')
-  <!-- <link rel="shortcut icon" href="{{ asset('/img/favicon.svg') }}" type="image/x-icon"> -->
+  <link rel="shortcut icon" href="{{ asset('/img/favicon.svg') }}" type="image/x-icon">
   <link rel="stylesheet" href="{{ asset('/css/bootstrap-grid.min.css') }}">
   @yield('style')
   <link rel="stylesheet" href="{{ asset('/css/main.css') }}">
@@ -23,6 +23,22 @@
         <a href="{{ route('home') }}">
           <img src="" alt="">
         </a>
+      </div>
+      <div class="top-menu">
+        <ul>
+          <li class="menu-item">
+            <a href="/o-kompanii">О компании</a>
+          </li>
+          <li class="menu-item">
+            <a href="/dostavka-i-oplata">Доставка и оплата</a>
+          </li>
+          <li class="menu-item">
+            <a href="/otzyvy">Отзывы</a>
+          </li>
+          <li class="menu-item">
+            <a href="/kontakty">Контакты</a>
+          </li>
+        </ul>
       </div>
     </div>
   </header>

@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>@yield('title', 'Dashboard')</title>
   <meta name="csrf-token" content="{{ csrf_token() }}">
-  <link rel="shortcut icon" href="{{ asset('favicon.ico') }}" type="image/x-icon">
+  <link rel="shortcut icon" href="{{ asset('/img/favicon.svg') }}" type="image/x-icon">
   @yield('style')
   <link rel="stylesheet" href="{{ asset('/adminpanel/css/bootstrap.min.css') }}">
   <link rel="stylesheet" href="{{ asset('/adminpanel/css/all.min.css') }}">
