@@ -4,6 +4,14 @@
 
 @section('content')
 
-  <div>Content</div>
+  <p>Товары</p>
+
+  @foreach($products as $product)
+    <div class="item">
+      <div class="item-title">{{ $product->title }}</div>
+    </div>
+  @endforeach
+
+  
 
 @endsection

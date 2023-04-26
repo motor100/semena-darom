@@ -58,6 +58,13 @@
         <div class="js-callback-btn">Открыть окно</div>
       </div>
 
+
+      <div class="links">
+        <a href="/polzovatelskoe-soglashenie-s-publichnoj-ofertoj">Пользовательское соглашение с публичной офертой</a>
+        <a href="/politika-konfidencialnosti">Политика конфиденциальности</a>
+        <a href="/garantiya-vozvrata-denezhnyh-sredstv">Гарантия возврата денежных средств</a>
+      </div>
+
     </div>
   </footer>
 
@@ -204,7 +211,7 @@
             <a href="/admin">Панель управления</a>
           </div>
           <div class="top-line__text logout">
-            <form class="form" action="{{ route('admin.logout') }}" method="POST">
+            <form class="form" action="{{ route('logout') }}" method="POST">
               @csrf
               <button class="logout-btn" type="submit">Выйти</button>
             </form>

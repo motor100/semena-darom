@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\MainController;
 use App\Http\Controllers\MailerController;
 use App\Http\Controllers\DeliveryController;
+use App\Http\Controllers\AdminController;
 
 /*
 |--------------------------------------------------------------------------
@@ -59,3 +60,27 @@ Route::middleware('auth')->group(function () {
 });
 
 require __DIR__.'/auth.php';
+
+// Админ панель
+Route::middleware('auth')->group(function () {
+
+    Route::get('/dashboard', [AdminController::class, 'home'])->name('dashboard');
+
+
+
+    Route::get('/dashboard/polzovatelskoe-soglashenie-s-publichnoj-ofertoj', [AdminController::class, 'polzovatelskoe_soglashenie_s_publichnoj_ofertoj']);
+
+    Route::post('/dashboard/polzovatelskoe-soglashenie-s-publichnoj-ofertoj/update', [AdminController::class, 'polzovatelskoe_soglashenie_s_publichnoj_ofertoj_update']);
+
+    Route::get('/dashboard/politika-konfidencialnosti', [AdminController::class, 'politika_konfidencialnosti']);
+
+    Route::post('/dashboard/politika-konfidencialnosti/update', [AdminController::class, 'politika_konfidencialnosti_update']);
+
+    Route::get('/dashboard/garantiya-vozvrata-denezhnyh-sredstv', [AdminController::class, 'garantiya_vozvrata_denezhnyh_sredstv']);
+
+    Route::post('/dashboard/garantiya-vozvrata-denezhnyh-sredstv/update', [AdminController::class, 'garantiya_vozvrata_denezhnyh_sredstv_update']);
+
+
+    
+
+});

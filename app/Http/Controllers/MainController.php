@@ -3,12 +3,15 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\Product;
 
 class MainController extends Controller
 {
     public function home()
     {   
-        return view('home');
+        $products = Product::limit(10)->get();
+        
+        return view('home', compact('products'));
     }
 
     public function o_kompanii()
@@ -49,20 +52,20 @@ class MainController extends Controller
     }
     public function politika_konfidencialnosti()
     {
-        $text = '';
+        $page = \App\Models\Page::where('id', 2)->first();
 
-        return view('politika_konfidencialnosti', compact('text'));
+        return view('text-page', compact('page'));
     }
     public function polzovatelskoe_soglashenie_s_publichnoj_ofertoj()
     {
-        $text = '';
+        $page = \App\Models\Page::where('id', 1)->first();
 
-        return view('polzovatelskoe_soglashenie_s_publichnoj_ofertoj', compact('text'));
+        return view('text-page', compact('page'));
     }
     public function garantiya_vozvrata_denezhnyh_sredstv()
     {
-        $text = '';
+        $page = \App\Models\Page::where('id', 3)->first();
 
-        return view('garantiya_vozvrata_denezhnyh_sredstv', compact('text'));
+        return view('text-page', compact('page'));
     }
 }

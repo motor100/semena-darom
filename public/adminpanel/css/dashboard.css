@@ -1,0 +1,181 @@
+/* form */
+.form-group .form-label {
+  font-weight: 600;
+}
+.form-group textarea {
+  resize: none;
+}
+
+
+/* Прикрепить файл */
+.inputfile {
+  position: absolute;
+  z-index: -1;
+  opacity: 0;
+}
+.custom-inputfile-label {
+  height: 38px;
+  padding: 7px 15px;
+  border: 1px solid #ced4da;
+  border-radius: 5px;
+  color: #212529;
+  background-color: #e9ecef;
+}
+.custom-inputfile-label:hover {
+  background-color: #dde0e3;
+}
+.namefile {
+  margin-left: 10px;
+}
+.inputtext {
+  height: 300px;
+}
+.input-number {
+  -moz-appearance: textfield;
+}
+.input-number::-webkit-inner-spin-button,
+.input-number::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  margin: 0;
+}
+.sort-input {
+  width: 100px;
+}
+.buttons-wrapper {
+  display: flex;
+  justify-content: space-between;
+}
+.label-text {
+  margin-bottom: .5rem;
+  font-weight: 700;
+}
+
+
+/* Таблица */
+.table .number-column {
+  /* width: 20px; */
+  width: 45px;
+}
+.table .button-column {
+  width: 155px;
+}
+.table .button-group {
+  font-size: 0;
+}
+.table .button-group .btn {
+  margin: 0 0 0 4px;
+}
+.table .name-column {
+  width: 45%;
+}
+/* .table .table-button .form {
+  display: contents;
+} */
+
+
+/* Страница Просмотр события */
+.event-show .table .number-column {
+  width: 35px;
+}
+.event-show .table .seat-column {
+  width: 67px;
+}
+.event-show .table .price-column {
+  width: 105px;
+}
+.event-show .table .credit-column {
+  width: 83px;
+}
+.event-show .table .note-column {
+  width: 28%;
+}
+.event-show .table input {
+  width: 100%;
+}
+.event-show .table .readonly {
+  border: 1px solid transparent;
+  background-color: transparent;
+}
+.event-show .button-wrapper {
+  display: flex;
+  justify-content: space-between;
+}
+
+
+
+/* Текущие уведомления */
+.current-notifications .notification-item {
+  position: relative;
+  padding: 10px 0;
+}
+.current-notifications .notification-item.border-bottom {
+  border-bottom: 1px solid #e5e7eb;
+}
+.current-notifications .notification-item.disabled {
+  color: #D3D3D3;
+}
+.current-notifications .notification-item.disabled .notification-item__link {
+  color: #D3D3D3;
+}
+.current-notifications  .notification-item .read-button {
+  position: absolute;
+  right: 0;
+  bottom: 10px;
+  font-size: 14px;
+  cursor: pointer;
+}
+
+
+/* Страница Создать уведомление */
+.notifications-create .name-text {
+  height: 38px;
+}
+
+
+/* Выпадающий поиск по имени */
+.name-search {
+  position: relative;
+}
+.name-search .autocomplete-dropdown {
+  position: absolute;
+  top: 70px;
+  left: 0;
+  width: 100%;
+  background-color: #fff;
+  border-radius: .25rem;
+  z-index: 1;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity cubic-bezier(0.215, 0.61, 0.355, 1) .3s, visibility cubic-bezier(0.215, 0.61, 0.355, 1) .3s;
+}
+.name-search .autocomplete-dropdown.active {
+  padding: 0 0 10px 0;
+  opacity: 1;
+  visibility: visible;
+}
+.name-search .autocomplete-list {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+.name-search .autocomplete-list-item {
+  margin: .575rem .775rem;
+  cursor: pointer;
+}
+.name-search .autocomplete-list-item:hover {
+  color: #777;
+}
+.name-search .search-message {
+  margin: 0 .775rem;
+  font-size: 14px;
+}
+
+
+
+/* Страница Клиенты */
+.fa-whatsapp {
+  font-size: 20px;
+  color: #25D366;
+}
