@@ -16,4 +16,14 @@ const itemLink = document.querySelectorAll('.aside .item-link');
 
 if(typeof(menuItem) != "undefined" && menuItem !== null) {
   itemLink[menuItem].classList.add('active');
-}  
+}
+
+// Show/hidden submenu dropdown
+const navItemItemLinks = document.querySelectorAll('.nav-item-has-children > .item-link');
+
+navItemItemLinks.forEach((item) => {
+  item.onclick = function(event) {
+    event.preventDefault();
+    item.parentElement.classList.toggle('active');
+  }
+});

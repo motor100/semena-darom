@@ -46,31 +46,33 @@
             </a>
           </div>
 
-          <div class="nav-item">
+          <div class="nav-item nav-item-has-children">
             <a href="" class="item-link">
               <i class="nav-icon fas fa-bell"></i>
               <span>Страницы</span>
             </a>
-            <ul class="nav nav-treeview">
-              <li>
-                <a href="/dashboard/polzovatelskoe-soglashenie-s-publichnoj-ofertoj" class="nav-link">
+            <i class="fas fa-angle-down arrow"></i>
+
+            <div class="nav nav-treeview">
+              <div class="nav-item">
+                <a href="/dashboard/polzovatelskoe-soglashenie-s-publichnoj-ofertoj" class="item-link">
                   <i class="far fa-circle nav-icon"></i>
-                  <p>Пользовательское соглашение с публичной офертой</p>
+                  <span>Пользовательское соглашение с публичной офертой</span>
                 </a>
-              </li>
-              <li>
-                <a href="/dashboard/politika-konfidencialnosti" class="nav-link">
+              </div>
+              <div class="nav-item">
+                <a href="/dashboard/politika-konfidencialnosti" class="item-link">
                   <i class="far fa-circle nav-icon"></i>
-                  <p>Политика конфиденциальности</p>
+                  <span>Политика конфиденциальности</span>
                 </a>
-              </li>
-              <li>
-                <a href="/dashboard/garantiya-vozvrata-denezhnyh-sredstv" class="nav-link">
+              </div>
+              <div class="nav-item">
+                <a href="/dashboard/garantiya-vozvrata-denezhnyh-sredstv" class="item-link">
                   <i class="far fa-circle nav-icon"></i>
-                  <p>Гарантия возврата денежных средств</p>
+                  <span>Гарантия возврата денежных средств</span>
                 </a>
-              </li>
-            </ul>
+              </div>
+            </div>
           </div>
           
         </div>
