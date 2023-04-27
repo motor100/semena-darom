@@ -144,6 +144,9 @@ ul {
 .aside .aside-header .logo {
   padding: 10px 16px;
 }
+.aside .aside-header .logo a {
+  color: var(--tp-white);
+}
 .aside .aside-content {
   padding: 30px 8px;
 }

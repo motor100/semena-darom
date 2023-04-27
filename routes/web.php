@@ -44,6 +44,8 @@ Route::get('/sdek', [DeliveryController::class, 'sdek']);
 
 Route::get('/russian-post', [DeliveryController::class, 'russian_post']);
 
+Route::post('/otzyvy-store', [MainController::class, 'otzyvy_store']);
+
 
 
 Route::post('/ajax/callback', MailerController::class)->name('callback');

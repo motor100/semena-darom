@@ -273,6 +273,15 @@ document.addEventListener("DOMContentLoaded", () => {
 
   if(otzyvyPage) {
 
+    // Выбор файла Изображение
+    let inputMainFile = document.querySelector('#input-main-file'),
+    mainFileText = document.querySelector('.main-file-text');
+
+    if (inputMainFile) {
+      inputMainFile.onchange = function() {
+        mainFileText.innerHTML = this.files[0].name;
+      }
+    }
     
   }
 
@@ -290,6 +299,12 @@ document.addEventListener("DOMContentLoaded", () => {
   if (singleProduct) {
     
   
+  }
+
+  if (otzyvyPage) {
+
+    
+
   }
 
 });

@@ -19,8 +19,7 @@
 
       <div class="aside-header">
         <div class="logo">
-          <!-- <img src="" alt=""> -->
-          <span>{{ config('app.name') }}</span>
+          <a href="{{ route('home') }}">{{ config('app.name') }}</a>
         </div>
       </div>
 
@@ -40,9 +39,9 @@
             </a>
           </div>
           <div class="nav-item">
-            <a href="/dashboard/notifications" class="item-link">
-              <i class="nav-icon fas fa-bell"></i>
-              <span>Уведомления</span>
+            <a href="/dashboard/testimonials" class="item-link">
+              <i class="nav-icon far fa-comments"></i>
+              <span>Отзывы</span>
             </a>
           </div>
 
@@ -50,8 +49,8 @@
             <a href="" class="item-link">
               <i class="nav-icon fas fa-bell"></i>
               <span>Страницы</span>
+              <i class="fas fa-angle-down arrow"></i>
             </a>
-            <i class="fas fa-angle-down arrow"></i>
 
             <div class="nav nav-treeview">
               <div class="nav-item">
