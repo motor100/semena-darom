@@ -17,7 +17,7 @@
 
 <body>
   <header class="header">
-    <div class="container">
+    <div class="container-fluid">
       <p>Header</p>
       <div class="logo">
         <a href="{{ route('home') }}">
@@ -47,10 +47,43 @@
   </header>
 
   <div class="content-wrapper">
-    <div class="container">
+    <div class="container-fluid">
       <div class="row">
         <div class="col-md-2">
-          <div class="catalog-nav">Каталог</div>
+          <div class="catalog-nav">
+            <div class="catalog-nav-title">Каталог товаров</div>
+            <div class="catalog-nav-item">
+              <div class="catalog-nav-item__image">
+                <img src="{{ asset('img/percent-icon.png') }}" alt="">
+              </div>
+              <div class="catalog-nav-item__title">Акции</div>
+            </div>
+            <div class="catalog-nav-item">
+              <div class="catalog-nav-item__image">
+                <img src="{{ asset('img/package-icon.png') }}" alt="">
+              </div>
+              <div class="catalog-nav-item__title">Новинки</div>
+            </div>
+            @foreach($parent_category as $cat)
+              @if($cat->count_children > 0)
+                @foreach($cat->child_category as $ct)
+                  <div class="catalog-nav-item">
+                    <div class="catalog-nav-item__image">
+                      <img src="{{ asset('img/seed-image.png') }}" alt="">
+                    </div>
+                    <div class="catalog-nav-item__title">{{ $ct->title }}</div>
+                  </div>
+                @endforeach
+              @else
+                <div class="catalog-nav-item">
+                  <div class="catalog-nav-item__image">
+                    <img src="{{ asset('img/seed-image.png') }}" alt="">
+                  </div>
+                  <div class="catalog-nav-item__title">{{ $cat->title }}</div>
+                </div>
+              @endif
+            @endforeach
+          </div>
         </div>
         <div class="col-md-10">
           @yield('content')
@@ -60,7 +93,7 @@
   </div>
 
   <footer class="footer">
-    <div class="container">
+    <div class="container-fluid">
       <p>Footer</p>
       <div class="item">@php echo date("Y") @endphp</div>
       <div class="author">
@@ -191,7 +224,7 @@
 
   @if(empty($_COOKIE['we-use-cookie']))
     <div class="messages-cookies">
-      <div class="container">
+      <div class="container-fluid">
         <div class="messages-cookies-wrapper">
           <div class="messages-cookies-text">Этот сайт использует файлы cookies и сервисы сбора технических данных посетителей. Продолжая использовать наш сайт, вы автоматически соглашаетесь с использованием cookies. Нажмите "ОК" чтобы закрыть это сообщение.</div>
           <button class="messages-cookies-close">ОК</button>

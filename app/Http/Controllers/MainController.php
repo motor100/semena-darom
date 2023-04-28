@@ -5,14 +5,38 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Product;
 use App\Models\Testimonial;
+use Illuminate\Support\Str;
 
 class MainController extends Controller
 {
     public function home()
     {   
-        $products = Product::limit(10)->get();
+        // Products
+        $products = Product::limit(4)->get();
+
+        $products->each(function ($item, $key) {
+            $item->short_title = Str::limit($item->title, 38, '...');
+            $item->short_text = Str::limit($item->text, 60, '...');
+        });
+
+        // Categories
+        // Get all categories
+        $categories = \App\Models\Category::all();
+
+        // Get parent categories
+        $parent_category = $categories->where('parent', '0');
+
+        // Get child categories
+        foreach($parent_category as $pct) {
+            $child_category = $categories->where('parent', $pct->id);
+            if ($child_category->count() > 0) {
+                $pct->child_category = $child_category;
+            }
+        }
+
+        // dd($parent_category);
         
-        return view('home', compact('products'));
+        return view('home', compact('products', 'parent_category'));
     }
 
     public function o_kompanii()
