@@ -17,21 +17,23 @@ class MainController extends Controller
 
     public function o_kompanii()
     {
-        $text = '';
-
-        return view('o_kompanii', compact('text'));
+        return view('o_kompanii');
     }
     public function dostavka_i_oplata()
     {
-        $text = '';
-
-        return view('dostavka_i_oplata', compact('text'));
+        return view('dostavka_i_oplata');
     }
     public function otzyvy()
     {
-        $text = '';
+        $testimonials = Testimonial::limit(60)->orderBy('id', 'desc')->get();
 
-        return view('otzyvy', compact('text'));
+        $testimonials->each(function ($item) {
+            $item->short_created_at = $item->created_at->format("d.m.Y");
+        });
+
+        $testimonials = \App\Services\Common::custom_paginator($testimonials, 10);
+
+        return view('otzyvy', compact('testimonials'));
     }
     public function kontakty()
     {
@@ -39,9 +41,11 @@ class MainController extends Controller
     }
     public function catalog()
     {
-        $text = '';
+        // Categories
+        // Get all categories
+        $categories = \App\Models\Category::all();
 
-        return view('catalog', compact('text'));
+        return view('catalog', compact('categories'));
     }
     public function cart()
     {

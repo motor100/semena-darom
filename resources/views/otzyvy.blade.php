@@ -55,6 +55,19 @@
       <input type="submit" value="Отправить">
     </form>
 
+    <div class="testimonials">
+      @foreach($testimonials as $testimonial)
+        <div class="item">
+          <p>{{ $testimonial->name }}</p>
+          <p>{{ $testimonial->short_created_at }}</p>
+          <p>{{ $testimonial->text }}</p>
+          <div class="image">
+            <img src="{{ Storage::url($testimonial->image) }}" alt="">
+          </div>
+        </div>
+      @endforeach
+    </div>
+
   </div>
   
 </div> 
