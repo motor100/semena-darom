@@ -93,7 +93,6 @@ document.addEventListener("DOMContentLoaded", () => {
   
 
   // Phone mask
-  /*
   let elementPhone = document.querySelectorAll('.js-input-phone-mask');
 
   let maskOptionsPhone = {
@@ -103,7 +102,6 @@ document.addEventListener("DOMContentLoaded", () => {
   elementPhone.forEach((item) => {
     let mask = IMask(item, maskOptionsPhone);
   });
-  */
 
   // Sticky desktop menu
   /*

@@ -93,30 +93,122 @@
   </div>
 
   <footer class="footer">
-    <div class="container-fluid">
-      <p>Footer</p>
-      <div class="item">@php echo date("Y") @endphp</div>
-      <div class="author">
-        <span class="author-text">Дизайн&nbsp;</span>
-        <a href="https://nhfuture.ru/" class="author-name" target="_blank">Andrewwebnh</a>
+    <div class="logo-wrapper">
+      <div class="container-fluid">
+        <div class="logo">
+          <img src="{{ asset('img/logo.png') }}" alt="">
+        </div>
       </div>
-      <div class="author">
-        <span class="author-text">Поддержка&nbsp;</span>
-        <a href="https://mybutton.ru/" class="author-name" target="_blank">Button</a>
+    </div>
+    <div class="bottom-menu">
+      <div class="container-fluid">
+        <div class="row">
+          <div class="col-md-2">
+            <div class="menu-title">Покупателям</div>
+            <ul class="menu">
+              <li class="menu-item">
+                <a href="/dostavka-i-oplata" class="menu-item__link">Оплата и доставка</a>
+              </li>
+              <li class="menu-item">
+                <a href="#" class="menu-item__link">О сервисе</a>
+              </li>
+              <li class="menu-item">
+                <a href="/otzyvy" class="menu-item__link">Отзывы</a>
+              </li>
+              <li class="menu-item">
+                <a href="#" class="menu-item__link">Как заказать</a>
+              </li>
+              <li class="menu-item">
+                <a href="#" class="menu-item__link">Личный кабинет</a>
+              </li>
+            </ul>
+          </div>
+          <div class="col-md-2">
+            <div class="menu-title">Продавцам</div>
+            <ul class="menu">
+              <li class="menu-item">
+                <a href="#" class="menu-item__link">Личный кабинет продавца</a>
+              </li>
+              <li class="menu-item">
+                <a href="#" class="menu-item__link">Документация для партнеров</a>
+              </li>
+            </ul>
+          </div>
+          <div class="col-md-2">
+            <div class="menu-title">Сотрудничество</div>
+            <ul class="menu">
+              <li class="menu-item">
+                <a href="#" class="menu-item__link">Новости компании</a>
+              </li>
+              <li class="menu-item">
+                <a href="#" class="menu-item__link">Партнерская программа</a>
+              </li>
+              <li class="menu-item">
+                <a href="#" class="menu-item__link">Производителям</a>
+              </li>
+              <li class="menu-item">
+                <a href="#" class="menu-item__link">Пункт выдачи заказов</a>
+              </li>
+              <li class="menu-item">
+                <a href="#" class="menu-item__link">Вакансии</a>
+              </li>
+            </ul>
+          </div>
+          <div class="col-md-2">
+            <div class="menu-title">Правовая информация</div>
+            <ul class="menu">
+              <li class="menu-item">
+                <a href="/garantiya-vozvrata-denezhnyh-sredstv" class="menu-item__link">Гарантия возврата денежных средств</a>
+              </li>
+              <li class="menu-item">
+                <a href="/politika-konfidencialnosti" class="menu-item__link">Политика конфиденциальности</a>
+              </li>
+              <li class="menu-item">
+                <a href="/polzovatelskoe-soglashenie-s-publichnoj-ofertoj" class="menu-item__link">Пользовательское соглашение с публичной офертой</a>
+              </li>
+            </ul>
+          </div>
+          <div class="col-md-2">
+            <div class="menu-title">О интернет-магазине</div>
+            <ul class="menu">
+              <li class="menu-item">
+                <a href="/o-kompanii" class="menu-item__link">О компании</a>
+              </li>
+              <li class="menu-item">
+                <a href="/kontakty" class="menu-item__link">Контакты</a>
+              </li>
+            </ul>
+            <div class="social">
+              <a href="https://vk.com/semena7" target="_blank">
+                <svg width="30" height="30" viewBox="0 0 30 30" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <rect width="30" height="30" rx="5"/>
+                  <path fill-rule="evenodd" clip-rule="evenodd" d="M25.1257 9.13542C25.2833 8.63604 25.1257 8.27302 24.4284 8.27302H22.11C21.5252 8.27302 21.2551 8.59089 21.0975 8.93089C21.0975 8.93089 19.9049 11.8351 18.2394 13.7179C17.6993 14.2624 17.4518 14.4439 17.1592 14.4439C17.0016 14.4439 16.7988 14.2624 16.7988 13.7635V9.11195C16.7988 8.52227 16.6191 8.25 16.1237 8.25H12.4775C12.1172 8.25 11.8923 8.52227 11.8923 8.79453C11.8923 9.36164 12.725 9.49799 12.8149 11.086V14.5365C12.8149 15.2851 12.6821 15.4219 12.3872 15.4219C11.5996 15.4219 9.68671 12.4951 8.53921 9.16021C8.31608 8.49969 8.08941 8.25 7.50415 8.25H5.16355C4.48842 8.25 4.37598 8.56742 4.37598 8.90786C4.37598 9.52057 5.16355 12.6058 8.04426 16.6893C9.9572 19.4784 12.6803 20.9774 15.1333 20.9774C16.6191 20.9774 16.7988 20.637 16.7988 20.0699V17.9599C16.7988 17.2795 16.9338 17.1661 17.4067 17.1661C17.744 17.1661 18.3518 17.3472 19.7247 18.686C21.2998 20.274 21.5699 21 22.4478 21H24.7658C25.4409 21 25.7561 20.6596 25.576 20.0017C25.3736 19.3438 24.6082 18.3911 23.6179 17.2569C23.0777 16.6221 22.2676 15.9186 22.0201 15.5782C21.6828 15.1244 21.7726 14.9429 22.0201 14.5347C21.9975 14.5347 24.8335 10.4963 25.1257 9.13365"/>
+                </svg>
+              </a>
+            </div>
+          </div>
+          <div class="col-md-2">
+            <div class="menu-title">Есть вопросы?</div>
+            <div class="last-menu">
+              <div class="menu-item phone">тел.: +7 (902) 614 09 67</div>
+              <div class="menu-item callback-btn js-callback-btn">заказать обратный звонок</div>
+            </div>
+          </div>
+        </div>
       </div>
-
-      <div class="temp">
-        <p>Окно работает. Без imask</p>
-        <div class="js-callback-btn">Открыть окно</div>
+    </div>
+    <div class="bottom-row">
+      <div class="container-fluid">
+        <div class="flex-container">
+          <div class="author">@ Семена Даром, @php echo date("Y") @endphp</div>
+          <div class="author">
+            <a href="https://mybutton.ru/" class="author-name" target="_blank">Поддержка Button</a>
+          </div>
+          <div class="author">
+            <a href="https://nhfuture.ru/" class="author-name" target="_blank">Дизайн Andrewwebnh</a>
+          </div>
+        </div>
       </div>
-
-
-      <div class="links">
-        <a href="/polzovatelskoe-soglashenie-s-publichnoj-ofertoj">Пользовательское соглашение с публичной офертой</a>
-        <a href="/politika-konfidencialnosti">Политика конфиденциальности</a>
-        <a href="/garantiya-vozvrata-denezhnyh-sredstv">Гарантия возврата денежных средств</a>
-      </div>
-
     </div>
   </footer>
 
@@ -276,8 +368,8 @@
   @yield('script')
   <!-- jivosite -->
   <!-- <script src="//code-ya.jivosite.com/widget/K7CaDjczmW" async></script> -->
+  <script src="{{ asset('/js/imask.min.js') }}"></script>
   <script src="{{ asset('/js/main.js') }}"></script>
-  <!-- <script src="{{ asset('/js/imask.min.js') }}"></script> -->
   
 </body>
 </html>
