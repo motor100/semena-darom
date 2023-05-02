@@ -12,11 +12,13 @@ class MainController extends Controller
     public function home()
     {   
         // Products
-        $products = Product::limit(4)->get();
+        $products = Product::limit(3)->get();
 
         $products->each(function ($item, $key) {
             $item->short_title = Str::limit($item->title, 38, '...');
             $item->short_text = Str::limit($item->text, 60, '...');
+            $item->retail_price = str_replace('.0', '', $item->retail_price);
+            $item->promo_price = str_replace('.0', '', $item->promo_price);
         });
         
         return view('home', compact('products'));
