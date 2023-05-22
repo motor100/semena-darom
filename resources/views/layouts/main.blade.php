@@ -17,15 +17,94 @@
 
 <body>
   <header class="header">
-    <div class="container-fluid">
-      <p>Header</p>
-      <div class="logo">
-        <a href="{{ route('home') }}">
-          <img src="" alt="">
-        </a>
+    <div class="header-top">
+      <div class="container-fluid">
+        <div class="logo">
+          <a href="{{ route('home') }}">
+            <img src="/img/logo.png" alt="">
+          </a>
+        </div>
+        <div class="catalog-btn">
+          <div class="catalog-btn__burger">
+            <span></span>
+          </div>
+          <div class="catalog-btn__text">Каталог</div>
+        </div>
+        <form class="search-form">
+          <div class="form-container">
+            <input type="text" name="q" class="search-input" minlength="3" maxlength="20" autocomplete="off" required placeholder="Искать товары">
+            <button type="submit" class="submit-btn">
+              <img src="/img/header-search-btn.svg" alt="">
+            </button>
+          </div>
+        </form>
+        <div class="city-select">
+          <div class="city-select__image">
+            <img src="/img/header-geolocation.svg" alt="">
+          </div>
+          <div class="city-select__text">Выбрать город</div>
+        </div>
+        <div class="right-menu">
+          <div class="right-menu-item">
+            <div class="right-menu-item__image">
+              <img src="/img/header-heart.svg" alt="">
+            </div>
+            <div class="right-menu-item__text">Избранное</div>
+            <a href="#" class="full-link"></a>
+          </div>
+          <div class="right-menu-item">
+            <div class="right-menu-item__image">
+              <img src="/img/header-cart.svg" alt="">
+            </div>
+            <div class="right-menu-item__text">Корзина</div>
+            <a href="/cart" class="full-link"></a>
+          </div>
+        </div>
       </div>
+    </div>
+    
+    <div class="horizontal-line"></div>
+    
+    <div class="advantages">
+      <div class="container-fluid">
+        <div class="advantages-flex-container">
+          <div class="advantages-item">
+            <div class="advantages-item__image">
+              <img src="/img/header-russian-post.png" alt="">
+            </div>
+            <div class="advantages-item__text">Почта РФ</div>
+          </div>
+          <div class="advantages-item">
+            <div class="advantages-item__image">
+              <img src="/img/header-sdek.png" alt="">
+            </div>
+            <div class="advantages-item__text">CDEK курьер</div>
+          </div>
+          <div class="advantages-item">
+            <div class="advantages-item__image">
+              <img src="/img/header-fire.png" alt="">
+            </div>
+            <div class="advantages-item__text">Онлайн-оплата</div>
+          </div>
+          <div class="advantages-item">
+            <div class="advantages-item__image">
+              <img src="/img/header-percent.png" alt="">
+            </div>
+            <div class="advantages-item__text">Наложенный платеж</div>
+          </div>
+          <div class="advantages-item">
+            <div class="advantages-item__image">
+              <img src="/img/header-percent.png" alt="">
+            </div>
+            <div class="advantages-item__text">Минимальная сумма заказа 1 500 ₽</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="container-fluid">
       <div class="top-menu">
-        <ul>
+        <ul class="menu">
           <li class="menu-item">
             <a href="/o-kompanii">О компании</a>
           </li>
@@ -50,36 +129,36 @@
     <div class="container-fluid">
       <div class="row">
         <div class="col-md-2">
-          <div class="catalog-nav">
-            <div class="catalog-nav-title">Каталог товаров</div>
-            <div class="catalog-nav-item">
-              <div class="catalog-nav-item__image">
+          <div class="aside-nav">
+            <div class="aside-nav-title">Каталог товаров</div>
+            <div class="aside-nav-item">
+              <div class="aside-nav-item__image">
                 <img src="{{ asset('img/percent-icon.png') }}" alt="">
               </div>
-              <div class="catalog-nav-item__title">Акции</div>
+              <div class="aside-nav-item__title">Акции</div>
             </div>
-            <div class="catalog-nav-item">
-              <div class="catalog-nav-item__image">
+            <div class="aside-nav-item">
+              <div class="aside-nav-item__image">
                 <img src="{{ asset('img/package-icon.png') }}" alt="">
               </div>
-              <div class="catalog-nav-item__title">Новинки</div>
+              <div class="aside-nav-item__title">Новинки</div>
             </div>
             @foreach($parent_category as $cat)
               @if($cat->count_children > 0)
                 @foreach($cat->child_category as $ct)
-                  <div class="catalog-nav-item">
-                    <div class="catalog-nav-item__image">
+                  <div class="aside-nav-item">
+                    <div class="aside-nav-item__image">
                       <img src="{{ asset('img/seed-image.png') }}" alt="">
                     </div>
-                    <div class="catalog-nav-item__title">{{ $ct->title }}</div>
+                    <div class="aside-nav-item__title">{{ $ct->title }}</div>
                   </div>
                 @endforeach
               @else
-                <div class="catalog-nav-item">
-                  <div class="catalog-nav-item__image">
+                <div class="aside-nav-item">
+                  <div class="aside-nav-item__image">
                     <img src="{{ asset('img/seed-image.png') }}" alt="">
                   </div>
-                  <div class="catalog-nav-item__title">{{ $cat->title }}</div>
+                  <div class="aside-nav-item__title">{{ $cat->title }}</div>
                 </div>
               @endif
             @endforeach

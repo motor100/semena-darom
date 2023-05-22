@@ -2,7 +2,8 @@ document.addEventListener("DOMContentLoaded", () => {
 
   // Общие переменные
   let body = document.querySelector('body'),
-      newsSection = document.querySelector('.news-section'), 
+      mainSection = document.querySelector('.main-section'),
+      newsSection = document.querySelector('.news-section'),
       cartPage = document.querySelector('.cart .cart-items-wrapper'), // страница корзина
       catalogPage = document.querySelector('.catalog'), // страница каталог
       singleProduct = document.querySelector('.single-product'), // страница товара
@@ -267,9 +268,27 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   }
 
+  if (mainSection) {
+    // Main swiper slider
+    const mainSlider = new Swiper('.main-section .main-slider', {
+      loop: true,
+      navigation: {
+        nextEl: '.main-button-next',
+      },
+    });
 
+    // Category swiper slider
+    const categorySlider = new Swiper('.main-section .category-slider', {
+      slidesPerView: 6,
+      spaceBetween: 10,
+      loop: true,
+      navigation: {
+        nextEl: '.category-button-next',
+      },
+    });
+  }
 
-  if(otzyvyPage) {
+  if (otzyvyPage) {
 
     // Выбор файла Изображение
     let inputMainFile = document.querySelector('#input-main-file'),

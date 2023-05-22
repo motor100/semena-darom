@@ -2,14 +2,128 @@
 
 @section('title', 'Купить семена с доставкой по всей России')
 
+@section('style')
+  <link rel="stylesheet" href="{{ asset('/css/swiper-bundle.min.css') }}">
+@endsection
+
 @section('content')
 
 <div class="home">
   <div class="content-wrapper">
 
+    <div class="main-section">
+
+      <div class="main-slider-wrapper">
+        <div class="main-slider swiper">
+          <div class="swiper-wrapper">
+            <div class="main-slider-item swiper-slide">
+              <div class="slider-item-image">
+                <img src="/img/main-slide1.jpg" alt="">
+              </div>
+              <div class="swiper-slide-content">
+                <div class="slider-item-title">Новинка 2023</div>
+                <div class="slider-item-subtitle">Премиум класса. Для рискованного земледелия</div>
+              </div>
+              <div class="view-catalog-btn">
+                <span class="view-catalog-btn__text">Смотреть каталог</span>
+                <a href="#" class="full-link"></a>
+              </div>
+            </div>
+            <div class="main-slider-item swiper-slide">
+              <div class="slider-item-image">
+                <img src="/img/main-slide1.jpg" alt="">
+              </div>
+            </div>
+            <div class="main-slider-item swiper-slide">
+              <div class="slider-item-image">
+                <img src="/img/main-slide1.jpg" alt="">
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="button-next main-button-next">
+          <div class="arrow-right"></div>
+        </div>
+      </div>
+
+      <div class="category-slider-wrapper">
+        <div class="category-slider swiper">
+          <div class="swiper-wrapper">
+            <div class="category-slider-item swiper-slide orange-bg">
+              <div class="slider-item-title">Огурцы</div>
+              <div class="slider-item-image">
+                <img src="/img/category-slider-cucumber.png" alt="">
+              </div>
+            </div>
+            <div class="category-slider-item swiper-slide green-bg">
+              <div class="slider-item-title">Огурцы</div>
+              <div class="slider-item-image">
+                <img src="/img/category-slider-cucumber.png" alt="">
+              </div>
+            </div>
+            <div class="category-slider-item swiper-slide purple-bg">
+              <div class="slider-item-title">Огурцы</div>
+              <div class="slider-item-image">
+                <img src="/img/category-slider-cucumber.png" alt="">
+              </div>
+            </div>
+            <div class="category-slider-item swiper-slide red-bg">
+              <div class="slider-item-title">Огурцы</div>
+              <div class="slider-item-image">
+                <img src="/img/category-slider-cucumber.png" alt="">
+              </div>
+            </div>
+            <div class="category-slider-item swiper-slide orange-bg">
+              <div class="slider-item-title">Огурцы</div>
+              <div class="slider-item-image">
+                <img src="/img/category-slider-cucumber.png" alt="">
+              </div>
+            </div>
+            <div class="category-slider-item swiper-slide green-bg">
+              <div class="slider-item-title">Огурцы</div>
+              <div class="slider-item-image">
+                <img src="/img/category-slider-cucumber.png" alt="">
+              </div>
+            </div>
+            <div class="category-slider-item swiper-slide orange-bg">
+              <div class="slider-item-title">Огурцы</div>
+              <div class="slider-item-image">
+                <img src="/img/category-slider-cucumber.png" alt="">
+              </div>
+            </div>
+            <div class="category-slider-item swiper-slide green-bg">
+              <div class="slider-item-title">Огурцы</div>
+              <div class="slider-item-image">
+                <img src="/img/category-slider-cucumber.png" alt="">
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="button-next category-button-next">
+          <div class="arrow-right"></div>
+        </div>
+      </div>
+
+      <div class="first-order">
+        <div class="flex-container">
+          <div class="first-order__image">
+            <img src="/img/first-order-percent.png" alt="">
+          </div>
+          <div class="first-order__text">Скидка 25% на первый заказ, подробнее</div>
+        </div>
+        <div class="corner-right"></div>
+        <a href="#" class="full-link"></a>
+      </div>
+    </div>
+
     <div class="popular-categories-section section">
       <div class="section-title">
         <div class="section-title__text">Хит недели</div>
+        <div class="all-btn">
+          <span class="all-btn__text">Все</span>
+          <div class="corner-right"></div>
+          <a href="#" class="full-link"></a>
+        </div>
       </div>
       <div class="popular-categories home-products">
         <div class="row">
@@ -160,4 +274,8 @@
   </div>
 </div>
 
+@endsection
+
+@section('script')
+  <script src="{{ asset('/js/swiper-bundle.min.js') }}"></script>
 @endsection
