@@ -28,10 +28,12 @@ class MainController extends Controller
     {
         return view('o_kompanii');
     }
+
     public function dostavka_i_oplata()
     {
         return view('dostavka_i_oplata');
     }
+
     public function otzyvy()
     {
         $testimonials = Testimonial::limit(60)->orderBy('id', 'desc')->get();
@@ -44,10 +46,12 @@ class MainController extends Controller
 
         return view('otzyvy', compact('testimonials'));
     }
+
     public function kontakty()
     {
         return view('kontakty');
     }
+
     public function catalog()
     {
         // Categories
@@ -56,31 +60,52 @@ class MainController extends Controller
 
         return view('catalog', compact('categories'));
     }
+
+    public function single_product($slug)
+    {
+        if (is_string($slug) && strlen($slug) > 3 && strlen($slug) < 100) {
+
+            $single_product = Product::where('slug', $slug)->first();
+            $single_product->retail_price = str_replace('.0', '', $single_product->retail_price);
+            $single_product->promo_price = str_replace('.0', '', $single_product->promo_price);
+
+            if ($single_product) {
+                return view('single_product', compact('single_product'));
+            } else {
+                return abort(404);
+            }
+        } else {
+            return redirect('/');
+        }
+    }
+
     public function cart()
     {
         $text = '';
 
         return view('cart', compact('text'));
     }
+
     public function politika_konfidencialnosti()
     {
         $page = \App\Models\Page::where('id', 2)->first();
 
         return view('text-page', compact('page'));
     }
+
     public function polzovatelskoe_soglashenie_s_publichnoj_ofertoj()
     {
         $page = \App\Models\Page::where('id', 1)->first();
 
         return view('text-page', compact('page'));
     }
+
     public function garantiya_vozvrata_denezhnyh_sredstv()
     {
         $page = \App\Models\Page::where('id', 3)->first();
 
         return view('text-page', compact('page'));
     }
-
 
     public function otzyvy_store(Request $request)
     {

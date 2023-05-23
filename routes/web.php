@@ -28,7 +28,9 @@ Route::get('/otzyvy', [MainController::class, 'otzyvy']);
 
 Route::get('/kontakty', [MainController::class, 'kontakty']);
 
-Route::get('/catalog', [MainController::class, 'catalog']);
+Route::get('/catalog', [MainController::class, 'catalog'])->name('catalog');
+
+Route::get('/catalog/{slug}', [MainController::class, 'single_product']);
 
 Route::get('/cart', [MainController::class, 'cart']);
 
