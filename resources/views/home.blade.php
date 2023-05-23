@@ -104,12 +104,12 @@
         </div>
       </div>
 
-      <div class="first-order">
+      <div class="grey-section">
         <div class="flex-container">
-          <div class="first-order__image">
+          <div class="grey-section__image">
             <img src="/img/first-order-percent.png" alt="">
           </div>
-          <div class="first-order__text">Скидка 25% на первый заказ, подробнее</div>
+          <div class="grey-section__text">Скидка 25% на первый заказ, подробнее</div>
         </div>
         <div class="corner-right"></div>
         <a href="#" class="full-link"></a>

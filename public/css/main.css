@@ -122,7 +122,6 @@ p {
 .position-relative {
   position: relative;
 }
-
 .container-fluid {
   padding-right: 25px;
   padding-left: 25px;
@@ -136,6 +135,9 @@ p {
 .section-title .section-title__text {
   font-family: 'arimo-semibold';  
   font-size: 28px;
+}
+.light-green-text {
+  color: var(--m-light-green);
 }
 
 
@@ -458,18 +460,19 @@ p {
   width: 100%;
 }
 
-.main-section .first-order {
+/* grey section */
+.grey-section {
   position: relative;
   margin: 0 0 50px 0;
-  padding: 13px 16px;
+  padding: 13px 80px 13px 16px;
   border-radius: 10px;
   background-color: #F8F7F5;
 }
-.main-section .first-order .flex-container {
+.grey-section .flex-container {
   display: flex;
   align-items: center;
 }
-.main-section .first-order .first-order__image {
+.grey-section .grey-section__image {
   margin: 0 25px 0 0;
 }
 
@@ -864,6 +867,78 @@ p {
 }
 
 
+/* o-kompanii */
+.o-kompanii .o-kompanii-item {
+  margin: 0 0 40px 0;
+}
+.o-kompanii .o-kompanii-title {
+  font-family: 'arimo-bold';
+  font-size: 45px;
+  line-height: 1.2;
+}
+.o-kompanii .o-kompanii-text {
+  font-size: 18px;
+}
+.o-kompanii .o-kompanii-image {
+  border-radius: 20px;
+  overflow: hidden;
+}
+.o-kompanii .o-kompanii-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+.o-kompanii .o-kompanii-subtitle {
+  font-family: 'arimo-semibold';
+  font-size: 32px;
+  text-transform: uppercase;
+  line-height: 1.2;
+}
+.o-kompanii .purple-accent {
+  display: flex;
+  padding: 40px;
+  border-radius: 30px;
+  background: linear-gradient(135deg, #9B38DC 0%, #7118AC 100%);
+  justify-content: space-between;
+}
+.o-kompanii .title-wrapper {
+  width: 60%;
+}
+.o-kompanii .purple-accent-title {
+  margin: 0 0 50px 0;
+  color: #fff;
+}
+.o-kompanii .catalog-btn {
+  display: block;
+  width: 250px;
+  height: 60px;
+  padding: 13px 0;
+  background-color: #fff;
+  border-radius: 30px;
+  font-family: 'arimo-medium';
+  font-size: 22px;
+  color: #9B38DC;
+  text-align: center;
+}
+.o-kompanii .o-kompanii-stock-image {
+  margin: 0 0 10px 0;
+}
+.o-kompanii .o-kompanii-stock-title {
+  margin: 0 0 20px 0;
+}
+.o-kompanii .grey-section {
+  margin: 0 0 60px 0;
+}
+.o-kompanii .frame {
+  padding: 40px;
+  border: 3px solid #EDEDED;
+  border-radius: 30px;
+}
+.o-kompanii .frame .frame-title {
+  margin: 0 0 30px 0;
+  font-family: 'arimo-medium';
+  font-size: 32px;
+}
 
 
 /* footer */
@@ -887,7 +962,7 @@ p {
 .footer .bottom-menu .menu-title {
   margin: 0 0 20px 0;
   font-family: 'arimo-semibold';
-  font-size: 20px;  
+  font-size: 20px;
 }
 .footer .bottom-menu .menu .menu-item {
   margin: 0 0 16px 0;
