@@ -139,6 +139,9 @@ p {
 .light-green-text {
   color: var(--m-light-green);
 }
+.text-uppercase {
+  text-transform: uppercase;
+}
 
 
 /* button next */
@@ -179,10 +182,13 @@ p {
 }
 
 /* pagination */
+.pagination-links {
+  margin: 0 0 60px 0;
+}
 .pagination-links .pagination {
   width: max-content;
   height: 42px;
-  margin: 0 0 0 auto;
+  margin: 0 auto;
   padding: 0;
   text-align: center;
   list-style: none;
@@ -193,7 +199,7 @@ p {
   height: 42px;
   margin: 0 5px;
   border-radius: 50%;
-  background-color: #E8E8E8;
+  background-color: #F8F7F5;
   overflow: hidden;
   transition: background-color .3s;
 }
@@ -202,12 +208,13 @@ p {
 }
 .pagination-links .pagination .link :hover,
 .pagination-links .pagination .active {
-  background-color: #8278B8;
+  background-color: var(--m-main-green);
 }
 .pagination-links .pagination .link a {
   display: block;
-  padding: 9px 0;
-  font-size: 16px;
+  padding: 6px 0;
+  font-family: 'arimo-semibold';
+  font-size: 20px;
   color: #3E3E3E;
   transition: color .3s;
 }
@@ -1222,6 +1229,56 @@ p {
   color: #ED447D;
 }
 
+/* otzyvy */
+.otzyvy .otzyvy-title {
+  margin: 0 0 20px 0;
+  font-family: 'arimo-bold';
+  font-size: 45px;
+  line-height: 1.2;
+}
+.otzyvy .add-comment-btn {
+  display: block;
+  width: 215px;
+  height: 60px;
+  margin: 0 0 40px 0;
+  padding: 17px 0;
+  border-radius: 30px;
+  background-color: var(--m-main-green);
+  color: #fff;
+  text-align: center;
+}
+.otzyvy .testimonials {
+  margin: 0 0 40px 0;
+}
+.otzyvy .testimonials-item {
+  margin: 0 0 20px 0;
+  padding: 20px;
+  border-radius: 20px;
+  background-color: #F8F7F5;
+}
+.otzyvy .testimonials-item .testimonials-item__name {
+  margin: 0 0 30px 0;
+  font-family: 'arimo-medium';
+  font-size: 18px;
+  color: var(--m-main-green);
+}
+.otzyvy .testimonials-item .mb30 {
+  margin: 0 0 30px 0;
+}
+.otzyvy .testimonials-item .testimonials-item__image {
+  width: 40%;
+  border-radius: 20px;
+  overflow: hidden;
+}
+.otzyvy .testimonials-item .testimonials-item__image img {
+  width: 100%;
+}
+.otzyvy .form-wrapper .form-title {
+  margin: 0 0 30px 0;
+  font-family: 'arimo-semibold';
+  font-size: 32px;
+  color: var(--m-main-green);
+}
 
 
 /* footer */

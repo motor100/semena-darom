@@ -17,9 +17,31 @@
 </div>
 
 <div class="otzyvy">
-  <div class="page-title">Отзывы</div>
-
   <div class="content-wrapper">
+    <div class="otzyvy-title">Отзывы о магазине<br> <span class="light-green-text text-uppercase">Семена Даром</span></div>
+    <a href="#add-comment" class="add-comment-btn">Оставить комментарий</a>
+
+    <div class="testimonials">
+      @foreach($testimonials as $testimonial)
+        <div class="testimonials-item">
+          <div class="testimonials-item__name">{{ $testimonial->name }}</div>
+          @if($testimonial->image)
+            <div class="testimonials-item__text mb30">{{ $testimonial->text }}</div>
+            <div class="testimonials-item__image">
+              <img src="{{ Storage::url($testimonial->image) }}" alt="">
+            </div>
+          @else
+            <div class="testimonials-item__text">{{ $testimonial->text }}</div>
+          @endif
+        </div>
+      @endforeach
+    </div>
+
+    <div class="pagination-links">
+      <div class="container">
+        {{ $testimonials->links() }}
+      </div>
+    </div>
 
     <!-- Убрать если будет через ajax -->
     @if($errors->any())
@@ -30,44 +52,36 @@
       </div>
     @endif
 
-    <form class="form" action="/otzyvy-store" enctype="multipart/form-data" method="post">
-      <div class="form-group">
-        <label for="name">Имя</label>
-        <input type="text" name="name" id="name" minlength="3" maxlength="50" required>
-      </div>
-      <div class="form-group">
-        <label for="email">Email</label>
-        <input type="email" name="email" id="email" minlength="3" maxlength="100" required>
-      </div>
-      <div class="form-group">
-        <label for="text">Текст</label>
-        <textarea name="text" minlength="3" id="text" maxlength="1000" required></textarea>
-      </div>
-      <div class="form-group">
-        <div class="label-text">Фото</div>
-        <input type="file" name="file" id="input-main-file" class="inputfile" accept="image/jpeg,image/png">
-        <label for="input-main-file" class="custom-inputfile-label">Выберите файл</label>
-        <span class="namefile main-file-text">Файл не выбран</span>
-      </div>
-      <div class="captcha">
-        <div class="g-recaptcha" data-sitekey="{{ config('google.client_key') }}"></div>
-      </div>
-
-      @csrf
-      <input type="submit" value="Отправить">
-    </form>
-
-    <div class="testimonials">
-      @foreach($testimonials as $testimonial)
-        <div class="item">
-          <p>{{ $testimonial->name }}</p>
-          <p>{{ $testimonial->short_created_at }}</p>
-          <p>{{ $testimonial->text }}</p>
-          <div class="image">
-            <img src="{{ Storage::url($testimonial->image) }}" alt="">
-          </div>
+    <div class="form-wrapper">
+      <div id="add-comment" class="form-title">Оставить комментарий</div>
+      <form class="form" action="/otzyvy-store" enctype="multipart/form-data" method="post">
+        <div class="form-group">
+          <label for="name">Имя</label>
+          <input type="text" name="name" id="name" minlength="3" maxlength="50" required>
         </div>
-      @endforeach
+        <div class="form-group">
+          <label for="email">Email</label>
+          <input type="email" name="email" id="email" minlength="3" maxlength="100" required>
+        </div>
+        <div class="form-group">
+          <label for="text">Текст</label>
+          <textarea name="text" minlength="3" id="text" maxlength="1000" required></textarea>
+        </div>
+        <div class="form-group">
+          <div class="label-text">Фото</div>
+          <input type="file" name="file" id="input-main-file" class="inputfile" accept="image/jpeg,image/png">
+          <label for="input-main-file" class="custom-inputfile-label">Выберите файл</label>
+          <span class="namefile main-file-text">Файл не выбран</span>
+        </div>
+        <div class="captcha">
+          <div class="g-recaptcha" data-sitekey="{{ config('google.client_key') }}"></div>
+        </div>
+
+        
+
+        @csrf
+        <input type="submit" value="Отправить">
+      </form>
     </div>
 
   </div>
