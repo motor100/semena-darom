@@ -9,21 +9,19 @@
 @section('content')
 
 <div class="breadcrumbs">
-  <div class="container">
-    <div class="back" onclick="history.back();">
-      <span class="back-text">вернуться назад</span>
-      <img src="/img/breadscrumbs-back.png" alt="">
-    </div>
-    <div class="parent">
-      <a href="{{ route('home') }}">главная страница</a>
-    </div>
-    <div class="arrow"></div>
-    <div class="parent">
-      <a href="{{ route('catalog') }}">каталог</a>
-    </div>
-    <div class="arrow"></div>
-    <div class="active">{{ $single_product->title }}</div>
+  <div class="back" onclick="history.back();">
+    <span class="back-text">вернуться назад</span>
+    <img src="/img/breadscrumbs-back.png" alt="">
   </div>
+  <div class="parent">
+    <a href="{{ route('home') }}">главная страница</a>
+  </div>
+  <div class="arrow"></div>
+  <div class="parent">
+    <a href="{{ route('catalog') }}">каталог</a>
+  </div>
+  <div class="arrow"></div>
+  <div class="active">{{ $single_product->title }}</div>
 </div>
 
 <div class="single-product">

@@ -1069,6 +1069,159 @@ p {
   text-decoration: underline;
 }
 
+/* dostavka-i-oplata */
+.dostavka-i-oplata .title-wrapper {
+  margin: 0 0 80px 0;
+}
+.dostavka-i-oplata .dostavka-i-oplata-title {
+  margin: 0 0 20px 0;
+  font-family: 'arimo-bold';
+  font-size: 45px;
+}
+.dostavka-i-oplata .dostavka-i-oplata-image {
+  margin: 0 0 10px 0;
+}
+.dostavka-i-oplata .dostavka-i-oplata-item {
+  margin: 0 0 40px 0;
+}
+.dostavka-i-oplata .dostavka-i-oplata-item__image {
+  margin: 0 0 16px 0;
+}
+.dostavka-i-oplata .warranty {
+  margin: 0 0 60px 0;
+}
+.dostavka-i-oplata .dostavka-i-oplata-item-subtitle {
+  margin: 0 0 16px 0;
+  font-family: 'arimo-semibold';
+  font-size: 32px;
+  text-transform: uppercase;
+  line-height: 1.2;
+}
+.dostavka-i-oplata .warranty .warranty-title {
+  color: #363636;
+}
+.dostavka-i-oplata .warranty .warranty-item {
+  margin: 0 0 20px 0;
+}
+.dostavka-i-oplata .warranty .warranty-item__image {
+  margin: 0 0 16px 0;
+}
+.dostavka-i-oplata .payment {
+  margin: 0 0 60px 0;
+}
+.dostavka-i-oplata .payment-title-wrapper {
+  display: flex;
+  margin: 0 0 16px 0;
+  justify-content: space-between;
+}
+.dostavka-i-oplata .payment .payment-title {
+  color: var(--m-main-green);  
+}
+.dostavka-i-oplata .payment .sdek-logo {
+  width: 123px;
+  height: 29px;
+  flex-shrink: 0;
+}
+.dostavka-i-oplata .payment .russian-post-logo {
+  width: 100px;
+  height: 61px;
+  flex-shrink: 0;
+}
+.dostavka-i-oplata .payment .payment-description {
+  margin: 0 0 30px 0;
+}
+.dostavka-i-oplata .payment .payment-item {
+  min-height: 296px;
+  margin: 0 0 8px 0;
+  padding: 20px;
+  border: 2px solid var(--m-main-green);
+  border-radius: 20px;
+}
+.dostavka-i-oplata .payment .payment-item .payment-item__title {
+  margin: 0 16px 0 0;
+  font-family: 'arimo-medium';
+  font-size: 18px;
+  color: var(--m-main-green);
+  line-height: 1.2;
+}
+.dostavka-i-oplata .payment .online-payment {
+  display: flex;
+  padding: 20px;
+  border: 2px solid #ED447D;
+  border-radius: 20px;
+  align-items: center;
+  justify-content: space-between;
+}
+.dostavka-i-oplata .questions-item {
+  margin: 0 0 40px 0;
+}
+.dostavka-i-oplata .questions-item .questions-item__view-more {
+  display: flex;
+  margin: 0 0 20px 0;
+  align-items: end;
+}
+.dostavka-i-oplata .questions-item .questions-item__view-more .view-more-btn {
+  margin: 0 10px 0 0;
+  font-size: 20px;
+  color: var(--m-text);
+  text-decoration: underline;
+}
+.dostavka-i-oplata .questions-item .questions-item__view-more .arrow {
+  position: relative;
+  width: 20px;
+  height: 20px;
+}
+.dostavka-i-oplata .questions-item .questions-item__view-more .arrow span {
+  position: absolute;
+  top: 8px;
+  display: block;
+  width: 20px;
+  height: 2px;
+  background-color: var(--m-main-green);
+  transform: rotate(-45deg);
+}
+.dostavka-i-oplata .questions-item .questions-item__view-more .arrow::before,
+.dostavka-i-oplata .questions-item .questions-item__view-more .arrow::after {
+  content: '';
+  position: absolute;
+  display: block;
+  width: 15px;
+  height: 2px;
+  background-color: var(--m-main-green);
+}
+.dostavka-i-oplata .questions-item .questions-item__view-more .arrow-up span {
+  right: -1px;
+  transform: rotate(-45deg);
+}
+.dostavka-i-oplata .questions-item .questions-item__view-more .arrow-up::before {
+  top: 0;
+  right: 0;
+}
+.dostavka-i-oplata .questions-item .questions-item__view-more .arrow-up::after {
+  top: 7px;
+  right: -7px;
+  transform: rotate(90deg);
+}
+.dostavka-i-oplata .questions-item .questions-item__view-more .arrow-down span {
+  right: -2px;
+  transform: rotate(45deg);
+}
+.dostavka-i-oplata .questions-item .questions-item__view-more .arrow-down::before {
+  bottom: 3px;
+  right: 0;
+}
+.dostavka-i-oplata .questions-item .questions-item__view-more .arrow-down::after {
+  top: 7px;
+  right: -7px;
+  transform: rotate(-90deg);
+}
+.dostavka-i-oplata .questions-item .questions-item__description {
+  margin: 0 0 16px 0;
+}
+.dostavka-i-oplata .red-text {
+  color: #ED447D;
+}
+
 
 
 /* footer */
