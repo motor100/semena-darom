@@ -18,6 +18,7 @@ class MailerController extends Controller
 
             $name = $request->input("name");
             $phone = $request->input("phone");
+            $email = $request->input("email");
             $checkbox = $request->input("checkbox");
 
             $mail = new PHPMailer;
@@ -53,8 +54,8 @@ class MailerController extends Controller
                     $checkbox) {
 
                     // Тело письма
-                    $mail->Body = "Имя: $name<br> Телефон: $phone<br>";
-                    $mail->AltBody = "Имя: $name\r\n Телефон: $phone\r\n";
+                    $mail->Body = "Имя: $name<br> Телефон: $phone<br> Email: $email<br>";
+                    $mail->AltBody = "Имя: $name\r\n Телефон: $phone\r\n Email: $email\r\n";
 
                     $mail->send();
                 }

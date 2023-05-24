@@ -9,6 +9,7 @@ document.addEventListener("DOMContentLoaded", () => {
       singleProduct = document.querySelector('.single-product'), // страница товара
       dostavkaIOplataPage = document.querySelector('.dostavka-i-oplata'), // страница доставка и оплата
       otzyvyPage = document.querySelector('.otzyvy'), // страница отзывы
+      okompaniiPage = document.querySelector('.o-kompanii'), // страница о компании
       token = document.querySelector('meta[name="csrf-token"]').getAttribute('content'); // csrf token
 
 
@@ -318,7 +319,7 @@ document.addEventListener("DOMContentLoaded", () => {
   
   }
 
-  if (otzyvyPage) {
+  if (okompaniiPage) {
 
     
 
