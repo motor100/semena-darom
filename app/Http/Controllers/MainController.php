@@ -79,11 +79,31 @@ class MainController extends Controller
         }
     }
 
-    public function cart()
+    public function cart(Request $request)
     {
-        $text = '';
+        $cart_items = $request->session()->get('cart');
 
-        return view('cart', compact('text'));
+        $products = collect();
+
+        if ($cart_items) {
+            $key_items = array_keys($cart_items);
+
+            $products = Product::whereIn('id', $key_items)->get();
+
+            foreach ($products as $pr) {
+                if ($pr->stock > 0) {
+                    $products[] = $pr;
+                }
+            }
+
+            foreach ($products as $pr => $value) {
+                $id = $value->id;
+                $value->quantity = $cart_items[$id];
+                $value->count = $pr;
+            }
+        }
+
+        return view('cart', compact('products'));
     }
 
     public function politika_konfidencialnosti()
