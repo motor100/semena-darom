@@ -107,6 +107,11 @@ class MainController extends Controller
         return view('text-page', compact('page'));
     }
 
+    public function kak_zakazat()
+    {
+        return view('kak_zakazat');
+    }
+
     public function otzyvy_store(Request $request)
     {
         $validated = $request->validate([

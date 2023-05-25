@@ -82,6 +82,10 @@ ul {
   padding: 0;
   list-style: none;
 }
+ol {
+  margin: 0;
+  padding: 0 0 0 20px;
+}
 .full-link {
   position: absolute;
   top: 0;
@@ -138,6 +142,9 @@ p {
 }
 .light-green-text {
   color: var(--m-light-green);
+}
+.red-text {
+  color: #ED447D;
 }
 .text-uppercase {
   text-transform: uppercase;
@@ -1032,7 +1039,7 @@ p {
 .o-kompanii .feedback .form .submit-btn:disabled {
   color: #A9A9A9;
 }
-.o-kompanii .feedback .form .checkbox-wrapper {
+.o-kompanii .form .checkbox-wrapper {
   display: flex;
 }
 .o-kompanii .feedback .form .custom-checkbox {
@@ -1225,9 +1232,7 @@ p {
 .dostavka-i-oplata .questions-item .questions-item__description {
   margin: 0 0 16px 0;
 }
-.dostavka-i-oplata .red-text {
-  color: #ED447D;
-}
+
 
 /* otzyvy */
 .otzyvy .otzyvy-title {
@@ -1279,6 +1284,82 @@ p {
   font-size: 32px;
   color: var(--m-main-green);
 }
+.otzyvy .form .submit-btn {
+  width: 230px;
+  height: 50px;
+  border: none;
+  border-radius: 25px;
+  background-color: var(--m-main-green);
+  font-family: 'arimo-medium';
+  font-size: 17px;
+  color: #fff;
+}
+.otzyvy .form .checkbox-wrapper {
+  display: flex;
+}
+.otzyvy .form .custom-checkbox {
+  position: absolute;
+  z-index: -1;
+  opacity: 0;
+}
+.otzyvy .form .custom-checkbox + .custom-checkbox-label {
+  display: block;
+  width: 20px;
+  height: 20px;
+  border: 1px solid var(--m-main-green);
+  border-radius: 5px;
+  margin: 0 10px 0 0;
+  background-repeat: no-repeat;
+  background-position: center center;
+  background-size: 100% 50%;
+  background-color: #fff;
+  flex-shrink: 0;
+  cursor: pointer;
+}
+.otzyvy .form .custom-checkbox:checked + .custom-checkbox-label {
+  background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 8 8'%3e%3cpath fill='%238278B8%0D%0A' d='M6.564.75l-3.59 3.612-1.538-1.55L0 4.26 2.974 7.25 8 2.193z'/%3e%3c/svg%3e");
+}
+.otzyvy .form .privacy-policy-btn {
+  color: var(--m-main-green);
+  text-decoration: underline;
+}
+
+/* kak-zakazat */
+.kak-zakazat .kak-zakazat-title {
+  margin: 0 0 40px 0;
+  font-family: 'arimo-bold';
+  font-size: 45px;
+  line-height: 1.2;
+}
+.kak-zakazat .kak-zakazat-item {
+  margin: 0 0 40px 0;
+}
+.kak-zakazat .kak-zakazat-step {
+  margin: 0 0 20px 0;
+  font-size: 18px;
+}
+.kak-zakazat .kak-zakazat-subtitle {
+  margin: 0 0 1em 0;
+  font-family: 'arimo-medium';
+}
+.kak-zakazat .list-item {
+  margin: 0 0 10px 0;
+  padding: 0 0 0 5px;
+}
+.kak-zakazat .marker-list .list-item::marker {
+  content: '-';
+}
+.kak-zakazat .kak-zakazat-image img {
+  width: 100%;
+}
+.kak-zakazat .number-list {
+  margin: 0 0 1em 0;
+}
+.kak-zakazat .mb20 {
+  margin: 0 0 20px 0;
+}
+
+
 
 
 /* footer */

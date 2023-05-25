@@ -64,7 +64,7 @@
           <input type="email" name="email" id="email" minlength="3" maxlength="100" required>
         </div>
         <div class="form-group">
-          <label for="text">Текст</label>
+          <label for="text">Комментарий</label>
           <textarea name="text" minlength="3" id="text" maxlength="1000" required></textarea>
         </div>
         <div class="form-group">
@@ -77,10 +77,14 @@
           <div class="g-recaptcha" data-sitekey="{{ config('google.client_key') }}"></div>
         </div>
 
-        
+        <div class="checkbox-wrapper">
+          <input type="checkbox" name="checkbox" class="custom-checkbox" id="checkbox-callback-modal" checked required onchange="document.querySelector('.js-callback-modal-btn').disabled = !this.checked;">
+          <label for="checkbox-callback-modal" class="custom-checkbox-label"></label>
+          <span class="checkbox-text">Согласен с <a href="/politika-konfidencialnosti" class="privacy-policy-btn" target="_blank">политикой обработки персональных данных</a></span>
+        </div>
 
         @csrf
-        <input type="submit" value="Отправить">
+        <input type="submit" class="submit-btn js-callback-modal-btn" value="Оставить комментарий">
       </form>
     </div>
 

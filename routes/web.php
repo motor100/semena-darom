@@ -40,6 +40,7 @@ Route::get('/polzovatelskoe-soglashenie-s-publichnoj-ofertoj', [MainController::
 
 Route::get('/garantiya-vozvrata-denezhnyh-sredstv', [MainController::class, 'garantiya_vozvrata_denezhnyh_sredstv']);
 
+Route::get('/kak-zakazat', [MainController::class, 'kak_zakazat']);
 
 
 Route::get('/sdek', [DeliveryController::class, 'sdek']);

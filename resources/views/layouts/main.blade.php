@@ -195,7 +195,7 @@
                 <a href="/otzyvy" class="menu-item__link">Отзывы</a>
               </li>
               <li class="menu-item">
-                <a href="#" class="menu-item__link">Как заказать</a>
+                <a href="/kak-zakazat" class="menu-item__link">Как заказать</a>
               </li>
               <li class="menu-item">
                 <a href="#" class="menu-item__link">Личный кабинет</a>
