@@ -880,7 +880,6 @@ p {
   color: #B3B3B3;
 }
 
-
 /* o-kompanii */
 .o-kompanii .o-kompanii-item {
   margin: 0 0 40px 0;
@@ -1233,7 +1232,6 @@ p {
   margin: 0 0 16px 0;
 }
 
-
 /* otzyvy */
 .otzyvy .otzyvy-title {
   margin: 0 0 20px 0;
@@ -1323,6 +1321,39 @@ p {
   color: var(--m-main-green);
   text-decoration: underline;
 }
+
+/* kontakty */
+.kontakty .kontakty-title {
+  margin: 0 0 20px 0;
+  font-family: 'arimo-bold';
+  font-size: 45px;
+  line-height: 1.2;
+}
+.kontakty .company-name {
+  margin: 0 0 20px 0;
+  font-family: 'arimo-medium';
+  font-size: 24px;
+}
+.kontakty .flex-container {
+  display: flex;
+  margin: 0 0 40px 0;
+}
+.kontakty .kontakty-item {
+  width: 33%;
+}
+.kontakty .kontakty-item .kontakty-item__title,
+.kontakty .kontakty-subtitle {
+  margin: 0 0 10px 0;
+  font-family: 'arimo-semibold';
+  font-size: 20px;
+}
+.kontakty .kontakty-item .kontakty-item__text img {
+  margin: 0 5px 0 0;
+}
+.kontakty .mb60 {
+  margin: 0 0 60px 0;
+}
+
 
 /* kak-zakazat */
 .kak-zakazat .kak-zakazat-title {
