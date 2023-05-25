@@ -42,6 +42,7 @@ Route::get('/garantiya-vozvrata-denezhnyh-sredstv', [MainController::class, 'gar
 
 Route::get('/kak-zakazat', [MainController::class, 'kak_zakazat']);
 
+Route::get('/poisk', [MainController::class, 'poisk']);
 
 Route::get('/sdek', [DeliveryController::class, 'sdek']);
 

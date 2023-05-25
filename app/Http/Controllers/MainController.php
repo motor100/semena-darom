@@ -132,6 +132,28 @@ class MainController extends Controller
         return view('kak_zakazat');
     }
 
+    public function poisk(Request $request)
+    {
+        // Search
+        $q = $request->input('q');
+
+        if (!$q) {
+            return redirect('/');
+        }
+
+        $q = htmlspecialchars($q);
+
+        $products = Product::where('title', 'like', "%{$q}%")
+                            ->orWhere('text', 'like', "%{$q}%")
+                            ->get();
+
+        if (!$products) {
+            return redirect('/');
+        };
+
+        return view('poisk', compact('products', 'q'));
+    }
+
     public function otzyvy_store(Request $request)
     {
         $validated = $request->validate([

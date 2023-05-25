@@ -1458,6 +1458,44 @@ p {
   color: #E8E8E8;
 }
 
+/* poisk */
+.poisk .poisk-title {
+  margin: 0 0 40px 0;
+  font-family: 'arimo-bold';
+  font-size: 45px;
+  line-height: 1.2;
+}
+/* no-products-found */
+.no-products-found .no-products-found-content {
+  margin: 0 0 64px 0;
+}
+.no-products-found .no-products-found-image {
+  width: 100%;
+  max-width: 914px;
+  margin: 0 auto;
+}
+.no-products-found .no-products-found-text {
+  font-family: 'arimo-semibold';
+  font-size: 30px;
+  color: var(--m-main-green);
+  text-align: center;
+}
+.no-products-found .no-products-found-btn {
+  display: block;
+  max-width: 1023px;
+  margin: 0 auto;
+  padding: 15px 0px;
+  border: 2px solid var(--m-text);
+  border-radius: 15px;
+  background-color: var(--m-text);
+  text-align: center;
+}
+.no-products-found .no-products-found-btn .cart-is-empty-btn__text {
+  font-family: 'arimo-semibold';
+  font-size: 20px;
+  color: #E8E8E8;
+}
+
 /* footer */
 .footer {
   margin: 60px 0 0 0;
