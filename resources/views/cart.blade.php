@@ -13,12 +13,12 @@
     <a href="{{ route('home') }}">главная страница</a>
   </div>
   <div class="arrow"></div>
-  <div class="active">контакты</div>
+  <div class="active">корзина</div>
 </div>
 
 <div class="cart">
   <div class="content-wrapper">
-    <div class="cart-title">Контакты</div>
+    <div class="cart-title">Корзина</div>
   
   <!-- 
   @if($errors->any())
@@ -73,7 +73,7 @@
               </div>
             </div>
             <div class="col-md-4 me-auto">
-              <a href="/" class="cart-is-empty-btn cart-is-empty-home-btn">
+              <a href="{{ route('home') }}" class="cart-is-empty-btn cart-is-empty-home-btn">
                 <span class="cart-is-empty-btn__text">Главная</span>
               </a>
             </div>

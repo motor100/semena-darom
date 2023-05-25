@@ -1458,7 +1458,6 @@ p {
   color: #E8E8E8;
 }
 
-
 /* footer */
 .footer {
   margin: 60px 0 0 0;
@@ -1531,10 +1530,14 @@ p {
 /* cart */
 
 
+
+
+
 /* otzyvy */
 .otzyvy .form-group label {
   display: block;
 }
+
 /* Прикрепить файл */
 .otzyvy .inputfile {
   position: absolute;
@@ -1596,6 +1599,8 @@ p {
   margin: 0 10px 5px 10px;
   background-color: #A9A9A9;
 }
+
+
 
 /* fixed bottom menu */
 .fixed-bottom-menu {
@@ -1950,9 +1955,35 @@ p {
   margin-top: 20px;
 }
 
-
-
-
+/* page 404 */
+.page404 .image404 img {
+  width: 100%;
+}
+.page404 .text404 {
+  margin: 0 0 64px 0;
+  font-family: 'arimo-bold';
+  font-size: 28px;
+  color: var(--m-main-green);
+  text-align: center;
+}
+.page404 .btn404 {
+  display: block;
+  margin: 0 0 15px 0;
+  padding: 10px 0;
+  border-radius: 15px;
+  font-family: 'arimo-semibold';
+  font-size: 20px;
+  text-align: center;
+  cursor: pointer;
+}
+.page404 .white-btn {
+  border: 2px solid #3E3E3E;
+}
+.page404 .purple-btn {
+  border: 2px solid var(--m-main-green);
+  background-color: var(--m-main-green);
+  color: #E8E8E8;
+}
 
 @media only screen and (max-width : 1400px) {
   
