@@ -79,6 +79,11 @@ class MainController extends Controller
         }
     }
 
+    public function favorites()
+    {
+        return view('favorites');
+    }
+
     public function cart(Request $request)
     {
         $cart_items = $request->session()->get('cart');

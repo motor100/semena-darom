@@ -32,6 +32,8 @@ Route::get('/catalog', [MainController::class, 'catalog'])->name('catalog');
 
 Route::get('/catalog/{slug}', [MainController::class, 'single_product']);
 
+Route::get('/favorites', [MainController::class, 'favorites']);
+
 Route::get('/cart', [MainController::class, 'cart']);
 
 Route::get('/politika-konfidencialnosti', [MainController::class, 'politika_konfidencialnosti']);

@@ -19,51 +19,65 @@
   <header class="header">
     <div class="header-top">
       <div class="container-fluid">
-        <div class="logo">
-          <a href="{{ route('home') }}">
-            <img src="/img/logo.png" alt="">
-          </a>
-        </div>
-        <div class="catalog-btn">
-          <div class="catalog-btn__burger">
-            <span></span>
-          </div>
-          <div class="catalog-btn__text">Каталог</div>
-        </div>
-        <form class="search-form">
-          <div class="form-container">
-            <input type="text" name="q" class="search-input" minlength="3" maxlength="20" autocomplete="off" required placeholder="Искать товары">
-            <button type="submit" class="submit-btn">
-              <img src="/img/header-search-btn.svg" alt="">
-            </button>
-          </div>
-        </form>
-        <div class="city-select">
-          <div class="city-select__image">
-            <img src="/img/header-geolocation.svg" alt="">
-          </div>
-          <div class="city-select__text">Выбрать город</div>
-        </div>
-        <div class="right-menu">
-          <div class="right-menu-item">
-            <div class="right-menu-item__image">
-              <img src="/img/header-heart.svg" alt="">
+        <div class="flex-container">
+          <div class="side">
+            <div class="logo">
+              <a href="{{ route('home') }}">
+                <img src="/img/logo.png" alt="">
+              </a>
             </div>
-            <div class="right-menu-item__text">Избранное</div>
-            <a href="#" class="full-link"></a>
-          </div>
-          <div class="right-menu-item">
-            <div class="right-menu-item__image">
-              <img src="/img/header-cart.svg" alt="">
+            <div class="catalog-btn">
+              <div class="catalog-btn__burger">
+                <span></span>
+              </div>
+              <div class="catalog-btn__text">Каталог</div>
             </div>
-            <div class="right-menu-item__text">Корзина</div>
-            <a href="/cart" class="full-link"></a>
+            <form class="search-form">
+              <div class="form-container">
+                <input type="text" name="q" class="search-input" minlength="3" maxlength="20" autocomplete="off" required placeholder="Искать товары">
+                <button type="submit" class="submit-btn">
+                  <img src="/img/header-search-btn.svg" alt="">
+                </button>
+              </div>
+            </form>
+          </div>
+          <div class="side">
+            <div class="city-select">
+              <div class="city-select__image">
+                <img src="/img/header-geolocation.svg" alt="">
+              </div>
+              <div class="city-select__text">Выбрать город</div>
+            </div>
+            <div class="right-menu">
+              <div class="favorites right-menu-item">
+                <div class="right-menu-item__image">
+                  <img src="/img/header-heart.svg" alt="">
+                </div>
+                @if(isset($favorites_count))
+                  <div id="header-favorites-counter" class="counter">{{ $favorites_count }}</div>
+                @else
+                  <div id="header-favorites-counter" class="counter hidden"></div>
+                @endif
+                <div class="right-menu-item__text">Избранное</div>
+                <a href="/favorites" class="full-link"></a>
+              </div>
+              <div class="cart right-menu-item">
+                <div class="right-menu-item__image">
+                  <img src="/img/header-cart.svg" alt="">
+                </div>
+                @if(isset($cart_count))
+                  <div id="header-cart-counter" class="counter">{{ $cart_count }}</div>
+                @else
+                  <div id="header-cart-counter" class="counter hidden"></div>
+                @endif
+                <div class="right-menu-item__text">Корзина</div>
+                <a href="/cart" class="full-link"></a>
+              </div>
+            </div>
           </div>
         </div>
       </div>
     </div>
-    
-    <div class="horizontal-line"></div>
     
     <div class="advantages">
       <div class="container-fluid">
@@ -128,7 +142,7 @@
   <div class="content-wrapper">
     <div class="container-fluid">
       <div class="row">
-        <div class="col-md-2">
+        <div class="col-xxl-2 col-md-2">
           <div class="aside-nav">
             <div class="aside-nav-title">Каталог товаров</div>
             <div class="aside-nav-item">
@@ -164,9 +178,11 @@
             @endforeach
           </div>
         </div>
-        <div class="col-md-10">
+        <div class="col-xxl-7 col-md-10">
           @yield('content')
         </div>
+        <!-- <div class="col-xxl-3 d-none d-xxl-block">Корзина</div> -->
+        
       </div>
     </div>
   </div>
@@ -290,6 +306,75 @@
       </div>
     </div>
   </footer>
+
+
+  <!-- temp -->
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-md-3">
+        <div class="cart-aside">
+          <div class="cart-aside-title-wrapper">
+            <div class="cart-aside-title">Корзина</div>
+            <div class="cart-aside-clear-cart">очистить</div>
+          </div>
+          <div class="cart-aside-products">
+            <div class="products-item">
+              <div class="products-item__image">
+                <img src="/img/cart-aside-image.jpg" alt="">
+              </div>
+              <div class="products-item__content">
+                <div class="products-item__title">Огурцы</div>
+                <div class="products-item__price light-green-text">34 ₽</div>
+              </div>
+            </div>
+            <div class="products-item">
+              <div class="products-item__image">
+                <img src="/img/cart-aside-image.jpg" alt="">
+              </div>
+              <div class="products-item__content">
+                <div class="products-item__title">Капуста СОНЬКИНА ЛЮБОВЬ F1</div>
+                <div class="products-item-price-wrapper">
+                  <!-- @ if(->promo_price) -->
+                    <div class="products-item__price products-item__promo-price red-text">
+                      <span class="products-item__value">46</span>
+                      <span class="products-item__currency">&#8381;</span>
+                    </div>
+                    <div class="products-item__old-price">
+                      <span class="products-item__value">48</span>
+                      <span class="products-item__currency">&#8381;</span>
+                      <span class="line-through"></span>
+                    </div>
+                  <!-- @ else -->
+                    <!-- <div class="products-item__price">34 ₽</div> -->
+                  <!-- @ endif -->
+                </div>
+              </div>
+            </div>
+            <div class="products-item">
+              <div class="products-item__image">
+                <img src="/img/cart-aside-image.jpg" alt="">
+              </div>
+              <div class="products-item__content">
+                <div class="products-item__title">Перец сладкий Геракл</div>
+                <div class="products-item__price light-green-text">34 ₽</div>
+              </div>
+            </div>
+          </div>
+          <div class="grey-line"></div>
+          <div class="place-order-btn">
+            <div class="place-order-btn__text">Оформить заказ</div>
+            <div class="place-order-btn__total">
+              <span class="place-order-btn__summ">1 378</span>
+              <span class="place-order-btn__currency">&#8381;</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- temp -->
+
+
 
   <div class="burger-menu-wrapper hidden-desktop">
     <div class="burger-menu"></div>
