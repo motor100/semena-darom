@@ -202,4 +202,36 @@ class MainController extends Controller
                 ]);
     }
 
+    public function ajax_search(Request $request)
+    {
+        $product = $request->input('q');
+
+        if (!$product) {
+            return response()->json(['message' => 'error']);
+        }
+
+        $product = htmlspecialchars($product);
+
+        $products = Product::where('title', 'like', "%{$product}%")
+                            // если нужен поиск по тексту
+                            // ->orWhere('text', 'like', "%{$product}%") 
+                            ->get();
+
+        $products_array = [];
+
+        if ($products && count($products) > 0) {
+            foreach ($products as $value) {
+                $product_item = [];
+                $product_item['title'] = $value->title;
+                $product_item['slug'] = $value->slug;
+                $products_array[] = $product_item;
+            }
+        } else {
+            return response()->json(['message' => 'not found']);
+        }
+
+        return response()->json($products_array);
+        // return response()->json(['message' => 'error']);
+    }
+
 }

@@ -32,12 +32,22 @@
               </div>
               <div class="catalog-btn__text">Каталог</div>
             </div>
-            <form class="search-form">
+            <form class="search-form" action="/poisk" method="get">
               <div class="form-container">
                 <input type="text" name="q" class="search-input" minlength="3" maxlength="20" autocomplete="off" required placeholder="Искать товары">
+                
+                @csrf
                 <button type="submit" class="submit-btn">
                   <img src="/img/header-search-btn.svg" alt="">
                 </button>
+
+                <div class="search-close"></div>
+
+                <div class="search-dropdown">
+                  <ul class="search-list js-search-rezult"></ul>
+                  <a href="#" class="search-see-all">Показать все результаты</a>
+                </div>
+                
               </div>
             </form>
           </div>
@@ -450,6 +460,47 @@
     </div>
   </div>
 
+  <div class="header-catalog-dropdown">
+    <div class="catalog-nav">
+      <div class="aside-nav">
+        <div class="aside-nav-item">
+          <div class="aside-nav-item__image">
+            <img src="{{ asset('img/percent-icon.png') }}" alt="">
+          </div>
+          <div class="aside-nav-item__title">Акции</div>
+        </div>
+        <div class="aside-nav-item">
+          <div class="aside-nav-item__image">
+            <img src="{{ asset('img/package-icon.png') }}" alt="">
+          </div>
+          <div class="aside-nav-item__title">Новинки</div>
+        </div>
+        @foreach($parent_category as $cat)
+          @if($cat->count_children > 0)
+            @foreach($cat->child_category as $ct)
+              <div class="aside-nav-item">
+                <div class="aside-nav-item__image">
+                  <img src="{{ asset('img/seed-image.png') }}" alt="">
+                </div>
+                <div class="aside-nav-item__title">{{ $ct->title }}</div>
+              </div>
+            @endforeach
+          @else
+            <div class="aside-nav-item">
+              <div class="aside-nav-item__image">
+                <img src="{{ asset('img/seed-image.png') }}" alt="">
+              </div>
+              <div class="aside-nav-item__title">{{ $cat->title }}</div>
+            </div>
+          @endif
+        @endforeach
+      </div>
+      <div class="promo">Новинки</div>
+    </div>
+    <div class="dark-background"></div>
+  </div>
+
+<!-- 
   <div id="testimonials-modal" class="modal-window testimonials-modal">
     <div class="modal-wrapper">
       <div class="modal-area">
@@ -477,6 +528,7 @@
       </div>
     </div>
   </div>
+ -->
 
   @if(empty($_COOKIE['we-use-cookie']))
     <div class="messages-cookies">

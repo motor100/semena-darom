@@ -27,6 +27,123 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   }
 
+  // Кнопка Каталог в шапке
+  const catalogBtn = document.querySelector('.header .catalog-btn');
+  if (catalogBtn) {
+    const headerCatalogDropdown = document.querySelector('.header-catalog-dropdown');
+    catalogBtn.onclick = function() {
+      catalogBtn.classList.toggle('active');
+      headerCatalogDropdown.classList.toggle('active');
+    }
+  }
+
+  // Search
+  let searchForm = document.querySelector('.search-form'),
+      searchInput = document.querySelector('.search-input'),
+      searchClose = document.querySelector('.search-close'),
+      searchDropdown = document.querySelector('.search-dropdown'),
+      searchRezult = document.querySelector('.js-search-rezult');
+
+  function searchDropdownClose() {
+    searchDropdown.classList.remove('search-dropdown-active');
+    searchClose.classList.remove('search-close-active');
+    searchInput.classList.remove('search-input-dp');
+  }
+
+  function searchResetForm() {
+    searchForm.reset();
+    searchDropdown.classList.remove('search-dropdown-active');
+    searchClose.classList.remove('search-close-active');
+    searchInput.classList.remove('search-input-active');
+    searchInput.classList.remove('search-input-dp');
+  }
+
+  searchInput.onfocus = function() {
+    searchInput.classList.add('search-input-active');
+  }
+
+  searchInput.onblur = function() {
+    searchInput.classList.remove('search-input-active');
+    searchDropdownClose();
+  }
+
+  searchClose.onclick = searchResetForm;
+
+  searchInput.oninput = searchOnInput;
+
+  function searchOnInput() {
+
+    if (searchInput.value.length > 3 && searchInput.value.length < 40) {
+
+      const searchSeeAll = document.querySelector('.search-see-all');
+
+      fetch('/ajax/search', {
+        method: 'POST',
+        cache: 'no-cache',
+        body: new FormData(searchForm)
+      })
+      .then((response) => response.json())
+      .then((json) => {
+
+        // Очистка результатов поиска
+        searchRezult.innerHTML = '';
+        searchSeeAll.classList.remove('search-see-all-active');
+
+        // Если в объекте есть ключ message, то не найдено
+        if (typeof json.message !== "undefined") {
+          let tmpEl = document.createElement('li');
+          tmpEl.className = "no-product";
+          tmpEl.innerHTML = 'Товаров не найдено';
+          searchRezult.append(tmpEl);
+
+        } else { // вывожу результаты поиска
+
+          // Ограничение количества выводимых результатов
+          if (json.length > 4) {
+            json.length = 4; 
+          }
+
+          // Формирую html из массива данных
+          json.forEach((item) => {
+            let tmpEl = document.createElement('li');
+            tmpEl.className = "search-list-item";
+            let str = '<div class="search-list-item__image"><img src="/img/search-lens.png" alt=""></div>';
+            str += '<div class="search-list-item__title">' + item.title + '</div>';
+            str += '<a href="/catalog/' + item.slug + '" class="full-link search-list-item__link"></a>';
+            tmpEl.innerHTML = str;
+            searchRezult.append(tmpEl);
+          });
+
+          searchSeeAll.classList.add('search-see-all-active');
+
+          // Добавляю клик на найденные элементы
+          let searchListItemLink = document.querySelectorAll('.search-list-item__link');
+
+          searchListItemLink.forEach((item) => {
+            item.onclick = searchResetForm;
+          });
+
+          // Добавляю клик на ссылку Показать все результаты
+          searchSeeAll.classList.add('search-see-all-active');
+          searchSeeAll.href = '/poisk?q=' + searchInput.value;
+          searchSeeAll.onclick = searchResetForm;
+        }
+        
+        searchClose.classList.add('search-close-active');
+        searchInput.classList.add('search-input-dp');
+        searchDropdown.classList.add('search-dropdown-active');
+      })
+      .catch((error) => {
+        console.log(error);
+      })
+
+    } else {
+      // Если менее 3 символов, то скрываю результаты поиска
+      searchDropdownClose();
+    }
+
+  }
+
   // Окна
   let modalWindow = document.querySelectorAll('.modal-window'),
       mobileMenuCityBtn = document.querySelector('.js-mobile-menu-city-btn'),

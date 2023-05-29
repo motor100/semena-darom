@@ -56,6 +56,8 @@ Route::post('/otzyvy-store', [MainController::class, 'otzyvy_store']);
 
 Route::post('/ajax/callback', MailerController::class)->name('callback');
 
+Route::post('/ajax/search', [MainController::class, 'ajax_search']);
+
 
 Route::get('/dashboard', function () {
     return view('dashboard');

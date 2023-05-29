@@ -266,11 +266,6 @@
         </div>
       </div>
     </div>
-
-    <div class="button-next">
-      <div class="arrow-right"></div>
-    </div>
-
   </div>
 </div>
 
