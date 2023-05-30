@@ -144,9 +144,106 @@ document.addEventListener("DOMContentLoaded", () => {
 
   }
 
+  // City select
+  const citySelectModalWindow = document.querySelector('#select-city-modal'),
+        citySelectForm = document.querySelector('#city-select-form'),
+        citySelectInput = document.querySelector('#city-select-input'),
+        citySelectRezult = document.querySelector('#city-select-rezult'),
+        citySelectModalCloseBtn = document.querySelector('#select-city-modal .modal-close');
+
+  function selectCityItemClick() {
+    let cityItems = selectCityModal.querySelectorAll('#select-city-modal .city-item');
+
+    for (let i = 0; i < cityItems.length; i++) {
+      cityItems[i].onclick = function () {
+        let ccity = cityItems[i].querySelector('.city-item__city').innerText;
+        document.cookie = "city=" + ccity + "; path=/; max-age=2629743; samesite=lax";
+        modalClose(selectCityModal);
+        citySelectForm.reset();
+        location.reload();
+      }
+    }
+  }
+
+  citySelectInput.oninput = citySelectOnInput;
+
+  function citySelectOnInput() {
+
+    if (citySelectInput.value.length >= 3 && citySelectInput.value.length < 40) {
+
+      fetch('/ajax/city-select', {
+        method: 'POST',
+        cache: 'no-cache',
+        body: new FormData(citySelectForm)
+      })
+      .then((response) => response.json())
+      .then((json) => {
+
+        // Очистка результатов поиска
+        citySelectRezult.innerHTML = '';
+
+        // Если в объекте есть ключ message, то не найдено
+        if (typeof json.message !== "undefined") {
+          let tmpEl = document.createElement('div');
+          tmpEl.className = "no-city";
+          tmpEl.innerHTML = 'Город с таким названием не найден';
+          citySelectRezult.append(tmpEl);
+
+        } else { // вывожу результаты поиска
+
+          // Ограничение количества выводимых результатов
+          if (json.length > 6) {
+            json.length = 6; 
+          }
+
+          json.forEach((item) => {
+            let tmpEl = document.createElement('div');
+            tmpEl.className = "city-item";
+            tmpEl.innerHTML = '<span class="city-item__city">' + item.city + '</span>';
+            tmpEl.innerHTML += '<span class="city-item__region">' + ' ' + item.region + '</span>';
+            citySelectRezult.append(tmpEl);
+          });
+
+          // Добавляю клик на найденные элементы
+          selectCityItemClick();
+
+        }
+      })
+      .catch((error) => {
+        console.log(error);
+      })
+
+
+    } else {
+      // Если менее 3 символов, то скрываю результаты поиска
+      citySelectRezult.innerHTML = '';
+    }
+
+  };
+
+  function citySelectModalClose() {
+    citySelectForm.reset();
+    citySelectRezult.innerHTML = '';
+  }
+
+  citySelectModalCloseBtn.addEventListener('click', citySelectModalClose);
+
+  citySelectModalWindow.addEventListener('click', function(event) {
+    let classList = event.target.classList;
+    for (let j = 0; j < classList.length; j++) {
+      if (classList[j] == "modal" || classList[j] == "modal-wrapper" || classList[j] == "modal-window") {
+        modalClose(citySelectModalWindow);
+        citySelectModalClose();
+      }
+    }
+  });
+
+  
+
   // Окна
   let modalWindow = document.querySelectorAll('.modal-window'),
       mobileMenuCityBtn = document.querySelector('.js-mobile-menu-city-btn'),
+      selectCityBtn = document.querySelector('#city-select-btn'),
       selectCityModal = document.querySelector('#select-city-modal'),
       callbackBtn = document.querySelector('.js-callback-btn'),
       callbackModal = document.querySelector('#callback-modal'),
@@ -160,17 +257,21 @@ document.addEventListener("DOMContentLoaded", () => {
   //   modalOpen(selectCityModal);
   // }
 
+  selectCityBtn.onclick = function () {
+    modalOpen(selectCityModal);
+  }
+
   callbackBtn.onclick = function () {
     modalOpen(callbackModal);
   }
 
-  if(testimonialsBtn) {
+  if (testimonialsBtn) {
     testimonialsBtn.onclick = function () {
       modalOpen(testimonialsModal);
     }
   }
 
-  if(payInfoBtn) {
+  if (payInfoBtn) {
     payInfoBtn.onclick = function () {
       modalOpen(callbackModal);
     }

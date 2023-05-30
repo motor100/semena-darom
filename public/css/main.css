@@ -445,22 +445,40 @@ p {
 .header .header-top .search-form .no-product {
   padding: 7px 22px;
 }
-
-
 .header .header-top .city-select {
   display: flex;
-  width: 181px;
+  min-width: 181px;
   height: 42px;
   margin: 0 20px 0 0;
   padding: 8px 20px;
   border: 1px solid #F6F7F9;
+  background-color: #fff;
   border-radius: 21px;
+  align-items: center;
   cursor: pointer;
+  transition: all .3s;
+}
+.header .header-top .city-select:hover {
+  border: 1px solid var(--m-main-green);
+  background-color: var(--m-main-green);
+  color: #fff;
 }
 .header .header-top .city-select .city-select__image {
   width: 15px;
+  height: 19px;
   margin: 0 10px 0 0;
 }
+.header .header-top .city-select .city-select__image svg {
+  stroke: #494F54;
+  transition: stroke .3s;
+}
+.header .header-top .city-select:hover .city-select__image svg {
+  stroke: #fff;
+}
+/* .header .header-top .city-select .city-select__text {
+  font-family: 'arimo-semibold';
+} */
+
 .header .header-top .right-menu {
   display: flex;
 }
@@ -2167,7 +2185,7 @@ p {
   position: relative;
   max-width: 440px;
   margin: 0 auto;
-  padding: 30px 30px 0 30px;
+  padding: 30px;
   border-radius: 15px;
   background-color: #fff;
   overflow: hidden;
@@ -2208,9 +2226,6 @@ p {
   font-size: 20px;
   border-bottom: 1px solid #E8E8E8;
 }
-.modal-window .form {
-  margin: 30px 0 90px 0;
-}
 .modal-window .label {
   display: block;
   width: 100%;
@@ -2221,9 +2236,10 @@ p {
   width: 100%;
   border-top: none;
   border-right: none;
-  border-bottom: 1px solid #8278B8;
+  border-bottom: 1px solid var(--m-main-green);
   border-left: none;
-  color: #8278B8;
+  font-size: inherit;
+  color: var(--m-text);
 }
 .modal-window .input-field::placeholder {
   color: #E8E8E8;
@@ -2294,6 +2310,28 @@ p {
   display: block;
   margin-top: 20px;
 }
+
+/* callback modal */
+.callback-modal .form {
+  margin: 30px 0 90px 0;
+}
+
+/* city select modal */
+.select-city-modal .city-select-rezult {
+  min-height: 100px;
+}
+.select-city-modal .city-select-form {
+  margin: 0 0 16px 0;
+}
+.select-city-modal .city-select-rezult .city-item {
+  margin: 0 0 16px 0;
+  cursor: pointer;
+  transition: color .3s;
+}
+.select-city-modal .city-select-rezult .city-item:hover {
+  color: var(--m-main-green);
+}
+
 
 /* page 404 */
 .page404 .image404 img {

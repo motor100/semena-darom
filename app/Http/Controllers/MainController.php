@@ -235,7 +235,34 @@ class MainController extends Controller
         }
 
         return response()->json($products_array);
-        // return response()->json(['message' => 'error']);
+    }
+
+    public function ajax_city_select(Request $request)
+    {   
+        $city = $request->input('city');
+
+        if (!$city) {
+            return response()->json(['message' => 'error']);
+        }
+
+        $city = htmlspecialchars($city);
+
+        $cities = \App\Models\City::where('city', 'like', "%{$city}%")->get();
+
+        $cities_array = [];
+
+        if ($cities && count($cities) > 0) {
+            foreach ($cities as $value) {
+                $city_item = [];
+                $city_item['city'] = $value->city;
+                $city_item['region'] = $value->region;
+                $cities_array[] = $city_item;
+            }
+        } else {
+            return response()->json(['message' => 'not found']);
+        }
+
+        return response()->json($cities_array);
     }
 
 }
