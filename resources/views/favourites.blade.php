@@ -19,8 +19,14 @@
 <div class="favorites">
   <div class="content-wrapper">
     <div class="favorites-title">Избранное</div>
-  
 
+    @if(count($products) > 0)
+      @foreach($products as $product)
+        <p>{{ $product->title }}</p>
+      @endforeach
+    @else
+      <p>В избранном ничего нет</p>
+    @endif
 
   </div>
 </div>

@@ -83,9 +83,16 @@ class MainController extends Controller
         }
     }
 
-    public function favorites()
+    public function favourites(Request $request)
     {
-        return view('favorites');
+        $products = [];
+
+        if ($request->session()->has('favourites')) {
+            $favorites_item = $request->session()->get('favourites');
+            $products = Product::whereIn('id', $favorites_item)->get();
+        }
+
+        return view('favourites', compact('products'));
     }
 
     public function cart(Request $request)
@@ -238,7 +245,7 @@ class MainController extends Controller
     }
 
     public function ajax_city_select(Request $request)
-    {   
+    {
         $city = $request->input('city');
 
         if (!$city) {
@@ -263,6 +270,33 @@ class MainController extends Controller
         }
 
         return response()->json($cities_array);
+    }
+
+    public function ajax_add_to_favourites(Request $request)
+    {
+        $id = $request->input('id');
+
+        if ($request->session()->has('favourites')) { // Если есть в сессии favourites, то добавляю в конец массива
+            $favourites_items = $request->session()->get('favourites');
+
+            $has_product = false;
+            foreach($favourites_items as $value) {
+                if ($value == $id) {
+                    $has_product = true;
+                }
+            }
+
+            if (!$has_product) { // Если такого ключа с id нет в массиве, то добавляю
+                $favourites_items[] = $id;
+                $request->session()->put('favourites', $favourites_items);
+            }
+        } else { // Если нет, то создаю массив favourites и добавляю туда значение 
+            $request->session()->put('favourites', [$id]);
+        }
+
+        $favourites_count = count($request->session()->get('favourites'));
+
+        return $favourites_count;
     }
 
 }

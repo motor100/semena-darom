@@ -33,7 +33,7 @@ Route::get('/catalog', [MainController::class, 'catalog'])->name('catalog');
 
 Route::get('/catalog/{slug}', [MainController::class, 'single_product']);
 
-Route::get('/favorites', [MainController::class, 'favorites']);
+Route::get('/favourites', [MainController::class, 'favourites']);
 
 Route::get('/cart', [MainController::class, 'cart']);
 
@@ -61,6 +61,9 @@ Route::post('/ajax/search', [MainController::class, 'ajax_search']);
 
 Route::post('/ajax/city-select', [MainController::class, 'ajax_city_select']);
 
+// Route::get('/ajax/addtofavourites', [MainController::class, 'ajax_add_to_favourites']);
+
+Route::post('/ajax/addtofavourites', [MainController::class, 'ajax_add_to_favourites']);
 
 Route::get('/dashboard', function () {
     return view('dashboard');

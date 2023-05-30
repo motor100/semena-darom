@@ -238,6 +238,36 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   });
 
+
+  // Add to favourites
+  const addToFavouritesBtns = document.querySelectorAll('.add-to-favourites');
+
+  function addToFavourites(elem) {
+    // Add class to elem
+    elem.classList.add('active');
+
+    fetch('/ajax/addtofavourites', {
+      method: 'POST',
+      headers: {'Content-Type':'application/x-www-form-urlencoded'},
+      cache: 'no-cache',
+      body: 'id=' + encodeURIComponent(elem.dataset.id) + '&_token=' + encodeURIComponent(token),
+    })
+    .then((response) => response.text())
+    .then((text) => {
+      const headerFavouritesCounter = document.querySelector('#header-favourites-counter');
+      headerFavouritesCounter.innerText = text;
+      headerFavouritesCounter.classList.remove('hidden');
+    })
+    .catch((error) => {
+      console.log(error);
+    })
+  }
+
+  addToFavouritesBtns.forEach((item) => {
+    item.onclick = function() {
+      addToFavourites(item);
+    }
+  });
   
 
   // Окна
@@ -334,6 +364,15 @@ document.addEventListener("DOMContentLoaded", () => {
     if (scrStickyDesktopMenu < 400) {
       stickyDesktopMenu.classList.remove('sticky-desktop-menu-active');
     }
+  }
+  */
+
+  /*
+  function getCookie(name) {
+    let matches = document.cookie.match(new RegExp(
+      "(?:^|; )" + name.replace(/([\.$?*|{}\(\)\[\]\\\/\+^])/g, '\\$1') + "=([^;]*)"
+    ));
+    return matches ? decodeURIComponent(matches[1]) : undefined;
   }
   */
 

@@ -52,9 +52,16 @@ class ViewServiceProvider extends ServiceProvider
 
             // Products in cart
             $cart_items = session()->get('cart');
-            if($cart_items) {
+            if ($cart_items) {
                 $cart_count = count($cart_items);
                 $view->with('cart_count', $cart_count);
+            }
+
+            // Products in favourites
+            $favourites_items = session()->get('favourites');
+            if ($favourites_items) {
+                $favourites_count = count($favourites_items);
+                $view->with('favourites_count', $favourites_count);
             }
 
         });

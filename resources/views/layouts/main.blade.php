@@ -61,17 +61,17 @@
               </div>
             </div>
             <div class="right-menu">
-              <div class="favorites right-menu-item">
+              <div class="favourites right-menu-item">
                 <div class="right-menu-item__image">
                   <img src="/img/header-heart.svg" alt="">
                 </div>
-                @if(isset($favorites_count))
-                  <div id="header-favorites-counter" class="counter">{{ $favorites_count }}</div>
+                @if(isset($favourites_count))
+                  <div id="header-favourites-counter" class="counter">{{ $favourites_count }}</div>
                 @else
-                  <div id="header-favorites-counter" class="counter hidden"></div>
+                  <div id="header-favourites-counter" class="counter hidden"></div>
                 @endif
                 <div class="right-menu-item__text">Избранное</div>
-                <a href="/favorites" class="full-link"></a>
+                <a href="/favourites" class="full-link"></a>
               </div>
               <div class="cart right-menu-item">
                 <div class="right-menu-item__image">
@@ -538,12 +538,12 @@
 
   @if(empty($_COOKIE['we-use-cookie']))
     <div class="messages-cookies">
-      <div class="container-fluid">
+
         <div class="messages-cookies-wrapper">
           <div class="messages-cookies-text">Этот сайт использует файлы cookies и сервисы сбора технических данных посетителей. Продолжая использовать наш сайт, вы автоматически соглашаетесь с использованием cookies. Нажмите "ОК" чтобы закрыть это сообщение.</div>
           <button class="messages-cookies-close">ОК</button>
         </div>
-      </div>
+
     </div>
   @endif
 
