@@ -35,19 +35,15 @@
             <form class="search-form" action="/poisk" method="get">
               <div class="form-container">
                 <input type="text" name="q" class="search-input" minlength="3" maxlength="20" autocomplete="off" required placeholder="Искать товары">
-                
                 @csrf
                 <button type="submit" class="submit-btn">
                   <img src="/img/header-search-btn.svg" alt="">
                 </button>
-
                 <div class="search-close"></div>
-
                 <div class="search-dropdown">
                   <ul class="search-list js-search-rezult"></ul>
                   <a href="#" class="search-see-all">Показать все результаты</a>
                 </div>
-                
               </div>
             </form>
           </div>
@@ -172,7 +168,7 @@
                 @foreach($cat->child_category as $ct)
                   <div class="aside-nav-item">
                     <div class="aside-nav-item__image">
-                      <img src="{{ asset('img/seed-image.png') }}" alt="">
+                      <img src="{{ asset('storage/uploads/categories/' . $ct->image) }}" alt="">
                     </div>
                     <div class="aside-nav-item__title">{{ $ct->title }}</div>
                   </div>
@@ -180,7 +176,7 @@
               @else
                 <div class="aside-nav-item">
                   <div class="aside-nav-item__image">
-                    <img src="{{ asset('img/seed-image.png') }}" alt="">
+                    <img src="{{ asset('storage/uploads/categories/' . $cat->image) }}" alt="">
                   </div>
                   <div class="aside-nav-item__title">{{ $cat->title }}</div>
                 </div>
@@ -480,7 +476,7 @@
             @foreach($cat->child_category as $ct)
               <div class="aside-nav-item">
                 <div class="aside-nav-item__image">
-                  <img src="{{ asset('img/seed-image.png') }}" alt="">
+                  <img src="{{ asset('storage/uploads/categories/' . $ct->image) }}" alt="">
                 </div>
                 <div class="aside-nav-item__title">{{ $ct->title }}</div>
               </div>
@@ -488,7 +484,7 @@
           @else
             <div class="aside-nav-item">
               <div class="aside-nav-item__image">
-                <img src="{{ asset('img/seed-image.png') }}" alt="">
+                <img src="{{ asset('storage/uploads/categories/' . $cat->image) }}" alt="">
               </div>
               <div class="aside-nav-item__title">{{ $cat->title }}</div>
             </div>

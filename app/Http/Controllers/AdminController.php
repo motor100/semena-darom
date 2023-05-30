@@ -12,7 +12,6 @@ class AdminController extends Controller
         return view('dashboard.home');
     }
 
-
     public function polzovatelskoe_soglashenie_s_publichnoj_ofertoj()
     {
         $page = \App\Models\Page::where('id', 1)->first();

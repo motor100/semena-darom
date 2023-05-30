@@ -6,6 +6,7 @@ use App\Http\Controllers\MainController;
 use App\Http\Controllers\MailerController;
 use App\Http\Controllers\DeliveryController;
 use App\Http\Controllers\AdminController;
+use App\Http\Controllers\MainSliderController;
 
 /*
 |--------------------------------------------------------------------------
@@ -75,6 +76,20 @@ require __DIR__.'/auth.php';
 Route::middleware('auth')->group(function () {
 
     Route::get('/dashboard', [AdminController::class, 'home'])->name('dashboard');
+
+    Route::get('/dashboard/main-slider', [MainSliderController::class, 'index']);
+
+    Route::get('/dashboard/main-slider/create', [MainSliderController::class, 'create'])->name('main-slider-create');
+
+    Route::post('/dashboard/main-slider/store', [MainSliderController::class, 'store'])->name('main-slider-store');
+
+    Route::get('/dashboard/main-slider/{id}', [MainSliderController::class, 'show'])->name('main-slider-show');
+
+    Route::get('/dashboard/main-slider/{id}/edit', [MainSliderController::class, 'edit'])->name('main-slider-edit');
+
+    Route::post('/dashboard/main-slider/update', [MainSliderController::class, 'update'])->name('main-slider-update');
+
+    Route::get('/dashboard/main-slider/{id}/destroy', [MainSliderController::class, 'destroy'])->name('main-slider-destroy');
 
 
 

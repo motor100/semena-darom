@@ -16,29 +16,21 @@
       <div class="main-slider-wrapper">
         <div class="main-slider swiper">
           <div class="swiper-wrapper">
-            <div class="main-slider-item swiper-slide">
-              <div class="slider-item-image">
-                <img src="/img/main-slide1.jpg" alt="">
+            @foreach($sliders as $slide)
+              <div class="main-slider-item swiper-slide">
+                <div class="slider-item-image">
+                  <img src="{{ Storage::url($slide->image) }}" alt="">
+                </div>
+                <div class="swiper-slide-content">
+                  <div class="slider-item-title">{{ $slide->title }}</div>
+                  <div class="slider-item-subtitle">{{ $slide->text }}</div>
+                </div>
+                <div class="view-catalog-btn">
+                  <span class="view-catalog-btn__text">Смотреть каталог</span>
+                  <a href="{{ route('catalog') }}" class="full-link"></a>
+                </div>
               </div>
-              <div class="swiper-slide-content">
-                <div class="slider-item-title">Новинка 2023</div>
-                <div class="slider-item-subtitle">Премиум класса. Для рискованного земледелия</div>
-              </div>
-              <div class="view-catalog-btn">
-                <span class="view-catalog-btn__text">Смотреть каталог</span>
-                <a href="#" class="full-link"></a>
-              </div>
-            </div>
-            <div class="main-slider-item swiper-slide">
-              <div class="slider-item-image">
-                <img src="/img/main-slide1.jpg" alt="">
-              </div>
-            </div>
-            <div class="main-slider-item swiper-slide">
-              <div class="slider-item-image">
-                <img src="/img/main-slide1.jpg" alt="">
-              </div>
-            </div>
+            @endforeach
           </div>
         </div>
         <div class="button-next main-button-next">
@@ -56,31 +48,31 @@
               </div>
             </div>
             <div class="category-slider-item swiper-slide green-bg">
-              <div class="slider-item-title">Огурцы</div>
+              <div class="slider-item-title">Перцы</div>
               <div class="slider-item-image">
                 <img src="/img/category-slider-cucumber.png" alt="">
               </div>
             </div>
             <div class="category-slider-item swiper-slide purple-bg">
-              <div class="slider-item-title">Огурцы</div>
+              <div class="slider-item-title">Томаты</div>
               <div class="slider-item-image">
                 <img src="/img/category-slider-cucumber.png" alt="">
               </div>
             </div>
             <div class="category-slider-item swiper-slide red-bg">
-              <div class="slider-item-title">Огурцы</div>
+              <div class="slider-item-title">Овощи</div>
               <div class="slider-item-image">
                 <img src="/img/category-slider-cucumber.png" alt="">
               </div>
             </div>
             <div class="category-slider-item swiper-slide orange-bg">
-              <div class="slider-item-title">Огурцы</div>
+              <div class="slider-item-title">Цветы</div>
               <div class="slider-item-image">
                 <img src="/img/category-slider-cucumber.png" alt="">
               </div>
             </div>
             <div class="category-slider-item swiper-slide green-bg">
-              <div class="slider-item-title">Огурцы</div>
+              <div class="slider-item-title">Ягоды</div>
               <div class="slider-item-image">
                 <img src="/img/category-slider-cucumber.png" alt="">
               </div>

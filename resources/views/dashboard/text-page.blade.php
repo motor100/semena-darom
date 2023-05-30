@@ -21,7 +21,7 @@
 </div>
 
 <script>
-  const menuItem = 3;
+  const menuItem = 4;
 </script>
 
 @endsection

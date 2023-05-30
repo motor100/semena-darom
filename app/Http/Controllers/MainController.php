@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Product;
+use App\Models\MainSlider;
 use App\Models\Testimonial;
 use Illuminate\Support\Str;
 
@@ -11,6 +12,9 @@ class MainController extends Controller
 {
     public function home()
     {   
+        // Main slider
+        $sliders = MainSlider::all();
+        
         // Products
         $products = Product::limit(3)->get();
 
@@ -21,7 +25,7 @@ class MainController extends Controller
             $item->promo_price = str_replace('.0', '', $item->promo_price);
         });
         
-        return view('home', compact('products'));
+        return view('home', compact('sliders', 'products'));
     }
 
     public function o_kompanii()

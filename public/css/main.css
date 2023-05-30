@@ -579,9 +579,9 @@ p {
 
 
 /* aside */
-.aside-nav {
+/* .aside-nav {
   font-size: 18px;
-}
+} */
 .aside-nav .aside-nav-title {
   margin: 0 0 35px 0;
   font-family: 'arimo-bold';
@@ -590,10 +590,17 @@ p {
 .aside-nav .aside-nav-item {
   display: flex;
   margin: 0 0 32px 0;
+  align-items: center;
 }
 .aside-nav .aside-nav-item .aside-nav-item__image {
-  width: 22px;
+  width: 26px;
+  height: 26px;
   margin: 0 15px 0 0;
+  border-radius: 12px;
+  overflow: hidden;
+}
+.aside-nav .aside-nav-item .aside-nav-item__image img {
+  width: 100%;
 }
 .aside-nav .aside-nav-item .aside-nav-item__title {
   font-family: 'arimo-semibold';

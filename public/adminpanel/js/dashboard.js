@@ -1,7 +1,6 @@
 // Common
 const token = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
 
-
 // Функция отключения скролла у input type=number
 function disableScrollInputNumber() {
 
@@ -29,4 +28,14 @@ phoneElements.forEach((item) => {
   };
   let mask = IMask(item, maskOptionsPhone);
 });
+
+// Выбор файла Изображение
+let inputMainFile = document.querySelector('#input-main-file'),
+    mainFileText = document.querySelector('.main-file-text');
+
+if (inputMainFile) {
+  inputMainFile.onchange = function() {
+    mainFileText.innerHTML = this.files[0].name;
+  }
+}
 

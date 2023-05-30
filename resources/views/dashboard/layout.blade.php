@@ -44,6 +44,12 @@
               <span>Отзывы</span>
             </a>
           </div>
+          <div class="nav-item">
+            <a href="/dashboard/main-slider" class="item-link">
+              <i class="nav-icon fas fa-images"></i>
+              <span>Слайдер</span>
+            </a>
+          </div>
 
           <div class="nav-item nav-item-has-children">
             <a href="" class="item-link">
