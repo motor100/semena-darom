@@ -120,6 +120,11 @@ class MainController extends Controller
                 $product->quantity = $cart_items[$product->id];
                 // $product->count = $product;
             }
+
+            $products->each(function ($item) {
+                $item->retail_price = str_replace('.0', '', $item->retail_price);
+                $item->promo_price = str_replace('.0', '', $item->promo_price);
+            });            
         }
 
         return view('cart', compact('products'));
