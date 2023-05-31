@@ -4,7 +4,7 @@ document.addEventListener("DOMContentLoaded", () => {
   let body = document.querySelector('body'),
       mainSection = document.querySelector('.main-section'),
       newsSection = document.querySelector('.news-section'),
-      cartPage = document.querySelector('.cart .cart-items-wrapper'), // страница корзина
+      cartPage = document.querySelector('.js-cart-page'), // страница корзина
       catalogPage = document.querySelector('.catalog'), // страница каталог
       singleProduct = document.querySelector('.single-product'), // страница товара
       dostavkaIOplataPage = document.querySelector('.dostavka-i-oplata'), // страница доставка и оплата
@@ -438,12 +438,8 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   // Отправка формы ajax в модальном окне
-  let callbackModalForm = document.querySelector("#callback-modal-form"),
-      callbackModalBtn = document.querySelector('.js-callback-modal-btn');
-
-  callbackModalBtn.onclick = function() {
-    ajaxCallback(callbackModalForm);
-  }
+  const callbackModalForm = document.querySelector("#callback-modal-form"),
+        callbackModalBtn = document.querySelector('.js-callback-modal-btn');
 
   function ajaxCallback(form) {
 
@@ -471,7 +467,7 @@ document.addEventListener("DOMContentLoaded", () => {
       for (let i = 0; i < inputs.length; i++) {
         inputs[i].classList.remove('required');
       }
- 
+  
       fetch('/ajax/callback', {
         method: 'POST',
         cache: 'no-cache',
@@ -490,41 +486,43 @@ document.addEventListener("DOMContentLoaded", () => {
     return false;
   }
 
-  // Функция добавление товаров в корзину
-  function addToCart() {
-
-    let addToCartBtns = document.querySelectorAll('.add-to-cart');
-
-    for (let i = 0; i < addToCartBtns.length; i++) {
-      addToCartBtns[i].onclick = function() {
-
-        if (this.classList[0] == 'add-to-cart-btn') {
-          this.children[0].classList.add('circle-active');
-        } else {
-          this.innerText = 'В корзине';
-        }
-            
-        let formData = {
-          id: this.getAttribute('data-id'),
-        };
-        
-        let xhr = new XMLHttpRequest();
-        xhr.open('post', '/ajax/addtocart');
-        xhr.setRequestHeader('Content-type', 'application/x-www-form-urlencoded; charset=UTF-8');
-        xhr.send('id=' + encodeURIComponent(formData.id) + '&_token=' + encodeURIComponent(token));
-        xhr.onload = function() {
-          if (xhr.response) {
-            document.getElementById('header-cart-counter').innerText = xhr.response;
-            document.getElementById('header-cart-counter').classList.remove('hidden');
-            document.getElementById('sticky-menu-cart-counter').innerText = xhr.response;
-            document.getElementById('sticky-menu-cart-counter').classList.remove('hidden');
-            document.getElementById('mobile-cart-counter').innerText = xhr.response;
-            document.getElementById('mobile-cart-counter').classList.remove('hidden');
-          }
-        }
-      }
-    }
+  callbackModalBtn.onclick = function() {
+    ajaxCallback(callbackModalForm);
   }
+
+  
+
+  // Add to cart
+  const addToCartBtns = document.querySelectorAll('.add-to-cart');
+
+  function addToCart(elem) {
+
+    // Add text
+    elem.innerText = 'В корзине';
+
+    fetch('/ajax/addtocart', {
+      method: 'POST',
+      headers: {'Content-Type':'application/x-www-form-urlencoded'},
+      cache: 'no-cache',
+      body: 'id=' + encodeURIComponent(elem.dataset.id) + '&_token=' + encodeURIComponent(token),
+    })
+    .then((response) => response.text())
+    .then((text) => {
+      const headerCartCounter = document.querySelector('#header-cart-counter');
+      headerCartCounter.innerText = text;
+      headerCartCounter.classList.remove('hidden');
+    })
+    .catch((error) => {
+      console.log(error);
+    })
+
+  }
+
+  addToCartBtns.forEach((item) => {
+    item.onclick = function() {
+      addToCart(item);
+    }
+  });
 
   if (mainSection) {
     // Main swiper slider
@@ -562,6 +560,75 @@ document.addEventListener("DOMContentLoaded", () => {
 
   if (cartPage) {
 
+    const cartItems = document.querySelectorAll('.cart-item');
+
+    // Увеличение количество одного товара в корзине
+    function ajax_plus_cart(elem) {
+
+      fetch('/ajax/pluscart', {
+        method: 'POST',
+        headers: {'Content-Type':'application/x-www-form-urlencoded'},
+        cache: 'no-cache',
+        body: 'id=' + encodeURIComponent(elem.dataset.id) + '&_token=' + encodeURIComponent(token),
+      })
+      .catch((error) => {
+        console.log(error);
+      })
+
+    }
+
+    // Уменьшение количество одного товара в корзине
+    function ajax_minus_cart(elem) {
+
+      fetch('/ajax/minuscart', {
+        method: 'POST',
+        headers: {'Content-Type':'application/x-www-form-urlencoded'},
+        cache: 'no-cache',
+        body: 'id=' + encodeURIComponent(elem.dataset.id) + '&_token=' + encodeURIComponent(token),
+      })
+      .catch((error) => {
+        console.log(error);
+      })
+
+    }
+
+    cartItems.forEach((item) => {
+
+      // quantity step
+      const quantityMinus = item.querySelector('.quantity-minus'),
+          quantityPlus = item.querySelector('.quantity-plus'),
+          quantityNumber = item.querySelector('.quantity-number');
+
+      // Расчет товар -1
+      quantityMinus.onclick = function() {
+        quantityNumber.stepDown();
+        // quantityCalc();
+        // weightCalc();
+        // discountCalc();
+        // summCalc();
+        // Ограничение на уменьшение количества если меньше 1
+        if (Number(quantityNumber.value) > 1) {
+          ajax_minus_cart(this);
+        }
+      }
+
+      // Расчет товар +1
+      quantityPlus.onclick = function(){
+        quantityNumber.stepUp();
+        // quantityCalc();
+        // weightCalc();
+        // discountCalc();
+        // summCalc();
+        
+        // Ограничение на увеличение количества если больше max
+        if (Number(quantityNumber.value) <= Number(quantityNumber.max)) {
+          ajax_plus_cart(this);
+        }
+      }
+
+    });
+
+    
     
 
   }

@@ -1748,6 +1748,85 @@ p {
   margin: 0 5px 0 0;
 }
 
+.cart .cart-item {
+  padding: 10px;
+  border: 1px solid var(--m-main-green);
+}
+.cart .cart-item .cart-item__image {
+  width: 110px;
+  height: 206px;
+}
+.cart .cart-item .cart-item__image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+.cart .cart-item .cart-item__quantity {
+  display: flex;
+  width: 110px;
+  margin: 0 0 16px 0;
+}
+.cart .cart-item .cart-item__quantity .quantity-number {
+  width: 10%;
+  margin: 0 3px;
+  border: none;
+  text-align: center;
+  flex-grow: 1;
+  -moz-appearance: textfield;
+}
+.cart .cart-item .cart-item__quantity .quantity-number::-webkit-inner-spin-button,
+.cart .cart-item .cart-item__quantity .quantity-number::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  margin: 0;
+}
+.cart .cart-item .cart-item__quantity .quantity-button {
+  display: block;
+  width: 32px;
+  height: 32px;
+  padding: 0px;
+  border: none;
+  background-color: white;
+  cursor: pointer;
+  flex-shrink: 0;
+}
+.cart .cart-item .cart-item__quantity .quantity-button .circle {
+  position: relative;
+  width: 25px;
+  height: 25px;
+  margin: 0 auto;
+  padding: 0px;
+  border: 1px solid #3E3E3E;
+  border-radius: 50%;
+  transition: border .3s;
+}
+.cart .cart-item .cart-item__quantity .quantity-button:hover .circle {
+  border: 1px solid #8278B8;
+}
+.cart .cart-item .cart-item__quantity .quantity-button .circle:before,
+.cart .cart-item .cart-item__quantity .quantity-button .circle:after {
+  content: '';
+  position: absolute;
+  top: 11px;
+  left: 6px;
+  width: 11px;
+  height: 1px;
+  background-color: #3E3E3E;
+  border-radius: 2px;
+  transition: background-color .3s;
+}
+.cart .cart-item .cart-item__quantity .quantity-button:hover .circle:before,
+.cart .cart-item .cart-item__quantity .quantity-button:hover .circle:after {
+  background-color: #8278B8;
+}
+.cart .cart-item .cart-item__quantity .quantity-plus .circle:after {
+  transform: rotate(90deg);
+}
+
+
+
+
 .cart .cart-is-empty .cart-is-empty-image img {
   width: 100%;
 }

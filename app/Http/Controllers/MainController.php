@@ -97,29 +97,45 @@ class MainController extends Controller
 
     public function cart(Request $request)
     {
-        $cart_items = $request->session()->get('cart');
+        $products = [];
 
-        $products = collect();
+        if ($request->session()->has('cart')) {
 
-        if ($cart_items) {
-            $key_items = array_keys($cart_items);
+            $cart_items = $request->session()->get('cart');
 
-            $products = Product::whereIn('id', $key_items)->get();
+            $keys = array_keys($cart_items);
 
-            foreach ($products as $pr) {
-                if ($pr->stock > 0) {
-                    $products[] = $pr;
-                }
-            }
-
-            foreach ($products as $pr => $value) {
-                $id = $value->id;
-                $value->quantity = $cart_items[$id];
-                $value->count = $pr;
+            // Получение моделей товаров
+            $products = Product::whereIn('id', $keys)->get();
+            
+            // Предзаказ
+            // foreach ($products as $product) {
+            //     if ($product->stock > 0) {
+            //         $products[] = $product;
+            //     }
+            // }
+            
+            // Количество каждого товара
+            foreach ($products as $product) {
+                $product->quantity = $cart_items[$product->id];
+                // $product->count = $product;
             }
         }
 
         return view('cart', compact('products'));
+    }
+
+    public function rm_from_cart(Request $request)
+    {   
+        $id = $request->input('id');
+
+        // Метод pull извлекает и удаляет элемент из сессии единым выражением
+        $request->session()->pull('cart.' . $id, 'default');
+
+        // $cart_count = count($request->session()->get('cart'));
+
+        // return $cart_count;
+        return redirect('/cart');
     }
 
     public function politika_konfidencialnosti()
@@ -272,6 +288,68 @@ class MainController extends Controller
         return response()->json($cities_array);
     }
 
+    public function ajax_add_to_cart(Request $request)
+    {
+        $id = $request->input('id');
+
+        if ($request->session()->has('cart')) { // Если есть сессия cart, то добавляю в конец массива
+
+            $cart_items = $request->session()->get('cart');
+
+            if (array_key_exists($id, $cart_items)) { // Если есть товар, то прибавляю количество
+                $cart_items[$id] = $cart_items[$id] + 1;
+            } else {
+                $cart_items[$id] = 1;
+            }
+
+        } else { // Если нет, то создаю массив и добавляю туда значение
+            $cart_items = [];
+            $cart_items[$id] = 1;
+        }
+
+        $request->session()->put('cart', $cart_items);
+
+        $cart_count = count($request->session()->get('cart'));
+
+        // Количество товара в корзине более 9
+        if ($cart_count > 9) {
+            $cart_count = 9;
+        }
+
+        return $cart_count;
+    }
+
+    public function ajax_plus_cart(Request $request)
+    {   
+        $id = $request->input('id');
+
+        $cart_items = $request->session()->get('cart');
+
+        $cart_items[$id] = $cart_items[$id] + 1;
+
+        $request->session()->put('cart.' . $id, $cart_items[$id]);
+
+        return false;
+    }
+
+    public function ajax_minus_cart(Request $request)
+    {   
+        $id = $request->input('id');
+
+        $cart_items = $request->session()->get('cart');
+
+        $cart_items[$id] = $cart_items[$id] - 1;
+        
+        if ($cart_items[$id] > 1) {
+            $request->session()->put('cart.' . $id, $cart_items[$id]);
+        }
+
+        return false;
+    }
+
+    
+
+
     public function ajax_add_to_favourites(Request $request)
     {
         $id = $request->input('id');
@@ -295,6 +373,11 @@ class MainController extends Controller
         }
 
         $favourites_count = count($request->session()->get('favourites'));
+
+        // Количество товара в избранном более 9
+        if ($favourites_count > 9) {
+            $favourites_count = 9;
+        }
 
         return $favourites_count;
     }

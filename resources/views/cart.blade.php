@@ -16,7 +16,7 @@
   <div class="active">корзина</div>
 </div>
 
-<div class="cart">
+<div class="cart js-cart-page">
   <div class="content-wrapper">
     <div class="cart-title">Корзина</div>
   
@@ -45,9 +45,51 @@
     </div>
   </div>
 
-  @if($products->count() > 0)
-    
+  @if(count($products) > 0)
+    <div class="cart-items-wrapper">
+      @foreach($products as $product)
+        <div class="cart-item">
+          <div class="cart-item__title">{{ $product->title }}</div>
+          <div class="cart-item__image">
+            <img src="{{ asset('storage/uploads/products/' . $product->image) }}" alt="">
+          </div>
+          <div class="cart-item__price-wrapper">
+            @if($product->promo_price)
+              <div class="cart-item__old-price">
+                <span class="cart-item__value">{{ $product->retail_price }}</span>
+                <span class="cart-item__currency">&#8381;</span>
+              </div>
+              <div class="cart-item__price">
+                <span class="cart-item__value">{{ $product->promo_price }}</span>
+                <span class="cart-item__currency">&#8381;</span>
+              </div>
+            @else
+            <div class="cart-item__price">
+              <span class="cart-item__value">{{ $product->retail_price }}</span>
+              <span class="cart-item__currency">&nbsp;&#8381;</span>
+            </div>
+            @endif
+          </div>
+          <div class="cart-item__stock">в наличии {{ $product->stock }} &nbsp;шт</div>
+          
+          <div class="cart-item__quantity">
+            <button type="button" class="quantity-button quantity-minus" data-id="{{ $product->id }}">
+              <div class="circle"></div>
+            </button>
+            <input class="quantity-number" type="number" name="quantity" max="{{ $product->stock }}" min="1" step="1" data-id="{{ $product->id }}" value="{{ $product->quantity }}" readonly>
+            <button type="button" class="quantity-button quantity-plus" data-id="{{ $product->id }}">
+              <div class="circle"></div>
+            </button>
+          </div>
 
+          <form class="form cart-item__trash rm-from-cart-btn" action="/rmfromcart"  method="post">
+            <input type="hidden" name="id" value="{{ $product->id }}">
+            @csrf
+            <button type="submit" class="rm-from-cart-submit-btn">Удалить</button>
+          </form>
+        </div>
+      @endforeach
+    </div>
   @else
     <div class="cart-is-empty">
       <div class="container">

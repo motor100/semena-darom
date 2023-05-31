@@ -37,6 +37,8 @@ Route::get('/favourites', [MainController::class, 'favourites']);
 
 Route::get('/cart', [MainController::class, 'cart']);
 
+Route::post('/rmfromcart', [MainController::class, 'rm_from_cart']);
+
 Route::get('/politika-konfidencialnosti', [MainController::class, 'politika_konfidencialnosti']);
 
 Route::get('/polzovatelskoe-soglashenie-s-publichnoj-ofertoj', [MainController::class, 'polzovatelskoe_soglashenie_s_publichnoj_ofertoj']);
@@ -61,9 +63,14 @@ Route::post('/ajax/search', [MainController::class, 'ajax_search']);
 
 Route::post('/ajax/city-select', [MainController::class, 'ajax_city_select']);
 
-// Route::get('/ajax/addtofavourites', [MainController::class, 'ajax_add_to_favourites']);
+Route::post('/ajax/addtocart', [MainController::class, 'ajax_add_to_cart']);
+
+Route::post('/ajax/pluscart', [MainController::class, 'ajax_plus_cart']);
+
+Route::post('/ajax/minuscart', [MainController::class, 'ajax_minus_cart']);
 
 Route::post('/ajax/addtofavourites', [MainController::class, 'ajax_add_to_favourites']);
+
 
 Route::get('/dashboard', function () {
     return view('dashboard');
