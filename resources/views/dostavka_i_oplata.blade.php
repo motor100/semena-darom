@@ -21,7 +21,7 @@
     <div class="title-wrapper">
       <div class="row">
         <div class="col-md-8">
-          <div class="dostavka-i-oplata-title">Доставка <span class="light-green-text">по всей РФ</span></div>
+          <div class="dostavka-i-oplata-title page-title">Доставка <span class="light-green-text">по всей РФ</span></div>
           <div class="dostavka-i-oplata-description">Интернет-магазин «СеменаДаром» осуществляет доставку только в пределах Российской Федерации. Мы работаем с «Почтой России» и «CDEK»</div>
         </div>
         <div class="col-md-4">

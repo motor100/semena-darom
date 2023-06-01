@@ -268,6 +268,27 @@ document.addEventListener("DOMContentLoaded", () => {
       addToFavourites(item);
     }
   });
+
+
+  // Cart aside
+  let cartAsideProductsItems = document.querySelectorAll('.cart-aside-products .products-item'),
+      cartAsidePlaceOrderSumm = document.querySelector('.place-order-btn__summ'),
+      cartAsideTotal = 0;
+
+  cartAsideProductsItems.forEach((item) => {
+    const retailPrice = item.querySelector('.products-item__retail-price .products-item__value'),
+          promoPrice = item.querySelector('.products-item__promo-price .products-item__value'),
+          quantity = item.querySelector('.products-item__quantity');
+
+    if (promoPrice) {
+      cartAsideTotal += Number(promoPrice.innerText) * Number(quantity.innerText);
+    } else {
+      cartAsideTotal += Number(retailPrice.innerText) * Number(quantity.innerText);
+    }
+  });
+  
+  cartAsidePlaceOrderSumm.innerText = cartAsideTotal;
+
   
 
   // Окна

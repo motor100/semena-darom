@@ -162,12 +162,14 @@
                 <img src="{{ asset('img/percent-icon.png') }}" alt="">
               </div>
               <div class="aside-nav-item__title">Акции</div>
+              <a href="{{ route('catalog', ['category' => 'akcii']) }}" class="full-link"></a>
             </div>
             <div class="aside-nav-item">
               <div class="aside-nav-item__image">
                 <img src="{{ asset('img/package-icon.png') }}" alt="">
               </div>
               <div class="aside-nav-item__title">Новинки</div>
+              <a href="{{ route('catalog', ['category' => 'novinki']) }}" class="full-link"></a>
             </div>
             @foreach($parent_category as $cat)
               @if($cat->count_children > 0)
@@ -177,6 +179,7 @@
                       <img src="{{ asset('storage/uploads/categories/' . $ct->image) }}" alt="">
                     </div>
                     <div class="aside-nav-item__title">{{ $ct->title }}</div>
+                    <a href="{{ route('catalog', ['category' => $ct->slug]) }}" class="full-link"></a>
                   </div>
                 @endforeach
               @else
@@ -185,6 +188,7 @@
                     <img src="{{ asset('storage/uploads/categories/' . $cat->image) }}" alt="">
                   </div>
                   <div class="aside-nav-item__title">{{ $cat->title }}</div>
+                  <a href="{{ route('catalog', ['category' => $cat->slug]) }}" class="full-link"></a>
                 </div>
               @endif
             @endforeach
@@ -193,8 +197,57 @@
         <div class="col-xxl-7 col-md-10">
           @yield('content')
         </div>
-        <!-- <div class="col-xxl-3 d-none d-xxl-block">Корзина</div> -->
-        
+        <div class="col-xxl-3 d-none d-xxl-block">
+          <div class="cart-aside">
+            <div class="cart-aside-title-wrapper">
+              <div class="cart-aside-title">Корзина</div>
+              <div class="cart-aside-clear-cart">
+                <a href="/clear-cart" class="cart-aside-clear-cart__link">очистить</a>
+              </div>
+            </div>
+            <div class="cart-aside-products">
+              @foreach($products_in_cart as $product)
+                <div class="products-item">
+                  <div class="products-item__image">
+                    <img src="{{ asset('storage/uploads/products/' . $product->image) }}" alt="">
+                  </div>
+                  <div class="products-item__content">
+                    <div class="products-item__title">{{ $product->short_title }}</div>
+                    <div class="products-item-price-wrapper">
+                      @if($product->promo_price)
+                        <div class="products-item__price products-item__promo-price red-text">
+                          <span class="products-item__value">{{ $product->promo_price }}</span>
+                          <span class="products-item__currency">&#8381;</span>
+                        </div>
+                        <div class="products-item__old-price item__old-price">
+                          <span class="products-item__value">{{ $product->retail_price }}</span>
+                          <span class="products-item__currency">&#8381;</span>
+                          <span class="line-through"></span>
+                        </div>
+                      @else
+                        <div class="products-item__price products-item__retail-price">
+                          <span class="products-item__value">{{ $product->retail_price }}</span>
+                          <span class="products-item__currency">&#8381;</span>
+                          <span class="line-through"></span>
+                        </div>
+                      @endif
+                    </div>
+                    <div class="products-item__quantity">{{ $product->quantity }}</div>
+                  </div>
+                </div>
+              @endforeach
+            </div>
+            <div class="grey-line"></div>
+            <div class="place-order-btn">
+              <div class="place-order-btn__text">Оформить заказ</div>
+              <div class="place-order-btn__total">
+                <span class="place-order-btn__summ">0</span>
+                <span class="place-order-btn__currency">&#8381;</span>
+              </div>
+              <a href="/cart" class="full-link"></a>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   </div>
@@ -324,63 +377,7 @@
   <div class="container-fluid">
     <div class="row">
       <div class="col-md-3">
-        <div class="cart-aside">
-          <div class="cart-aside-title-wrapper">
-            <div class="cart-aside-title">Корзина</div>
-            <div class="cart-aside-clear-cart">очистить</div>
-          </div>
-          <div class="cart-aside-products">
-            <div class="products-item">
-              <div class="products-item__image">
-                <img src="/img/cart-aside-image.jpg" alt="">
-              </div>
-              <div class="products-item__content">
-                <div class="products-item__title">Огурцы</div>
-                <div class="products-item__price light-green-text">34 ₽</div>
-              </div>
-            </div>
-            <div class="products-item">
-              <div class="products-item__image">
-                <img src="/img/cart-aside-image.jpg" alt="">
-              </div>
-              <div class="products-item__content">
-                <div class="products-item__title">Капуста СОНЬКИНА ЛЮБОВЬ F1</div>
-                <div class="products-item-price-wrapper">
-                  <!-- @ if(->promo_price) -->
-                    <div class="products-item__price products-item__promo-price red-text">
-                      <span class="products-item__value">46</span>
-                      <span class="products-item__currency">&#8381;</span>
-                    </div>
-                    <div class="products-item__old-price">
-                      <span class="products-item__value">48</span>
-                      <span class="products-item__currency">&#8381;</span>
-                      <span class="line-through"></span>
-                    </div>
-                  <!-- @ else -->
-                    <!-- <div class="products-item__price">34 ₽</div> -->
-                  <!-- @ endif -->
-                </div>
-              </div>
-            </div>
-            <div class="products-item">
-              <div class="products-item__image">
-                <img src="/img/cart-aside-image.jpg" alt="">
-              </div>
-              <div class="products-item__content">
-                <div class="products-item__title">Перец сладкий Геракл</div>
-                <div class="products-item__price light-green-text">34 ₽</div>
-              </div>
-            </div>
-          </div>
-          <div class="grey-line"></div>
-          <div class="place-order-btn">
-            <div class="place-order-btn__text">Оформить заказ</div>
-            <div class="place-order-btn__total">
-              <span class="place-order-btn__summ">1 378</span>
-              <span class="place-order-btn__currency">&#8381;</span>
-            </div>
-          </div>
-        </div>
+        
       </div>
     </div>
   </div>
@@ -474,12 +471,14 @@
             <img src="{{ asset('img/percent-icon.png') }}" alt="">
           </div>
           <div class="aside-nav-item__title">Акции</div>
+          <a href="{{ route('catalog', ['category' => 'akcii']) }}" class="full-link"></a>
         </div>
         <div class="aside-nav-item">
           <div class="aside-nav-item__image">
             <img src="{{ asset('img/package-icon.png') }}" alt="">
           </div>
           <div class="aside-nav-item__title">Новинки</div>
+          <a href="{{ route('catalog', ['category' => 'novinki']) }}" class="full-link"></a>
         </div>
         @foreach($parent_category as $cat)
           @if($cat->count_children > 0)
@@ -489,6 +488,7 @@
                   <img src="{{ asset('storage/uploads/categories/' . $ct->image) }}" alt="">
                 </div>
                 <div class="aside-nav-item__title">{{ $ct->title }}</div>
+                <a href="{{ route('catalog', ['category' => $ct->slug]) }}" class="full-link"></a>
               </div>
             @endforeach
           @else
@@ -497,6 +497,7 @@
                 <img src="{{ asset('storage/uploads/categories/' . $cat->image) }}" alt="">
               </div>
               <div class="aside-nav-item__title">{{ $cat->title }}</div>
+              <a href="{{ route('catalog', ['category' => $cat->slug]) }}" class="full-link"></a>
             </div>
           @endif
         @endforeach

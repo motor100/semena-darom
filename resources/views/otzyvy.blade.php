@@ -18,7 +18,7 @@
 
 <div class="otzyvy">
   <div class="content-wrapper">
-    <div class="otzyvy-title">Отзывы о магазине<br> <span class="light-green-text text-uppercase">Семена Даром</span></div>
+    <div class="otzyvy-title page-title">Отзывы о магазине<br> <span class="light-green-text text-uppercase">Семена Даром</span></div>
     <a href="#add-comment" class="add-comment-btn">Оставить комментарий</a>
 
     <div class="testimonials">

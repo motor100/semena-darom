@@ -18,7 +18,7 @@
 
 <div class="kak-zakazat">
   <div class="content-wrapper">
-    <div class="kak-zakazat-title">Как <span class="light-green-text">заказать</span></div>
+    <div class="kak-zakazat-title page-title">Как <span class="light-green-text">заказать</span></div>
     <div class="kak-zakazat-item">
       <div class="row">
         <div class="col-md-5">

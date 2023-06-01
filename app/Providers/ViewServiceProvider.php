@@ -50,11 +50,26 @@ class ViewServiceProvider extends ServiceProvider
             $view->with('cities', \App\Models\City::get());
             */
 
-            // Products in cart
+            // Count products in cart
             $cart_items = session()->get('cart');
             if ($cart_items) {
                 $cart_count = count($cart_items);
                 $view->with('cart_count', $cart_count);
+            }
+
+            // Products in cart
+            if ($cart_items) {
+                $keys = array_keys($cart_items);
+                $products_in_cart = \App\Models\Product::whereIn('id', $keys)->get();
+                foreach ($products_in_cart as $product) {
+                    $product->quantity = $cart_items[$product->id];
+                }
+                $products_in_cart->each(function ($item) {
+                    $item->short_title = \Illuminate\Support\Str::limit($item->title, 38, '...');
+                    $item->retail_price = str_replace('.0', '', $item->retail_price);
+                    $item->promo_price = str_replace('.0', '', $item->promo_price);
+                });
+                $view->with('products_in_cart', $products_in_cart);
             }
 
             // Products in favourites

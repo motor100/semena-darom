@@ -21,8 +21,8 @@
     <div class="o-kompanii-item">
       <div class="row">
         <div class="col-md-7">
-          <div class="o-kompanii-title">Интернет-магазин СЕМЕНА <span class="light-green-text">ДАРОМ</span></div>
-          <div class="o-kompanii-description">Интернет магазин «СЕМЕНАДАРОМ» (ООО «Уральские Семена») представляет на рынке семена от ЧЕЛЯБИНСКОЙ СЕЛЕКЦИОННОЙ СТАНЦИИ.</div>
+          <div class="o-kompanii-title page-title">Интернет-магазин СЕМЕНА <span class="light-green-text">ДАРОМ</span></div>
+          <div class="o-kompanii-description">Интернет магазин «СЕМЕНА ДАРОМ» (ООО «Уральские Семена») представляет на рынке семена от ЧЕЛЯБИНСКОЙ СЕЛЕКЦИОННОЙ СТАНЦИИ.</div>
         </div>
         <div class="col-md-5">
           <div class="o-kompanii-image">

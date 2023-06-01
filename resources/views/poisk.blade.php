@@ -20,9 +20,12 @@
   <div class="content-wrapper">
 
     @if (count($products) > 0)
-
+      <div class="poisk-title page-title">Поиск</div>
+      @foreach($products as $product)
+        <p>{{ $product->title }}</p>
+      @endforeach
     @else
-      <div class="poisk-title">По запросу «{{ $q }}» ничего не найдено</div>
+      <div class="poisk-title page-title">По запросу «{{ $q }}» ничего не найдено</div>
       <div class="no-products-found">
         <div class="no-products-found-content">
           <div class="no-products-found-image">

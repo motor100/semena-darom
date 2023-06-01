@@ -56,25 +56,68 @@ class MainController extends Controller
         return view('kontakty');
     }
 
-    public function catalog()
+    public function catalog(Request $request)
     {
+        // Get query param
+        $query_category = $request->query('category');
+        
         // Categories
         // Get all categories
         $categories = \App\Models\Category::all();
 
-        return view('catalog', compact('categories'));
+        // Get parent categories
+        $parent_category = $categories->where('parent', '0');
+
+        // Products
+        // Get products with query param
+        $category = false;
+        if($query_category) {
+            $category = $categories->where('slug', $query_category)->first();
+        }
+        
+        if($category) {
+            $products = Product::where('category_id', $category->id)->orderBy('id', 'desc')->get();
+            $products_count = $products->count();
+            $products = $products->take(20);
+            $category_title = $category->title;
+
+            $step = 20;
+            $page_max = ceil( $products_count / $step);
+
+            return view('catalog', compact('products', 'parent_category', 'category_title', 'products_count', 'page_max'));
+        } else {
+            $products = Product::orderBy('id', 'desc')->get();
+            $products_count = $products->count();
+            $products = $products->take(20);
+
+            $step = 20;
+            $page_max = ceil( $products_count / $step);
+
+            return view('catalog', compact('products', 'parent_category', 'products_count', 'page_max'));
+        }
     }
 
     public function single_product($slug)
     {
-        if (is_string($slug) && strlen($slug) > 3 && strlen($slug) < 100) {
+        if (strlen($slug) > 3 && strlen($slug) < 100) {
 
-            $single_product = Product::where('slug', $slug)->first();
-            $single_product->retail_price = str_replace('.0', '', $single_product->retail_price);
-            $single_product->promo_price = str_replace('.0', '', $single_product->promo_price);
+            $product = Product::where('slug', $slug)->first();
 
-            if ($single_product) {
-                return view('single_product', compact('single_product'));
+            if ($product) {
+                $product->retail_price = str_replace('.0', '', $product->retail_price);
+                $product->promo_price = str_replace('.0', '', $product->promo_price);
+                
+                // Заголовок в 2 цвета
+                $words_array = explode(" ", $product->title);
+                if (count($words_array) > 1) {
+                    $first_word = "<span class=\"grey-text\">" . $words_array[0] . "</span>";
+                    $words_array[0] = $first_word;
+                    $product->color_title = implode(" ", $words_array);
+                } else {
+                    $product->color_title = "<span class=\"grey-text\">" . $product->title . "</span>";
+                }
+
+                return view('single_product', compact('product'));
             } else {
                 return abort(404);
             }
@@ -93,6 +136,12 @@ class MainController extends Controller
         }
 
         return view('favourites', compact('products'));
+    }
+
+    public function clear_favourites()
+    {
+        session()->pull('favourites', 'default');
+        return redirect('/favourites');
     }
 
     public function cart(Request $request)
@@ -124,7 +173,7 @@ class MainController extends Controller
             $products->each(function ($item) {
                 $item->retail_price = str_replace('.0', '', $item->retail_price);
                 $item->promo_price = str_replace('.0', '', $item->promo_price);
-            });            
+            });
         }
 
         return view('cart', compact('products'));
@@ -140,6 +189,12 @@ class MainController extends Controller
         // $cart_count = count($request->session()->get('cart'));
 
         // return $cart_count;
+        return redirect('/cart');
+    }
+
+    public function clear_cart()
+    {
+        session()->pull('cart', 'default');
         return redirect('/cart');
     }
 

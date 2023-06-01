@@ -16,19 +16,17 @@
   <div class="active">каталог</div>
 </div>
 
-<div class="kontakty">
-  <div class="page-title">Каталог</div>
+<div class="catalog">
+  @if(isset($category_title))
+    <div class="page-title">{{ $category_title }}</div>
+  @else
+    <div class="page-title">Каталог</div>
+  @endif
 
-  <div class="content-wrapper">
+  @foreach($products as $product)
+    <p>{{ $product->title }}</p>
+  @endforeach
 
-    <p>Категории</p>
-    <div class="categories">
-      @foreach($categories as $cat)
-        <p>{{ $cat->title }}</p>
-      @endforeach
-    </div>
-
-  </div>
   
 </div> 
 

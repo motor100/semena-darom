@@ -18,7 +18,7 @@
 
 <div class="kontakty">
   <div class="content-wrapper">
-    <div class="kontakty-title">Контакты</div>
+    <div class="kontakty-title page-title">Контакты</div>
     <div class="company-name">Общество с ограниченной ответственностью - ООО "Уральские Семена"</div>
     <div class="flex-container">
       <div class="kontakty-item">
