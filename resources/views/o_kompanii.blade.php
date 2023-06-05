@@ -21,7 +21,7 @@
     <div class="o-kompanii-item">
       <div class="row">
         <div class="col-md-7">
-          <div class="o-kompanii-title page-title">Интернет-магазин СЕМЕНА <span class="light-green-text">ДАРОМ</span></div>
+          <div class="o-kompanii-title page-title">Интернет-магазин СЕМЕНА <span class="green-text">ДАРОМ</span></div>
           <div class="o-kompanii-description">Интернет магазин «СЕМЕНА ДАРОМ» (ООО «Уральские Семена») представляет на рынке семена от ЧЕЛЯБИНСКОЙ СЕЛЕКЦИОННОЙ СТАНЦИИ.</div>
         </div>
         <div class="col-md-5">
@@ -56,7 +56,7 @@
     <div class="o-kompanii-item">
       <div class="row">
         <div class="col-md-5">
-          <div class="o-kompanii-subtitle"><span class="light-green-text">Ежегодно</span>, <br>перед каждым новым сезоном</div>
+          <div class="page-subtitle"><span class="green-text">Ежегодно</span>, <br>перед каждым новым сезоном</div>
         </div>
         <div class="col-md-7">
           <p>Все наши семена проходят проверку на качество (энергия роста, всхожесть, чистоту, влажность и др.) в ФГУ «Россельхозцентр» по Челябинской области.</p>
@@ -68,7 +68,7 @@
     <div class="o-kompanii-item">
       <div class="purple-accent">
         <div class="title-wrapper">
-          <div class="o-kompanii-subtitle purple-accent-title">У нас Вы можете купить челябинские селекционные семена: цветов, овощей и ягод</div>
+          <div class="page-subtitle purple-accent-title">У нас Вы можете купить челябинские селекционные семена: цветов, овощей и ягод</div>
           <a href="/catalog" class="catalog-btn">Перейти в каталог</a>
         </div>
         <div class="o-kompanii-image">
@@ -82,7 +82,7 @@
     <div class="o-kompanii-item">
       <div class="row">
         <div class="col-md-5">
-          <div class="o-kompanii-subtitle o-kompanii-stock-title"><span class="light-green-text">Лучшие Условия</span> Хранения Семян</div>
+          <div class="page-subtitle o-kompanii-stock-title"><span class="green-text">Лучшие Условия</span> Хранения Семян</div>
           <div class="o-kompanii-image o-kompanii-stock-image">
             <img src="/img/o-kompanii-stock1.jpg" alt="">
           </div>
@@ -182,7 +182,7 @@
       </div>
     </div>
     <div class="feedback">
-      <div class="feedback-title">Если у Вас появятся любого рода вопросы, знайте мы тут, чтобы помочь Вам разобраться с ними.</div>
+      <div class="page-subtitle feedback-title">Если у Вас появятся любого рода вопросы, знайте мы тут, чтобы помочь Вам разобраться с ними.</div>
       <form id="callback-modal-form" class="form" action="" method="post">
         <div class="form-title">Ваши контакты:</div>
         <div class="flex-container top-flex-container">
@@ -214,7 +214,7 @@
     <div class="contacts">
       <div class="row">
         <div class="col-md-4">
-          <div class="contacts-title">Наши <span class="light-green-text">контакты</span></div>
+          <div class="contacts-title">Наши <span class="green-text">контакты</span></div>
         </div>
         <div class="col-md-8">
           <div class="contacts-item">Связаться с нами Вы можете любым удобным для Вас способом <span class="light-grey-text">(телефон, имейл, онлайн консультант)</span></div>

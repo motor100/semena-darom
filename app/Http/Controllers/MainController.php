@@ -200,23 +200,27 @@ class MainController extends Controller
 
     public function politika_konfidencialnosti()
     {
-        $page = \App\Models\Page::where('id', 2)->first();
+        // $page = \App\Models\Page::where('id', 2)->first();
 
-        return view('text-page', compact('page'));
+        // return view('text-page', compact('page'));
+        return view('politika-konfidencialnosti');
     }
 
     public function polzovatelskoe_soglashenie_s_publichnoj_ofertoj()
     {
-        $page = \App\Models\Page::where('id', 1)->first();
+        // $page = \App\Models\Page::where('id', 1)->first();
 
-        return view('text-page', compact('page'));
+        // return view('text-page', compact('page'));
+
+        return view('polzovatelskoe-soglashenie-s-publichnoj-ofertoj');
     }
 
     public function garantiya_vozvrata_denezhnyh_sredstv()
     {
-        $page = \App\Models\Page::where('id', 3)->first();
+        // $page = \App\Models\Page::where('id', 3)->first();
 
-        return view('text-page', compact('page'));
+        // return view('text-page', compact('page'));
+        return view('garantiya-vozvrata-denezhnyh-sredstv');
     }
 
     public function kak_zakazat()

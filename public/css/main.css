@@ -147,14 +147,24 @@ p {
   font-size: 45px;
   line-height: 1.2;
 }
-/* .light-green-text {
+.page-subtitle {
+  margin: 0 0 20px 0;
+  font-family: 'arimo-semibold';
+  font-size: 32px;
+  text-transform: uppercase;
+  line-height: 1.2;
+}
+.green-text {
   color: var(--m-main-green);
-} */
+}
 .red-text {
   color: var(--m-magenta) !important;
 }
 .text-uppercase {
   text-transform: uppercase;
+}
+.text-semibold {
+  font-family: 'arimo-semibold';
 }
 .item__old-price {
   position: relative;
@@ -1213,12 +1223,6 @@ p {
   height: 100%;
   object-fit: cover;
 }
-.o-kompanii .o-kompanii-subtitle {
-  font-family: 'arimo-semibold';
-  font-size: 32px;
-  text-transform: uppercase;
-  line-height: 1.2;
-}
 .o-kompanii .purple-accent {
   display: flex;
   padding: 40px;
@@ -1299,10 +1303,7 @@ p {
   color: #fff;
 }
 .o-kompanii .feedback .feedback-title {
-  margin: 0 0 30px 0;
-  font-family: 'arimo-semibold';
-  font-size: 32px;
-  line-height: 1.2;
+  text-transform: none;
 }
 .o-kompanii .feedback .form .form-title {
   margin: 0 0 30px 0;
@@ -1378,11 +1379,11 @@ p {
   color: #fff;
   text-decoration: underline;
 }
-.o-kompanii .contacts .contacts-title {
+/* .o-kompanii .contacts .contacts-title {
   font-family: 'arimo-semibold';
   font-size: 32px;
   text-transform: uppercase;
-}
+} */
 .o-kompanii .contacts .light-grey-text {
   color: var(--m-light-grey);
 }
@@ -1409,13 +1410,6 @@ p {
 }
 .dostavka-i-oplata .warranty {
   margin: 0 0 60px 0;
-}
-.dostavka-i-oplata .dostavka-i-oplata-item-subtitle {
-  margin: 0 0 16px 0;
-  font-family: 'arimo-semibold';
-  font-size: 32px;
-  text-transform: uppercase;
-  line-height: 1.2;
 }
 .dostavka-i-oplata .warranty .warranty-title {
   color: #363636;
@@ -1860,10 +1854,6 @@ p {
 .cart .cart-item .cart-item__quantity .quantity-plus .circle:after {
   transform: rotate(90deg);
 }
-
-
-
-
 .cart .cart-is-empty .cart-is-empty-image img {
   width: 100%;
 }
@@ -2001,9 +1991,6 @@ p {
   color: var(--m-text);
 }
 
-/* cart */
-
-
 
 
 
@@ -2033,6 +2020,11 @@ p {
 }
 .otzyvy .namefile {
   margin-left: 10px;
+}
+
+/* polzovatelskoe-soglashenie-s-publichnoj-ofertoj */
+.polzovatelskoe-soglashenie-s-publichnoj-ofertoj a {
+  color: var(--m-main-green);
 }
 
 /* breadcrumbs */
@@ -2508,7 +2500,6 @@ p {
 
   
 }
-
 
 
 @media only screen and (max-width : 480px) {

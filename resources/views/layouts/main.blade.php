@@ -206,36 +206,38 @@
               </div>
             </div>
             <div class="cart-aside-products">
-              @foreach($products_in_cart as $product)
-                <div class="products-item">
-                  <div class="products-item__image">
-                    <img src="{{ asset('storage/uploads/products/' . $product->image) }}" alt="">
-                  </div>
-                  <div class="products-item__content">
-                    <div class="products-item__title">{{ $product->short_title }}</div>
-                    <div class="products-item-price-wrapper">
-                      @if($product->promo_price)
-                        <div class="products-item__price products-item__promo-price red-text">
-                          <span class="products-item__value">{{ $product->promo_price }}</span>
-                          <span class="products-item__currency">&#8381;</span>
-                        </div>
-                        <div class="products-item__old-price item__old-price">
-                          <span class="products-item__value">{{ $product->retail_price }}</span>
-                          <span class="products-item__currency">&#8381;</span>
-                          <span class="line-through"></span>
-                        </div>
-                      @else
-                        <div class="products-item__price products-item__retail-price">
-                          <span class="products-item__value">{{ $product->retail_price }}</span>
-                          <span class="products-item__currency">&#8381;</span>
-                          <span class="line-through"></span>
-                        </div>
-                      @endif
+              @if(isset($cart_count))
+                @foreach($products_in_cart as $product)
+                  <div class="products-item">
+                    <div class="products-item__image">
+                      <img src="{{ asset('storage/uploads/products/' . $product->image) }}" alt="">
                     </div>
-                    <div class="products-item__quantity">{{ $product->quantity }}</div>
+                    <div class="products-item__content">
+                      <div class="products-item__title">{{ $product->short_title }}</div>
+                      <div class="products-item-price-wrapper">
+                        @if($product->promo_price)
+                          <div class="products-item__price products-item__promo-price red-text">
+                            <span class="products-item__value">{{ $product->promo_price }}</span>
+                            <span class="products-item__currency">&#8381;</span>
+                          </div>
+                          <div class="products-item__old-price item__old-price">
+                            <span class="products-item__value">{{ $product->retail_price }}</span>
+                            <span class="products-item__currency">&#8381;</span>
+                            <span class="line-through"></span>
+                          </div>
+                        @else
+                          <div class="products-item__price products-item__retail-price">
+                            <span class="products-item__value">{{ $product->retail_price }}</span>
+                            <span class="products-item__currency">&#8381;</span>
+                            <span class="line-through"></span>
+                          </div>
+                        @endif
+                      </div>
+                      <div class="products-item__quantity">{{ $product->quantity }}</div>
+                    </div>
                   </div>
-                </div>
-              @endforeach
+                @endforeach
+              @endif
             </div>
             <div class="grey-line"></div>
             <div class="place-order-btn">

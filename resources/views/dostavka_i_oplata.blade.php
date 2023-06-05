@@ -21,7 +21,7 @@
     <div class="title-wrapper">
       <div class="row">
         <div class="col-md-8">
-          <div class="dostavka-i-oplata-title page-title">Доставка <span class="light-green-text">по всей РФ</span></div>
+          <div class="dostavka-i-oplata-title page-title">Доставка <span class="green-text">по всей РФ</span></div>
           <div class="dostavka-i-oplata-description">Интернет-магазин «СеменаДаром» осуществляет доставку только в пределах Российской Федерации. Мы работаем с «Почтой России» и «CDEK»</div>
         </div>
         <div class="col-md-4">
@@ -61,7 +61,7 @@
       <a href="#" class="full-link"></a>
     </div>
     <div class="warranty">
-      <div class="warranty-title dostavka-i-oplata-item-subtitle">Гарантии</div>
+      <div class="warranty-title page-subtitle">Гарантии</div>
       <div class="row">
         <div class="col-md-6">
           <div class="warranty-item">
@@ -98,7 +98,7 @@
       </div>
     </div>
     <div class="payment">
-      <div class="payment-title dostavka-i-oplata-item-subtitle"><span class="light-green-text">Оплата</span></div>
+      <div class="payment-title page-subtitle"><span class="green-text">Оплата</span></div>
       <div class="payment-description">Интернет-магазин «СеменаДаром» принимает оплату следующими способами:</div>
       <div class="row">
         <div class="col-md-6">
@@ -124,7 +124,7 @@
         </div>
       </div>
       <div class="online-payment">
-        <div class="online-payment__text"><span class="light-green-text">Оплата Онлайн (Картой)</span></div>
+        <div class="online-payment__text"><span class="green-text">Оплата Онлайн (Картой)</span></div>
         <div class="online-payment__logos">
           <img src="/img/dostavka-i-oplata-payment-mastercard.png" alt="">
           <img src="/img/dostavka-i-oplata-payment-visa.png" alt="">
@@ -133,7 +133,7 @@
     </div>
     <div class="questions">
       <div class="questions-item">
-        <div class="dostavka-i-oplata-item-subtitle">Как выглядит<br> <span class="light-green-text">процесс платежа</span></div>
+        <div class="page-subtitle">Как выглядит<br> <span class="green-text">процесс платежа</span></div>
         <div class="questions-item__view-more">
           <a href="#" class="view-more-btn">подробнее</a>
           <div class="arrow arrow-up">
@@ -147,7 +147,7 @@
         </div>
       </div>
       <div class="questions-item">
-        <div class="dostavka-i-oplata-item-subtitle">Как проходит процесс<br> <span class="light-green-text">передачи Ваших данных</span></div>
+        <div class="page-subtitle">Как проходит процесс<br> <span class="green-text">передачи Ваших данных</span></div>
         <div class="questions-item__view-more">
           <a href="#" class="view-more-btn">подробнее</a>
           <div class="arrow arrow-down">
@@ -156,7 +156,7 @@
         </div>
       </div>
       <div class="questions-item"> 
-        <div class="dostavka-i-oplata-item-subtitle">Стоимость<br> <span class="light-green-text">Товара и Доставки</span></div>
+        <div class="page-subtitle">Стоимость<br> <span class="green-text">Товара и Доставки</span></div>
         <div class="questions-item__view-more">
           <a href="#" class="view-more-btn">подробнее</a>
           <div class="arrow arrow-down">
@@ -165,7 +165,7 @@
         </div>
       </div>
       <div class="questions-item"> 
-        <div class="dostavka-i-oplata-item-subtitle">Как происходит возврат оплаты<br> <span class="light-green-text">в случае отказа клиентом от товара</span></div>
+        <div class="page-subtitle">Как происходит возврат оплаты<br> <span class="green-text">в случае отказа клиентом от товара</span></div>
         <div class="questions-item__view-more">
           <a href="#" class="view-more-btn">подробнее</a>
           <div class="arrow arrow-up">
@@ -190,10 +190,10 @@
           <div class="product-return-item">1. Если нет товара на складе и Вы по ошибке сделали заказ - мы вернем Вам деньги (комиссия за наш счет)</div>
         </div>
         <div class="col-md-4">
-          <div class="product-return-item">2. Если товар не отправлен до 3-х рабочих дней, Вы можете отписать на почту <span class="light-green-text">info@semena-darom.ru</span> и вернуть деньги</div>
+          <div class="product-return-item">2. Если товар не отправлен до 3-х рабочих дней, Вы можете отписать на почту <span class="green-text">info@semena-darom.ru</span> и вернуть деньги</div>
         </div>
         <div class="col-md-4">
-          <div class="product-return-item">3. Если Вам пришел товар и он не надлежащего качества, Вы пишите нам на почту <span class="light-green-text">info@internet-magazin-semyan.ru</span> и мы возвращаем деньги</div>
+          <div class="product-return-item">3. Если Вам пришел товар и он не надлежащего качества, Вы пишите нам на почту <span class="green-text">info@internet-magazin-semyan.ru</span> и мы возвращаем деньги</div>
         </div>
       </div>
     </div>

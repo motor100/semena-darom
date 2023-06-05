@@ -20,7 +20,7 @@
   <div class="active">{{ $page->title }}</div>
 </div>
 
-<div class="polzovatelskoe-soglashenie-s-publichnoj-ofertoj">
+<div class="text-page">
   <div class="section-title-wrapper">
     <div class="section-title">
       <div class="section-title__text">{{ $page->title }}</div>
