@@ -37,8 +37,11 @@
    -->  
 
   <div class="min-order">
-    <div class="min-order-text">Еще <span class="min-order-counter">1 500</span> ₽ до минимального заказа</div>
-    <div class="min-order-grey-line"></div>
+    <div class="min-order-text">Еще <span class="min-order-counter"></span> ₽ до минимального заказа</div>
+    <div class="min-order-line">
+      <div class="min-order-grey-line"></div>
+      <div class="min-order-green-line"></div>
+    </div>
     <div class="cart-price">
       <img src="/img/cart-price.png" class="cart-price-image" alt="">
       <span class="cart-price-text">1500 ₽</span>

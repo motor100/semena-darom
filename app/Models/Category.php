@@ -10,5 +10,5 @@ class Category extends Model
     use HasFactory;
 
     // Connection
-    protected $connection = 'mysql2';
+    // protected $connection = 'mysql2';
 }

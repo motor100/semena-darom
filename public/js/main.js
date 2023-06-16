@@ -581,6 +581,9 @@ document.addEventListener("DOMContentLoaded", () => {
 
   if (cartPage) {
 
+    const totalSumm = 270;
+
+
     const cartItems = document.querySelectorAll('.cart-item');
 
     // Увеличение количество одного товара в корзине
@@ -650,7 +653,33 @@ document.addEventListener("DOMContentLoaded", () => {
     });
 
     
+    // Минимальный заказ
+    function minOrderCalc() {
+
+      // Остаток до миниманльной суммы
+      const minOrderCounter = document.querySelector('.min-order-counter');
+      
+      if (totalSumm <= 1500) {
+        minOrderCounter.innerText = (1500 - totalSumm).toLocaleString('ru');
+      } else {
+        minOrderCounter.innerText = 0;
+      }
+
+      // Зеленая полоса
+      const minOrderGreenLine = document.querySelector('.min-order-green-line');
+      
+      if (totalSumm <= 1500) {
+        minOrderGreenLine.style.width = totalSumm * 100 / 1500 + '%';
+      } else {
+        minOrderGreenLine.style.width = '100%';
+      }
+
+      return false;
+    }
+
+    minOrderCalc();
     
+
 
   }
 
