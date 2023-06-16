@@ -38,61 +38,50 @@
         </div>
       </div>
 
-      <div class="category-slider-wrapper">
-        <div class="category-slider swiper">
-          <div class="swiper-wrapper">
-            <div class="category-slider-item swiper-slide orange-bg">
-              <div class="slider-item-title">Огурцы</div>
-              <div class="slider-item-image">
-                <img src="/img/category-slider-cucumber.png" alt="">
-              </div>
+      <div class="categories-wrapper">
+        <div class="categories">
+          <div class="category-item orange-bg">
+            <div class="categories-item-title">Огурцы</div>
+            <div class="categories-item-image">
+              <img src="/img/category-cucumber.png" alt="">
             </div>
-            <div class="category-slider-item swiper-slide green-bg">
-              <div class="slider-item-title">Перцы</div>
-              <div class="slider-item-image">
-                <img src="/img/category-slider-cucumber.png" alt="">
-              </div>
-            </div>
-            <div class="category-slider-item swiper-slide purple-bg">
-              <div class="slider-item-title">Томаты</div>
-              <div class="slider-item-image">
-                <img src="/img/category-slider-cucumber.png" alt="">
-              </div>
-            </div>
-            <div class="category-slider-item swiper-slide red-bg">
-              <div class="slider-item-title">Овощи</div>
-              <div class="slider-item-image">
-                <img src="/img/category-slider-cucumber.png" alt="">
-              </div>
-            </div>
-            <div class="category-slider-item swiper-slide orange-bg">
-              <div class="slider-item-title">Цветы</div>
-              <div class="slider-item-image">
-                <img src="/img/category-slider-cucumber.png" alt="">
-              </div>
-            </div>
-            <div class="category-slider-item swiper-slide green-bg">
-              <div class="slider-item-title">Ягоды</div>
-              <div class="slider-item-image">
-                <img src="/img/category-slider-cucumber.png" alt="">
-              </div>
-            </div>
-            <div class="category-slider-item swiper-slide orange-bg">
-              <div class="slider-item-title">Огурцы</div>
-              <div class="slider-item-image">
-                <img src="/img/category-slider-cucumber.png" alt="">
-              </div>
-            </div>
-            <div class="category-slider-item swiper-slide green-bg">
-              <div class="slider-item-title">Огурцы</div>
-              <div class="slider-item-image">
-                <img src="/img/category-slider-cucumber.png" alt="">
-              </div>
-            </div>
+            <a href="{{ route('catalog', ['category' => 'ogurcy']) }}" class="full-link"></a>
           </div>
-        </div>
-        <div class="button-next category-button-next">
-          <div class="arrow-right"></div>
+          <div class="category-item green-bg">
+            <div class="categories-item-title">Перцы</div>
+            <div class="categories-item-image">
+              <img src="/img/category-pepper.png" alt="">
+            </div>
+            <a href="{{ route('catalog', ['category' => 'percy']) }}" class="full-link"></a>
+          </div>
+          <div class="category-item purple-bg">
+            <div class="categories-item-title">Томаты</div>
+            <div class="categories-item-image">
+              <img src="/img/category-tomatoes.png" alt="">
+            </div>
+            <a href="{{ route('catalog', ['category' => 'tomaty']) }}" class="full-link"></a>
+          </div>
+          <div class="category-item red-bg">
+            <div class="categories-item-title">Овощи</div>
+            <div class="categories-item-image">
+              <img src="/img/category-vegetables.png" alt="">
+            </div>
+            <a href="{{ route('catalog', ['category' => 'ovoshchi']) }}" class="full-link"></a>
+          </div>
+          <div class="category-item orange-bg">
+            <div class="categories-item-title">Цветы</div>
+            <div class="categories-item-image">
+              <img src="/img/category-flovers.png" alt="">
+            </div>
+            <a href="{{ route('catalog', ['category' => 'cvety']) }}" class="full-link"></a>
+          </div>
+          <div class="category-item green-bg">
+            <div class="categories-item-title">Ягоды</div>
+            <div class="categories-item-image">
+              <img src="/img/category-berries.png" alt="">
+            </div>
+            <a href="{{ route('catalog', ['category' => 'yagody']) }}" class="full-link"></a>
+          </div>
         </div>
       </div>
 
@@ -101,10 +90,8 @@
           <div class="grey-section__image">
             <img src="/img/first-order-percent.png" alt="">
           </div>
-          <div class="grey-section__text">Скидка 25% на первый заказ, подробнее</div>
+          <div class="grey-section__text">Скидка 25% на первый заказ</div>
         </div>
-        <div class="corner-right"></div>
-        <a href="#" class="full-link"></a>
       </div>
     </div>
 

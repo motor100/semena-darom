@@ -90,6 +90,28 @@
         </div>
       </div>
     </div>
+
+    <div class="top-menu">
+      <div class="container-fluid">
+        <ul class="menu">
+          <li class="menu-item">
+            <a href="/o-kompanii">О компании</a>
+          </li>
+          <li class="menu-item">
+            <a href="/dostavka-i-oplata">Доставка и оплата</a>
+          </li>
+          <li class="menu-item">
+            <a href="/otzyvy">Отзывы</a>
+          </li>
+          <li class="menu-item">
+            <a href="/kontakty">Контакты</a>
+          </li>
+          <li class="menu-item">
+            <a href="/catalog">Каталог</a>
+          </li>
+        </ul>
+      </div>
+    </div>
     
     <div class="advantages">
       <div class="container-fluid">
@@ -125,28 +147,6 @@
             <div class="advantages-item__text">Минимальная сумма заказа 1 500 ₽</div>
           </div>
         </div>
-      </div>
-    </div>
-
-    <div class="container-fluid">
-      <div class="top-menu">
-        <ul class="menu">
-          <li class="menu-item">
-            <a href="/o-kompanii">О компании</a>
-          </li>
-          <li class="menu-item">
-            <a href="/dostavka-i-oplata">Доставка и оплата</a>
-          </li>
-          <li class="menu-item">
-            <a href="/otzyvy">Отзывы</a>
-          </li>
-          <li class="menu-item">
-            <a href="/kontakty">Контакты</a>
-          </li>
-          <li class="menu-item">
-            <a href="/catalog">Каталог</a>
-          </li>
-        </ul>
       </div>
     </div>
   </header>
