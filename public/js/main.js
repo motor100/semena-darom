@@ -79,8 +79,9 @@ document.addEventListener("DOMContentLoaded", () => {
 
       fetch('/ajax/search', {
         method: 'POST',
+        headers: {'Content-Type':'application/x-www-form-urlencoded'},
         cache: 'no-cache',
-        body: new FormData(searchForm)
+        body: 'search_query=' + encodeURIComponent(searchInput.value) + '&_token=' + encodeURIComponent(token)
       })
       .then((response) => response.json())
       .then((json) => {
@@ -125,7 +126,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
           // Добавляю клик на ссылку Показать все результаты
           searchSeeAll.classList.add('search-see-all-active');
-          searchSeeAll.href = '/poisk?q=' + searchInput.value;
+          searchSeeAll.href = '/poisk?search_query=' + searchInput.value;
           searchSeeAll.onclick = searchResetForm;
         }
         
@@ -574,6 +575,73 @@ document.addEventListener("DOMContentLoaded", () => {
     if (inputMainFile) {
       inputMainFile.onchange = function() {
         mainFileText.innerHTML = this.files[0].name;
+      }
+    }
+
+    // Добавление отзывов
+    let testimonialForm = document.querySelector("#testimonial-form"),
+        testimonialsBtn = document.querySelector('.js-testimonial-btn');
+
+    testimonialsBtn.onclick = function() {
+      ajaxTestimonials(testimonialForm);
+    }
+
+    function ajaxTestimonials(form) {
+
+      let inputs = form.querySelectorAll('.input-field');
+      let arr = [];
+
+      let inputName = form.querySelector('#testimonial-name');
+      if (inputName.value.length < 3 || inputName.value.length > 50 ) {
+        inputName.classList.add('required');
+        arr.push(false);
+      }
+
+      let inputCity = form.querySelector('#testimonial-email');
+      if (inputCity.value.length < 3 || inputCity.value.length > 100 ) {
+        inputCity.classList.add('required');
+        arr.push(false);
+      }
+
+      let inputText = form.querySelector('#testimonial-text');
+      if (inputText.value.length < 3 || inputText.value.length > 1000 ) {
+        inputText.classList.add('required');
+        arr.push(false);
+      }
+
+      let inputCheckbox = form.querySelector('#checkbox-testimonial');
+      if (!inputCheckbox.checked) {
+        arr.push(false);
+      }
+
+      if (arr.length == 0) {
+        for (let i = 0; i < inputs.length; i++) {
+          inputs[i].classList.remove('required');
+        }
+        
+        fetch('/ajax/testimonial', {
+          method: 'POST',
+          cache: 'no-cache',
+          body: new FormData(form)
+        })
+        .then((response) => response.json())
+        .then((json) => {
+          // Если в объекте есть ключ message, то не найдено
+          if (typeof json.message !== "undefined") {
+            alert("Ошибка");
+          } else {
+            alert("Спасибо за отзыв.");
+          }
+        })
+        .catch((error) => {
+          console.log(error);
+        })
+
+        
+
+        
+
+        form.reset();
       }
     }
     

@@ -25,7 +25,7 @@
         <p>{{ $product->title }}</p>
       @endforeach
     @else
-      <div class="poisk-title page-title">По запросу «{{ $q }}» ничего не найдено</div>
+      <div class="poisk-title page-title">По запросу «{{ $search_query }}» ничего не найдено</div>
       <div class="no-products-found">
         <div class="no-products-found-content">
           <div class="no-products-found-image">

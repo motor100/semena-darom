@@ -18,8 +18,8 @@
 
 <div class="otzyvy">
   <div class="content-wrapper">
-    <div class="otzyvy-title page-title">Отзывы о магазине<br> <span class="light-green-text text-uppercase">Семена Даром</span></div>
-    <a href="#add-comment" class="add-comment-btn">Оставить комментарий</a>
+    <div class="otzyvy-title page-title">Отзывы о магазине<br> <span class="green-text text-uppercase">Семена Даром</span></div>
+    <a href="#add-testimonial" class="add-testimonial-btn">Оставить отзыв</a>
 
     <div class="testimonials">
       @foreach($testimonials as $testimonial)
@@ -43,48 +43,38 @@
       </div>
     </div>
 
-    <!-- Убрать если будет через ajax -->
-    @if($errors->any())
-      <div class="errors">
-        @foreach($errors->all() as $error)
-          <p>{{ $error }}</p>
-        @endforeach
-      </div>
-    @endif
-
     <div class="form-wrapper">
-      <div id="add-comment" class="form-title">Оставить комментарий</div>
-      <form class="form" action="/otzyvy-store" enctype="multipart/form-data" method="post">
-        <div class="form-group">
-          <label for="name">Имя</label>
-          <input type="text" name="name" id="name" minlength="3" maxlength="50" required>
+      <div id="add-testimonial" class="form-title">Оставить отзыв</div>
+      <form id="testimonial-form" class="form" enctype="multipart/form-data" method="post">
+        <div class="flex-container">
+          <div class="form-group">
+            <input type="text" name="name" id="testimonial-name" class="input-field" minlength="3" maxlength="50" required placeholder="Имя">
+          </div>
+          <div class="form-group">
+            <input type="email" name="email" id="testimonial-email" class="input-field" minlength="3" maxlength="100" required placeholder="Email">
+          </div>
         </div>
         <div class="form-group">
-          <label for="email">Email</label>
-          <input type="email" name="email" id="email" minlength="3" maxlength="100" required>
+          <textarea name="text" minlength="3" id="testimonial-text" class="textarea" maxlength="1000" required placeholder="Отзыв"></textarea>
         </div>
         <div class="form-group">
-          <label for="text">Комментарий</label>
-          <textarea name="text" minlength="3" id="text" maxlength="1000" required></textarea>
-        </div>
-        <div class="form-group">
-          <div class="label-text">Фото</div>
           <input type="file" name="file" id="input-main-file" class="inputfile" accept="image/jpeg,image/png">
-          <label for="input-main-file" class="custom-inputfile-label">Выберите файл</label>
+          <label for="input-main-file" class="custom-inputfile-label">Прикрепить файл</label>
           <span class="namefile main-file-text">Файл не выбран</span>
         </div>
         <div class="captcha">
           <div class="g-recaptcha" data-sitekey="{{ config('google.client_key') }}"></div>
         </div>
 
+        @csrf
+        <button type="button" class="submit-btn js-testimonial-btn">Оставить отзыв</button>
+
         <div class="checkbox-wrapper">
-          <input type="checkbox" name="checkbox" class="custom-checkbox" id="checkbox-callback-modal" checked required onchange="document.querySelector('.js-callback-modal-btn').disabled = !this.checked;">
-          <label for="checkbox-callback-modal" class="custom-checkbox-label"></label>
+          <input type="checkbox" name="checkbox" class="custom-checkbox" id="checkbox-testimonial" checked required onchange="document.querySelector('.js-testimonial-btn').disabled = !this.checked;">
+          <label for="checkbox-testimonial" class="custom-checkbox-label"></label>
           <span class="checkbox-text">Согласен с <a href="/politika-konfidencialnosti" class="privacy-policy-btn" target="_blank">политикой обработки персональных данных</a></span>
         </div>
 
-        @csrf
-        <input type="submit" class="submit-btn js-callback-modal-btn" value="Оставить комментарий">
       </form>
     </div>
 

@@ -57,9 +57,6 @@ Route::get('/sdek', [DeliveryController::class, 'sdek']);
 
 Route::get('/russian-post', [DeliveryController::class, 'russian_post']);
 
-Route::post('/otzyvy-store', [MainController::class, 'otzyvy_store']);
-
-
 
 Route::post('/ajax/callback', MailerController::class)->name('callback');
 
@@ -74,6 +71,8 @@ Route::post('/ajax/pluscart', [MainController::class, 'ajax_plus_cart']);
 Route::post('/ajax/minuscart', [MainController::class, 'ajax_minus_cart']);
 
 Route::post('/ajax/addtofavourites', [MainController::class, 'ajax_add_to_favourites']);
+
+Route::post('/ajax/testimonial', [MainController::class, 'ajax_testimonial']);
 
 
 Route::get('/dashboard', function () {

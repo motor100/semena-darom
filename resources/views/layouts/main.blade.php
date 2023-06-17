@@ -34,8 +34,7 @@
             </div>
             <form class="search-form" action="/poisk" method="get">
               <div class="form-container">
-                <input type="text" name="q" class="search-input" minlength="3" maxlength="20" autocomplete="off" required placeholder="Искать товары">
-                @csrf
+                <input type="text" name="search_query" class="search-input" minlength="3" maxlength="20" autocomplete="off" required placeholder="Искать товары">
                 <button type="submit" class="submit-btn">
                   <img src="/img/header-search-btn.svg" alt="">
                 </button>
@@ -48,9 +47,12 @@
             </form>
           </div>
           <div class="side">
-            <div id="city-select-btn" class="city-select">
+            <?php if (empty($_COOKIE['city'])) { ?>
+              <div id="city-select-btn" class="city-select">
+            <?php } else { ?>
+              <div id="city-select-btn" class="city-select active">
+            <?php } ?>
               <div class="city-select__image">
-                <!-- <img src="/img/header-geolocation.svg" alt=""> -->
                 <svg width="15" height="19" viewBox="0 0 15 19" fill="none" xmlns="http://www.w3.org/2000/svg">
                   <path d="M7.50039 10.1538C8.93633 10.1538 10.1004 8.98289 10.1004 7.53845C10.1004 6.09401 8.93633 4.92307 7.50039 4.92307C6.06445 4.92307 4.90039 6.09401 4.90039 7.53845C4.90039 8.98289 6.06445 10.1538 7.50039 10.1538Z" stroke-linecap="round" stroke-linejoin="round"/>
                   <path d="M14 7.53846C14 13.4231 7.5 18 7.5 18C7.5 18 1 13.4231 1 7.53846C1 5.80435 1.68482 4.14127 2.90381 2.91507C4.12279 1.68887 5.77609 1 7.5 1C9.22391 1 10.8772 1.68887 12.0962 2.91507C13.3152 4.14127 14 5.80435 14 7.53846Z" stroke-linecap="round" stroke-linejoin="round"/>

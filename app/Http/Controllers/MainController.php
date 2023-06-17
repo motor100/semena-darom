@@ -8,6 +8,7 @@ use App\Models\MainSlider;
 use App\Models\Testimonial;
 use Illuminate\Support\Str;
 
+
 class MainController extends Controller
 {
     public function home()
@@ -40,7 +41,10 @@ class MainController extends Controller
 
     public function otzyvy()
     {
-        $testimonials = Testimonial::limit(60)->orderBy('id', 'desc')->get();
+        $testimonials = Testimonial::whereNotNull('publicated_at')
+                                    ->limit(60)
+                                    ->orderBy('id', 'desc')
+                                    ->get();
 
         $testimonials->each(function ($item) {
             $item->short_created_at = $item->created_at->format("d.m.Y");
@@ -231,79 +235,37 @@ class MainController extends Controller
     public function poisk(Request $request)
     {
         // Search
-        $q = $request->input('q');
+        $search_query = $request->input('search_query');
 
-        if (!$q) {
+        if (!$search_query) {
             return redirect('/');
         }
 
-        $q = htmlspecialchars($q);
+        $search_query = htmlspecialchars($search_query);
 
-        $products = Product::where('title', 'like', "%{$q}%")
-                            ->orWhere('text', 'like', "%{$q}%")
+        $products = Product::where('title', 'like', "%{$search_query}%")
+                            ->orWhere('text', 'like', "%{$search_query}%")
                             ->get();
 
         if (!$products) {
             return redirect('/');
         };
 
-        return view('poisk', compact('products', 'q'));
+        return view('poisk', compact('products', 'search_query'));
     }
 
-    public function otzyvy_store(Request $request)
-    {
-        $validated = $request->validate([
-            'name' => 'required|min:4|max:50',
-            'email' => 'required|min:3|max:100',
-            'text' => 'required|min:3|max:1000',
-            'g-recaptcha-response' => 'required',
-            'file' => [
-                'nullable',
-                \Illuminate\Validation\Rules\File::types(['jpg', 'png'])
-                                                    ->min(50)
-                                                    ->max(5 * 1024)
-            ],
-
-        ]);
-
-        // Google Captcha
-        $g_url = 'https://www.google.com/recaptcha/api/siteverify';
-
-        $g_params = [
-            'secret' => config('google.server_key'),
-            'response' => $validated["g-recaptcha-response"],
-        ];
-
-        $g_response = \Illuminate\Support\Facades\Http::asForm()->post($g_url, $g_params);
-
-        if (!$g_response->json('success')) {
-            return false;
-        }
-
-        // Автоматически генерировать уникальный идентификатор для имени файла
-        $path = \Illuminate\Support\Facades\Storage::putFile('public/testimonials', $validated["file"]);
-
-        // URL для файла \Illuminate\Support\Facades\Storage::url($модель->image)
-
-        return Testimonial::create([
-                    'name' => $validated["name"],
-                    'email' => $validated["email"],
-                    'text' => $validated["text"],
-                    'image' => $path
-                ]);
-    }
 
     public function ajax_search(Request $request)
     {
-        $product = $request->input('q');
+        $search_query = $request->input('search_query');
 
-        if (!$product) {
+        if (!$search_query) {
             return response()->json(['message' => 'error']);
         }
 
-        $product = htmlspecialchars($product);
+        $search_query = htmlspecialchars($search_query);
 
-        $products = Product::where('title', 'like', "%{$product}%")
+        $products = Product::where('title', 'like', "%{$search_query}%")
                             // если нужен поиск по тексту
                             // ->orWhere('text', 'like', "%{$product}%") 
                             ->get();
@@ -411,9 +373,6 @@ class MainController extends Controller
         return false;
     }
 
-    
-
-
     public function ajax_add_to_favourites(Request $request)
     {
         $id = $request->input('id');
@@ -445,5 +404,60 @@ class MainController extends Controller
 
         return $favourites_count;
     }
+
+    public function ajax_testimonial(Request $request)
+    {
+        $validator = \Illuminate\Support\Facades\Validator::make($request->all(), [
+            'name' => 'required|min:4|max:50',
+            'email' => 'required|min:3|max:100',
+            'text' => 'required|min:3|max:1000',
+            'g-recaptcha-response' => 'required',
+            'file' => [
+                'nullable',
+                \Illuminate\Validation\Rules\File::types(['jpg', 'png'])
+                                                    ->min(50)
+                                                    ->max(5 * 1024)
+            ],
+        ]);
+
+        if ($validator->fails()) {
+            return response()->json(['message' => 'error']);
+        }
+
+        $validated = $validator->validated();
+
+        // Google Captcha
+        $g_url = 'https://www.google.com/recaptcha/api/siteverify';
+
+        $g_params = [
+            'secret' => config('google.server_key'),
+            'response' => $validated["g-recaptcha-response"],
+        ];
+
+        $g_response = \Illuminate\Support\Facades\Http::asForm()->post($g_url, $g_params);
+
+        if (!$g_response->json('success')) {
+            return response()->json(['message' => 'error']);
+        }
+
+        $path = NULL;
+
+        if (array_key_exists("file", $validated)) {
+            // Автоматически генерировать уникальный идентификатор для имени файла
+            $path = \Illuminate\Support\Facades\Storage::putFile('public/testimonials', $validated["file"]);
+        }
+
+        $testimonial = Testimonial::create([
+                    'name' => $validated["name"],
+                    'email' => $validated["email"],
+                    'text' => $validated["text"],
+                    'image' => $path,
+                    'publicated_at' => NULL
+                ]);
+
+        return response()->json($testimonial);
+
+    }
+
 
 }

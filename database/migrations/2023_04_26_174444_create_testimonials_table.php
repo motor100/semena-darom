@@ -17,6 +17,7 @@ return new class extends Migration
             $table->string('email');
             $table->string('image')->nullable();
             $table->text('text');
+            $table->datetime('publicated_at')->nullable();
             $table->timestamps();
         });
     }
