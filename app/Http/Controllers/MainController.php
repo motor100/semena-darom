@@ -254,7 +254,6 @@ class MainController extends Controller
         return view('poisk', compact('products', 'search_query'));
     }
 
-
     public function ajax_search(Request $request)
     {
         $search_query = $request->input('search_query');

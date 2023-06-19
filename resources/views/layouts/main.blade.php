@@ -376,19 +376,6 @@
     </div>
   </footer>
 
-
-  <!-- temp -->
-  <div class="container-fluid">
-    <div class="row">
-      <div class="col-md-3">
-        
-      </div>
-    </div>
-  </div>
-  <!-- temp -->
-
-
-
   <div class="burger-menu-wrapper hidden-desktop">
     <div class="burger-menu"></div>
   </div>
@@ -439,10 +426,11 @@
           <label class="label">
             <input type="text" id="phone-callback-modal" class="input-field js-input-phone-mask" name="phone" required maxlength="18" placeholder="+7 (999) 999 99 99">
           </label>
-          <input type="checkbox" name="checkbox" class="custom-checkbox" id="checkbox-callback-modal" checked required onchange="document.querySelector('.js-callback-modal-btn').disabled = !this.checked;">
-          <label for="checkbox-callback-modal" class="custom-checkbox-label"></label>
-          <span class="checkbox-text">Согласен с <a href="/politika-konfidencialnosti" class="privacy-policy-btn" target="_blank">политикой обработки персональных данных</a></span>
-          
+          <div class="checkbox-wrapper">
+            <input type="checkbox" name="checkbox" class="custom-checkbox" id="checkbox-callback-modal" checked required onchange="document.querySelector('.js-callback-modal-btn').disabled = !this.checked;">
+            <label for="checkbox-callback-modal" class="custom-checkbox-label"></label>
+            <span class="checkbox-text">Согласен с <a href="/politika-konfidencialnosti" class="privacy-policy-btn" target="_blank">политикой обработки персональных данных</a></span>
+          </div>
           <input type="button" class="submit-btn js-callback-modal-btn" value="Заказать звонок">
         </form>
       </div>
@@ -510,36 +498,6 @@
     </div>
     <div class="dark-background"></div>
   </div>
-
-<!-- 
-  <div id="testimonials-modal" class="modal-window testimonials-modal">
-    <div class="modal-wrapper">
-      <div class="modal-area">
-        <div class="modal-close">
-          <div class="close"></div>
-        </div>
-        <div class="modal-title">Оставьте свой отзыв</div>
-        <form id="testimonials-modal-form" class="form" method="post">
-          @csrf
-          <label class="label">
-            <input type="text" id="testimonials-name" class="input-field" name="name" required minlength="3" maxlength="20" placeholder="Ваше имя">
-          </label>
-          <label class="label">
-            <input type="text" id="testimonials-city" class="input-field" name="city" required minlength="3" maxlength="30" placeholder="Ваш город">
-          </label>
-          <label class="label">
-            <textarea id="testimonials-text" class="input-field" name="text" rows="5" required minlength="3" maxlength="300" placeholder="Напишите отзыв"></textarea>
-          </label>
-          <input type="checkbox" name="checkbox" class="custom-checkbox" id="checkbox-testimonials-modal" checked required onchange="document.querySelector('.js-testimonials-modal-btn').disabled = !this.checked;">
-          <label for="checkbox-testimonials-modal" class="custom-checkbox-label"></label>
-          <span class="checkbox-text">Согласен с <a href="/politika-konfidencialnosti" class="privacy-policy-btn" target="_blank">политикой обработки персональных данных</a></span>
-          
-          <input type="button" class="submit-btn js-testimonials-modal-btn" value="Отправить">
-        </form>
-      </div>
-    </div>
-  </div>
- -->
 
   @if(empty($_COOKIE['we-use-cookie']))
     <div class="messages-cookies">

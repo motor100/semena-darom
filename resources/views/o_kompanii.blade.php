@@ -183,16 +183,16 @@
     </div>
     <div class="feedback">
       <div class="page-subtitle feedback-title">Если у Вас появятся любого рода вопросы, знайте мы тут, чтобы помочь Вам разобраться с ними.</div>
-      <form id="callback-modal-form" class="form" action="" method="post">
+      <form id="feedback-form" class="form" action="" method="post">
         <div class="form-title">Ваши контакты:</div>
         <div class="flex-container top-flex-container">
           <div class="form-group">
-            <label for="name-callback-modal" class="label">Имя</label>
-            <input type="text" name="name" id="name-callback-modal" class="input-field" minlength="3" maxlength="50" required>
+            <label for="name-feedback" class="label">Имя</label>
+            <input type="text" name="name" id="name-feedback" class="input-field" minlength="3" maxlength="50" required>
           </div>
           <div class="form-group">
-            <label for="phone-callback-modal" class="label">Телефон</label>
-            <input type="text" name="phone" id="phone-callback-modal" class="input-field js-input-phone-mask" minlength="3" maxlength="50" required>
+            <label for="phone-feedback" class="label">Телефон</label>
+            <input type="text" name="phone" id="phone-feedback" class="input-field js-input-phone-mask" minlength="3" maxlength="50" required>
           </div>
           <div class="form-group">
             <label for="email" class="label">Email</label>
@@ -201,13 +201,13 @@
         </div>
         <div class="flex-container">
           <div class="checkbox-wrapper">
-            <input type="checkbox" name="checkbox" class="custom-checkbox" id="checkbox-callback-modal" checked required onchange="document.querySelector('.js-callback-modal-btn').disabled = !this.checked;">
-            <label for="checkbox-callback-modal" class="custom-checkbox-label"></label>
+            <input type="checkbox" name="checkbox" class="custom-checkbox" id="checkbox-feedback" checked required onchange="document.querySelector('.js-feedback-btn').disabled = !this.checked;">
+            <label for="checkbox-feedback" class="custom-checkbox-label"></label>
             <span class="checkbox-text">Согласен с <a href="/politika-konfidencialnosti" class="privacy-policy-btn" target="_blank">политикой обработки персональных данных</a></span>
           </div>
 
           @csrf
-          <input type="button" class="submit-btn js-callback-modal-btn" value="Заказать обратный звонок">
+          <input type="button" class="submit-btn js-feedback-btn" value="Заказать обратный звонок">
         </div>
       </form>
     </div>

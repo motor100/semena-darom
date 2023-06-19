@@ -429,36 +429,6 @@ document.addEventListener("DOMContentLoaded", () => {
     body.classList.remove('overflow-hidden');
   }
 
-  /*
-  * Функция проверки обязательных полей
-  * Принимает параметр form, DOM элемент тег form
-  * Проверяет наличие аттрибута required у input
-  * Если все поля заполнены, возвращает true
-  * Иначе false
-  */
-  function checkRequiredFields(form) {
-
-    let input = form.querySelectorAll('.input-field');
-    let arr = [];
-    let valid;
-    for (let i = 0; i < input.length; i++) {
-      let attr = input[i].hasAttribute('required');
-      if (attr && input[i].value == "" ) {
-        input[i].classList.add('required');
-        arr.push(false);
-      }
-    }
-
-    if (arr.length == 0) {
-      for (let i = 0; i < input.length; i++) {
-        input[i].classList.remove('required');
-      }
-      return true;
-    } else {
-      return false;
-    }
-  }
-
   // Отправка формы ajax в модальном окне
   const callbackModalForm = document.querySelector("#callback-modal-form"),
         callbackModalBtn = document.querySelector('.js-callback-modal-btn');
@@ -481,6 +451,7 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
     let inputCheckbox = form.querySelector('#checkbox-callback-modal');
+
     if (!inputCheckbox.checked) {
       arr.push(false);
     }
