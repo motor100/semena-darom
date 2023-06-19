@@ -1083,7 +1083,9 @@ p {
 .single-product .add-to-favourites .add-to-favourites__text {
   color: var(--m-light-grey);
 }
-
+.single-product .single-product-content {
+  margin: 0 0 40px 0;
+}
 .single-product .single-image {
   position: relative;
   height: 0;
@@ -1216,18 +1218,58 @@ p {
 .single-product .single-product-quantity .quantity-plus .circle:after {
   transform: rotate(90deg);
 }
-
-.single-product .single-product-info {
+.single-product .single-product-options {
   display: flex;
+  align-items: center;
+}
+.single-product .single-product-options .single-product-options__frame {
+  width: 50px;
+  height: 50px;
+  margin: 0 10px 0 0;
+  border: 1px solid var(--m-second-grey);
+  border-radius: 10px;
+}
+.single-product .single-product-category,
+.single-product .single-product-property {
+  margin: 0 0 10px 0;
+}
+.single-product .single-product-category .single-product-options__frame {
+  padding: 4px;
+}
+.single-product .single-product-category .single-product-options__image {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  overflow: hidden;
+}
+.single-product .single-product-options .single-product-options__image img {
+  width: 100%;
+}
+.single-product .single-product-options .single-product-options__title {
+  font-family: 'arimo-medium';
+}
+.single-product .single-product-promo {
   margin: 0 0 40px 0;
 }
-.single-product .single-product-info .single-product-about {
-  margin: 0 100px 0 0;
+.single-product .single-product-promo .single-product-options__frame,
+.single-product .single-product-property .single-product-options__frame {
+  padding: 11px 13px;
+}
+.single-product .single-product-promo .single-product-options__image,
+.single-product .single-product-property .single-product-options__image {
+  width: 22px;
+  height: 22px;
+}
+.single-product .single-product-about {
+  margin: 0 0 20px 0;
 }
 .single-product .single-product-about-text {
   margin: 0 0 10px 0;
   font-family: 'arimo-medium';
   color: var(--m-light-grey);
+}
+.single-product .single-product-description {
+  margin: 0 0 40px 0;
 }
 
 /* o-kompanii */

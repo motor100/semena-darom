@@ -121,6 +121,13 @@ class MainController extends Controller
                     $product->color_title = "<span class=\"grey-text\">" . $product->title . "</span>";
                 }
 
+                $product->category = \App\Models\Category::where('id', $product->category_id)->first();
+
+                $product->recommend_products = Product::where('category_id', $product->category_id)
+                                                        ->inRandomOrder()
+                                                        ->limit(3)
+                                                        ->get();
+
                 return view('single_product', compact('product'));
             } else {
                 return abort(404);
@@ -227,9 +234,9 @@ class MainController extends Controller
         return view('garantiya-vozvrata-denezhnyh-sredstv');
     }
 
-    public function kak_zakazat()
+    public function kak_oformit_zakaz()
     {
-        return view('kak_zakazat');
+        return view('kak_oformit_zakaz');
     }
 
     public function poisk(Request $request)

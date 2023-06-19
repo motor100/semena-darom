@@ -274,51 +274,17 @@
                 <a href="/dostavka-i-oplata" class="menu-item__link">Оплата и доставка</a>
               </li>
               <li class="menu-item">
-                <a href="#" class="menu-item__link">О сервисе</a>
-              </li>
-              <li class="menu-item">
                 <a href="/otzyvy" class="menu-item__link">Отзывы</a>
               </li>
               <li class="menu-item">
-                <a href="/kak-zakazat" class="menu-item__link">Как заказать</a>
+                <a href="/kak-oformit-zakaz" class="menu-item__link">Как оформить заказ</a>
               </li>
               <li class="menu-item">
                 <a href="#" class="menu-item__link">Личный кабинет</a>
               </li>
             </ul>
           </div>
-          <div class="col-md-2">
-            <div class="menu-title">Продавцам</div>
-            <ul class="menu">
-              <li class="menu-item">
-                <a href="#" class="menu-item__link">Личный кабинет продавца</a>
-              </li>
-              <li class="menu-item">
-                <a href="#" class="menu-item__link">Документация для партнеров</a>
-              </li>
-            </ul>
-          </div>
-          <div class="col-md-2">
-            <div class="menu-title">Сотрудничество</div>
-            <ul class="menu">
-              <li class="menu-item">
-                <a href="#" class="menu-item__link">Новости компании</a>
-              </li>
-              <li class="menu-item">
-                <a href="#" class="menu-item__link">Партнерская программа</a>
-              </li>
-              <li class="menu-item">
-                <a href="#" class="menu-item__link">Производителям</a>
-              </li>
-              <li class="menu-item">
-                <a href="#" class="menu-item__link">Пункт выдачи заказов</a>
-              </li>
-              <li class="menu-item">
-                <a href="#" class="menu-item__link">Вакансии</a>
-              </li>
-            </ul>
-          </div>
-          <div class="col-md-2">
+          <div class="col-xxl-2 col-md-3">
             <div class="menu-title">Правовая информация</div>
             <ul class="menu">
               <li class="menu-item">
@@ -332,7 +298,7 @@
               </li>
             </ul>
           </div>
-          <div class="col-md-2">
+          <div class="col-xxl-2 col-md-3">
             <div class="menu-title">О интернет-магазине</div>
             <ul class="menu">
               <li class="menu-item">
@@ -351,6 +317,7 @@
               </a>
             </div>
           </div>
+          <div class="col-xxl-4 col-md-2"></div>
           <div class="col-md-2">
             <div class="menu-title">Есть вопросы?</div>
             <div class="last-menu">

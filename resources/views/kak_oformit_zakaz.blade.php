@@ -13,12 +13,12 @@
     <a href="{{ route('home') }}">главная страница</a>
   </div>
   <div class="arrow"></div>
-  <div class="active">как заказать</div>
+  <div class="active">как оформить заказ</div>
 </div>
 
 <div class="kak-zakazat">
   <div class="content-wrapper">
-    <div class="kak-zakazat-title page-title">Как <span class="green-text">заказать</span></div>
+    <div class="kak-zakazat-title page-title">Как оформить<br><span class="green-text">заказ</span></div>
     <div class="kak-zakazat-item">
       <div class="row">
         <div class="col-md-5">
