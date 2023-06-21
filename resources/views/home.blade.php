@@ -104,11 +104,11 @@
           <a href="#" class="full-link"></a>
         </div>
       </div>
-      <div class="popular-categories home-products">
+      <div class="popular-categories">
         <div class="row">
           @foreach($products as $product)
             <div class="col-md-4">
-              <div class="products-item">
+              <div class="regular-products-item">
                 <div class="products-item__image">
                   <a href="/catalog/{{ $product->slug }}" class="products-item__link">
                     <img src="{{ asset('storage/uploads/products/' . $product->image) }}" alt="">
@@ -197,11 +197,11 @@
       <div class="section-title">
         <div class="section-title__text">Новинки</div>
       </div>
-      <div class="new-products home-products">
+      <div class="new-products">
         <div class="row">
           @foreach($products as $product)
             <div class="col-md-4">
-              <div class="products-item">
+              <div class="regular-products-item">
                 <div class="products-item__image">
                   <a href="/catalog/{{ $product->slug }}" class="products-item__link">
                     <img src="{{ asset('storage/uploads/products/' . $product->image) }}" alt="">
