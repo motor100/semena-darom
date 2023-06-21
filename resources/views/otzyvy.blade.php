@@ -17,69 +17,67 @@
 </div>
 
 <div class="otzyvy">
-  <div class="content-wrapper">
-    <div class="otzyvy-title page-title">Отзывы о магазине<br> <span class="green-text text-uppercase">Семена Даром</span></div>
-    <a href="#add-testimonial" class="add-testimonial-btn">Оставить отзыв</a>
 
-    <div class="testimonials">
-      @foreach($testimonials as $testimonial)
-        <div class="testimonials-item">
-          <div class="testimonials-item__name">{{ $testimonial->name }}</div>
-          @if($testimonial->image)
-            <div class="testimonials-item__text mb30">{{ $testimonial->text }}</div>
-            <div class="testimonials-item__image">
-              <img src="{{ Storage::url($testimonial->image) }}" alt="">
-            </div>
-          @else
-            <div class="testimonials-item__text">{{ $testimonial->text }}</div>
-          @endif
-        </div>
-      @endforeach
-    </div>
+  <div class="otzyvy-title page-title">Отзывы о магазине<br> <span class="green-text text-uppercase">Семена Даром</span></div>
+  <a href="#add-testimonial" class="add-testimonial-btn">Оставить отзыв</a>
 
-    <div class="pagination-links">
-      <div class="container">
-        {{ $testimonials->links() }}
+  <div class="testimonials">
+    @foreach($testimonials as $testimonial)
+      <div class="testimonials-item">
+        <div class="testimonials-item__name">{{ $testimonial->name }}</div>
+        @if($testimonial->image)
+          <div class="testimonials-item__text mb30">{{ $testimonial->text }}</div>
+          <div class="testimonials-item__image">
+            <img src="{{ Storage::url($testimonial->image) }}" alt="">
+          </div>
+        @else
+          <div class="testimonials-item__text">{{ $testimonial->text }}</div>
+        @endif
       </div>
-    </div>
-
-    <div class="form-wrapper">
-      <div id="add-testimonial" class="form-title">Оставить отзыв</div>
-      <form id="testimonial-form" class="form" enctype="multipart/form-data" method="post">
-        <div class="flex-container">
-          <div class="form-group">
-            <input type="text" name="name" id="testimonial-name" class="input-field" minlength="3" maxlength="50" required placeholder="Имя">
-          </div>
-          <div class="form-group">
-            <input type="email" name="email" id="testimonial-email" class="input-field" minlength="3" maxlength="100" required placeholder="Email">
-          </div>
-        </div>
-        <div class="form-group">
-          <textarea name="text" minlength="3" id="testimonial-text" class="textarea" maxlength="1000" required placeholder="Отзыв"></textarea>
-        </div>
-        <div class="form-group">
-          <input type="file" name="file" id="input-main-file" class="inputfile" accept="image/jpeg,image/png">
-          <label for="input-main-file" class="custom-inputfile-label">Прикрепить файл</label>
-          <span class="namefile main-file-text">Файл не выбран</span>
-        </div>
-        <div class="captcha">
-          <div class="g-recaptcha" data-sitekey="{{ config('google.client_key') }}"></div>
-        </div>
-
-        @csrf
-        <button type="button" class="submit-btn js-testimonial-btn">Оставить отзыв</button>
-
-        <div class="checkbox-wrapper">
-          <input type="checkbox" name="checkbox" class="custom-checkbox" id="checkbox-testimonial" checked required onchange="document.querySelector('.js-testimonial-btn').disabled = !this.checked;">
-          <label for="checkbox-testimonial" class="custom-checkbox-label"></label>
-          <span class="checkbox-text">Согласен с <a href="/politika-konfidencialnosti" class="privacy-policy-btn" target="_blank">политикой обработки персональных данных</a></span>
-        </div>
-
-      </form>
-    </div>
-
+    @endforeach
   </div>
-  
+
+  <div class="pagination-links">
+    <div class="container">
+      {{ $testimonials->links() }}
+    </div>
+  </div>
+
+  <div class="form-wrapper">
+    <div id="add-testimonial" class="form-title">Оставить отзыв</div>
+    <form id="testimonial-form" class="form" enctype="multipart/form-data" method="post">
+      <div class="flex-container">
+        <div class="form-group">
+          <input type="text" name="name" id="testimonial-name" class="input-field" minlength="3" maxlength="50" required placeholder="Имя">
+        </div>
+        <div class="form-group">
+          <input type="email" name="email" id="testimonial-email" class="input-field" minlength="3" maxlength="100" required placeholder="Email">
+        </div>
+      </div>
+      <div class="form-group">
+        <textarea name="text" minlength="3" id="testimonial-text" class="textarea" maxlength="1000" required placeholder="Отзыв"></textarea>
+      </div>
+      <div class="form-group">
+        <input type="file" name="file" id="input-main-file" class="inputfile" accept="image/jpeg,image/png">
+        <label for="input-main-file" class="custom-inputfile-label">Прикрепить файл</label>
+        <span class="namefile main-file-text">Файл не выбран</span>
+      </div>
+      <div class="captcha">
+        <div class="g-recaptcha" data-sitekey="{{ config('google.client_key') }}"></div>
+      </div>
+
+      @csrf
+      <button type="button" class="submit-btn js-testimonial-btn">Оставить отзыв</button>
+
+      <div class="checkbox-wrapper">
+        <input type="checkbox" name="checkbox" class="custom-checkbox" id="checkbox-testimonial" checked required onchange="document.querySelector('.js-testimonial-btn').disabled = !this.checked;">
+        <label for="checkbox-testimonial" class="custom-checkbox-label"></label>
+        <span class="checkbox-text">Согласен с <a href="/politika-konfidencialnosti" class="privacy-policy-btn" target="_blank">политикой обработки персональных данных</a></span>
+      </div>
+
+    </form>
+  </div>
+
 </div> 
 
 @endsection

@@ -17,17 +17,17 @@
 </div>
 
 <div class="cart js-cart-page">
-  <div class="content-wrapper">
-    <div class="cart-title page-title">Корзина</div>
 
-    @if(count($products) > 0)
-      <div class="cf-clear">
-        <div class="cf-clear__image">
-          <img src="/img/cf-trash.svg" alt="">
-        </div>
-        <a href="/clear-cart" class="cf-clear__link">Очистить корзину</a>
+  <div class="cart-title page-title">Корзина</div>
+
+  @if(count($products) > 0)
+    <div class="cf-clear">
+      <div class="cf-clear__image">
+        <img src="/img/cf-trash.svg" alt="">
       </div>
-    @endif
+      <a href="/clear-cart" class="cf-clear__link">Очистить корзину</a>
+    </div>
+  @endif
   
   <!-- 
   @if($errors->any())
