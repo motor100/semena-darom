@@ -207,6 +207,7 @@
                 <a href="/clear-cart" class="cart-aside-clear-cart__link">очистить</a>
               </div>
             </div>
+
             <div class="cart-aside-products">
               @if(isset($cart_count))
                 @foreach($products_in_cart as $product)
@@ -235,14 +236,25 @@
                           </div>
                         @endif
                       </div>
-                      <div class="products-item__quantity">{{ $product->quantity }}</div>
+                      
                     </div>
+                    <div class="products-item__quantity">{{ $product->quantity }}</div>
                   </div>
                 @endforeach
+              @else
+                <div class="cart-aside-is-empty-image">
+                  <img src="/img/cart-aside-is-empty.svg" alt="">
+                </div>
+                <div class="cart-aside-is-empty-text">В корзине товаров нет</div>
               @endif
             </div>
+
             <div class="grey-line"></div>
-            <div class="place-order-btn">
+            @if(isset($cart_count))
+              <div class="place-order-btn active">
+            @else
+              <div class="place-order-btn">
+            @endif
               <div class="place-order-btn__text">Оформить заказ</div>
               <div class="place-order-btn__total">
                 <span class="place-order-btn__summ">0</span>
@@ -466,13 +478,13 @@
     <div class="dark-background"></div>
   </div>
 
-  @if(empty($_COOKIE['we-use-cookie']))
+  @if(!session()->exists('we-used-cookie'))
     <div class="messages-cookies">
 
-        <div class="messages-cookies-wrapper">
-          <div class="messages-cookies-text">Этот сайт использует файлы cookies и сервисы сбора технических данных посетителей. Продолжая использовать наш сайт, вы автоматически соглашаетесь с использованием cookies. Нажмите "ОК" чтобы закрыть это сообщение.</div>
-          <button class="messages-cookies-close">ОК</button>
-        </div>
+      <div class="messages-cookies-wrapper">
+        <div class="messages-cookies-text">Этот сайт использует файлы cookies и сервисы сбора технических данных посетителей. Продолжая использовать наш сайт, вы автоматически соглашаетесь с использованием cookies. Нажмите "ОК" чтобы закрыть это сообщение.</div>
+        <button class="messages-cookies-close">ОК</button>
+      </div>
 
     </div>
   @endif

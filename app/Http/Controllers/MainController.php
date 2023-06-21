@@ -211,10 +211,13 @@ class MainController extends Controller
         return redirect('/cart');
     }
 
-    public function clear_cart()
+    public function clear_cart(Request $request)
     {
+        $redirect_url = $request->headers->get('referer');
+
         session()->pull('cart', 'default');
-        return redirect('/cart');
+
+        return $redirect_url ? redirect($redirect_url) : redirect('/');
     }
 
     public function politika_konfidencialnosti()
@@ -332,6 +335,8 @@ class MainController extends Controller
     {
         $id = $request->input('id');
 
+        $cart_items = [];
+
         if ($request->session()->has('cart')) { // Если есть сессия cart, то добавляю в конец массива
 
             $cart_items = $request->session()->get('cart');
@@ -343,20 +348,33 @@ class MainController extends Controller
             }
 
         } else { // Если нет, то создаю массив и добавляю туда значение
-            $cart_items = [];
             $cart_items[$id] = 1;
         }
 
         $request->session()->put('cart', $cart_items);
 
-        $cart_count = count($request->session()->get('cart'));
+        $keys = array_keys($cart_items);
 
-        // Количество товара в корзине более 9
-        if ($cart_count > 9) {
-            $cart_count = 9;
+        $products_array = [];
+
+        // Получение моделей товаров
+        $products = Product::whereIn('id', $keys)->get();
+
+        // Количество каждого товара
+        foreach ($products as $product) {
+            $product->quantity = $cart_items[$product->id];
         }
 
-        return $cart_count;
+        $products_array["products"] = $products;
+
+        $products_array["cart_count"] = count($request->session()->get('cart'));
+
+        if ($products_array["cart_count"] > 9) {
+            $products_array["cart_count"] = 9;
+        }
+
+        // return $cart_count;
+        return response()->json($products_array);
     }
 
     public function ajax_plus_cart(Request $request)
@@ -473,5 +491,14 @@ class MainController extends Controller
 
     }
 
+    public function ajax_we_use_cookie(Request $request)
+    {
+        // Через экземпляр запроса
+        $request->session()->put('we-used-cookie', 'yes');
 
+        // Через глобальный помощник «session»
+        // session(['we-used-cookie' => 'yes']);
+
+        return false;
+    }
 }

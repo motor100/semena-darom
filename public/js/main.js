@@ -12,10 +12,6 @@ document.addEventListener("DOMContentLoaded", () => {
       okompaniiPage = document.querySelector('.o-kompanii'), // страница о компании
       token = document.querySelector('meta[name="csrf-token"]').getAttribute('content'); // csrf token
 
-
-  // addToCart();
-
-
   // Скрывание кнопки Мы используем куки we use cookie
   let messagesCookies = document.querySelector('.messages-cookies'),
       messagesCookiesClose = document.querySelector('.messages-cookies-close');
@@ -23,8 +19,18 @@ document.addEventListener("DOMContentLoaded", () => {
   if (messagesCookiesClose) {
     messagesCookiesClose.onclick = function() {
       messagesCookies.classList.add('hidden');
-      document.cookie = "we-use-cookie=yes; path=/; max-age=2629743; samesite=lax";
+      // document.cookie = "we-use-cookie=yes; path=/; max-age=2629743; samesite=lax";
+      fetch('/ajax/we-use-cookie', {
+        method: 'POST',
+        headers: {'Content-Type':'application/x-www-form-urlencoded'},
+        cache: 'no-cache',
+        body: '_token=' + encodeURIComponent(token)
+      })
+      .catch((error) => {
+        console.log(error);
+      })
     }
+    
   }
 
   // Кнопка Каталог в шапке
@@ -271,27 +277,6 @@ document.addEventListener("DOMContentLoaded", () => {
   });
 
 
-  // Cart aside
-  let cartAsideProductsItems = document.querySelectorAll('.cart-aside-products .products-item'),
-      cartAsidePlaceOrderSumm = document.querySelector('.place-order-btn__summ'),
-      cartAsideTotal = 0;
-
-  cartAsideProductsItems.forEach((item) => {
-    const retailPrice = item.querySelector('.products-item__retail-price .products-item__value'),
-          promoPrice = item.querySelector('.products-item__promo-price .products-item__value'),
-          quantity = item.querySelector('.products-item__quantity');
-
-    if (promoPrice) {
-      cartAsideTotal += Number(promoPrice.innerText) * Number(quantity.innerText);
-    } else {
-      cartAsideTotal += Number(retailPrice.innerText) * Number(quantity.innerText);
-    }
-  });
-  
-  cartAsidePlaceOrderSumm.innerText = cartAsideTotal;
-
-  
-
   // Окна
   let modalWindow = document.querySelectorAll('.modal-window'),
       mobileMenuCityBtn = document.querySelector('.js-mobile-menu-city-btn'),
@@ -483,6 +468,36 @@ document.addEventListener("DOMContentLoaded", () => {
     ajaxCallback(callbackModalForm);
   }
 
+  // Функция расчета общей стоимости товаров в корзине справа
+  function asideCartTotalCalc() {
+
+    let cartAsidePlaceOrderBtn = document.querySelector('.cart-aside .place-order-btn'),
+        cartAsideProductsItems = document.querySelectorAll('.cart-aside-products .products-item'),
+        cartAsidePlaceOrderSumm = document.querySelector('.place-order-btn__summ'),
+        cartAsideTotal = 0;
+
+    cartAsideProductsItems.forEach((item) => {
+      const retailPrice = item.querySelector('.products-item__retail-price .products-item__value'),
+            promoPrice = item.querySelector('.products-item__promo-price .products-item__value'),
+            quantity = item.querySelector('.products-item__quantity');
+
+      if (promoPrice) {
+        cartAsideTotal += Number(promoPrice.innerText) * Number(quantity.innerText);
+      } else {
+        cartAsideTotal += Number(retailPrice.innerText) * Number(quantity.innerText);
+      }
+    });
+
+    if (cartAsideProductsItems.length > 0) {
+      cartAsidePlaceOrderBtn.classList.add('active');
+    }
+    
+    cartAsidePlaceOrderSumm.innerText = cartAsideTotal;
+
+    return false;
+  }
+
+  asideCartTotalCalc();
   
 
   // Add to cart
@@ -493,17 +508,70 @@ document.addEventListener("DOMContentLoaded", () => {
     // Add text
     elem.innerText = 'В корзине';
 
+    function cartCounterCalc(obj) {
+      // Обновление количества товаров в корзине
+      const headerCartCounter = document.querySelector('#header-cart-counter');
+      headerCartCounter.innerText = obj.cart_count;
+      headerCartCounter.classList.remove('hidden');
+      return false;
+    }
+
+    function asideCartItemsUpdate(obj) {
+      // Обновляю товары в корзине справа
+      let cartAsideProducts = document.querySelector('.cart-aside-products');
+
+      // Очищаю все товары
+      cartAsideProducts.innerHTML = '';
+
+      // Формирую html из массива данных
+      obj.products.forEach((item) => {
+        let tmpEl = document.createElement('div');
+        tmpEl.className = "products-item";
+        let str = '<div class="products-item__image">';
+        str += '<img src="/storage/uploads/products/' + item.image + '" alt="">';
+        str += '</div>';
+        str += '<div class="products-item__content">';
+        str += '<div class="products-item__title">' + item.title + '</div>';
+        str += '<div class="products-item-price-wrapper">';
+        if (item.promo_price) {
+          str += '<div class="products-item__price products-item__promo-price red-text">';
+          str += '<span class="products-item__value">' + item.promo_price + '</span>';
+          str += '<span class="products-item__currency">&#8381;</span>';
+          str += '</div>';
+          str += '<div class="products-item__old-price item__old-price">';
+          str += '<span class="products-item__value">' + item.retail_price + '</span>';
+          str += '<span class="products-item__currency">&#8381;</span>';
+          str += '<span class="line-through"></span>';
+          str += '</div>';
+        } else {
+          str += '<div class="products-item__price products-item__retail-price">';
+          str += '<span class="products-item__value">' + item.retail_price + '</span>';
+          str += '<span class="products-item__currency">&#8381;</span>';
+          str += '<span class="line-through"></span>';
+          str += '</div>';
+        }
+        str += '</div>';
+        str += '</div>';
+        str += '<div class="products-item__quantity">' + item.quantity + '</div>';
+        str += '</div>';
+        tmpEl.innerHTML = str;
+        cartAsideProducts.append(tmpEl);
+      });
+
+      return false;
+    }
+
     fetch('/ajax/addtocart', {
       method: 'POST',
       headers: {'Content-Type':'application/x-www-form-urlencoded'},
       cache: 'no-cache',
       body: 'id=' + encodeURIComponent(elem.dataset.id) + '&_token=' + encodeURIComponent(token),
     })
-    .then((response) => response.text())
-    .then((text) => {
-      const headerCartCounter = document.querySelector('#header-cart-counter');
-      headerCartCounter.innerText = text;
-      headerCartCounter.classList.remove('hidden');
+    .then((response) => response.json())
+    .then((json) => {
+      cartCounterCalc(json);
+      asideCartItemsUpdate(json);
+      asideCartTotalCalc();
     })
     .catch((error) => {
       console.log(error);

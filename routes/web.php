@@ -74,6 +74,10 @@ Route::post('/ajax/addtofavourites', [MainController::class, 'ajax_add_to_favour
 
 Route::post('/ajax/testimonial', [MainController::class, 'ajax_testimonial']);
 
+Route::post('/ajax/we-use-cookie', [MainController::class, 'ajax_we_use_cookie']);
+
+
+
 
 Route::get('/dashboard', function () {
     return view('dashboard');
