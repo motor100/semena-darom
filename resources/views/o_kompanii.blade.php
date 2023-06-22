@@ -187,20 +187,20 @@
       <div class="flex-container top-flex-container">
         <div class="form-group">
           <label for="name-feedback" class="label">Имя</label>
-          <input type="text" name="name" id="name-feedback" class="input-field" minlength="3" maxlength="50" required>
+          <input type="text" name="name" id="name-feedback" class="input-field js-name-callback-modal" minlength="3" maxlength="50" required>
         </div>
         <div class="form-group">
           <label for="phone-feedback" class="label">Телефон</label>
-          <input type="text" name="phone" id="phone-feedback" class="input-field js-input-phone-mask" minlength="3" maxlength="50" required>
+          <input type="text" name="phone" id="phone-feedback" class="input-field js-phone-callback-modal js-input-phone-mask" minlength="3" maxlength="50" required>
         </div>
         <div class="form-group">
-          <label for="email" class="label">Email</label>
-          <input type="email" name="email" id="email" class="input-field" minlength="3" maxlength="100" required>
+          <label for="email-feedback" class="label">Email</label>
+          <input type="email" name="email" id="email-feedback" class="input-field js-email-callback-modal" minlength="3" maxlength="100" required>
         </div>
       </div>
       <div class="flex-container">
         <div class="checkbox-wrapper">
-          <input type="checkbox" name="checkbox" class="custom-checkbox" id="checkbox-feedback" checked required onchange="document.querySelector('.js-feedback-btn').disabled = !this.checked;">
+          <input type="checkbox" name="checkbox" class="custom-checkbox js-checkbox-callback-modal" id="checkbox-feedback" checked required onchange="document.querySelector('.js-feedback-btn').disabled = !this.checked;">
           <label for="checkbox-feedback" class="custom-checkbox-label"></label>
           <span class="checkbox-text">Согласен с <a href="/politika-konfidencialnosti" class="privacy-policy-btn" target="_blank">политикой обработки персональных данных</a></span>
         </div>
@@ -213,7 +213,7 @@
   <div class="contacts">
     <div class="row">
       <div class="col-md-4">
-        <div class="contacts-title">Наши <span class="green-text">контакты</span></div>
+        <div class="page-subtitle contacts-title">Наши <span class="green-text">контакты</span></div>
       </div>
       <div class="col-md-8">
         <div class="contacts-item">Связаться с нами Вы можете любым удобным для Вас способом <span class="light-grey-text">(телефон, имейл, онлайн консультант)</span></div>

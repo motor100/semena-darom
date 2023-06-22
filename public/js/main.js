@@ -34,12 +34,20 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   // Кнопка Каталог в шапке
-  const catalogBtn = document.querySelector('.header .catalog-btn');
-  if (catalogBtn) {
+  const headerCatalogBtn = document.querySelector('.header .header-catalog-btn');
+
+  if (headerCatalogBtn) {
     const headerCatalogDropdown = document.querySelector('.header-catalog-dropdown');
-    catalogBtn.onclick = function() {
-      catalogBtn.classList.toggle('active');
+    headerCatalogBtn.onclick = function() {
+      headerCatalogBtn.classList.toggle('active');
       headerCatalogDropdown.classList.toggle('active');
+    }
+
+    const overlay = headerCatalogDropdown.querySelector('.overlay');
+
+    overlay.onclick = function() {
+      headerCatalogBtn.classList.remove('active');
+      headerCatalogDropdown.classList.remove('active');
     }
   }
 
@@ -158,39 +166,43 @@ document.addEventListener("DOMContentLoaded", () => {
         citySelectRezult = document.querySelector('#city-select-rezult'),
         citySelectModalCloseBtn = document.querySelector('#select-city-modal .modal-close');
 
-  function selectCityItemClick() {
-    let cityItems = selectCityModal.querySelectorAll('#select-city-modal .city-item');
-
-    for (let i = 0; i < cityItems.length; i++) {
-      cityItems[i].onclick = function () {
-        let ccity = cityItems[i].querySelector('.city-item__city').innerText;
-        document.cookie = "city=" + ccity + "; path=/; max-age=2629743; samesite=lax";
-        modalClose(selectCityModal);
-        citySelectForm.reset();
-        location.reload();
-      }
-    }
-  }
-
   citySelectInput.oninput = citySelectOnInput;
 
   function citySelectOnInput() {
 
     if (citySelectInput.value.length >= 3 && citySelectInput.value.length < 40) {
 
-      fetch('/ajax/city-select', {
-        method: 'POST',
-        cache: 'no-cache',
-        body: new FormData(citySelectForm)
-      })
-      .then((response) => response.json())
-      .then((json) => {
+      function selectCityItemClick() {
 
+        let cityItems = selectCityModal.querySelectorAll('#select-city-modal .city-item');
+    
+        for (let i = 0; i < cityItems.length; i++) {
+          cityItems[i].onclick = function () {
+            let ccity = cityItems[i].querySelector('.city-item__city').innerText;
+
+            fetch('/ajax/city', {
+              method: 'POST',
+              headers: {'Content-Type':'application/x-www-form-urlencoded'},
+              cache: 'no-cache',
+              body: 'city=' + encodeURIComponent(ccity) + '&_token=' + encodeURIComponent(token),
+            })
+            .catch((error) => {
+              console.log(error);
+            })
+
+            modalClose(selectCityModal);
+            citySelectForm.reset();
+            location.reload();
+          }
+        }
+      }
+
+      function citySelect(obj) {
         // Очистка результатов поиска
         citySelectRezult.innerHTML = '';
 
         // Если в объекте есть ключ message, то не найдено
-        if (typeof json.message !== "undefined") {
+        if (typeof obj.message !== "undefined") {
           let tmpEl = document.createElement('div');
           tmpEl.className = "no-city";
           tmpEl.innerHTML = 'Город с таким названием не найден';
@@ -199,11 +211,11 @@ document.addEventListener("DOMContentLoaded", () => {
         } else { // вывожу результаты поиска
 
           // Ограничение количества выводимых результатов
-          if (json.length > 6) {
-            json.length = 6; 
+          if (obj.length > 6) {
+            obj.length = 6; 
           }
 
-          json.forEach((item) => {
+          obj.forEach((item) => {
             let tmpEl = document.createElement('div');
             tmpEl.className = "city-item";
             tmpEl.innerHTML = '<span class="city-item__city">' + item.city + '</span>';
@@ -213,13 +225,21 @@ document.addEventListener("DOMContentLoaded", () => {
 
           // Добавляю клик на найденные элементы
           selectCityItemClick();
-
         }
+      }
+
+      fetch('/ajax/city-select', {
+        method: 'POST',
+        cache: 'no-cache',
+        body: new FormData(citySelectForm)
+      })
+      .then((response) => response.json())
+      .then((json) => {
+          citySelect(json)
       })
       .catch((error) => {
         console.log(error);
       })
-
 
     } else {
       // Если менее 3 символов, то скрываю результаты поиска
@@ -286,7 +306,7 @@ document.addEventListener("DOMContentLoaded", () => {
       callbackModal = document.querySelector('#callback-modal'),
       testimonialsBtn = document.querySelector('.testimonials-btn'),
       testimonialsModal = document.querySelector('#testimonials-modal'),
-      payInfoBtn = document.querySelector('.dostavka-i-oplata .pay-info-btn'),
+      // payInfoBtn = document.querySelector('.dostavka-i-oplata .pay-info-btn'),
       modalCloseBtn = document.querySelectorAll('.modal-window .modal-close');
 
   // mobileMenuCityBtn.onclick = function () {
@@ -308,11 +328,11 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   }
 
-  if (payInfoBtn) {
-    payInfoBtn.onclick = function () {
-      modalOpen(callbackModal);
-    }
-  }
+  // if (payInfoBtn) {
+  //   payInfoBtn.onclick = function () {
+  //     modalOpen(callbackModal);
+  //   }
+  // }
 
   function modalOpen(win) {
     body.classList.add('overflow-hidden');
@@ -423,19 +443,25 @@ document.addEventListener("DOMContentLoaded", () => {
     let inputs = form.querySelectorAll('.input-field');
     let arr = [];
 
-    let inputName = form.querySelector('#name-callback-modal');
-    if (inputName.value.length < 3 || inputName.value.length > 20 ) {
+    let inputName = form.querySelector('.js-name-callback-modal');
+    if (inputName.value.length < 3 || inputName.value.length > 20) {
       inputName.classList.add('required');
       arr.push(false);
     }
 
-    let inputPhone = form.querySelector('#phone-callback-modal');
+    let inputPhone = form.querySelector('.js-phone-callback-modal');
     if (inputPhone.value.length != 18) {
       inputPhone.classList.add('required');
       arr.push(false);
     }
 
-    let inputCheckbox = form.querySelector('#checkbox-callback-modal');
+    let inputEmail = form.querySelector('.js-email-callback-modal');
+    if (inputName.value.length < 3 || inputName.value.length > 20) {
+      inputEmail.classList.add('required');
+      arr.push(false);
+    }
+
+    let inputCheckbox = form.querySelector('.js-checkbox-callback-modal');
 
     if (!inputCheckbox.checked) {
       arr.push(false);
@@ -676,10 +702,6 @@ document.addEventListener("DOMContentLoaded", () => {
           console.log(error);
         })
 
-        
-
-        
-
         form.reset();
       }
     }
@@ -802,7 +824,13 @@ document.addEventListener("DOMContentLoaded", () => {
 
   if (okompaniiPage) {
 
-    
+    // Отправка формы ajax
+    const feedbackForm = document.querySelector("#feedback-form"),
+          feedbackBtn = document.querySelector('.js-feedback-btn');
+
+    feedbackBtn.onclick = function() {
+      ajaxCallback(feedbackForm);
+    }    
 
   }
 

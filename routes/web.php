@@ -62,6 +62,8 @@ Route::post('/ajax/callback', MailerController::class)->name('callback');
 
 Route::post('/ajax/search', [MainController::class, 'ajax_search']);
 
+Route::post('/ajax/city', [MainController::class, 'ajax_city']);
+
 Route::post('/ajax/city-select', [MainController::class, 'ajax_city_select']);
 
 Route::post('/ajax/addtocart', [MainController::class, 'ajax_add_to_cart']);

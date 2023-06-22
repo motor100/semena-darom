@@ -26,7 +26,7 @@
                 <img src="/img/logo.png" alt="">
               </a>
             </div>
-            <div class="catalog-btn">
+            <div class="header-catalog-btn">
               <div class="catalog-btn__burger">
                 <span></span>
               </div>
@@ -47,19 +47,24 @@
             </form>
           </div>
           <div class="side">
-            <?php if (empty($_COOKIE['city'])) { ?>
-              <div id="city-select-btn" class="city-select">
-            <?php } else { ?>
+
+            @if(session()->exists('city'))
               <div id="city-select-btn" class="city-select active">
-            <?php } ?>
+            @else
+              <div id="city-select-btn" class="city-select">
+            @endif
+
               <div class="city-select__image">
                 <svg width="15" height="19" viewBox="0 0 15 19" fill="none" xmlns="http://www.w3.org/2000/svg">
                   <path d="M7.50039 10.1538C8.93633 10.1538 10.1004 8.98289 10.1004 7.53845C10.1004 6.09401 8.93633 4.92307 7.50039 4.92307C6.06445 4.92307 4.90039 6.09401 4.90039 7.53845C4.90039 8.98289 6.06445 10.1538 7.50039 10.1538Z" stroke-linecap="round" stroke-linejoin="round"/>
                   <path d="M14 7.53846C14 13.4231 7.5 18 7.5 18C7.5 18 1 13.4231 1 7.53846C1 5.80435 1.68482 4.14127 2.90381 2.91507C4.12279 1.68887 5.77609 1 7.5 1C9.22391 1 10.8772 1.68887 12.0962 2.91507C13.3152 4.14127 14 5.80435 14 7.53846Z" stroke-linecap="round" stroke-linejoin="round"/>
                 </svg>
               </div>
-              <div class="city-select__text">
-              <?php echo empty($_COOKIE['city']) ? "Выбрать город" : $_COOKIE['city']; ?>
+              @if(session()->exists('city'))
+                <div class="city-select__text">{{ session('city') }}</div>
+              @else
+                <div class="city-select__text">Выбрать город</div>
+              @endif
               </div>
             </div>
             <div class="right-menu">
@@ -400,13 +405,14 @@
         <form id="callback-modal-form" class="form" method="post">
           @csrf
           <label class="label">
-            <input type="text" id="name-callback-modal" class="input-field" name="name" required minlength="3" maxlength="20" placeholder="Ваше имя">
+            <input type="text" id="name-callback-modal" class="input-field js-name-callback-modal" name="name" required minlength="3" maxlength="20" placeholder="Ваше имя">
           </label>
           <label class="label">
-            <input type="text" id="phone-callback-modal" class="input-field js-input-phone-mask" name="phone" required maxlength="18" placeholder="+7 (999) 999 99 99">
+            <input type="text" id="phone-callback-modal" class="input-field js-phone-callback-modal js-input-phone-mask" name="phone" required maxlength="18" placeholder="+7 (999) 999 99 99">
           </label>
+          <input type="hidden" id="email-callback-modal" class="js-email-callback-modal" name="email" value="no email">
           <div class="checkbox-wrapper">
-            <input type="checkbox" name="checkbox" class="custom-checkbox" id="checkbox-callback-modal" checked required onchange="document.querySelector('.js-callback-modal-btn').disabled = !this.checked;">
+            <input type="checkbox" name="checkbox" class="custom-checkbox js-checkbox-callback-modal" id="checkbox-callback-modal" checked required onchange="document.querySelector('.js-callback-modal-btn').disabled = !this.checked;">
             <label for="checkbox-callback-modal" class="custom-checkbox-label"></label>
             <span class="checkbox-text">Согласен с <a href="/politika-konfidencialnosti" class="privacy-policy-btn" target="_blank">политикой обработки персональных данных</a></span>
           </div>
@@ -435,8 +441,8 @@
   </div>
 
   <div class="header-catalog-dropdown">
-    <div class="catalog-nav">
-      <div class="aside-nav">
+    <div class="catalog-nav-wrapper">
+      <div class="catalog-nav">
         <div class="aside-nav-item">
           <div class="aside-nav-item__image">
             <img src="{{ asset('img/percent-icon.png') }}" alt="">
@@ -473,9 +479,11 @@
           @endif
         @endforeach
       </div>
-      <div class="promo">Новинки</div>
+      <div class="new-products">
+        <div class="new-products__title">Новинки</div>
+      </div>
     </div>
-    <div class="dark-background"></div>
+    <div class="overlay"></div>
   </div>
 
   @if(!session()->exists('we-used-cookie'))

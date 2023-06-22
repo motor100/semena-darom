@@ -25,8 +25,33 @@ class MainController extends Controller
             $item->retail_price = str_replace('.0', '', $item->retail_price);
             $item->promo_price = str_replace('.0', '', $item->promo_price);
         });
+
+        /**
+         * Новинки
+         * Последние 10 товаров
+         * Случайный порядок
+         * Обрезка коллекции до 3
+         * Заголовок title и описание text обрезаются через css
+        */
+        $new_products = Product::orderBy('id', 'desc')->limit(3)->get();
+
+        $new_products = $new_products->shuffle();
+        $new_products = $new_products->slice(0, 3);
+
+        $new_products->each(function ($item, $key) {
+            // Обрезка текста через хелпер Str::limit()
+            // $item->short_title = Str::limit($item->title, 30, '...');
+            // Удаление тегов и html сущностей из текста
+            $text = strip_tags($item->text);
+            $text = preg_replace('/&(.+?);/','', $text);
+            // Обрезка текста через хелпер Str::limit()
+            // $item->short_text = Str::limit($text, 60, '...');
+            $item->short_text = $text;
+            $item->retail_price = str_replace('.0', '', $item->retail_price);
+            $item->promo_price = str_replace('.0', '', $item->promo_price);
+        });
         
-        return view('home', compact('sliders', 'products'));
+        return view('home', compact('sliders', 'products', 'new_products'));
     }
 
     public function o_kompanii()
@@ -499,6 +524,19 @@ class MainController extends Controller
         // Через глобальный помощник «session»
         // session(['we-used-cookie' => 'yes']);
 
+        return false;
+    }
+
+    public function ajax_city(Request $request)
+    {
+        $city = $request->input('city');
+
+        // Через экземпляр запроса
+        $request->session()->put('city', $city);
+
+        // Через глобальный помощник «session»
+        // session(['we-used-cookie' => 'yes']);
+        return response()->json(['message' => 'error']);
         return false;
     }
 }

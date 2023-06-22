@@ -97,11 +97,6 @@
   <div class="popular-categories-section section">
     <div class="section-title">
       <div class="section-title__text">Хит недели</div>
-      <div class="all-btn">
-        <span class="all-btn__text">Все</span>
-        <div class="corner-right"></div>
-        <a href="#" class="full-link"></a>
-      </div>
     </div>
     <div class="popular-categories">
       <div class="row">
@@ -198,7 +193,7 @@
     </div>
     <div class="new-products">
       <div class="row">
-        @foreach($products as $product)
+        @foreach($new_products as $product)
           <div class="col-md-4">
             <div class="regular-products-item">
               <div class="products-item__image">
@@ -206,8 +201,8 @@
                   <img src="{{ asset('storage/uploads/products/' . $product->image) }}" alt="">
                 </a>
               </div>
-              <a href="/catalog/{{ $product->slug }}" class="products-item__title">{{ $product->short_title }}</a>
-              <div class="products-item__text">{!! $product->short_text !!}</div>
+              <a href="/catalog/{{ $product->slug }}" class="products-item__title">{{ $product->title }}</a>
+              <div class="products-item__text">{{ $product->short_text }}</div>
               <div class="products-item-price-wrapper">
                 @if($product->promo_price)
                   <div class="products-item__price products-item__promo-price">
