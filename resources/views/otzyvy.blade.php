@@ -26,12 +26,12 @@
       <div class="testimonials-item">
         <div class="testimonials-item__name">{{ $testimonial->name }}</div>
         @if($testimonial->image)
-          <div class="testimonials-item__text mb30">{{ $testimonial->text }}</div>
+          <div class="testimonials-item__text mb30">{!! $testimonial->text !!}</div>
           <div class="testimonials-item__image">
             <img src="{{ Storage::url($testimonial->image) }}" alt="">
           </div>
         @else
-          <div class="testimonials-item__text">{{ $testimonial->text }}</div>
+          <div class="testimonials-item__text">{!! $testimonial->text !!}</div>
         @endif
       </div>
     @endforeach
@@ -51,7 +51,7 @@
           <input type="text" name="name" id="testimonial-name" class="input-field" minlength="3" maxlength="50" required placeholder="Имя">
         </div>
         <div class="form-group">
-          <input type="email" name="email" id="testimonial-email" class="input-field" minlength="3" maxlength="100" required placeholder="Email">
+          <input type="email" name="email" id="testimonial-email" class="input-field" minlength="3" maxlength="100" placeholder="Email">
         </div>
       </div>
       <div class="form-group">

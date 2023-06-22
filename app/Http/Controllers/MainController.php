@@ -12,7 +12,7 @@ use Illuminate\Support\Str;
 class MainController extends Controller
 {
     public function home()
-    {   
+    {
         // Main slider
         $sliders = MainSlider::all();
         
@@ -67,7 +67,7 @@ class MainController extends Controller
     public function otzyvy()
     {
         $testimonials = Testimonial::whereNotNull('publicated_at')
-                                    ->limit(60)
+                                    ->limit(100)
                                     ->orderBy('id', 'desc')
                                     ->get();
 
@@ -75,7 +75,7 @@ class MainController extends Controller
             $item->short_created_at = $item->created_at->format("d.m.Y");
         });
 
-        $testimonials = \App\Services\Common::custom_paginator($testimonials, 10);
+        $testimonials = \App\Services\Common::custom_paginator($testimonials, 20);
 
         return view('otzyvy', compact('testimonials'));
     }

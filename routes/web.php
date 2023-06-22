@@ -112,6 +112,11 @@ Route::middleware('auth')->group(function () {
 
     Route::get('/dashboard/main-slider/{id}/destroy', [MainSliderController::class, 'destroy'])->name('main-slider-destroy');
 
+    Route::get('/dashboard/testimonials', [AdminController::class, 'testimonials']);
+
+    Route::post('/dashboard/testimonials-update', [AdminController::class, 'testimonials_update']);
+
+    Route::post('/dashboard/testimonials-destroy', [AdminController::class, 'testimonials_destroy']);
 
 
     Route::get('/dashboard/polzovatelskoe-soglashenie-s-publichnoj-ofertoj', [AdminController::class, 'polzovatelskoe_soglashenie_s_publichnoj_ofertoj']);

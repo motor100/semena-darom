@@ -102,16 +102,20 @@
         </div>
 
         <div class="header-nav display-flex flexdirection-row alignitems-center">
-          <!-- 
+          
           <div class="nav-item">
             
             <a href="#" class="header-item">
-              <a href="#" class="header-item"></a>
               <i class="far fa-comments"></i>
+              @if(isset($testimonials_count))
+                @if($testimonials_count > 0)
+                  <span id="testimonials-counter" class="tp-badge tp-badge-warning">{{ $testimonials_count }}</span>
+                @endif
+              @endif
             </a>
             
           </div>
-           -->
+          
           <div class="nav-item">
             <a href="#" class="header-item display-block pos-relative">
               <i class="far fa-bell"></i>

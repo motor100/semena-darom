@@ -33,23 +33,25 @@ document.addEventListener("DOMContentLoaded", () => {
     
   }
 
-  // Кнопка Каталог в шапке
-  const headerCatalogBtn = document.querySelector('.header .header-catalog-btn');
+  // Кнопка Каталог в static и fixed шапке
+  const headerCatalogBtns = document.querySelectorAll('.header-catalog-btn');
 
-  if (headerCatalogBtn) {
+  headerCatalogBtns.forEach((item) => {
     const headerCatalogDropdown = document.querySelector('.header-catalog-dropdown');
-    headerCatalogBtn.onclick = function() {
-      headerCatalogBtn.classList.toggle('active');
+
+    item.onclick = function() {
+      item.classList.toggle('active');
       headerCatalogDropdown.classList.toggle('active');
     }
 
     const overlay = headerCatalogDropdown.querySelector('.overlay');
 
     overlay.onclick = function() {
-      headerCatalogBtn.classList.remove('active');
+      item.classList.remove('active');
       headerCatalogDropdown.classList.remove('active');
     }
-  }
+  });
+
 
   // Search
   let searchForm = document.querySelector('.search-form'),
@@ -300,7 +302,7 @@ document.addEventListener("DOMContentLoaded", () => {
   // Окна
   let modalWindow = document.querySelectorAll('.modal-window'),
       mobileMenuCityBtn = document.querySelector('.js-mobile-menu-city-btn'),
-      selectCityBtn = document.querySelector('#city-select-btn'),
+      selectCityBtns = document.querySelectorAll('#city-select-btn'),
       selectCityModal = document.querySelector('#select-city-modal'),
       callbackBtn = document.querySelector('.js-callback-btn'),
       callbackModal = document.querySelector('#callback-modal'),
@@ -314,9 +316,12 @@ document.addEventListener("DOMContentLoaded", () => {
   //   modalOpen(selectCityModal);
   // }
 
-  selectCityBtn.onclick = function () {
-    modalOpen(selectCityModal);
-  }
+  selectCityBtns.forEach((item) => {
+    item.onclick = function () {
+      modalOpen(selectCityModal);
+    }
+  });
+  
 
   callbackBtn.onclick = function () {
     modalOpen(callbackModal);
@@ -381,7 +386,6 @@ document.addEventListener("DOMContentLoaded", () => {
   });
 
   // Sticky desktop menu
-  /*
   window.onscroll = function() {
     let scrStickyDesktopMenu = window.pageYOffset || document.documentElement.scrollTop,
         stickyDesktopMenu = document.querySelector('.sticky-desktop-menu');
@@ -392,16 +396,6 @@ document.addEventListener("DOMContentLoaded", () => {
       stickyDesktopMenu.classList.remove('sticky-desktop-menu-active');
     }
   }
-  */
-
-  /*
-  function getCookie(name) {
-    let matches = document.cookie.match(new RegExp(
-      "(?:^|; )" + name.replace(/([\.$?*|{}\(\)\[\]\\\/\+^])/g, '\\$1') + "=([^;]*)"
-    ));
-    return matches ? decodeURIComponent(matches[1]) : undefined;
-  }
-  */
 
   // mobile menu
   let burgerMenuWrapper = document.querySelector('.burger-menu-wrapper'),
@@ -659,12 +653,6 @@ document.addEventListener("DOMContentLoaded", () => {
       let inputName = form.querySelector('#testimonial-name');
       if (inputName.value.length < 3 || inputName.value.length > 50 ) {
         inputName.classList.add('required');
-        arr.push(false);
-      }
-
-      let inputCity = form.querySelector('#testimonial-email');
-      if (inputCity.value.length < 3 || inputCity.value.length > 100 ) {
-        inputCity.classList.add('required');
         arr.push(false);
       }
 

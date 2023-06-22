@@ -113,7 +113,7 @@ ul {
 .tp-badge {
   position: absolute;
   right: 1px;
-  top: 9px;
+  top: 0;
   padding: 1px 4px;
   border-radius: 4px;
   font-size: 10px;
@@ -226,6 +226,7 @@ ul {
 }
 
 .content-header .nav-item {
+  position: relative;
   transition: color .3s;
 }
 .content-header .nav-item:hover * {
