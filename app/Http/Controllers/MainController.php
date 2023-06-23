@@ -190,6 +190,9 @@ class MainController extends Controller
 
     public function cart(Request $request)
     {
+        // Переменная is_cart переключения макета корзины в справа
+        $is_cart = true;
+        
         $products = [];
 
         if ($request->session()->has('cart')) {
@@ -220,7 +223,34 @@ class MainController extends Controller
             });
         }
 
-        return view('cart', compact('products'));
+        return view('cart', compact('products', 'is_cart'));
+    }
+
+    public function poisk(Request $request)
+    {
+        $search_query = $request->input('search_query');
+
+        if (mb_strlen($search_query) < 3 || mb_strlen($search_query) > 40) {
+            return redirect('/');
+        }
+
+        $search_query = htmlspecialchars($search_query);
+
+        if (!$search_query) {
+            return redirect('/');
+        }
+
+        $search_query = htmlspecialchars($search_query);
+
+        $products = Product::where('title', 'like', "%{$search_query}%")
+                            ->orWhere('text', 'like', "%{$search_query}%")
+                            ->get();
+
+        if (!$products) {
+            return redirect('/');
+        };
+
+        return view('poisk', compact('products', 'search_query'));
     }
 
     public function rm_from_cart(Request $request)
@@ -273,28 +303,6 @@ class MainController extends Controller
     public function kak_oformit_zakaz()
     {
         return view('kak_oformit_zakaz');
-    }
-
-    public function poisk(Request $request)
-    {
-        // Search
-        $search_query = $request->input('search_query');
-
-        if (!$search_query) {
-            return redirect('/');
-        }
-
-        $search_query = htmlspecialchars($search_query);
-
-        $products = Product::where('title', 'like', "%{$search_query}%")
-                            ->orWhere('text', 'like', "%{$search_query}%")
-                            ->get();
-
-        if (!$products) {
-            return redirect('/');
-        };
-
-        return view('poisk', compact('products', 'search_query'));
     }
 
     public function ajax_search(Request $request)

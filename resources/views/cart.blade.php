@@ -118,6 +118,7 @@
                   <div class="circle"></div>
                 </button>
               </div>
+              <div class="cart-item__weight hidden">{{ $product->weight }}</div>
             </div>
           </div>
         </div>

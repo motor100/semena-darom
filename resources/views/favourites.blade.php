@@ -84,6 +84,7 @@
                   <span class="rm-from-btn__text">Удалить</span>
                 </button>
               </form>
+              <!-- 
               <div class="cf-item__quantity">
                 <button type="button" class="quantity-button quantity-minus" data-id="{{ $product->id }}">
                   <div class="circle"></div>
@@ -93,6 +94,7 @@
                   <div class="circle"></div>
                 </button>
               </div>
+               -->
             </div>
           </div>
         </div>
