@@ -3,7 +3,6 @@ document.addEventListener("DOMContentLoaded", () => {
   // Общие переменные
   let body = document.querySelector('body'),
       mainSection = document.querySelector('.main-section'),
-      newsSection = document.querySelector('.news-section'),
       cartPage = document.querySelector('.js-cart-page'), // страница корзина
       catalogPage = document.querySelector('.catalog'), // страница каталог
       singleProduct = document.querySelector('.single-product'), // страница товара
@@ -272,8 +271,37 @@ document.addEventListener("DOMContentLoaded", () => {
   const addToFavouritesBtns = document.querySelectorAll('.add-to-favourites');
 
   function addToFavourites(elem) {
+
     // Add class to elem
     elem.classList.add('active');
+
+    /**
+     * Функция обновления счетчиков товара в избранном
+     * В хедере, в закрепленном меню, в мобильном меню
+     * str строка
+     * return false
+     * @param {*} str 
+     * @returns 
+     */
+    function favouritesCounterUpdate(str) {
+
+      // Header favourites counter
+      const headerFavouritesCounter = document.querySelector('#header-favourites-counter');
+      headerFavouritesCounter.innerText = str;
+      headerFavouritesCounter.classList.remove('hidden');
+
+      // Sticky desktop menu favourites counter
+      const stickyDesktopMenuFavouritesCounter = document.querySelector('#sticky-desktop-menu-favourites-counter');
+      stickyDesktopMenuFavouritesCounter.innerText = str;
+      stickyDesktopMenuFavouritesCounter.classList.remove('hidden');
+
+      // Mobile favourites counter
+      const mobileFavouritesCounter = document.querySelector('#mobile-favourites-counter');
+      mobileFavouritesCounter.innerText = str;
+      mobileFavouritesCounter.classList.remove('hidden');
+
+      return false;      
+    }
 
     fetch('/ajax/addtofavourites', {
       method: 'POST',
@@ -283,9 +311,7 @@ document.addEventListener("DOMContentLoaded", () => {
     })
     .then((response) => response.text())
     .then((text) => {
-      const headerFavouritesCounter = document.querySelector('#header-favourites-counter');
-      headerFavouritesCounter.innerText = text;
-      headerFavouritesCounter.classList.remove('hidden');
+      favouritesCounterUpdate(text);
     })
     .catch((error) => {
       console.log(error);
@@ -528,11 +554,31 @@ document.addEventListener("DOMContentLoaded", () => {
     // Add text
     elem.innerText = 'В корзине';
 
-    function cartCounterCalc(obj) {
-      // Обновление количества товаров в корзине
+    /**
+     * Функция обновления счетчиков товара в корзине
+     * В хедере, в закрепленном меню, в мобильном меню
+     * str строка
+     * return false
+     * @param {*} str 
+     * @returns 
+     */
+    function cartCounterUpdate(obj) {
+
+      // Header cart counter
       const headerCartCounter = document.querySelector('#header-cart-counter');
       headerCartCounter.innerText = obj.cart_count;
       headerCartCounter.classList.remove('hidden');
+      
+      // Sticky desktop menu cart counter
+      const stickyDesktopMenuCartCounter = document.querySelector('#sticky-desktop-menu-cart-counter');
+      stickyDesktopMenuCartCounter.innerText = obj.cart_count;
+      stickyDesktopMenuCartCounter.classList.remove('hidden');
+
+      // Mobile cart counter
+      const mobileCartCounter = document.querySelector('#mobile-cart-counter');
+      mobileCartCounter.innerText = obj.cart_count;
+      mobileCartCounter.classList.remove('hidden');
+
       return false;
     }
 
@@ -589,7 +635,7 @@ document.addEventListener("DOMContentLoaded", () => {
     })
     .then((response) => response.json())
     .then((json) => {
-      cartCounterCalc(json);
+      cartCounterUpdate(json);
       asideCartItemsUpdate(json);
       asideCartTotalCalc();
     })

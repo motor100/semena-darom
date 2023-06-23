@@ -553,9 +553,9 @@
                 <img src="/img/header-heart.svg" alt="">
               </div>
               @if(isset($favourites_count))
-                <div id="header-favourites-counter" class="counter">{{ $favourites_count }}</div>
+                <div id="sticky-desktop-menu-favourites-counter" class="counter">{{ $favourites_count }}</div>
               @else
-                <div id="header-favourites-counter" class="counter hidden"></div>
+                <div id="sticky-desktop-menu-favourites-counter" class="counter hidden"></div>
               @endif
               <div class="right-menu-item__text">Избранное</div>
               <a href="/favourites" class="full-link"></a>
@@ -565,9 +565,9 @@
                 <img src="/img/header-cart.svg" alt="">
               </div>
               @if(isset($cart_count))
-                <div id="header-cart-counter" class="counter">{{ $cart_count }}</div>
+                <div id="sticky-desktop-menu-cart-counter" class="counter">{{ $cart_count }}</div>
               @else
-                <div id="header-cart-counter" class="counter hidden"></div>
+                <div id="sticky-desktop-menu-cart-counter" class="counter hidden"></div>
               @endif
               <div class="right-menu-item__text">Корзина</div>
               <a href="/cart" class="full-link"></a>
@@ -590,6 +590,15 @@
           <div id="mobile-cart-counter" class="cart-counter">{{ $cart_count }}</div>
         @else
           <div id="mobile-cart-counter" class="cart-counter hidden"></div>
+        @endif
+        <a href="/cart" class="full-link"></a>
+      </div>
+      <div class="menu-item cart-menu-item">
+        <div class="title">Корзина</div>
+        @if(isset($cart_count))
+          <div id="mobile-favourites-counter" class="cart-counter">{{ $cart_count }}</div>
+        @else
+          <div id="mobile-favourites-counter" class="cart-counter hidden"></div>
         @endif
         <a href="/cart" class="full-link"></a>
       </div>
