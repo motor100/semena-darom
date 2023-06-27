@@ -5,6 +5,8 @@ document.addEventListener("DOMContentLoaded", () => {
       mainSection = document.querySelector('.main-section'),
       cartPage = document.querySelector('.js-cart-page'), // страница корзина
       catalogPage = document.querySelector('.catalog'), // страница каталог
+      akciiPage = document.querySelector('.akcii'), // страница акции
+      novinkiPage = document.querySelector('.novinki'), // страница новинки
       singleProduct = document.querySelector('.single-product'), // страница товара
       otzyvyPage = document.querySelector('.otzyvy'), // страница отзывы
       okompaniiPage = document.querySelector('.o-kompanii'), // страница о компании
@@ -410,6 +412,7 @@ document.addEventListener("DOMContentLoaded", () => {
     let mask = IMask(item, maskOptionsPhone);
   });
 
+
   // Sticky desktop menu
   window.onscroll = function() {
     let scrStickyDesktopMenu = window.pageYOffset || document.documentElement.scrollTop,
@@ -421,6 +424,22 @@ document.addEventListener("DOMContentLoaded", () => {
       stickyDesktopMenu.classList.remove('sticky-desktop-menu-active');
     }
   }
+
+  /**
+   * Function sort by price Catalog Akcii Novinki
+   * Функция сортировки по цене в Каталог Акции Новинки
+   */
+  function sortByPrice() {
+    const sortByForm = document.querySelector('#sort-by-form'),
+          sortBySelect = document.querySelector('#sort-by-select')
+
+    sortBySelect.addEventListener('change', () => { sortByForm.submit() }, false);
+
+    return false;
+  }
+  
+  
+
 
   // mobile menu
   let burgerMenuWrapper = document.querySelector('.burger-menu-wrapper'),
@@ -988,8 +1007,15 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   if (catalogPage) {
+    sortByPrice();
+  }
 
-    
+  if (akciiPage) {
+    sortByPrice();
+  }
+
+  if (novinkiPage) {
+    sortByPrice();
   }
     
   if (singleProduct) {

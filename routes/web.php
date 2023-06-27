@@ -31,6 +31,10 @@ Route::get('/kontakty', [MainController::class, 'kontakty']);
 
 Route::get('/catalog', [MainController::class, 'catalog'])->name('catalog');
 
+Route::get('/akcii', [MainController::class, 'akcii']);
+
+Route::get('/novinki', [MainController::class, 'novinki']);
+
 Route::get('/catalog/{slug}', [MainController::class, 'single_product']);
 
 Route::get('/favourites', [MainController::class, 'favourites']);

@@ -2,7 +2,7 @@
 
 namespace App\Services;
 
-class UserFilter
+class ProductFilter
 {
     protected $builder;
     protected $request;

@@ -16,17 +16,13 @@ class MainController extends Controller
     {
         // Main slider
         $sliders = MainSlider::all();
+
+        // Хит недели
+        $hit_products = Product::whereNotNull('property')
+                                ->take(3)
+                                ->inRandomOrder()
+                                ->get();
         
-        // Products
-        $products = Product::limit(3)->get();
-
-        $products->each(function ($item, $key) {
-            $item->short_title = Str::limit($item->title, 38, '...');
-            $item->short_text = Str::limit($item->text, 60, '...');
-            $item->retail_price = str_replace('.0', '', $item->retail_price);
-            $item->promo_price = str_replace('.0', '', $item->promo_price);
-        });
-
         /**
          * Новинки
          * Последние 10 товаров
@@ -34,25 +30,17 @@ class MainController extends Controller
          * Обрезка коллекции до 3
          * Заголовок title и описание text обрезаются через css
         */
-        $new_products = Product::orderBy('id', 'desc')->limit(3)->get();
+        $new_products = Product::orderBy('id', 'desc')->limit(10)->get();
 
-        $new_products = $new_products->shuffle();
-        $new_products = $new_products->slice(0, 3);
+        $new_products = $new_products->shuffle()->slice(0, 3);
 
         $new_products->each(function ($item, $key) {
-            // Обрезка текста через хелпер Str::limit()
-            // $item->short_title = Str::limit($item->title, 30, '...');
-            // Удаление тегов и html сущностей из текста
+            // Убрать теги из текста
             $text = strip_tags($item->text);
             $text = preg_replace('/&(.+?);/','', $text);
-            // Обрезка текста через хелпер Str::limit()
-            // $item->short_text = Str::limit($text, 60, '...');
-            $item->short_text = $text;
-            $item->retail_price = str_replace('.0', '', $item->retail_price);
-            $item->promo_price = str_replace('.0', '', $item->promo_price);
         });
         
-        return view('home', compact('sliders', 'products', 'new_products'));
+        return view('home', compact('sliders', 'hit_products', 'new_products'));
     }
 
     public function o_kompanii()
@@ -90,7 +78,10 @@ class MainController extends Controller
     {
         $products = Product::where('stock', '>', 0);
 
-        $products = (new \App\Services\UserFilter($products, $request))->apply()->paginate(50)->withQueryString();
+        $products = (new \App\Services\ProductFilter($products, $request))
+                                            ->apply()
+                                            ->paginate(30)
+                                            ->withQueryString();
 
         $category_title = \App\Services\Common::get_category_title($request);
 
@@ -188,6 +179,44 @@ class MainController extends Controller
         return view('catalog', compact('products', 'category_title', 'query_category', 'query_sort'));
     }
     */
+
+    public function akcii(Request $request)
+    {
+        $products = Product::where('stock', '>', 0)
+                            ->whereNotNull('promo_price');
+        
+        if ($request->has('price')) {
+
+            if ($request->price != "desc" && $request->price != "asc") {
+                return redirect('/akcii');
+            }
+
+            $products = $products->orderBy('retail_price', $request->price);
+        }
+        
+        $products = $products->paginate(30)->withQueryString();
+
+        return view('akcii', compact('products'));
+    }
+
+    public function novinki(Request $request)
+    {
+        $products = Product::where('stock', '>', 0)
+                            ->take(150);
+        
+        if ($request->has('price')) {
+
+            if ($request->price != "desc" && $request->price != "asc") {
+                return redirect('/novinki');
+            }
+
+            $products = $products->orderBy('retail_price', $request->price);
+        }
+        
+        $products = $products->paginate(30)->withQueryString();
+
+        return view('novinki', compact('products'));
+    }
 
     public function single_product($slug)
     {

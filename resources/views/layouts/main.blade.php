@@ -169,14 +169,14 @@
                 <img src="{{ asset('img/percent-icon.png') }}" alt="">
               </div>
               <div class="aside-nav-item__title">Акции</div>
-              <a href="{{ route('catalog', ['category' => 'akcii']) }}" class="full-link"></a>
+              <a href="/akcii" class="full-link"></a>
             </div>
             <div class="aside-nav-item">
               <div class="aside-nav-item__image">
                 <img src="{{ asset('img/package-icon.png') }}" alt="">
               </div>
               <div class="aside-nav-item__title">Новинки</div>
-              <a href="{{ route('catalog', ['category' => 'novinki']) }}" class="full-link"></a>
+              <a href="/novinki" class="full-link"></a>
             </div>
             @foreach($parent_category as $cat)
               @if($cat->count_children > 0)
@@ -488,14 +488,14 @@
             <img src="{{ asset('img/percent-icon.png') }}" alt="">
           </div>
           <div class="aside-nav-item__title">Акции</div>
-          <a href="{{ route('catalog', ['category' => 'akcii']) }}" class="full-link"></a>
+          <a href="/akcii" class="full-link"></a>
         </div>
         <div class="aside-nav-item">
           <div class="aside-nav-item__image">
             <img src="{{ asset('img/package-icon.png') }}" alt="">
           </div>
           <div class="aside-nav-item__title">Новинки</div>
-          <a href="{{ route('catalog', ['category' => 'novinki']) }}" class="full-link"></a>
+          <a href="/novinki" class="full-link"></a>
         </div>
         @foreach($parent_category as $cat)
           @if($cat->count_children > 0)

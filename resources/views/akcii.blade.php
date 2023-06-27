@@ -1,6 +1,6 @@
 @extends('layouts.main')
 
-@section('title', 'Каталог')
+@section('title', 'Акции')
 
 @section('content')
 
@@ -13,22 +13,13 @@
     <a href="{{ route('home') }}">главная страница</a>
   </div>
   <div class="arrow"></div>
-  <div class="parent">
-    <a href="{{ route('catalog') }}">каталог</a>
-  </div>
-  @if($category_title)
-    <div class="arrow"></div>
-    <div class="active">{{ $category_title }}</div>
-  @endif
+  <div class="active">акции</div>
 </div>
 
 <div class="catalog">
-  <div class="page-title">{{ $category_title ? $category_title : "Каталог" }}</div>
+  <div class="page-title">Акции</div>
 
-  <form id="sort-by-form" action="/catalog" method="get">
-    @if(request()->category)
-      <input type="hidden" name="category" value="{{ request()->category }}">
-    @endif
+  <form id="sort-by-form" action="/akcii" method="get">
     <select name="price" id="sort-by-select">
       <option value="desc" {{ request()->price == "desc" ? "selected" : "" }}>Сначала дорогие</option>
       <option value="asc" {{ request()->price == "asc" ? "selected" : "" }}>Сначала дешевые</option>
