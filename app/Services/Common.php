@@ -3,6 +3,7 @@
 namespace App\Services;
 
 use Illuminate\Pagination\LengthAwarePaginator;
+use Illuminate\Http\Request;
 
 class Common {
 
@@ -30,4 +31,19 @@ class Common {
         return $paginatedTop100->setPath(LengthAwarePaginator::resolveCurrentPath());
     }
 
+    /**
+     * Функция возвращает название категории по ее slug из запроса
+     * input Illuminate\Http\Request
+     * return string
+     */
+    public static function get_category_title(Request $request): string
+    {
+        if ($request->has('category')) {
+            $category = \App\Models\Category::where('slug', $request->category)->first();
+            return $category ? $category->title : "";
+        } else {
+            return "";
+        }
+
+    }
 }

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Category;
 use Illuminate\Http\Request;
 use App\Models\Product;
 use App\Models\MainSlider;
@@ -87,44 +88,106 @@ class MainController extends Controller
 
     public function catalog(Request $request)
     {
+        $products = Product::where('stock', '>', 0);
+
+        $products = (new \App\Services\UserFilter($products, $request))->apply()->paginate(50)->withQueryString();
+
+        $category_title = \App\Services\Common::get_category_title($request);
+
+        return view('catalog', compact('products', 'category_title'));
+    }
+
+    /*
+    public function catalog(Request $request)
+    {
         // Get query param
         $query_category = $request->query('category');
-        
-        // Categories
-        // Get all categories
-        $categories = \App\Models\Category::all();
+        $query_sort = $request->query('sort');
 
-        // Get parent categories
-        $parent_category = $categories->where('parent', '0');
+        $query_category = htmlspecialchars($query_category);
+        $query_sort = htmlspecialchars($query_sort);
 
-        // Products
-        // Get products with query param
-        $category = false;
-        if($query_category) {
-            $category = $categories->where('slug', $query_category)->first();
+        $order_by = "asc";
+        if ($query_sort == "price-desc") {
+            $order_by = "desc";
         }
+
+        $category_title = "Каталог";
         
-        if($category) {
-            $products = Product::where('category_id', $category->id)->orderBy('id', 'desc')->get();
-            $products_count = $products->count();
-            $products = $products->take(20);
-            $category_title = $category->title;
+        if ($query_category) { // Если есть параметр category то получаю товары из этой категории
+            
+            if (mb_strlen($query_category) < 3 || mb_strlen($query_category) > 40) {
+                return redirect('/catalog');
+            }
 
-            $step = 20;
-            $page_max = ceil( $products_count / $step);
+            // Акции
+            if ($query_category == 'akcii') {
 
-            return view('catalog', compact('products', 'parent_category', 'category_title', 'products_count', 'page_max'));
-        } else {
-            $products = Product::orderBy('id', 'desc')->get();
-            $products_count = $products->count();
-            $products = $products->take(20);
+                // Все товары у которых promo_price не NULL
+                $products = Product::whereNotNull('promo_price')
+                                    // ->limit(20)
+                                    // ->get();
+                                    ->orderBy('retail_price', $order_by)
+                                    ->paginate(50)
+                                    ->withQueryString();
 
-            $step = 20;
-            $page_max = ceil( $products_count / $step);
+                $category_title = 'Акции';
+            }
 
-            return view('catalog', compact('products', 'parent_category', 'products_count', 'page_max'));
+            // Новинки
+            if ($query_category == 'novinki') {
+
+                // Последние 10 товаров
+                $products = Product::orderBy('id', 'desc')
+                                    // ->limit(20)
+                                    // ->get();
+                                    ->orderBy('retail_price', $order_by)
+                                    ->paginate(50)
+                                    ->withQueryString();
+
+                $category_title = 'Новинки';
+            }
+
+            // Categories
+            // Get all categories
+            // $categories = \App\Models\Category::all();
+
+            // Get parent categories
+            // $parent_category = $categories->where('parent', '0');
+            
+            // Products
+            // Get products with query param
+            if ($query_category != 'akcii' && $query_category != 'novinki') {
+
+                $category = '';
+
+                if ($query_category) {
+                    // $category = $categories->where('slug', $query_category)->first();
+                    $category = \App\Models\Category::where('slug', $query_category)->first();
+                }
+
+                if ($category) {
+                    $products = Product::where('category_id', $category->id)
+                                        ->orderBy('id', 'desc')
+                                        ->paginate(50)
+                                        ->withQueryString();
+
+                    $category_title = $category->title;
+                } else {
+                    return redirect('/catalog');
+                }
+            }
+
+        } else { // Если нет параметра category, то вывожу все товары
+            $products = Product::orderBy('id', 'desc')
+                                // ->limit(20)
+                                // ->get();
+                                ->paginate(50);
         }
+
+        return view('catalog', compact('products', 'category_title', 'query_category', 'query_sort'));
     }
+    */
 
     public function single_product($slug)
     {
@@ -137,6 +200,7 @@ class MainController extends Controller
                 $product->promo_price = str_replace('.0', '', $product->promo_price);
                 
                 // Заголовок в 2 цвета
+                // функция в common
                 $words_array = explode(" ", $product->title);
                 if (count($words_array) > 1) {
                     $first_word = "<span class=\"grey-text\">" . $words_array[0] . "</span>";
@@ -154,12 +218,15 @@ class MainController extends Controller
                                                         ->get();
 
                 $product->recommend_products->each(function ($item, $key) {
+                    // Обрезка через css
                     $item->short_title = Str::limit($item->title, 24, '...');
+                    // Обрезка через css
                     $item->short_text = Str::limit($item->text, 60, '...');
+                    // функция в common
                     $item->retail_price = str_replace('.0', '', $item->retail_price);
+                    // функция в common
                     $item->promo_price = str_replace('.0', '', $item->promo_price);
                 });
-                
 
                 return view('single_product', compact('product'));
             } else {

@@ -20,6 +20,12 @@
   <div class="parent">
     <a href="{{ route('catalog') }}">каталог</a>
   </div>
+  @if($product->category->title)
+    <div class="arrow"></div>
+    <div class="parent">
+      <a href="{{ route('catalog', ['category' => $product->category->slug]) }}">{{ $product->category->title }}</a>
+    </div>
+  @endif
   <div class="arrow"></div>
   <div class="active">{{ $product->title }}</div>
 </div>
