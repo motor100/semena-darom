@@ -43,7 +43,7 @@
     </div>
   </div>
 
-  {{ $products->links() }}
+  {{ $products->onEachSide(1)->links() }}
 
   
 </div> 

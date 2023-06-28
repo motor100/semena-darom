@@ -22,7 +22,7 @@ class AppServiceProvider extends ServiceProvider
     {
         // View Composer in ViewServiceProvider class
 
-        Paginator::defaultView('custompag');
+        Paginator::defaultView('pagination.custom');
     }
 
 
