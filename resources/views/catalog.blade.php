@@ -35,7 +35,7 @@
       @if(request()->category)
         <input type="hidden" name="category" value="{{ request()->category }}">
       @endif
-      <select name="price" id="catalog-sort-select">
+      <select name="price" id="catalog-sort-select" class="catalog-sort-select">
         <option value="desc" {{ request()->price == "desc" ? "selected" : "" }}>Сначала дорогие</option>
         <option value="asc" {{ request()->price == "asc" ? "selected" : "" }}>Сначала дешевые</option>
       </select>

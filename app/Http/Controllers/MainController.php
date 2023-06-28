@@ -33,12 +33,6 @@ class MainController extends Controller
         $new_products = Product::orderBy('id', 'desc')->limit(10)->get();
 
         $new_products = $new_products->shuffle()->slice(0, 3);
-
-        $new_products->each(function ($item, $key) {
-            // Убрать теги из текста
-            $text = strip_tags($item->text);
-            $text = preg_replace('/&(.+?);/','', $text);
-        });
         
         return view('home', compact('sliders', 'hit_products', 'new_products'));
     }
@@ -56,15 +50,8 @@ class MainController extends Controller
     public function otzyvy()
     {
         $testimonials = Testimonial::whereNotNull('publicated_at')
-                                    ->limit(100)
                                     ->orderBy('id', 'desc')
-                                    ->get();
-
-        $testimonials->each(function ($item) {
-            $item->short_created_at = $item->created_at->format("d.m.Y");
-        });
-
-        $testimonials = \App\Services\Common::custom_paginator($testimonials, 20);
+                                    ->paginate(20);
 
         return view('otzyvy', compact('testimonials'));
     }
@@ -246,17 +233,6 @@ class MainController extends Controller
                                                         ->limit(3)
                                                         ->get();
 
-                $product->recommend_products->each(function ($item, $key) {
-                    // Обрезка через css
-                    $item->short_title = Str::limit($item->title, 24, '...');
-                    // Обрезка через css
-                    $item->short_text = Str::limit($item->text, 60, '...');
-                    // функция в common
-                    $item->retail_price = str_replace('.0', '', $item->retail_price);
-                    // функция в common
-                    $item->promo_price = str_replace('.0', '', $item->promo_price);
-                });
-
                 return view('single_product', compact('product'));
             } else {
                 return abort(404);
@@ -312,11 +288,6 @@ class MainController extends Controller
                 $product->quantity = $cart_items[$product->id];
                 // $product->count = $product;
             }
-
-            $products->each(function ($item) {
-                $item->retail_price = str_replace('.0', '', $item->retail_price);
-                $item->promo_price = str_replace('.0', '', $item->promo_price);
-            });
         }
 
         return view('cart', compact('products', 'is_cart'));
