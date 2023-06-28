@@ -430,16 +430,27 @@ document.addEventListener("DOMContentLoaded", () => {
    * Функция сортировки по цене в Каталог Акции Новинки
    */
   function sortByPrice() {
-    const sortByForm = document.querySelector('#sort-by-form'),
-          sortBySelect = document.querySelector('#sort-by-select')
+    const catalogSortForm = document.querySelector('#catalog-sort-form'),
+          catalogSortSelect = document.querySelector('#catalog-sort-select')
 
-    sortBySelect.addEventListener('change', () => { sortByForm.submit() }, false);
+    catalogSortSelect.addEventListener('change', () => { catalogSortForm.submit() }, false);
 
     return false;
   }
-  
-  
 
+
+  /**
+   * Функция инициализации slim select на элементе #catalog-sort-select
+   * @returns boolean false
+   */
+  function slimSelectSort() {
+    new SlimSelect({
+      select: '#catalog-sort-select',
+      showSearch: false,
+      searchFocus: false,
+    });
+    return false;
+  }
 
   // mobile menu
   let burgerMenuWrapper = document.querySelector('.burger-menu-wrapper'),
@@ -1007,14 +1018,17 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   if (catalogPage) {
+    slimSelectSort();
     sortByPrice();
   }
 
   if (akciiPage) {
+    slimSelectSort();
     sortByPrice();
   }
 
   if (novinkiPage) {
+    slimSelectSort();
     sortByPrice();
   }
     

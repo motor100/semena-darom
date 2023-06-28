@@ -2,6 +2,10 @@
 
 @section('title', 'Акции')
 
+@section('style')
+  <link rel="stylesheet" href="{{ asset('css/slimselect.min.css') }}">
+@endsection
+
 @section('content')
 
 <div class="breadcrumbs">
@@ -19,12 +23,15 @@
 <div class="catalog">
   <div class="page-title">Акции</div>
 
-  <form id="sort-by-form" action="/akcii" method="get">
-    <select name="price" id="sort-by-select">
-      <option value="desc" {{ request()->price == "desc" ? "selected" : "" }}>Сначала дорогие</option>
-      <option value="asc" {{ request()->price == "asc" ? "selected" : "" }}>Сначала дешевые</option>
-    </select>
-  </form>
+  <div class="catalog-sort">
+    <div class="catalog-sort-text">Сортировка:</div>
+    <form id="catalog-sort-form" action="/akcii" method="get">
+      <select name="price" id="catalog-sort-select">
+        <option value="desc" {{ request()->price == "desc" ? "selected" : "" }}>Сначала дорогие</option>
+        <option value="asc" {{ request()->price == "asc" ? "selected" : "" }}>Сначала дешевые</option>
+      </select>
+    </form>
+  </div>
 
   <div class="products">
     <div class="row">
@@ -35,8 +42,11 @@
   </div>
 
   {{ $products->onEachSide(1)->links() }}
-
   
 </div> 
 
+@endsection
+
+@section('script')
+  <script src="{{ asset('js/slimselect.min.js') }}"></script>
 @endsection
