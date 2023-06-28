@@ -161,7 +161,7 @@
   <div class="content-wrapper">
     <div class="container-fluid">
       <div class="row">
-        <div class="col-xxl-2 col-md-2">
+        <div class="col-md-2">
           <div class="aside-nav">
             <div class="aside-nav-title">Каталог товаров</div>
             <div class="aside-nav-item">

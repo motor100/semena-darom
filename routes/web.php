@@ -41,6 +41,8 @@ Route::get('/favourites', [MainController::class, 'favourites']);
 
 Route::get('/clear-favourites', [MainController::class, 'clear_favourites']);
 
+Route::post('/rmfromfavourites', [MainController::class, 'rm_from_favourites']);
+
 Route::get('/cart', [MainController::class, 'cart']);
 
 Route::get('/clear-cart', [MainController::class, 'clear_cart']);

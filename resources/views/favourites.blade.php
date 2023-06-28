@@ -73,7 +73,7 @@
                 </svg>
                 <span class="add-to-cart__text">В корзину</span>
               </div>
-              <form class="form rm-from-form" action="/rmfromcart"  method="post">
+              <form class="form rm-from-form" action="/rmfromfavourites"  method="post">
                 <input type="hidden" name="id" value="{{ $product->id }}">
                 @csrf
                 <button type="submit" class="rm-from-btn">
@@ -84,17 +84,6 @@
                   <span class="rm-from-btn__text">Удалить</span>
                 </button>
               </form>
-              <!-- 
-              <div class="cf-item__quantity">
-                <button type="button" class="quantity-button quantity-minus" data-id="{{ $product->id }}">
-                  <div class="circle"></div>
-                </button>
-                <input class="quantity-number" type="number" name="quantity" max="{{ $product->stock }}" min="1" step="1" data-id="{{ $product->id }}" value="{{ $product->quantity }}" readonly>
-                <button type="button" class="quantity-button quantity-plus" data-id="{{ $product->id }}">
-                  <div class="circle"></div>
-                </button>
-              </div>
-               -->
             </div>
           </div>
         </div>

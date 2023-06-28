@@ -64,6 +64,7 @@ class MainController extends Controller
     public function catalog(Request $request)
     {
         $products = Product::where('stock', '>', 0);
+        // $products = Product::query(); // без where
 
         $products = (new \App\Services\ProductFilter($products, $request))
                                             ->apply()
@@ -248,10 +249,19 @@ class MainController extends Controller
 
         if ($request->session()->has('favourites')) {
             $favorites_item = $request->session()->get('favourites');
-            $products = Product::whereIn('id', $favorites_item)->get();
+            $keys = array_keys($favorites_item);
+            $products = Product::whereIn('id', $keys)->get();
         }
 
         return view('favourites', compact('products'));
+    }
+
+    public function rm_from_favourites(Request $request)
+    {
+        // Метод pull извлекает и удаляет элемент из сессии единым выражением
+        $request->session()->pull("favourites." . $request->input("id"), "default");
+
+        return redirect('/favourites');
     }
 
     public function clear_favourites()
@@ -322,14 +332,9 @@ class MainController extends Controller
 
     public function rm_from_cart(Request $request)
     {   
-        $id = $request->input('id');
-
         // Метод pull извлекает и удаляет элемент из сессии единым выражением
-        $request->session()->pull('cart.' . $id, 'default');
+        $request->session()->pull("cart." . $request->input("id"), "default");
 
-        // $cart_count = count($request->session()->get('cart'));
-
-        // return $cart_count;
         return redirect('/cart');
     }
 
@@ -512,20 +517,17 @@ class MainController extends Controller
         if ($request->session()->has('favourites')) { // Если есть в сессии favourites, то добавляю в конец массива
             $favourites_items = $request->session()->get('favourites');
 
-            $has_product = false;
-            foreach($favourites_items as $value) {
-                if ($value == $id) {
-                    $has_product = true;
-                }
+            if (array_key_exists($id, $favourites_items)) { // Если есть товар, то прибавляю количество
+                $favourites_items[$id] = $favourites_items[$id] + 1;
+            } else {
+                $favourites_items[$id] = 1;
             }
 
-            if (!$has_product) { // Если такого ключа с id нет в массиве, то добавляю
-                $favourites_items[] = $id;
-                $request->session()->put('favourites', $favourites_items);
-            }
-        } else { // Если нет, то создаю массив favourites и добавляю туда значение 
-            $request->session()->put('favourites', [$id]);
+        } else { // Если нет, то создаю массив favourites и добавляю туда значение
+            $favourites_items[$id] = 1;
         }
+
+        $request->session()->put('favourites', $favourites_items);
 
         $favourites_count = count($request->session()->get('favourites'));
 
