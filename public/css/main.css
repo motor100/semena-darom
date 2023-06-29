@@ -772,6 +772,9 @@ p {
 
 /* cart-aside */
 .cart-aside {
+  position: sticky;
+  top: 260px;
+  right: 25px;
   padding: 0 0 0 10%;
 }
 .cart-aside .cart-aside-title-wrapper {
@@ -2227,6 +2230,9 @@ p {
 .cf-is-empty-content {
   width: 63%;
   margin: 0 auto 64px auto;
+}
+.cf-is-empty-content img {
+  width: 100%;
 }
 .cf-is-empty-text {
   font-family: 'arimo-semibold';

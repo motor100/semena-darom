@@ -206,14 +206,13 @@
         </div>
         <div class="col-xxl-3 d-none d-xxl-block">
           @if(isset($is_cart))
-            <div class="cart-total-aside">
+            <div class="cart-aside cart-total-aside">
               <div class="cart-total-aside__title">Итого</div>
               <div class="grey-line"></div>
               <div class="cart-total-aside-item">
                 <div class="cart-total-aside__text">Товаров</div>
                 <div class="cart-total-aside-value">
                   <span id="summary-quantity" class="cart-total-aside__counter">0</span>
-                  <span class="cart-total-aside__currency">шт</span>
                 </div>
               </div>
               <div class="cart-total-aside-item">
