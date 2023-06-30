@@ -6,6 +6,7 @@ use App\Models\Category;
 use Illuminate\Http\Request;
 use App\Models\Product;
 use App\Models\MainSlider;
+use App\Models\Promo;
 use App\Models\Testimonial;
 use Illuminate\Support\Str;
 
@@ -22,6 +23,11 @@ class MainController extends Controller
                                 ->take(3)
                                 ->inRandomOrder()
                                 ->get();
+
+        // Акции
+        $promos = Promo::orderBy('id', 'desc')
+                        ->take(3)
+                        ->get();
         
         /**
          * Новинки
@@ -34,7 +40,7 @@ class MainController extends Controller
 
         $new_products = $new_products->shuffle()->slice(0, 3);
         
-        return view('home', compact('sliders', 'hit_products', 'new_products'));
+        return view('home', compact('sliders', 'hit_products', 'promos', 'new_products'));
     }
 
     public function o_kompanii()
@@ -578,7 +584,7 @@ class MainController extends Controller
 
         if (array_key_exists("file", $validated)) {
             // Автоматически генерировать уникальный идентификатор для имени файла
-            $path = \Illuminate\Support\Facades\Storage::putFile('public/testimonials', $validated["file"]);
+            $path = \Illuminate\Support\Facades\Storage::putFile('public/uploads/testimonials', $validated["file"]);
         }
 
         $testimonial = Testimonial::create([

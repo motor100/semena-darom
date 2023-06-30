@@ -56,8 +56,6 @@
       </div>
       <div class="grey-section__text">Сформированный заказ отправляется в течение 2-х рабочих дней после подтверждения заказа. В случае выбора пред оплатного способа оплаты — в течение 2-х рабочих дней после оплаты заказа.</div>
     </div>
-    <div class="corner-right"></div>
-    <a href="#" class="full-link"></a>
   </div>
   <div class="warranty">
     <div class="warranty-title page-subtitle">Гарантии</div>
@@ -180,8 +178,6 @@
       </div>
       <div class="grey-section__text">Клиент имеет право вернуть свои деньги в 3-х случаях:</div>
     </div>
-    <div class="corner-right"></div>
-    <a href="#" class="full-link"></a>
   </div>
   <div class="dostavka-i-oplata-item">
     <div class="row">

@@ -1005,7 +1005,7 @@ p {
 
 /* grey section */
 .grey-section {
-  position: relative;
+  /* position: relative; */
   margin: 0 0 50px 0;
   padding: 13px 80px 13px 16px;
   border-radius: 10px;
@@ -1161,10 +1161,7 @@ p {
   text-decoration: underline;
 }
 
-/* popular categories section */
-.popular-categories-section .section-title {
-  position: relative;
-}
+/*
 .corner-right {
   position: absolute;
   top: 50%;
@@ -1191,6 +1188,7 @@ p {
   top: 11px;
   transform: rotate(-45deg);
 }
+*/
 
 
 /* promo-section */

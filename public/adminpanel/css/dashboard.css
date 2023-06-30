@@ -80,108 +80,12 @@
   display: contents;
 }
 
-
-/* Страница Просмотр события */
-.event-show .table .number-column {
-  width: 35px;
+/* Страница Акции */
+.promo-image {
+  width: 100px;
 }
-.event-show .table .seat-column {
-  width: 67px;
-}
-.event-show .table .price-column {
-  width: 105px;
-}
-.event-show .table .credit-column {
-  width: 83px;
-}
-.event-show .table .note-column {
-  width: 28%;
-}
-.event-show .table input {
+.promo-image img {
   width: 100%;
-}
-.event-show .table .readonly {
-  border: 1px solid transparent;
-  background-color: transparent;
-}
-.event-show .button-wrapper {
-  display: flex;
-  justify-content: space-between;
-}
-
-
-/* Текущие уведомления */
-.current-notifications .notification-item {
-  position: relative;
-  padding: 10px 0;
-}
-.current-notifications .notification-item.border-bottom {
-  border-bottom: 1px solid #e5e7eb;
-}
-.current-notifications .notification-item.disabled {
-  color: #D3D3D3;
-}
-.current-notifications .notification-item.disabled .notification-item__link {
-  color: #D3D3D3;
-}
-.current-notifications  .notification-item .read-button {
-  position: absolute;
-  right: 0;
-  bottom: 10px;
-  font-size: 14px;
-  cursor: pointer;
-}
-
-
-/* Страница Создать уведомление */
-.notifications-create .name-text {
-  height: 38px;
-}
-
-
-/* Выпадающий поиск по имени */
-.name-search {
-  position: relative;
-}
-.name-search .autocomplete-dropdown {
-  position: absolute;
-  top: 70px;
-  left: 0;
-  width: 100%;
-  background-color: #fff;
-  border-radius: .25rem;
-  z-index: 1;
-  opacity: 0;
-  visibility: hidden;
-  transition: opacity cubic-bezier(0.215, 0.61, 0.355, 1) .3s, visibility cubic-bezier(0.215, 0.61, 0.355, 1) .3s;
-}
-.name-search .autocomplete-dropdown.active {
-  padding: 0 0 10px 0;
-  opacity: 1;
-  visibility: visible;
-}
-.name-search .autocomplete-list {
-  margin: 0;
-  padding: 0;
-  list-style: none;
-}
-.name-search .autocomplete-list-item {
-  margin: .575rem .775rem;
-  cursor: pointer;
-}
-.name-search .autocomplete-list-item:hover {
-  color: #777;
-}
-.name-search .search-message {
-  margin: 0 .775rem;
-  font-size: 14px;
-}
-
-
-/* Страница Клиенты */
-.fa-whatsapp {
-  font-size: 20px;
-  color: #25D366;
 }
 
 

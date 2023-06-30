@@ -107,63 +107,34 @@
     </div>
   </div>
 
+  @if($promos->count() == 3)
   <div class="promo-section section">
     <div class="section-title">
       <div class="section-title__text">Акции</div>
     </div>
     <div class="promo">
       <div class="row">
-        <div class="col-md-4">
-          <div class="promo-item">
-            <div class="bg-image">
-              <img src="/img/promo-item-img1.jpg" alt="">
-            </div>
-            <div class="green-figure">
-              <img src="/img/promo-item-figure.png" alt="">
-            </div>
-            <div class="promo-item__text">Семена Аргентинской и Бразильской картошки</div>
-            <div class="discount">
-              <span class="discount-text">- 45</span>
-              <span class="discount-percent">%</span>
-            </div>
-          </div>
-        </div>
-        <div class="col-md-4">
-          <div class="promo-item">
-            <div class="bg-image">
-              <img src="/img/promo-item-img2.jpg" alt="">
-            </div>
-            <div class="green-figure">
-              <img src="/img/promo-item-figure.png" alt="">
-            </div>
-            <div class="promo-item__text">Перец «Уралочка»</div>
-            <div class="discount">
-              <span class="discount-text">- 25</span>
-              <span class="discount-percent">%</span>
+        @foreach($promos as $promo)
+          <div class="col-md-4">
+            <div class="promo-item">
+              <div class="bg-image">
+                <img src="{{ Storage::url($promo->image) }}" alt="">
+              </div>
+              <div class="green-figure">
+                <img src="/img/promo-item-figure.png" alt="">
+              </div>
+              <div class="promo-item__text">{{ Str::words($promo->title, 8, '...') }}</div>
+              <div class="discount">
+                <span class="discount-text">- {{ $promo->discount }}</span>
+                <span class="discount-percent">%</span>
+              </div>
             </div>
           </div>
-        </div>
-        <div class="col-md-4">
-          <div class="promo-item">
-            <div class="bg-image">
-              <img src="/img/promo-item-img3.jpg" alt="">
-            </div>
-            <div class="green-figure">
-              <img src="/img/promo-item-figure.png" alt="">
-            </div>
-            <div class="promo-item__text">Капуста из Китая</div>
-            <div class="discount">
-              <span class="discount-text">- 15</span>
-              <span class="discount-percent">%</span>
-            </div>
-          </div>
-        </div>
+        @endforeach
       </div>
-    
-    
     </div>
-
   </div>
+  @endif
 
   <div class="new-products-section">
     <div class="section-title">

@@ -53,11 +53,7 @@ class MainSliderController extends Controller
      */
     public function show(string $id)
     {
-        $slide = MainSlider::find($id);
-
-        if (!$slide) {
-            return abort(404);
-        }
+        $slide = MainSlider::findOrFail($id);
 
         return view('dashboard.main-slider-show', compact('slide'));
     }
@@ -67,11 +63,7 @@ class MainSliderController extends Controller
      */
     public function edit(string $id)
     {
-        $slide = MainSlider::find($id);
-
-        if (!$slide) {
-            return abort(404);
-        }
+        $slide = MainSlider::findOrFail($id);
 
         return view('dashboard.main-slider-edit', compact('slide'));
     }
@@ -85,20 +77,15 @@ class MainSliderController extends Controller
             'id' => 'required|numeric',
             'title' => 'required|min:4|max:255',
             'text' => 'required|min:4|max:255',
-            'input-main-file' => 'nullable|image|mimes:jpg,png,jpeg',
         ]);
 
-        $slide = MainSlider::find($validated["id"]);
+        $slide = MainSlider::findOrFail($validated["id"]);
 
-        if (!$slide) {
-            return abort(404);
-        }
-
-        if (array_key_exists("input-main-file", $validated)) {
+        if ($request->has('input-main-file')) {
             if (Storage::exists($slide->image)) {
                 Storage::delete($slide->image);
             }
-            $path = Storage::putFile('public/uploads/main-slider', $validated["input-main-file"]);
+            $path = Storage::putFile('public/uploads/main-slider', $request->file('input-main-file'));
         } else {
             $path = $slide->image;
         }

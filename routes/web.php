@@ -7,6 +7,7 @@ use App\Http\Controllers\MailerController;
 use App\Http\Controllers\DeliveryController;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\MainSliderController;
+use App\Http\Controllers\PromoController;
 
 /*
 |--------------------------------------------------------------------------
@@ -117,6 +118,20 @@ Route::middleware('auth')->group(function () {
     Route::post('/dashboard/main-slider/update', [MainSliderController::class, 'update'])->name('main-slider-update');
 
     Route::get('/dashboard/main-slider/{id}/destroy', [MainSliderController::class, 'destroy'])->name('main-slider-destroy');
+
+    Route::get('/dashboard/promos', [PromoController::class, 'index']);
+
+    Route::get('/dashboard/promos/create', [PromoController::class, 'create'])->name('promos-create');
+
+    Route::post('/dashboard/promos/store', [PromoController::class, 'store'])->name('promos-store');
+
+    Route::get('/dashboard/promos/{id}', [PromoController::class, 'show'])->name('promos-show');
+
+    Route::get('/dashboard/promos/{id}/edit', [PromoController::class, 'edit'])->name('promos-edit');
+
+    Route::post('/dashboard/promos/{id}/update', [PromoController::class, 'update'])->name('promos-update');
+
+    Route::get('/dashboard/promos/{id}/destroy', [PromoController::class, 'destroy'])->name('promos-destroy');
 
     Route::get('/dashboard/testimonials', [AdminController::class, 'testimonials']);
 

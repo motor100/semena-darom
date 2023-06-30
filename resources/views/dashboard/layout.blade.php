@@ -27,15 +27,15 @@
         <div class="aside-nav">
 
           <div class="nav-item">
-            <a href="/dashboard/clients" class="item-link">
-              <i class="nav-icon fas fa-users"></i>
-              <span>Клиенты</span>
+            <a href="/dashboard/main-slider" class="item-link">
+              <i class="nav-icon fas fa-images"></i>
+              <span>Слайдер</span>
             </a>
           </div>
           <div class="nav-item">
-            <a href="/dashboard/events" class="item-link">
-              <i class="nav-icon fas fa-car-side"></i>
-              <span>События</span>
+            <a href="/dashboard/promos" class="item-link">
+              <i class="nav-icon fas fa-percent"></i>
+              <span>Акции</span>
             </a>
           </div>
           <div class="nav-item">
@@ -44,12 +44,7 @@
               <span>Отзывы</span>
             </a>
           </div>
-          <div class="nav-item">
-            <a href="/dashboard/main-slider" class="item-link">
-              <i class="nav-icon fas fa-images"></i>
-              <span>Слайдер</span>
-            </a>
-          </div>
+
 
           <div class="nav-item nav-item-has-children">
             <a href="" class="item-link">

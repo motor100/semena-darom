@@ -115,8 +115,6 @@
       </div>
       <div class="grey-section__text"><span class="red-text">Примечание:</span> При заказе на сумму свыше 2000 руб. Вы получите СКИДКУ - 10% на весь заказ. Просто наберите товара в Корзину на 2000+ руб. и ваша сумма автоматически пересчитается.</div>
     </div>
-    <div class="corner-right"></div>
-    <a href="#" class="full-link"></a>
   </div>
   <div class="kak-zakazat-item">
     <div class="row">
@@ -160,8 +158,6 @@
       </div>
       <div class="grey-section__text"><span class="red-text">Примечание:</span> если у Вас нет Емейла, либо он не проходит (по каким-то причинам), то нажмите галочку в квадратик и Ваша регистрация не будет остановлена.</div>
     </div>
-    <div class="corner-right"></div>
-    <a href="#" class="full-link"></a>
   </div>
   <div class="kak-zakazat-item">
     <div class="row">
@@ -236,8 +232,6 @@
       </div>
       <div class="grey-section__text"><span class="red-text">Примечание:</span> вы можете изменить количество выбранных товаров или удалить что-либо, нажав на кнопку «ЗДЕСЬ» (прямо под таблицей).</div>
     </div>
-    <div class="corner-right"></div>
-    <a href="#" class="full-link"></a>
   </div>
   <div class="kak-zakazat-item">А также, если у Вас есть какая-то специфическая просьба (к доставке и т.д.), то Вы можете прикрепить Комментарий к Заказу и наш менеджер обязательно учтет Вашу просьбу.</div>
   <div class="kak-zakazat-item">
