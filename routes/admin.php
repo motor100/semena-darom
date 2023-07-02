@@ -1,7 +1,9 @@
 <?php
 
+use App\Http\Controllers\Admin\Auth\AuthenticatedSessionController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Admin\AdminController;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -36,14 +38,19 @@ Route::prefix('admin')->group(static function () {
         // Confirm password routes
         Route::get('confirm-password', [\App\Http\Controllers\Admin\Auth\ConfirmablePasswordController::class, 'show'])->name('admin.password.confirm');
         Route::post('confirm-password', [\App\Http\Controllers\Admin\Auth\ConfirmablePasswordController::class, 'store']);
+
         // Logout route
-        Route::post('logout', [\App\Http\Controllers\Admin\Auth\AuthenticatedSessionController::class, 'destroy'])->name('admin.logout');
-        // General routes
-        Route::get('/', [\App\Http\Controllers\Admin\HomeController::class, 'index'])->name('admin.index');
-        Route::get('profile', [\App\Http\Controllers\Admin\HomeController::class, 'profile'])->middleware('password.confirm.admin')->name('admin.profile');
+        Route::post('logout', [AuthenticatedSessionController::class, 'destroy'])
+                    ->name('admin.logout');
+
 
         // Админ панель
         Route::get('/', [AdminController::class, 'home'])->name('admin.index');
+
+        Route::get('profile', [AdminController::class, 'profile'])
+                    ->middleware('password.confirm.admin')
+                    ->name('admin.profile');
+
         // Route::get('/dashboard', [AdminController::class, 'home'])->name('dashboard');
 
         Route::get('/dashboard/main-slider', [MainSliderController::class, 'index']);

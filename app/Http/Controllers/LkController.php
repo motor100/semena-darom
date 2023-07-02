@@ -17,6 +17,6 @@ class LkController extends Controller
             return redirect('/');
         }
 
-        return 'lk';
+        return view('lk.home');
     }
 }

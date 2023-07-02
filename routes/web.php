@@ -121,7 +121,7 @@ require __DIR__.'/auth.php';
 // Личный кабинет
 Route::middleware(['auth', 'verified'])->group(function () {
 
-    Route::get('dashboard', [LkController::class, 'home'])->name('lk.index');
+    Route::get('lk', [LkController::class, 'home'])->name('lk.index');
 
     Route::get('profile', [ProfileController::class, 'home'])->name('profile');
 

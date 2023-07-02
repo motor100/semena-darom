@@ -511,7 +511,7 @@
     <div class="overlay"></div>
   </div>
 
-  @if(!session()->exists('we-used-cookie'))
+  @if(!request()->cookie('we-used-cookie'))
     <div class="messages-cookies">
 
       <div class="messages-cookies-wrapper">

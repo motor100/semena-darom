@@ -39,7 +39,7 @@ class MainController extends Controller
         $new_products = Product::orderBy('id', 'desc')->limit(10)->get();
 
         $new_products = $new_products->shuffle()->slice(0, 3);
-        
+
         return view('home', compact('sliders', 'hit_products', 'promos', 'new_products'));
     }
 
@@ -280,6 +280,8 @@ class MainController extends Controller
     {
         // Переменная is_cart переключения макета корзины справа и внизу при ширине менее 1400px
         $is_cart = true;
+
+        // $request->cookie('cart') получение товаров из куки
 
         $products = \App\Services\Common::get_products_in_cart($request);
 
@@ -594,12 +596,20 @@ class MainController extends Controller
     public function ajax_we_use_cookie(Request $request)
     {
         // Через экземпляр запроса
-        $request->session()->put('we-used-cookie', 'yes');
+        // $request->session()->put('we-used-cookie', 'yes');
 
         // Через глобальный помощник «session»
         // session(['we-used-cookie' => 'yes']);
 
-        return false;
+        // $request->session()->put('we-used-cookie', 'yes');
+        // $request->cookie('we-used-cookie', 'yes', 525600);
+        // \Illuminate\Support\Facades\Cookie::put('name', 'Fred', 60);
+        // \Illuminate\Support\Facades\Cookie::put('we-used-cookie', 'yes', 525600);
+
+        // return false;
+        return response()
+                ->json(['previousCookieValue' => \Illuminate\Support\Facades\Cookie::get('we-used-cookie')])
+                ->withCookie(cookie('we-used-cookie', 'yes', 525600));
     }
 
     public function ajax_city(Request $request)
