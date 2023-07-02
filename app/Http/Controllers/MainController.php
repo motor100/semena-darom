@@ -278,35 +278,27 @@ class MainController extends Controller
 
     public function cart(Request $request)
     {
-        // Переменная is_cart переключения макета корзины в справа
+        // Переменная is_cart переключения макета корзины справа и внизу при ширине менее 1400px
         $is_cart = true;
-        
-        $products = [];
+
+        $products = \App\Services\Common::get_products_in_cart($request);
+
+        return view('cart', compact('products', 'is_cart'));
+    }
+
+    public function create_order(Request $request)
+    {
+        // Переменная is_cart переключения макета корзины справа и внизу при ширине менее 1400px
+        $is_cart = true;
 
         if ($request->session()->has('cart')) {
 
-            $cart_items = $request->session()->get('cart');
+            $products = \App\Services\Common::get_products_in_cart($request);
 
-            $keys = array_keys($cart_items);
-
-            // Получение моделей товаров
-            $products = Product::whereIn('id', $keys)->get();
-            
-            // Предзаказ
-            // foreach ($products as $product) {
-            //     if ($product->stock > 0) {
-            //         $products[] = $product;
-            //     }
-            // }
-            
-            // Количество каждого товара
-            foreach ($products as $product) {
-                $product->quantity = $cart_items[$product->id];
-                // $product->count = $product;
-            }
+            return view('create_order', compact('products'));
+        } else {
+            return redirect('/cart');
         }
-
-        return view('cart', compact('products', 'is_cart'));
     }
 
     public function poisk(Request $request)

@@ -50,6 +50,8 @@ Route::get('/clear-cart', [MainController::class, 'clear_cart']);
 
 Route::post('/rmfromcart', [MainController::class, 'rm_from_cart']);
 
+Route::get('/create-order', [MainController::class, 'create_order']);
+
 Route::get('/politika-konfidencialnosti', [MainController::class, 'politika_konfidencialnosti']);
 
 Route::get('/polzovatelskoe-soglashenie-s-publichnoj-ofertoj', [MainController::class, 'polzovatelskoe_soglashenie_s_publichnoj_ofertoj']);

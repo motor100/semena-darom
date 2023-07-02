@@ -7,12 +7,12 @@ use Illuminate\Http\Request;
 
 class Common {
 
-    /*
-    * Pagination with limit
-    * input Illuminate\Database\Eloquent\Collection
-    * return Illuminate\Pagination\LengthAwarePaginator
-    * $perPage count per page
-    */
+    /**
+     * Pagination with limit
+     * @param Illuminate\Database\Eloquent\Collection
+     * @param integer
+     * @return Illuminate\Pagination\LengthAwarePaginator
+     */
     public static function custom_paginator($collection, $perPage)
     {
         $currentPage = LengthAwarePaginator::resolveCurrentPage();
@@ -32,9 +32,10 @@ class Common {
     }
 
     /**
+     * Получение названия категории
      * Функция возвращает название категории по ее slug из запроса
-     * input Illuminate\Http\Request
-     * return string
+     * @param Illuminate\Http\Request
+     * @return string
      */
     public static function get_category_title(Request $request): string
     {
@@ -45,5 +46,40 @@ class Common {
             return "";
         }
 
+    }
+
+    /**
+     * Получение товаров в корзине
+     * @param Illuminate\Http\Request
+     * @return Illuminate\Database\Eloquent\Collection
+     */
+    public static function get_products_in_cart(Request $request)
+    {
+        $products = collect();
+        
+        if ($request->session()->has('cart')) {
+
+            $cart_items = $request->session()->get('cart');
+
+            $keys = array_keys($cart_items);
+
+            // Получение моделей товаров
+            $products = \App\Models\Product::whereIn('id', $keys)->get();
+            
+            // Предзаказ
+            // foreach ($products as $product) {
+            //     if ($product->stock > 0) {
+            //         $products[] = $product;
+            //     }
+            // }
+            
+            // Количество каждого товара
+            foreach ($products as $product) {
+                $product->quantity = $cart_items[$product->id];
+                // $product->count = $product;
+            }
+        }
+
+        return $products;
     }
 }

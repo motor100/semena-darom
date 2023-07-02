@@ -149,7 +149,7 @@
           </div>
           <div class="advantages-item">
             <div class="advantages-item__image">
-              <img src="/img/header-percent.png" alt="">
+              <img src="/img/header-cart-min-order.png" alt="">
             </div>
             <div class="advantages-item__text">Минимальная сумма заказа 1 500 ₽</div>
           </div>
@@ -471,7 +471,7 @@
         <div class="city-search">
           <form id="city-select-form" class="form city-select-form" method="post">
             @csrf
-            <input type="text" name="city" id="city-select-input" class="input-field city-select-input" autocomplete="off">
+            <input type="text" name="city" id="city-select-input" class="input-field city-select-input" autocomplete="off" placeholder="Введите город">
           </form>
           <div id="city-select-rezult" class="city-select-rezult"></div>
         </div>
@@ -482,44 +482,30 @@
   <div class="header-catalog-dropdown">
     <div class="catalog-nav-wrapper">
       <div class="catalog-nav">
-        <div class="aside-nav-item">
-          <div class="aside-nav-item__image">
-            <img src="{{ asset('img/percent-icon.png') }}" alt="">
-          </div>
-          <div class="aside-nav-item__title">Акции</div>
-          <a href="/akcii" class="full-link"></a>
-        </div>
-        <div class="aside-nav-item">
-          <div class="aside-nav-item__image">
-            <img src="{{ asset('img/package-icon.png') }}" alt="">
-          </div>
-          <div class="aside-nav-item__title">Новинки</div>
-          <a href="/novinki" class="full-link"></a>
-        </div>
-        @foreach($parent_category as $cat)
-          @if($cat->count_children > 0)
-            @foreach($cat->child_category as $ct)
+        <div class="catalog-nav-title">Каталог</div>
+        <div class="catalog-nav-categories">
+          @foreach($parent_category as $cat)
+            @if($cat->count_children > 0)
+              @foreach($cat->child_category as $ct)
+                <div class="aside-nav-item">
+                  <div class="aside-nav-item__image">
+                    <img src="{{ asset('storage/uploads/categories/' . $ct->image) }}" alt="">
+                  </div>
+                  <div class="aside-nav-item__title">{{ $ct->title }}</div>
+                  <a href="{{ route('catalog', ['category' => $ct->slug]) }}" class="full-link"></a>
+                </div>
+              @endforeach
+            @else
               <div class="aside-nav-item">
                 <div class="aside-nav-item__image">
-                  <img src="{{ asset('storage/uploads/categories/' . $ct->image) }}" alt="">
+                  <img src="{{ asset('storage/uploads/categories/' . $cat->image) }}" alt="">
                 </div>
-                <div class="aside-nav-item__title">{{ $ct->title }}</div>
-                <a href="{{ route('catalog', ['category' => $ct->slug]) }}" class="full-link"></a>
+                <div class="aside-nav-item__title">{{ $cat->title }}</div>
+                <a href="{{ route('catalog', ['category' => $cat->slug]) }}" class="full-link"></a>
               </div>
-            @endforeach
-          @else
-            <div class="aside-nav-item">
-              <div class="aside-nav-item__image">
-                <img src="{{ asset('storage/uploads/categories/' . $cat->image) }}" alt="">
-              </div>
-              <div class="aside-nav-item__title">{{ $cat->title }}</div>
-              <a href="{{ route('catalog', ['category' => $cat->slug]) }}" class="full-link"></a>
-            </div>
-          @endif
-        @endforeach
-      </div>
-      <div class="new-products">
-        <div class="new-products__title">Новинки</div>
+            @endif
+          @endforeach
+        </div>
       </div>
     </div>
     <div class="overlay"></div>
