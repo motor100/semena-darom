@@ -92,7 +92,7 @@
             </div>
           </div>
           <div class="nav-item">
-            <a href="{{ route('dashboard') }}" class="header-item display-block">Главная</a>
+            <a href="#" class="header-item display-block">Главная</a>
           </div>
         </div>
 
@@ -143,10 +143,10 @@
 
         <div class="user-menu">
           <div class="menu-item">
-            <a href="{{ route('profile.edit') }}" class="item-link">Профиль</a>
+            <a href="#" class="item-link">Профиль</a>
           </div>
           <div class="menu-item">
-            <form action="{{ route('logout') }}" class="form" method="POST">
+            <form action="{{ route('admin.logout') }}" class="form" method="POST">
               @csrf
               <button class="logout-btn">Выйти</button>
             </form>

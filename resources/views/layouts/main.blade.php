@@ -634,7 +634,7 @@
     </div>
   </div>
 
-  @if(Auth::check())
+  @if(Auth::guard('admin')->user())
     <div class="top-line-is-login">
       <div class="container-fluid">
         <div class="text-wrapper">

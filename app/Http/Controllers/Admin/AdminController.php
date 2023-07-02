@@ -1,7 +1,8 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Admin;
 
+use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Page;
 
@@ -58,9 +59,6 @@ class AdminController extends Controller
 
         return redirect('/dashboard/testimonials');
     }
-
-
-
 
     public function polzovatelskoe_soglashenie_s_publichnoj_ofertoj()
     {
