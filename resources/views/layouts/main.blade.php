@@ -113,9 +113,6 @@
           <li class="menu-item">
             <a href="/kontakty">Контакты</a>
           </li>
-          <li class="menu-item">
-            <a href="/catalog">Каталог</a>
-          </li>
         </ul>
       </div>
     </div>
