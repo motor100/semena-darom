@@ -825,10 +825,15 @@ p {
   object-fit: cover;
 }
 .cart-aside .products-item__content {
+  padding: 0 10px 0 0;
   flex-grow: 1;
+  overflow: hidden;
 }
 .cart-aside .products-item__title {
   line-height: 1.2;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 .cart-aside .products-item__price {
   color: var(--m-main-green);

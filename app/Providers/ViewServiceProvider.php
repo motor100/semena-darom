@@ -51,31 +51,30 @@ class ViewServiceProvider extends ServiceProvider
             */
 
             // Count products in cart
-            $cart_items = session()->get('cart');
-            if ($cart_items) {
-                $cart_count = count($cart_items);
+            $cart = json_decode(\Illuminate\Support\Facades\Cookie::get('cart'), true);
+
+            if ($cart) {
+                $cart_count = count($cart);
+                $cart_count = $cart_count > 9 ? 9 : $cart_count;
                 $view->with('cart_count', $cart_count);
             }
 
             // Products in cart
-            if ($cart_items) {
-                $keys = array_keys($cart_items);
+            if ($cart) {
+                $keys = array_keys($cart);
                 $products_in_cart = \App\Models\Product::whereIn('id', $keys)->get();
                 foreach ($products_in_cart as $product) {
-                    $product->quantity = $cart_items[$product->id];
+                    $product->quantity = $cart[$product->id];
                 }
-                $products_in_cart->each(function ($item) {
-                    $item->short_title = \Illuminate\Support\Str::limit($item->title, 38, '...');
-                    $item->retail_price = str_replace('.0', '', $item->retail_price);
-                    $item->promo_price = str_replace('.0', '', $item->promo_price);
-                });
                 $view->with('products_in_cart', $products_in_cart);
             }
 
             // Products in favourites
-            $favourites_items = session()->get('favourites');
-            if ($favourites_items) {
-                $favourites_count = count($favourites_items);
+            $favourites = json_decode(\Illuminate\Support\Facades\Cookie::get('favourites'), true);
+
+            if ($favourites) {
+                $favourites_count = count($favourites);
+                $favourites_count = $favourites_count > 9 ? 9 : $favourites_count;
                 $view->with('favourites_count', $favourites_count);
             }
 

@@ -57,11 +57,12 @@ class Common {
     {
         $products = collect();
         
-        if ($request->session()->has('cart')) {
+        if ($request->hasCookie('cart')) {
 
-            $cart_items = $request->session()->get('cart');
+            // Получение куки через фасад Cookie метод get
+            $cart = json_decode(\Illuminate\Support\Facades\Cookie::get('cart'), true);
 
-            $keys = array_keys($cart_items);
+            $keys = array_keys($cart);
 
             // Получение моделей товаров
             $products = \App\Models\Product::whereIn('id', $keys)->get();
@@ -73,10 +74,9 @@ class Common {
             //     }
             // }
             
-            // Количество каждого товара
+            // Добавляю количество к каждому товару
             foreach ($products as $product) {
-                $product->quantity = $cart_items[$product->id];
-                // $product->count = $product;
+                $product->quantity = $cart[$product->id];
             }
         }
 

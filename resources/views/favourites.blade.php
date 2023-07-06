@@ -19,7 +19,7 @@
 <div class="favourites">
   <div class="favourites-title page-title">Избранное</div>
 
-  @if(count($products) > 0)
+  @if($products->count() > 0)
     <div class="cf-clear">
       <div class="cf-clear__image">
         <img src="/img/cf-trash.svg" alt="">
@@ -28,7 +28,7 @@
     </div>
   @endif
 
-  @if(count($products) > 0)
+  @if($products->count() > 0)
     <div class="cf-items-wrapper">
       @foreach($products as $product)
         <div class="cf-item">
@@ -41,12 +41,12 @@
                 <div class="cf-item__title">{{ $product->title }}</div>
                 @if($product->promo_price)
                   <div class="cf-item__price red-text">
-                    <span class="cf-item__value">{{ $product->promo_price }}</span>
+                    <span class="cf-item__value">{{ str_replace('.0', '', $product->promo_price) }}</span>
                     <span class="cf-item__currency">&#8381;</span>
                   </div>
                 @else
                   <div class="cf-item__price">
-                    <span class="cf-item__value">{{ $product->retail_price }}</span>
+                    <span class="cf-item__value">{{ str_replace('.0', '', $product->retail_price) }}</span>
                     <span class="cf-item__currency">&#8381;</span>
                   </div>
                 @endif             
@@ -55,7 +55,7 @@
                 <div class="cf-item__promo">
                   <div class="cf-item__promo-text red-text">Акция</div>
                   <div class="cf-item__old-price item__old-price">
-                    <span class="cf-item__value">{{ $product->retail_price }}</span>
+                    <span class="cf-item__value">{{ str_replace('.0', '', $product->retail_price) }}</span>
                     <span class="cf-item__currency">&#8381;</span>
                     <span class="line-through"></span>
                   </div>

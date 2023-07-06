@@ -5,8 +5,8 @@
         <img src="{{ asset('storage/uploads/products/' . $product->image) }}" alt="">
       </a>
     </div>
-    <a href="/catalog/{{ $product->slug }}" class="products-item__title">{{ Str::limit($product->title, 24, '...') }}</a>
-    <div class="products-item__text">{{ Str::words(strip_tags(preg_replace('/&(.+?);/','', $product->text)), 10) }}</div>
+    <a href="/catalog/{{ $product->slug }}" class="products-item__title">{{ $product->title }}</a>
+    <div class="products-item__text">{{ Str::words(strip_tags(preg_replace('/&(.+?);/','', $product->text)), 8) }}</div>
     <div class="products-item-price-wrapper">
       @if($product->promo_price)
         <div class="products-item__price products-item__promo-price">

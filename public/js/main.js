@@ -282,7 +282,7 @@ document.addEventListener("DOMContentLoaded", () => {
      * str строка
      * return false
      * @param {*} str 
-     * @returns 
+     * @returns boolean
      */
     function favouritesCounterUpdate(str) {
 
@@ -593,27 +593,27 @@ document.addEventListener("DOMContentLoaded", () => {
      * @param {*} str 
      * @returns 
      */
-    function cartCounterUpdate(obj) {
+    function cartCounterUpdate(arr) {
 
       // Header cart counter
       const headerCartCounter = document.querySelector('#header-cart-counter');
-      headerCartCounter.innerText = obj.cart_count;
+      headerCartCounter.innerText = arr.length > 9 ? 9 : arr.length;
       headerCartCounter.classList.remove('hidden');
       
       // Sticky desktop menu cart counter
       const stickyDesktopMenuCartCounter = document.querySelector('#sticky-desktop-menu-cart-counter');
-      stickyDesktopMenuCartCounter.innerText = obj.cart_count;
+      stickyDesktopMenuCartCounter.innerText = arr.length > 9 ? 9 : arr.length;
       stickyDesktopMenuCartCounter.classList.remove('hidden');
 
       // Mobile cart counter
       const mobileCartCounter = document.querySelector('#mobile-cart-counter');
-      mobileCartCounter.innerText = obj.cart_count;
+      mobileCartCounter.innerText = arr.length > 9 ? 9 : arr.length;
       mobileCartCounter.classList.remove('hidden');
 
       return false;
     }
 
-    function asideCartItemsUpdate(obj) {
+    function asideCartItemsUpdate(arr) {
       // Обновляю товары в корзине справа
       let cartAsideProducts = document.querySelector('.cart-aside-products');
 
@@ -621,7 +621,7 @@ document.addEventListener("DOMContentLoaded", () => {
       cartAsideProducts.innerHTML = '';
 
       // Формирую html из массива данных
-      obj.products.forEach((item) => {
+      arr.forEach((item) => {
         let tmpEl = document.createElement('div');
         tmpEl.className = "products-item";
         let str = '<div class="products-item__image">';

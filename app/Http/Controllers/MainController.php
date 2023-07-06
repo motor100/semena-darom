@@ -8,7 +8,6 @@ use App\Models\Product;
 use App\Models\MainSlider;
 use App\Models\Promo;
 use App\Models\Testimonial;
-use Illuminate\Support\Str;
 
 
 class MainController extends Controller
@@ -251,11 +250,15 @@ class MainController extends Controller
 
     public function favourites(Request $request)
     {
-        $products = [];
+        $products = collect();
 
-        if ($request->session()->has('favourites')) {
-            $favorites_item = $request->session()->get('favourites');
-            $keys = array_keys($favorites_item);
+        if ($request->hasCookie('favourites')) {
+
+            // Получение куки через фасад Cookie метод get
+            $favourites = json_decode(\Illuminate\Support\Facades\Cookie::get('favourites'), true);
+
+            $keys = array_keys($favourites);
+
             $products = Product::whereIn('id', $keys)->get();
         }
 
@@ -264,15 +267,33 @@ class MainController extends Controller
 
     public function rm_from_favourites(Request $request)
     {
-        // Метод pull извлекает и удаляет элемент из сессии единым выражением
-        $request->session()->pull("favourites." . $request->input("id"), "default");
+        $id = $request->input('id');
+
+        if ($request->hasCookie('favourites') && $id) {
+
+            // Получение куки через фасад Cookie метод get
+            $favourites = json_decode(\Illuminate\Support\Facades\Cookie::get('favourites'), true);
+
+            // Удаляю ключ из массива если он существует
+            if (array_key_exists($id, $favourites)) {
+                unset($favourites[$id]);
+            }
+
+            $favourites_json = json_encode($favourites);
+
+            // Записываю новый массив в куки через фасад Cookie метод queue
+            \Illuminate\Support\Facades\Cookie::queue('favourites', $favourites_json, 525600);
+
+        }
 
         return redirect('/favourites');
     }
 
     public function clear_favourites()
     {
-        session()->pull('favourites', 'default');
+        // Удаляю из куки favourites через фасад Cookie метод forget
+        \Illuminate\Support\Facades\Cookie::queue(\Illuminate\Support\Facades\Cookie::forget('favourites'));
+
         return redirect('/favourites');
     }
 
@@ -280,8 +301,6 @@ class MainController extends Controller
     {
         // Переменная is_cart переключения макета корзины справа и внизу при ширине менее 1400px
         $is_cart = true;
-
-        // $request->cookie('cart') получение товаров из куки
 
         $products = \App\Services\Common::get_products_in_cart($request);
 
@@ -332,8 +351,24 @@ class MainController extends Controller
 
     public function rm_from_cart(Request $request)
     {   
-        // Метод pull извлекает и удаляет элемент из сессии единым выражением
-        $request->session()->pull("cart." . $request->input("id"), "default");
+        $id = $request->input('id');
+
+        if ($request->hasCookie('cart') && $id) {
+
+            // Получение куки через фасад Cookie метод get
+            $cart = json_decode(\Illuminate\Support\Facades\Cookie::get('cart'), true);
+
+            // Удаляю ключ из массива если он существует
+            if (array_key_exists($id, $cart)) {
+                unset($cart[$id]);
+            }
+
+            $cart_json = json_encode($cart);
+
+            // Записываю новый массив в куки через фасад Cookie метод queue
+            \Illuminate\Support\Facades\Cookie::queue('cart', $cart_json, 525600);
+
+        }
 
         return redirect('/cart');
     }
@@ -342,7 +377,8 @@ class MainController extends Controller
     {
         $redirect_url = $request->headers->get('referer');
 
-        session()->pull('cart', 'default');
+        // Удаляю из куки cart через фасад Cookie метод forget
+        \Illuminate\Support\Facades\Cookie::queue(\Illuminate\Support\Facades\Cookie::forget('cart'));
 
         return $redirect_url ? redirect($redirect_url) : redirect('/');
     }
@@ -436,50 +472,49 @@ class MainController extends Controller
         return response()->json($cities_array);
     }
 
+    /**
+     * @param Illuminate\Http\Request
+     * @return Illuminate\Http\Response
+     */
     public function ajax_add_to_cart(Request $request)
     {
         $id = $request->input('id');
 
-        $cart_items = [];
+        $cart = [];
+        
+        if ($request->hasCookie('cart')) { // Если есть в куки cart, то добавляю в конец массива
 
-        if ($request->session()->has('cart')) { // Если есть сессия cart, то добавляю в конец массива
+            // Получение куки через фасад Cookie метод get
+            $cart = json_decode(\Illuminate\Support\Facades\Cookie::get('cart'), true);
 
-            $cart_items = $request->session()->get('cart');
-
-            if (array_key_exists($id, $cart_items)) { // Если есть товар, то прибавляю количество
-                $cart_items[$id] = $cart_items[$id] + 1;
+            // Если в массиве есть ключ с таким id, то прибавляю количество на 1
+            if (array_key_exists($id, $cart)) {
+                $cart[$id] = $cart[$id] + 1;
             } else {
-                $cart_items[$id] = 1;
+                $cart[$id] = 1;
             }
 
-        } else { // Если нет, то создаю массив и добавляю туда значение
-            $cart_items[$id] = 1;
+        } else {
+            $cart[$id] = 1;
         }
 
-        $request->session()->put('cart', $cart_items);
+        $cart_json = json_encode($cart);
 
-        $keys = array_keys($cart_items);
+        // Установка куки через фасад Cookie метод queue
+        \Illuminate\Support\Facades\Cookie::queue('cart', $cart_json, 525600);
 
-        $products_array = [];
+        // Все что ниже нужно для показа товаров в корзине справа >1400px
+        $keys = array_keys($cart);
 
         // Получение моделей товаров
         $products = Product::whereIn('id', $keys)->get();
 
-        // Количество каждого товара
+        // Добавляю количество к каждому товару
         foreach ($products as $product) {
-            $product->quantity = $cart_items[$product->id];
+            $product->quantity = $cart[$product->id];
         }
 
-        $products_array["products"] = $products;
-
-        $products_array["cart_count"] = count($request->session()->get('cart'));
-
-        if ($products_array["cart_count"] > 9) {
-            $products_array["cart_count"] = 9;
-        }
-
-        // return $cart_count;
-        return response()->json($products_array);
+        return response()->json($products);
     }
 
     public function ajax_plus_cart(Request $request)
@@ -514,28 +549,34 @@ class MainController extends Controller
     {
         $id = $request->input('id');
 
-        if ($request->session()->has('favourites')) { // Если есть в сессии favourites, то добавляю в конец массива
-            $favourites_items = $request->session()->get('favourites');
+        $favourites_count = 0;
+        $favourites = [];
+        
+        if ($request->hasCookie('favourites')) { // Если есть в куки favourites, то добавляю в конец массива
 
-            if (array_key_exists($id, $favourites_items)) { // Если есть товар, то прибавляю количество
-                $favourites_items[$id] = $favourites_items[$id] + 1;
+            // Получение куки через фасад Cookie метод get
+            $favourites = json_decode(\Illuminate\Support\Facades\Cookie::get('favourites'), true);
+
+            // Если в массиве есть ключ с таким id, то прибавляю количество на 1
+            if (array_key_exists($id, $favourites)) {
+                $favourites[$id] = $favourites[$id] + 1;
             } else {
-                $favourites_items[$id] = 1;
+                $favourites[$id] = 1;
             }
+            $favourites_count = count($favourites);
 
-        } else { // Если нет, то создаю массив favourites и добавляю туда значение
-            $favourites_items[$id] = 1;
+        } else {
+            $favourites_count = 1;
+            $favourites[$id] = 1;
         }
 
-        $request->session()->put('favourites', $favourites_items);
+        $favourites_count = $favourites_count > 9 ? 9 : $favourites_count;
 
-        $favourites_count = count($request->session()->get('favourites'));
+        $favourites_json = json_encode($favourites);
 
-        // Количество товара в избранном более 9
-        if ($favourites_count > 9) {
-            $favourites_count = 9;
-        }
-
+        // Установка куки через фасад Cookie метод queue
+        \Illuminate\Support\Facades\Cookie::queue('favourites', $favourites_json, 525600);
+        
         return $favourites_count;
     }
 
@@ -595,21 +636,15 @@ class MainController extends Controller
 
     public function ajax_we_use_cookie(Request $request)
     {
-        // Через экземпляр запроса
-        // $request->session()->put('we-used-cookie', 'yes');
+        // Записываю в куки через response with coockie
+        // return response()
+        //         ->json(['Cookie set successfully'])
+        //         ->withCookie(cookie('we-used-cookie', 'yes', 525600));
 
-        // Через глобальный помощник «session»
-        // session(['we-used-cookie' => 'yes']);
+        // Записываю в куки через фасад Cookie метод queue
+        \Illuminate\Support\Facades\Cookie::queue('we-used-cookie', 'yes', 525600);
 
-        // $request->session()->put('we-used-cookie', 'yes');
-        // $request->cookie('we-used-cookie', 'yes', 525600);
-        // \Illuminate\Support\Facades\Cookie::put('name', 'Fred', 60);
-        // \Illuminate\Support\Facades\Cookie::put('we-used-cookie', 'yes', 525600);
-
-        // return false;
-        return response()
-                ->json(['previousCookieValue' => \Illuminate\Support\Facades\Cookie::get('we-used-cookie')])
-                ->withCookie(cookie('we-used-cookie', 'yes', 525600));
+        return false;
     }
 
     public function ajax_city(Request $request)
@@ -618,7 +653,7 @@ class MainController extends Controller
 
         // Через экземпляр запроса
         $request->session()->put('city', $city);
-
+// тут
         // Через глобальный помощник «session»
         // session(['we-used-cookie' => 'yes']);
         return response()->json(['message' => 'error']);
