@@ -46,10 +46,9 @@ class ViewServiceProvider extends ServiceProvider
             $view->with('parent_category', $parent_category);
             
             // City
-            $city_json = \Illuminate\Support\Facades\Cookie::get('city');
+            $city = json_decode(\Illuminate\Support\Facades\Cookie::get('city'), true);
 
-            if ($city_json) {
-                $city = json_decode($city_json, true);
+            if ($city) {
                 $city_name = $city['city'];
             } else {
                 $city_name = '';

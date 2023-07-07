@@ -28,6 +28,11 @@ class AdminController extends Controller
         return view('dashboard.testimonials', compact('testimonials'));
     }
 
+    public function orders()
+    {
+        return ('заказы');
+    }
+
     public function testimonials_update(Request $request)
     {   
         $validated = $request->validate([
@@ -114,5 +119,10 @@ class AdminController extends Controller
                     ]);
 
         return redirect('/dashboard/politika-konfidencialnosti');
+    }
+
+    public function page_404(Request $request)
+    {
+        return view('dashboard.404');
     }
 }

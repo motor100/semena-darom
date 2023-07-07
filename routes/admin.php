@@ -3,6 +3,8 @@
 use App\Http\Controllers\Admin\Auth\AuthenticatedSessionController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Admin\AdminController;
+use App\Http\Controllers\Admin\MainSliderController;
+use App\Http\Controllers\Admin\PromoController;
 
 
 /*
@@ -53,39 +55,57 @@ Route::prefix('admin')->group(static function () {
 
         // Route::get('/dashboard', [AdminController::class, 'home'])->name('dashboard');
 
-        Route::get('/dashboard/main-slider', [MainSliderController::class, 'index']);
+        Route::get('/main-slider', [MainSliderController::class, 'index']);
 
-        Route::get('/dashboard/main-slider/create', [MainSliderController::class, 'create'])->name('main-slider-create');
+        Route::get('/main-slider/create', [MainSliderController::class, 'create'])->name('main-slider-create');
 
-        Route::post('/dashboard/main-slider/store', [MainSliderController::class, 'store'])->name('main-slider-store');
+        Route::post('/main-slider/store', [MainSliderController::class, 'store'])->name('main-slider-store');
 
-        Route::get('/dashboard/main-slider/{id}', [MainSliderController::class, 'show'])->name('main-slider-show');
+        Route::get('/main-slider/{id}', [MainSliderController::class, 'show'])->name('main-slider-show');
 
-        Route::get('/dashboard/main-slider/{id}/edit', [MainSliderController::class, 'edit'])->name('main-slider-edit');
+        Route::get('/main-slider/{id}/edit', [MainSliderController::class, 'edit'])->name('main-slider-edit');
 
-        Route::post('/dashboard/main-slider/update', [MainSliderController::class, 'update'])->name('main-slider-update');
+        Route::post('/main-slider/update', [MainSliderController::class, 'update'])->name('main-slider-update');
 
-        Route::get('/dashboard/main-slider/{id}/destroy', [MainSliderController::class, 'destroy'])->name('main-slider-destroy');
+        Route::get('/main-slider/{id}/destroy', [MainSliderController::class, 'destroy'])->name('main-slider-destroy');
 
-        Route::get('/dashboard/promos', [PromoController::class, 'index']);
+        Route::get('/promos', [PromoController::class, 'index']);
 
-        Route::get('/dashboard/promos/create', [PromoController::class, 'create'])->name('promos-create');
+        Route::get('/promos/create', [PromoController::class, 'create'])->name('promos-create');
 
-        Route::post('/dashboard/promos/store', [PromoController::class, 'store'])->name('promos-store');
+        Route::post('/promos/store', [PromoController::class, 'store'])->name('promos-store');
 
-        Route::get('/dashboard/promos/{id}', [PromoController::class, 'show'])->name('promos-show');
+        Route::get('/promos/{id}', [PromoController::class, 'show'])->name('promos-show');
 
-        Route::get('/dashboard/promos/{id}/edit', [PromoController::class, 'edit'])->name('promos-edit');
+        Route::get('/promos/{id}/edit', [PromoController::class, 'edit'])->name('promos-edit');
 
-        Route::post('/dashboard/promos/{id}/update', [PromoController::class, 'update'])->name('promos-update');
+        Route::post('/promos/{id}/update', [PromoController::class, 'update'])->name('promos-update');
 
-        Route::get('/dashboard/promos/{id}/destroy', [PromoController::class, 'destroy'])->name('promos-destroy');
+        Route::get('/promos/{id}/destroy', [PromoController::class, 'destroy'])->name('promos-destroy');
 
-        Route::get('/dashboard/testimonials', [AdminController::class, 'testimonials']);
+        Route::get('/testimonials', [AdminController::class, 'testimonials'])->name('admin.testimonials');
 
-        Route::post('/dashboard/testimonials-update', [AdminController::class, 'testimonials_update']);
+        Route::get('/orders', [AdminController::class, 'orders'])->name('admin.orders');
 
-        Route::post('/dashboard/testimonials-destroy', [AdminController::class, 'testimonials_destroy']);
+        Route::post('/testimonials-update', [AdminController::class, 'testimonials_update']);
+
+        Route::post('/testimonials-destroy', [AdminController::class, 'testimonials_destroy']);
+
+        Route::get('/polzovatelskoe-soglashenie-s-publichnoj-ofertoj', [AdminController::class, 'polzovatelskoe_soglashenie_s_publichnoj_ofertoj']);
+
+        Route::post('/polzovatelskoe-soglashenie-s-publichnoj-ofertoj/update', [AdminController::class, 'polzovatelskoe_soglashenie_s_publichnoj_ofertoj_update']);
+
+        Route::get('/politika-konfidencialnosti', [AdminController::class, 'politika_konfidencialnosti']);
+
+        Route::post('/politika-konfidencialnosti/update', [AdminController::class, 'politika_konfidencialnosti_update']);
+
+        Route::get('/garantiya-vozvrata-denezhnyh-sredstv', [AdminController::class, 'garantiya_vozvrata_denezhnyh_sredstv']);
+
+        Route::post('/garantiya-vozvrata-denezhnyh-sredstv/update', [AdminController::class, 'garantiya_vozvrata_denezhnyh_sredstv_update']);
+
+        Route::get('/page-404', [AdminController::class, 'page_404']);
+
+        // Route::fallback([AdminController::class, 'page_404']);
 
     });
 });

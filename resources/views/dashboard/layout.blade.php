@@ -27,25 +27,25 @@
         <div class="aside-nav">
 
           <div class="nav-item">
-            <a href="/dashboard/main-slider" class="item-link">
+            <a href="/admin/main-slider" class="item-link">
               <i class="nav-icon fas fa-images"></i>
               <span>Слайдер</span>
             </a>
           </div>
           <div class="nav-item">
-            <a href="/dashboard/promos" class="item-link">
+            <a href="/admin/promos" class="item-link">
               <i class="nav-icon fas fa-percent"></i>
               <span>Акции</span>
             </a>
           </div>
           <div class="nav-item">
-            <a href="/dashboard/testimonials" class="item-link">
+            <a href="/admin/testimonials" class="item-link">
               <i class="nav-icon far fa-comments"></i>
               <span>Отзывы</span>
             </a>
           </div>
 
-
+          <!-- 
           <div class="nav-item nav-item-has-children">
             <a href="" class="item-link">
               <i class="nav-icon fas fa-bell"></i>
@@ -55,25 +55,26 @@
 
             <div class="nav nav-treeview">
               <div class="nav-item">
-                <a href="/dashboard/polzovatelskoe-soglashenie-s-publichnoj-ofertoj" class="item-link">
+                <a href="/admin/polzovatelskoe-soglashenie-s-publichnoj-ofertoj" class="item-link">
                   <i class="far fa-circle nav-icon"></i>
                   <span>Пользовательское соглашение с публичной офертой</span>
                 </a>
               </div>
               <div class="nav-item">
-                <a href="/dashboard/politika-konfidencialnosti" class="item-link">
+                <a href="/admin/politika-konfidencialnosti" class="item-link">
                   <i class="far fa-circle nav-icon"></i>
                   <span>Политика конфиденциальности</span>
                 </a>
               </div>
               <div class="nav-item">
-                <a href="/dashboard/garantiya-vozvrata-denezhnyh-sredstv" class="item-link">
+                <a href="/admin/garantiya-vozvrata-denezhnyh-sredstv" class="item-link">
                   <i class="far fa-circle nav-icon"></i>
                   <span>Гарантия возврата денежных средств</span>
                 </a>
               </div>
             </div>
           </div>
+           -->
           
         </div>
       </div>
@@ -92,7 +93,7 @@
             </div>
           </div>
           <div class="nav-item">
-            <a href="#" class="header-item display-block">Главная</a>
+            <a href="{{ route('admin.index') }}" class="header-item display-block">Главная</a>
           </div>
         </div>
 
@@ -100,7 +101,7 @@
           
           <div class="nav-item">
             
-            <a href="#" class="header-item">
+            <a href="{{ route('admin.testimonials') }}" class="header-item">
               <i class="far fa-comments"></i>
               @if(isset($testimonials_count))
                 @if($testimonials_count > 0)
@@ -112,7 +113,7 @@
           </div>
           
           <div class="nav-item">
-            <a href="#" class="header-item display-block pos-relative">
+            <a href="{{ route('admin.orders') }}" class="header-item display-block pos-relative">
               <i class="far fa-bell"></i>
 
               @if(isset($notifications_count))
@@ -143,7 +144,7 @@
 
         <div class="user-menu">
           <div class="menu-item">
-            <a href="#" class="item-link">Профиль</a>
+            <a href="{{ route('admin.profile') }}" class="item-link">Профиль</a>
           </div>
           <div class="menu-item">
             <form action="{{ route('admin.logout') }}" class="form" method="POST">

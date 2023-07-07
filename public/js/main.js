@@ -93,7 +93,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
       const searchSeeAll = document.querySelector('.search-see-all');
 
-      fetch('/ajax/search', {
+      fetch('/ajax/product-search', {
         method: 'POST',
         headers: {'Content-Type':'application/x-www-form-urlencoded'},
         cache: 'no-cache',
