@@ -446,30 +446,61 @@ class MainController extends Controller
 
     public function ajax_city_select(Request $request)
     {
-        $city = $request->input('city');
-
-        if (!$city) {
+        if (!$request->has('city')) {
             return response()->json(['message' => 'error']);
         }
 
-        $city = htmlspecialchars($city);
+        $city = $request->input('city');
+        $cities = collect();
 
-        $cities = \App\Models\City::where('city', 'like', "%{$city}%")->get();
+        if (strlen($city) >= 3 && strlen($city) < 40) {
 
-        $cities_array = [];
+            $city = htmlspecialchars($city);
 
-        if ($cities && count($cities) > 0) {
-            foreach ($cities as $value) {
-                $city_item = [];
-                $city_item['city'] = $value->city;
-                $city_item['region'] = $value->region;
-                $cities_array[] = $city_item;
-            }
-        } else {
-            return response()->json(['message' => 'not found']);
+            $cities = \App\Models\City::where('city', 'like', "%{$city}%")->get();
+
+            // $cities_array = [];
+
+            // if ($cities && count($cities) > 0) {
+            //     foreach ($cities as $value) {
+            //         $city_item = [];
+            //         $city_item['city'] = $value->city;
+            //         $city_item['region'] = $value->region;
+            //         $cities_array[] = $city_item;
+            //     }
+            // } else {
+            //     return response()->json(['message' => 'not found']);
+            // }
+
         }
 
-        return response()->json($cities_array);
+        return response()->json($cities);
+    }
+
+    public function set_city(Request $request)
+    {
+        $redirect_url = $request->headers->get('referer');
+        
+        if ($request->has('city_id')) {
+
+            $city_id = $request->input('city_id');
+
+            $city = \App\Models\City::where('id', $city_id)->first();
+
+            $city_array = [
+                'id' => $city["id"],
+                'city' => $city["city"]
+            ];
+
+            // dd(mb_detect_encoding($city["city"])); 
+            // iconv("UTF-8", "windows-1251", $string);
+            $city_json = json_encode($city_array);
+
+            // Установка куки через фасад Cookie метод queue
+            \Illuminate\Support\Facades\Cookie::queue('city', $city_json, 525600);
+        }
+
+        return $redirect_url ? redirect($redirect_url) : redirect('/');
     }
 
     /**
@@ -651,11 +682,8 @@ class MainController extends Controller
     {
         $city = $request->input('city');
 
-        // Через экземпляр запроса
-        $request->session()->put('city', $city);
-// тут
-        // Через глобальный помощник «session»
-        // session(['we-used-cookie' => 'yes']);
+        // Записываю новый массив в куки через фасад Cookie метод queue
+        \Illuminate\Support\Facades\Cookie::queue('city', $city, 525600);
         return response()->json(['message' => 'error']);
         return false;
     }

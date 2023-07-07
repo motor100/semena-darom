@@ -2911,6 +2911,7 @@ p {
 
 /* city select modal */
 .select-city-modal .city-select-input {
+  margin: 0 0 16px 0;
   font-family: 'arimo-regular';
   font-size: 18px;
 }
@@ -2918,15 +2919,24 @@ p {
   min-height: 100px;
   font-size: 18px;
 }
-.select-city-modal .city-select-form {
+/* .select-city-modal .city-select-form {
   margin: 0 0 16px 0;
-}
+} */
 .select-city-modal .city-select-rezult .city-item {
   margin: 0 0 16px 0;
-  cursor: pointer;
+}
+.select-city-modal .city-select-rezult .city-item-submit-btn {
+  padding: 0;
+  border: none;
+  background-color: #fff;
+  font-size: 18px;
+  font-family: "arimo-regular";
+  font-weight: normal;
+  color: var(--m-text);
   transition: color .3s;
 }
-.select-city-modal .city-select-rezult .city-item:hover {
+
+.select-city-modal .city-select-rezult .city-item-submit-btn:hover {
   color: var(--m-main-green);
 }
 

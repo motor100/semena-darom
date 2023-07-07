@@ -163,7 +163,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
   // City select
   const citySelectModalWindow = document.querySelector('#select-city-modal'),
-        citySelectForm = document.querySelector('#city-select-form'),
+        // citySelectForm = document.querySelector('#city-select-form'),
         citySelectInput = document.querySelector('#city-select-input'),
         citySelectRezult = document.querySelector('#city-select-rezult'),
         citySelectModalCloseBtn = document.querySelector('#select-city-modal .modal-close');
@@ -173,31 +173,6 @@ document.addEventListener("DOMContentLoaded", () => {
   function citySelectOnInput() {
 
     if (citySelectInput.value.length >= 3 && citySelectInput.value.length < 40) {
-
-      function selectCityItemClick() {
-
-        let cityItems = selectCityModal.querySelectorAll('#select-city-modal .city-item');
-    
-        for (let i = 0; i < cityItems.length; i++) {
-          cityItems[i].onclick = function () {
-            let ccity = cityItems[i].querySelector('.city-item__city').innerText;
-
-            fetch('/ajax/city', {
-              method: 'POST',
-              headers: {'Content-Type':'application/x-www-form-urlencoded'},
-              cache: 'no-cache',
-              body: 'city=' + encodeURIComponent(ccity) + '&_token=' + encodeURIComponent(token),
-            })
-            .catch((error) => {
-              console.log(error);
-            })
-
-            modalClose(selectCityModal);
-            citySelectForm.reset();
-            location.reload();
-          }
-        }
-      }
 
       function citySelect(obj) {
         // Очистка результатов поиска
@@ -220,24 +195,28 @@ document.addEventListener("DOMContentLoaded", () => {
           obj.forEach((item) => {
             let tmpEl = document.createElement('div');
             tmpEl.className = "city-item";
-            tmpEl.innerHTML = '<span class="city-item__city">' + item.city + '</span>';
-            tmpEl.innerHTML += '<span class="city-item__region">' + ' ' + item.region + '</span>';
+            let str = '<form class="form" action="/set-city" method="post">';
+            str += '<input type="hidden" name="city_id" value="' + item.id + '">';
+            str += '<input type="hidden" name="_token" value="' + token + '">';
+            str += '<button type="submit" class="city-item-submit-btn">';
+            str += '<span class="city-item__city">' + item.city + '</span>';
+            str += '<span class="city-item__region">' + ' ' + item.region + '</span>';
+            str += '</button>';
+            tmpEl.innerHTML = str;
             citySelectRezult.append(tmpEl);
           });
-
-          // Добавляю клик на найденные элементы
-          selectCityItemClick();
         }
       }
 
       fetch('/ajax/city-select', {
         method: 'POST',
+        headers: {'Content-Type':'application/x-www-form-urlencoded'},
         cache: 'no-cache',
-        body: new FormData(citySelectForm)
+        body: 'city=' + encodeURIComponent(citySelectInput.value) + '&_token=' + encodeURIComponent(token),
       })
       .then((response) => response.json())
       .then((json) => {
-          citySelect(json)
+        citySelect(json)
       })
       .catch((error) => {
         console.log(error);
@@ -251,7 +230,8 @@ document.addEventListener("DOMContentLoaded", () => {
   };
 
   function citySelectModalClose() {
-    citySelectForm.reset();
+    // citySelectForm.reset();
+    citySelectInput.value = '';
     citySelectRezult.innerHTML = '';
   }
 

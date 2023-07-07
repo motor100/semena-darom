@@ -91,6 +91,8 @@ Route::post('/ajax/city', [MainController::class, 'ajax_city']);
 
 Route::post('/ajax/city-select', [MainController::class, 'ajax_city_select']);
 
+Route::post('/set-city', [MainController::class, 'set_city']);
+
 Route::post('/ajax/addtocart', [MainController::class, 'ajax_add_to_cart']);
 
 Route::post('/ajax/pluscart', [MainController::class, 'ajax_plus_cart']);

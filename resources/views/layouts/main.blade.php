@@ -60,8 +60,8 @@
                   <path d="M14 7.53846C14 13.4231 7.5 18 7.5 18C7.5 18 1 13.4231 1 7.53846C1 5.80435 1.68482 4.14127 2.90381 2.91507C4.12279 1.68887 5.77609 1 7.5 1C9.22391 1 10.8772 1.68887 12.0962 2.91507C13.3152 4.14127 14 5.80435 14 7.53846Z" stroke-linecap="round" stroke-linejoin="round"/>
                 </svg>
               </div>
-              @if(session()->exists('city'))
-                <div class="city-select__text">{{ session('city') }}</div>
+              @if($city_name)
+                <div class="city-select__text">{{ $city_name }}</div>
               @else
                 <div class="city-select__text">Выбрать город</div>
               @endif
@@ -467,7 +467,7 @@
         <div class="modal-title">Ваш город</div>
         <div class="city-search">
           <form id="city-select-form" class="form city-select-form" method="post">
-            @csrf
+
             <input type="text" name="city" id="city-select-input" class="input-field city-select-input" autocomplete="off" placeholder="Введите город">
           </form>
           <div id="city-select-rezult" class="city-select-rezult"></div>
@@ -562,8 +562,9 @@
                 <path d="M14 7.53846C14 13.4231 7.5 18 7.5 18C7.5 18 1 13.4231 1 7.53846C1 5.80435 1.68482 4.14127 2.90381 2.91507C4.12279 1.68887 5.77609 1 7.5 1C9.22391 1 10.8772 1.68887 12.0962 2.91507C13.3152 4.14127 14 5.80435 14 7.53846Z" stroke-linecap="round" stroke-linejoin="round"/>
               </svg>
             </div>
-            @if(session()->exists('city'))
-              <div class="city-select__text">{{ session('city') }}</div>
+
+            @if($city_name)
+              <div class="city-select__text">{{ $city_name }}</div>
             @else
               <div class="city-select__text">Выбрать город</div>
             @endif

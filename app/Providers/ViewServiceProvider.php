@@ -45,10 +45,17 @@ class ViewServiceProvider extends ServiceProvider
 
             $view->with('parent_category', $parent_category);
             
-            // Cities in modal window
-            /*
-            $view->with('cities', \App\Models\City::get());
-            */
+            // City
+            $city_json = \Illuminate\Support\Facades\Cookie::get('city');
+
+            if ($city_json) {
+                $city = json_decode($city_json, true);
+                $city_name = $city['city'];
+            } else {
+                $city_name = '';
+            }
+
+            $view->with('city_name', $city_name);
 
             // Count products in cart
             $cart = json_decode(\Illuminate\Support\Facades\Cookie::get('cart'), true);
