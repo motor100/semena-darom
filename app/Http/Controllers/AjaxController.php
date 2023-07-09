@@ -40,25 +40,6 @@ class AjaxController extends Controller
         return response()->json($products_array);
     }
 
-    public function ajax_city_select(Request $request)
-    {
-        if (!$request->has('city')) {
-            return response()->json(['message' => 'error']);
-        }
-
-        $city = $request->input('city');
-        $cities = collect();
-
-        if (strlen($city) >= 3 && strlen($city) < 40) {
-
-            $city = htmlspecialchars($city);
-
-            $cities = \App\Models\City::where('city', 'like', "%{$city}%")->get();
-        }
-
-        return response()->json($cities);
-    }
-
     public function ajax_add_to_cart(Request $request)
     {
         $id = $request->input('id');
@@ -237,6 +218,25 @@ class AjaxController extends Controller
         \Illuminate\Support\Facades\Cookie::queue('we-used-cookie', 'yes', 525600);
 
         return false;
+    }
+
+    public function ajax_city_select(Request $request)
+    {
+        if (!$request->has('city')) {
+            return response()->json(['message' => 'error']);
+        }
+
+        $city = $request->input('city');
+        $cities = collect();
+
+        if (strlen($city) >= 3 && strlen($city) < 40) {
+
+            $city = htmlspecialchars($city);
+
+            $cities = \App\Models\City::where('city', 'like', "%{$city}%")->get();
+        }
+
+        return response()->json($cities);
     }
 
     public function ajax_city(Request $request)

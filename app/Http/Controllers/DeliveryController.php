@@ -7,11 +7,11 @@ use Illuminate\Support\Facades\Http;
 
 class DeliveryController extends Controller
 {
+    /**
+     * Документация https://api-docs.cdek.ru/63345430.html
+     */
     public function sdek(Request $request)
     {
-        // $weight = $request->input("weight");
-        $weight = 3000;
-
         // Получаю токен
         // Тестовая ссылка
         $url_token = "https://api.edu.cdek.ru/v2/oauth/token";
@@ -43,14 +43,14 @@ class DeliveryController extends Controller
             "type" => 1,
             // "date" => date("c"),
             "currency" => 1,
-            "tariff_code" => 137,
+            "tariff_code" => 136,
             "from_location" => [
-                "code" => 7, // Миасс
-                // "code" => 270,
+                "postal_code" => "456300",
+                "country_code" => 'RU',
             ],
             "to_location" => [
-                "code" => 2789 // Москва Рублево
-                // "code" => 44 // Москва Рублево
+                "postal_code" => $this->get_postal_code(),
+                'country_code' => 'RU',
             ],
             /*
             "services" => array(
@@ -64,7 +64,7 @@ class DeliveryController extends Controller
                 [
                     "height" => 20, // сантиметр
                     "length" => 20, // сантиметр
-                    "weight" => $weight, // грамм
+                    "weight" => $this->get_weight(), // грамм
                     "width" => 20 // сантиметр
                 ]
             ]
@@ -75,16 +75,17 @@ class DeliveryController extends Controller
 
         $tariff = $response_tariff->json();
 
-        // dd($tariff);
+        if (array_key_exists("errors", $tariff)) {
+            return $tariff["errors"];
+        }
 
         // Сумма
         // $tariff["delivery_sum"]
 
         // Срок доставки
-        // $tariff["period_min"] . "-" . $tariff["period_max"] . " дней";
-        
-        return $tariff["delivery_sum"];
+        // return $tariff["period_min"] . "-" . $tariff["period_max"] . " дней";
 
+        return $tariff["delivery_sum"];
     }
 
     /*
@@ -97,24 +98,13 @@ class DeliveryController extends Controller
     */
     public function russian_post(Request $request)
     {
-        // $postcode = $request->input('postсode');
-        // $weight = $request->input('weight');
-        // $city = $_COOKIE['city'];
-        // $postcode = DB::table('cities')
-        //             ->where('city', $city)
-        //             ->value('postal_code');
-
         // Параметры: вес, город получатель, объявленная ценность (сумма всех товаров * 100)
-
-        $weight = 3000; // Вес в граммах
-        $postcode = 101000; // Москва
-        
         $params = array(
             // 'object' => '23030', // организация
             'object' => '4020', // физлицо
             'from' => '456320',
-            'to' => $postcode,
-            'weight' => $weight,
+            'to' => $this->get_postal_code(),
+            'weight' => $this->get_weight(),
             // 'pack' => '40', // Упаковка
             'closed'=> '1',
             'sumoc'=> '50000', // Объявленная ценность. Сумма товара * 100
@@ -129,6 +119,49 @@ class DeliveryController extends Controller
         // return ($tariff["paymoneynds"]) / 100; // Итоговая сумма платы за дополнительные услуги с НДС в копейках
 
         // return ($tariff["paynds"]) / 100; // Итоговая сумма платы с НДС в копейках
-        return $tariff["paynds"] / 100;
+
+        // Округление
+        $summ = round(($tariff["paynds"] / 100), 0);
+
+        return $summ;
+    }
+
+    public function get_postal_code()
+    {
+        // Город
+        // Получение куки через фасад Cookie метод get
+        $city = json_decode(\Illuminate\Support\Facades\Cookie::get('city'), true);
+
+        if ($city) {
+            $postal_code = \App\Models\City::where("id", $city["id"])->first()->postal_code;
+        } else {
+            $postal_code = 101000;
+        }
+
+        return $postal_code;
+    }
+
+    public function get_weight()
+    {
+        // Получение куки через фасад Cookie метод get
+        $cart = json_decode(\Illuminate\Support\Facades\Cookie::get('cart'), true);
+
+        $weight = 0;
+
+        if ($cart) {
+
+            $keys = array_keys($cart);
+
+            // Получение моделей товаров
+            $products = \App\Models\Product::whereIn('id', $keys)->get();
+
+            foreach($products as $product) {
+                $product->quantity = $cart[$product->id];
+                $product->weight = (int) $product->quantity * (int) $product->weight;
+                $weight += $product->weight;
+            }
+        }
+
+        return $weight;
     }
 }

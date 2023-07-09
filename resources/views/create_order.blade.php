@@ -53,7 +53,7 @@
             <div class="dp-item__description delivery-item__description">
               <div class="dp-item__text delivery-item__text">Стоимость доставки</div>
               <div class="dp-item__value delivery-item__value">
-                <span class="dp-item__summ delivery-item__summ">344</span>
+                <span id="sdek-delivery-summ" class="dp-item__summ delivery-item__summ">0</span>
                 <span class="dp-item__text delivery-item__text">&#8381;</span>
               </div>
             </div>
@@ -79,14 +79,14 @@
             <div class="dp-item__description delivery-item__description">
               <div class="dp-item__text delivery-item__text">Стоимость доставки</div>
               <div class="dp-item__value delivery-item__value">
-                <span class="dp-item__summ delivery-item__summ">280</span>
+                <span id="russian-post-delivery-summ" class="dp-item__summ delivery-item__summ">0</span>
                 <span class="dp-item__currency delivery-item__currency">&#8381;</span>
               </div>
             </div>
             <div class="dp-item__description delivery-item__description">
               <div class="dp-item__text delivery-item__text">Срок доставки</div>
               <div class="dp-item__value delivery-item__value">
-                <span class="dp-item__summ delivery-item__summ">3</span>
+                <span class="dp-item__summ delivery-item__summ">3-4</span>
                 <span class="dp-item__currency delivery-item__currency">дня</span>
               </div>
             </div>

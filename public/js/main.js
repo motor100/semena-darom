@@ -174,12 +174,12 @@ document.addEventListener("DOMContentLoaded", () => {
 
     if (citySelectInput.value.length >= 3 && citySelectInput.value.length < 40) {
 
-      function citySelect(obj) {
+      function citySelect(arr) {
         // Очистка результатов поиска
         citySelectRezult.innerHTML = '';
 
         // Если в объекте есть ключ message, то не найдено
-        if (typeof obj.message !== "undefined") {
+        if (typeof arr.message !== "undefined") {
           let tmpEl = document.createElement('div');
           tmpEl.className = "no-city";
           tmpEl.innerHTML = 'Город с таким названием не найден';
@@ -188,11 +188,19 @@ document.addEventListener("DOMContentLoaded", () => {
         } else { // вывожу результаты поиска
 
           // Ограничение количества выводимых результатов
-          if (obj.length > 6) {
-            obj.length = 6; 
+          if (arr.length == 0) {
+            let tmpEl = document.createElement('div');
+            tmpEl.className = "no-city";
+            tmpEl.innerHTML = 'Город с таким названием не найден';
+            citySelectRezult.append(tmpEl);
           }
 
-          obj.forEach((item) => {
+          // Ограничение количества выводимых результатов
+          if (arr.length > 6) {
+            arr.length = 6;
+          }
+
+          arr.forEach((item) => {
             let tmpEl = document.createElement('div');
             tmpEl.className = "city-item";
             let str = '<form class="form" action="/set-city" method="post">';
@@ -694,7 +702,7 @@ document.addEventListener("DOMContentLoaded", () => {
   /**
    * Расчет веса всех товаров
    * @param NodeList
-   * @returns Boolean
+   * @returns Number
    */
   function weightCalc(cartItems) {
 
@@ -712,8 +720,7 @@ document.addEventListener("DOMContentLoaded", () => {
       totalWeight += summItemWeight;
     });
 
-    // document.querySelector('.summary-weight').innerText = totalWeight;
-    return false;
+    return totalWeight;
   }
 
   /**
@@ -1056,10 +1063,65 @@ document.addEventListener("DOMContentLoaded", () => {
     const productItems = document.querySelectorAll('.product-item');
 
     quantityCalc(productItems);
-    weightCalc(productItems);
+    let weight = weightCalc(productItems);
     discountCalc(productItems);
     summCalc(productItems);
     summBeforeDiscountCalc(productItems);
+
+    sdekDelivery();
+    russianPostDelivery();
+
+    // Стоимость доставки СДЕК
+    function sdekDelivery() {
+
+      function setSdekDeliverySumm(str) {
+        let sdekDeliverySumm = document.querySelector('#sdek-delivery-summ');
+        sdekDeliverySumm.innerText = str;
+        return false;
+      }
+
+      fetch('/ajax/sdek', {
+        method: 'POST',
+        headers: {'Content-Type':'application/x-www-form-urlencoded'},
+        cache: 'no-cache',
+        body: '&_token=' + encodeURIComponent(token)
+      })
+      .then((response) => response.text())
+      .then((text) => {
+        setSdekDeliverySumm(text);
+      })
+      .catch((error) => {
+        console.log(error);
+      })
+
+      return false;
+    }
+
+    // Стоимость доставки Почта Росии
+    function russianPostDelivery() {
+
+      function setRussianPostDeliverySumm(str) {
+        let russianPostDeliverySumm = document.querySelector('#russian-post-delivery-summ');
+        russianPostDeliverySumm.innerText = str;
+        return false;
+      }
+
+      fetch('/ajax/russian-post', {
+        method: 'POST',
+        headers: {'Content-Type':'application/x-www-form-urlencoded'},
+        cache: 'no-cache',
+        body: '&_token=' + encodeURIComponent(token)
+      })
+      .then((response) => response.text())
+      .then((text) => {
+        setRussianPostDeliverySumm(text);
+      })
+      .catch((error) => {
+        console.log(error);
+      })
+
+      return false;
+    }
 
   }
 
