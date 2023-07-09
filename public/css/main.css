@@ -2066,7 +2066,7 @@ p {
 .cart .min-order .cart-price-image {
   margin: 0 5px 0 0;
 }
-.cart .cart-aside {
+.cco-cart-aside {
   width: 45%;
   padding: 0;
 }
@@ -2297,50 +2297,51 @@ p {
 .create-order .create-order-item {
   margin: 0 0 40px 0;
 }
-.create-order .delivery-item {
+.create-order .dp-item {
   position: relative;
+  margin: 0 0 24px 0;
   padding: 30px;
   border-radius: 20px;
   background-color: #F6F7F9;
 }
-.create-order .delivery-item .delivery-item__image {
+.create-order .dp-item .dp-item__image {
   margin: 0 0 20px 0;
   height: 74px;
 }
-.create-order .delivery-item .delivery-item__description {
+.create-order .dp-item .dp-item__description {
   display: flex;
   margin: 0 0 10px 0;
   justify-content: space-between;
 }
-.create-order .delivery-item .delivery-item__title {
+.create-order .dp-item .dp-item__title {
   margin: 0 0 20px 0;
   font-family: 'arimo-semibold';
   font-size: 20px;
 }
-.create-order .delivery-item .delivery-item__text {
+.create-order .dp-item .dp-item__text {
   font-family: 'arimo-medium';
   font-size: 18px;
 }
-.create-order .delivery-item .delivery-item__value {
+.create-order .dp-item .dp-item__value {
   font-family: 'arimo-semibold';
   font-size: 18px;
 }
-.create-order .delivery-item .delivery-item__currency {
+.create-order .dp-item .dp-item__value-text {
   font-size: 17px;
 }
-.create-order .delivery-item .delivery-item-checkbox {
+.create-order .dp-item .dp-item__radio {
   position: absolute;
   top: 30px;
   right: 30px;
   width: 32px;
   height: 32px;
 }
-.create-order .delivery-item .delivery-item-checkbox .custom-checkbox {
+.create-order .dp-item .dp-item__radio .custom-radio {
   position: absolute;
   z-index: -1;
   opacity: 0;
 }
-.create-order .delivery-item .delivery-item-checkbox .custom-checkbox-label {
+.create-order .dp-item .dp-item__radio .custom-radio-label {
   display: block;
   width: 32px;
   height: 32px;
@@ -2351,7 +2352,7 @@ p {
   background-position: center center;
   background-size: 100% 50%;
 }
-.create-order .delivery-item .delivery-item-checkbox .custom-checkbox:checked + .custom-checkbox-label {
+.create-order .dp-item .dp-item__radio .custom-radio:checked + .custom-radio-label {
   border: 1px solid var(--m-main-green);
   background-color: var(--m-main-green);
   background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 8 8'%3e%3cpath fill='%23fff' d='M6.564.75l-3.59 3.612-1.538-1.55L0 4.26 2.974 7.25 8 2.193z'/%3e%3c/svg%3e");
@@ -2374,6 +2375,40 @@ p {
   background-color: #F6F7F9;
   font-size: inherit;
 }
+.create-order .create-order-products .product-item {
+  display: flex;
+  margin: 0 0 20px 0;
+}
+.create-order .create-order-products .product-item__image {
+  width: 88px;
+  height: 160px;
+  margin: 0 20px 0 0;
+  border-radius: 10px;
+  overflow: hidden;
+}
+.create-order .create-order-products .product-item__image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+.create-order .create-order-products .product-item__content {
+  padding: 10px 0 0 0;
+}
+.create-order .create-order-products .product-item__title {
+  margin: 0 0 10px 0;
+  font-size: 18px;
+}
+.create-order .create-order-products .product-item__promo {
+  margin: 0 0 10px 0;
+}
+.create-order .create-order-products .product-item__quantity {
+  font-size: 18px;
+  color: var(--m-light-grey);
+}
+.create-order .payment-item .payment-item__description {
+  min-height: 104px;
+}
+
 
 
 /* poisk */
@@ -2972,7 +3007,7 @@ p {
 }
 
 @media only screen and (max-width : 1400px) {
-  .cart .cart-aside {
+  .cco-cart-aside {
     display: block !important;
   }
 }

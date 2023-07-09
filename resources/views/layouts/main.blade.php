@@ -209,20 +209,20 @@
               <div class="cart-total-aside-item">
                 <div class="cart-total-aside__text">Товаров</div>
                 <div class="cart-total-aside-value">
-                  <span id="summary-quantity" class="cart-total-aside__counter">0</span>
+                  <span class="cart-total-aside__counter js-summary-quantity">0</span>
                 </div>
               </div>
               <div class="cart-total-aside-item">
                 <div class="cart-total-aside-text">Сумма</div>
                 <div class="cart-total-aside-value">
-                  <span id="summary-summ-before-discount" class="cart-total-aside__counter">0</span>
+                  <span class="cart-total-aside__counter js-summary-summ-before-discount">0</span>
                   <span class="cart-total-aside__currency">&#8381;</span>
                 </div>
               </div>
               <div class="cart-total-aside-item">
                 <div class="cart-total-aside-text">Скидка</div>
                 <div class="cart-total-aside-value">
-                  <span id="summary-discount" class="cart-total-aside__counter red-text">0</span>
+                  <span class="cart-total-aside__counter red-text js-summary-discount">0</span>
                   <span class="cart-total-aside__currency red-text">&#8381;</span>
                 </div>                
               </div>
@@ -230,13 +230,17 @@
               <div class="cart-summ-aside">
                 <div class="cart-summ-aside-text">К оплате</div>
                 <div class="cart-summ-aside-value">
-                  <span id="summary-summ" class="cart-summ-aside__counter">0</span>
+                  <span class="cart-summ-aside__counter js-summary-summ">0</span>
                   <span class="cart-summ-aside__currency">&#8381;</span>
                 </div>
               </div>
-              <div class="place-order-btn active">
-                <div class="place-order-btn__text">Перейти к оформлению заказа</div>
-                <a href="#" class="full-link"></a>
+              <div class="place-order-btn js-place-order-btn">
+                @if(isset($is_create_order))
+                  <div class="place-order-btn__text">Оформить заказ</div>
+                @else
+                  <div class="place-order-btn__text">Перейти к оформлению заказа</div>
+                @endif
+                <a href="#" class="full-link place-order-btn__link"></a>
               </div>
             </div>
           @else
@@ -333,7 +337,7 @@
                 <a href="/kak-oformit-zakaz" class="menu-item__link">Как оформить заказ</a>
               </li>
               <li class="menu-item">
-                <a href="#" class="menu-item__link">Личный кабинет</a>
+                <a href="/lk" class="menu-item__link">Личный кабинет</a>
               </li>
             </ul>
           </div>

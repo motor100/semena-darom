@@ -104,11 +104,15 @@ class AjaxController extends Controller
     {   
         $id = $request->input('id');
 
-        $cart_items = $request->session()->get('cart');
+        // Получение куки через фасад Cookie метод get
+        $cart = json_decode(\Illuminate\Support\Facades\Cookie::get('cart'), true);
 
-        $cart_items[$id] = $cart_items[$id] + 1;
+        $cart[$id] = $cart[$id] + 1;
 
-        $request->session()->put('cart.' . $id, $cart_items[$id]);
+        $cart_json = json_encode($cart);
+
+        // Установка куки через фасад Cookie метод queue
+        \Illuminate\Support\Facades\Cookie::queue('cart', $cart_json, 525600);
 
         return false;
     }
@@ -117,12 +121,17 @@ class AjaxController extends Controller
     {   
         $id = $request->input('id');
 
-        $cart_items = $request->session()->get('cart');
+        // Получение куки через фасад Cookie метод get
+        $cart = json_decode(\Illuminate\Support\Facades\Cookie::get('cart'), true);
 
-        $cart_items[$id] = $cart_items[$id] - 1;
+        $cart[$id] = $cart[$id] - 1;
         
-        if ($cart_items[$id] > 1) {
-            $request->session()->put('cart.' . $id, $cart_items[$id]);
+        if ($cart[$id] > 1) {
+
+            $cart_json = json_encode($cart);
+            
+            // Установка куки через фасад Cookie метод queue
+            \Illuminate\Support\Facades\Cookie::queue('cart', $cart_json, 525600);
         }
 
         return false;

@@ -37,7 +37,10 @@
     </div>
     <div class="cart-price">
       <img src="/img/cart-price.png" class="cart-price-image" alt="">
-      <span class="cart-price-text">1500 ₽</span>
+      <span class="cart-price-text">
+        <span id="min-order-value" class="cart-price-text__value"></span>
+        <span class="cart-price-text__currency">&#8381;</span>
+      </span>
     </div>
   </div>
 
@@ -54,12 +57,12 @@
                 <div class="cf-item__title">{{ $product->title }}</div>
                 @if($product->promo_price)
                   <div class="cf-item__price red-text">
-                    <span class="cf-item__value">{{ str_replace('.0', '', $product->promo_price) }}</span>
+                    <span class="cf-item__value js-item-price">{{ str_replace('.0', '', $product->promo_price) }}</span>
                     <span class="cf-item__currency">&#8381;</span>
                   </div>
                 @else
                   <div class="cf-item__price">
-                    <span class="cf-item__value">{{ str_replace('.0', '', $product->retail_price) }}</span>
+                    <span class="cf-item__value js-item-price">{{ str_replace('.0', '', $product->retail_price) }}</span>
                     <span class="cf-item__currency">&#8381;</span>
                   </div>
                 @endif             
@@ -68,7 +71,7 @@
                 <div class="cf-item__promo">
                   <div class="cf-item__promo-text red-text">Акция</div>
                   <div class="cf-item__old-price item__old-price">
-                    <span class="cf-item__value">{{ str_replace('.0', '', $product->retail_price) }}</span>
+                    <span class="cf-item__value js-item-price js-item-old-price">{{ str_replace('.0', '', $product->retail_price) }}</span>
                     <span class="cf-item__currency">&#8381;</span>
                     <span class="line-through"></span>
                   </div>
@@ -97,12 +100,12 @@
                 <button type="button" class="quantity-button quantity-minus" data-id="{{ $product->id }}">
                   <div class="circle"></div>
                 </button>
-                <input class="quantity-number" type="number" name="quantity" max="{{ $product->stock }}" min="1" step="1" data-id="{{ $product->id }}" value="{{ $product->quantity }}" readonly>
+                <input class="quantity-number js-item-quantity" type="number" name="quantity" max="{{ $product->stock }}" min="1" step="1" data-id="{{ $product->id }}" value="{{ $product->quantity }}" readonly>
                 <button type="button" class="quantity-button quantity-plus" data-id="{{ $product->id }}">
                   <div class="circle"></div>
                 </button>
               </div>
-              <div class="cart-item__weight hidden">{{ $product->weight }}</div>
+              <div class="cart-item__weight js-item-weight hidden">{{ $product->weight }}</div>
             </div>
           </div>
         </div>
@@ -110,26 +113,26 @@
     </div>
 
     @if(isset($is_cart))
-      <div class="cart-aside cart-total-aside hidden">
+      <div class="cco-cart-aside cart-aside cart-total-aside hidden">
         <div class="cart-total-aside__title">Итого</div>
         <div class="grey-line"></div>
         <div class="cart-total-aside-item">
           <div class="cart-total-aside__text">Товаров</div>
           <div class="cart-total-aside-value">
-            <span id="summary-quantity" class="cart-total-aside__counter">0</span>
+            <span class="cart-total-aside__counter js-summary-quantity">0</span>
           </div>
         </div>
         <div class="cart-total-aside-item">
           <div class="cart-total-aside-text">Сумма</div>
           <div class="cart-total-aside-value">
-            <span id="summary-summ-before-discount" class="cart-total-aside__counter">0</span>
+            <span class="cart-total-aside__counter js-summary-summ-before-discount">0</span>
             <span class="cart-total-aside__currency">&#8381;</span>
           </div>
         </div>
         <div class="cart-total-aside-item">
           <div class="cart-total-aside-text">Скидка</div>
           <div class="cart-total-aside-value">
-            <span id="summary-discount" class="cart-total-aside__counter red-text">0</span>
+            <span class="cart-total-aside__counter red-text js-summary-discount">0</span>
             <span class="cart-total-aside__currency red-text">&#8381;</span>
           </div>                
         </div>
@@ -137,17 +140,17 @@
         <div class="cart-summ-aside">
           <div class="cart-summ-aside-text">К оплате</div>
           <div class="cart-summ-aside-value">
-            <span id="summary-summ" class="cart-summ-aside__counter">0</span>
+            <span class="cart-summ-aside__counter js-summary-summ">0</span>
             <span class="cart-summ-aside__currency">&#8381;</span>
           </div>
         </div>
-        <div class="place-order-btn active">
+        <div class="place-order-btn js-place-order-btn">
           <div class="place-order-btn__text">Перейти к оформлению заказа</div>
-          <a href="#" class="full-link"></a>
+          <a href="#" class="full-link place-order-btn__link"></a>
         </div>
       </div>
     @else
-      <div class="cart-aside">
+      <div class="cco-cart-aside cart-aside">
         <div class="cart-aside-title-wrapper">
           <div class="cart-aside-title">Корзина</div>
           <div class="cart-aside-clear-cart">
@@ -171,7 +174,7 @@
                         <span class="products-item__currency">&#8381;</span>
                       </div>
                       <div class="products-item__old-price item__old-price">
-                        <span class="products-item__value">{{ $product->retail_price }}</span>
+                        <span class="products-item__value js-item-old-price">{{ $product->retail_price }}</span>
                         <span class="products-item__currency">&#8381;</span>
                         <span class="line-through"></span>
                       </div>

@@ -219,11 +219,17 @@ class MainController extends Controller
         // Переменная is_cart переключения макета корзины справа и внизу при ширине менее 1400px
         $is_cart = true;
 
-        if ($request->session()->has('cart')) {
+        // Переменная is_create_order переключение текста кнопки Оформить заказ
+        $is_create_order = true;
+
+        // Получение куки через фасад Cookie метод get
+        $cart = json_decode(\Illuminate\Support\Facades\Cookie::get('cart'), true);
+
+        if ($cart) {
 
             $products = \App\Services\Common::get_products_in_cart($request);
 
-            return view('create_order', compact('products'));
+            return view('create_order', compact('products', 'is_cart', 'is_create_order'));
         } else {
             return redirect('/cart');
         }
