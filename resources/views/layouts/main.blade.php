@@ -20,7 +20,7 @@
     <div class="header-top">
       <div class="container-fluid">
         <div class="flex-container">
-          <div class="side">
+          <div class="left-nav">
             <div class="logo">
               <a href="{{ route('home') }}">
                 <img src="/img/logo.png" alt="">
@@ -33,67 +33,57 @@
               <div class="catalog-btn__text">Каталог</div>
             </div>
             <form class="search-form" action="/poisk" method="get">
-              <div class="form-container">
-                <input type="text" name="search_query" class="search-input" minlength="3" maxlength="20" autocomplete="off" required placeholder="Искать товары">
-                <button type="submit" class="submit-btn">
-                  <img src="/img/header-search-btn.svg" alt="">
-                </button>
-                <div class="search-close"></div>
-                <div class="search-dropdown">
-                  <ul class="search-list js-search-rezult"></ul>
-                  <a href="#" class="search-see-all">Показать все результаты</a>
-                </div>
+              <input type="text" name="search_query" class="search-input" minlength="3" maxlength="20" autocomplete="off" required placeholder="Искать товары">
+              <button type="submit" class="submit-btn">
+                <img src="/img/header-search-btn.svg" alt="">
+              </button>
+              <div class="search-close"></div>
+              <div class="search-dropdown">
+                <ul class="search-list js-search-rezult"></ul>
+                <a href="#" class="search-see-all">Показать все результаты</a>
               </div>
             </form>
           </div>
-          <div class="side">
 
-            @if(session()->exists('city'))
-              <div id="city-select-btn" class="city-select active">
-            @else
-              <div id="city-select-btn" class="city-select">
-            @endif
+          <div id="city-select-btn" class="city-select header-btn {{ $city_name ? 'active' : '' }}">
+            <div class="city-select__image header-btn__image">
+              <svg width="15" height="19" viewBox="0 0 15 19" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M7.50039 10.1538C8.93633 10.1538 10.1004 8.98289 10.1004 7.53845C10.1004 6.09401 8.93633 4.92307 7.50039 4.92307C6.06445 4.92307 4.90039 6.09401 4.90039 7.53845C4.90039 8.98289 6.06445 10.1538 7.50039 10.1538Z" stroke-linecap="round" stroke-linejoin="round"/>
+                <path d="M14 7.53846C14 13.4231 7.5 18 7.5 18C7.5 18 1 13.4231 1 7.53846C1 5.80435 1.68482 4.14127 2.90381 2.91507C4.12279 1.68887 5.77609 1 7.5 1C9.22391 1 10.8772 1.68887 12.0962 2.91507C13.3152 4.14127 14 5.80435 14 7.53846Z" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+            </div>
+            <div class="city-select__text header-btn__text">{{ $city_name ? $city_name : 'Выбрать город' }}</div>
+          </div>
 
-              <div class="city-select__image">
-                <svg width="15" height="19" viewBox="0 0 15 19" fill="none" xmlns="http://www.w3.org/2000/svg">
-                  <path d="M7.50039 10.1538C8.93633 10.1538 10.1004 8.98289 10.1004 7.53845C10.1004 6.09401 8.93633 4.92307 7.50039 4.92307C6.06445 4.92307 4.90039 6.09401 4.90039 7.53845C4.90039 8.98289 6.06445 10.1538 7.50039 10.1538Z" stroke-linecap="round" stroke-linejoin="round"/>
-                  <path d="M14 7.53846C14 13.4231 7.5 18 7.5 18C7.5 18 1 13.4231 1 7.53846C1 5.80435 1.68482 4.14127 2.90381 2.91507C4.12279 1.68887 5.77609 1 7.5 1C9.22391 1 10.8772 1.68887 12.0962 2.91507C13.3152 4.14127 14 5.80435 14 7.53846Z" stroke-linecap="round" stroke-linejoin="round"/>
+          <div class="lk-login header-btn {{ auth()->check() ? 'active' : '' }}">
+            <div class="lk-login-select__image header-btn__image">
+              <svg width="19" height="19" viewBox="0 0 19 21" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M9.49966 10.5C12.123 10.5 14.2497 8.37335 14.2497 5.75C14.2497 3.12665 12.123 1 9.49966 1C6.87631 1 4.74966 3.12665 4.74966 5.75C4.74966 8.37335 6.87631 10.5 9.49966 10.5Z"/>
+                <path d="M14.25 12.4H14.5841C16.0214 12.4 17.2337 13.4703 17.4121 14.8965L17.783 17.8643C17.9248 18.9983 17.0405 20 15.8977 20H3.10227C1.95943 20 1.0752 18.9983 1.21695 17.8643L1.58792 14.8965C1.7662 13.4703 2.9786 12.4 4.41592 12.4H4.74999" stroke-linecap="round" stroke-linejoin="round"/>
                 </svg>
               </div>
-              @if($city_name)
-                <div class="city-select__text">{{ $city_name }}</div>
-              @else
-                <div class="city-select__text">Выбрать город</div>
-              @endif
+            <div class="lk-login-select__text header-btn__text">Личный кабинет</div>
+          </div>
+
+          <div class="right-nav">
+            <div class="favourites right-nav-item">
+              <div class="right-nav-item__image">
+                <img src="/img/header-heart.svg" alt="">
               </div>
+              <div id="header-favourites-counter" class="counter {{ !isset($favourites_count) ? 'hidden' : '' }}">{{ isset($favourites_count) ? $favourites_count : '' }}</div>
+              <div class="right-nav-item__text">Избранное</div>
+              <a href="/favourites" class="full-link"></a>
             </div>
-            <div class="right-menu">
-              <div class="favourites right-menu-item">
-                <div class="right-menu-item__image">
-                  <img src="/img/header-heart.svg" alt="">
-                </div>
-                @if(isset($favourites_count))
-                  <div id="header-favourites-counter" class="counter">{{ $favourites_count }}</div>
-                @else
-                  <div id="header-favourites-counter" class="counter hidden"></div>
-                @endif
-                <div class="right-menu-item__text">Избранное</div>
-                <a href="/favourites" class="full-link"></a>
+            <div class="cart right-nav-item">
+              <div class="right-nav-item__image">
+                <img src="/img/header-cart.svg" alt="">
               </div>
-              <div class="cart right-menu-item">
-                <div class="right-menu-item__image">
-                  <img src="/img/header-cart.svg" alt="">
-                </div>
-                @if(isset($cart_count))
-                  <div id="header-cart-counter" class="counter">{{ $cart_count }}</div>
-                @else
-                  <div id="header-cart-counter" class="counter hidden"></div>
-                @endif
-                <div class="right-menu-item__text">Корзина</div>
-                <a href="/cart" class="full-link"></a>
-              </div>
+              <div id="header-cart-counter" class="counter {{ !isset($favourites_count) ? 'hidden' : '' }}">{{ isset($favourites_count) ? $favourites_count : '' }}</div>
+              <div class="right-nav-item__text">Корзина</div>
+              <a href="/cart" class="full-link"></a>
             </div>
           </div>
+
         </div>
       </div>
     </div>
@@ -295,13 +285,13 @@
 
               <div class="grey-line"></div>
               @if(isset($cart_count))
-                <div class="place-order-btn active">
+                <div id="cart-aside-place-order-btn" class="place-order-btn active">
               @else
-                <div class="place-order-btn">
+                <div id="cart-aside-place-order-btn" class="place-order-btn">
               @endif
                 <div class="place-order-btn__text">Оформить заказ</div>
                 <div class="place-order-btn__total">
-                  <span class="place-order-btn__summ">0</span>
+                  <span id="cart-aside-place-order-btn-summ" class="place-order-btn__summ">0</span>
                   <span class="place-order-btn__currency">&#8381;</span>
                 </div>
                 <a href="/cart" class="full-link"></a>
@@ -526,7 +516,7 @@
   <div class="sticky-desktop-menu header-top hidden-mobile">
     <div class="container-fluid">
       <div class="flex-container">
-        <div class="side">
+        <div class="left-nav">
           <div class="logo">
             <a href="{{ route('home') }}">
               <img src="/img/logo.png" alt="">
@@ -539,68 +529,57 @@
             <div class="catalog-btn__text">Каталог</div>
           </div>
           <form class="search-form" action="/poisk" method="get">
-            <div class="form-container">
-              <input type="text" name="search_query" class="search-input" minlength="3" maxlength="20" autocomplete="off" required placeholder="Искать товары">
-              <button type="submit" class="submit-btn">
-                <img src="/img/header-search-btn.svg" alt="">
-              </button>
-              <div class="search-close"></div>
-              <div class="search-dropdown">
-                <ul class="search-list js-search-rezult"></ul>
-                <a href="#" class="search-see-all">Показать все результаты</a>
-              </div>
+            <input type="text" name="search_query" class="search-input" minlength="3" maxlength="20" autocomplete="off" required placeholder="Искать товары">
+            <button type="submit" class="submit-btn">
+              <img src="/img/header-search-btn.svg" alt="">
+            </button>
+            <div class="search-close"></div>
+            <div class="search-dropdown">
+              <ul class="search-list js-search-rezult"></ul>
+              <a href="#" class="search-see-all">Показать все результаты</a>
             </div>
           </form>
         </div>
-        <div class="side">
 
-          @if(session()->exists('city'))
-            <div id="city-select-btn" class="city-select active">
-          @else
-            <div id="city-select-btn" class="city-select">
-          @endif
-
-            <div class="city-select__image">
-              <svg width="15" height="19" viewBox="0 0 15 19" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <path d="M7.50039 10.1538C8.93633 10.1538 10.1004 8.98289 10.1004 7.53845C10.1004 6.09401 8.93633 4.92307 7.50039 4.92307C6.06445 4.92307 4.90039 6.09401 4.90039 7.53845C4.90039 8.98289 6.06445 10.1538 7.50039 10.1538Z" stroke-linecap="round" stroke-linejoin="round"/>
-                <path d="M14 7.53846C14 13.4231 7.5 18 7.5 18C7.5 18 1 13.4231 1 7.53846C1 5.80435 1.68482 4.14127 2.90381 2.91507C4.12279 1.68887 5.77609 1 7.5 1C9.22391 1 10.8772 1.68887 12.0962 2.91507C13.3152 4.14127 14 5.80435 14 7.53846Z" stroke-linecap="round" stroke-linejoin="round"/>
-              </svg>
-            </div>
-
-            @if($city_name)
-              <div class="city-select__text">{{ $city_name }}</div>
-            @else
-              <div class="city-select__text">Выбрать город</div>
-            @endif
-            </div>
+        <div id="city-select-btn" class="city-select header-btn {{ $city_name ? 'active' : '' }}">
+          <div class="city-select__image header-btn__image">
+            <svg width="15" height="19" viewBox="0 0 15 19" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M7.50039 10.1538C8.93633 10.1538 10.1004 8.98289 10.1004 7.53845C10.1004 6.09401 8.93633 4.92307 7.50039 4.92307C6.06445 4.92307 4.90039 6.09401 4.90039 7.53845C4.90039 8.98289 6.06445 10.1538 7.50039 10.1538Z" stroke-linecap="round" stroke-linejoin="round"/>
+              <path d="M14 7.53846C14 13.4231 7.5 18 7.5 18C7.5 18 1 13.4231 1 7.53846C1 5.80435 1.68482 4.14127 2.90381 2.91507C4.12279 1.68887 5.77609 1 7.5 1C9.22391 1 10.8772 1.68887 12.0962 2.91507C13.3152 4.14127 14 5.80435 14 7.53846Z" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
           </div>
-          <div class="right-menu">
-            <div class="favourites right-menu-item">
-              <div class="right-menu-item__image">
-                <img src="/img/header-heart.svg" alt="">
-              </div>
-              @if(isset($favourites_count))
-                <div id="sticky-desktop-menu-favourites-counter" class="counter">{{ $favourites_count }}</div>
-              @else
-                <div id="sticky-desktop-menu-favourites-counter" class="counter hidden"></div>
-              @endif
-              <div class="right-menu-item__text">Избранное</div>
-              <a href="/favourites" class="full-link"></a>
+          <div class="city-select__text header-btn__text">{{ $city_name ? $city_name : 'Выбрать город' }}</div>
+        </div>
+
+        <div class="lk-login header-btn {{ auth()->check() ? 'active' : '' }}">
+          <div class="lk-login-select__image header-btn__image">
+            <svg width="19" height="19" viewBox="0 0 19 21" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M9.49966 10.5C12.123 10.5 14.2497 8.37335 14.2497 5.75C14.2497 3.12665 12.123 1 9.49966 1C6.87631 1 4.74966 3.12665 4.74966 5.75C4.74966 8.37335 6.87631 10.5 9.49966 10.5Z"/>
+              <path d="M14.25 12.4H14.5841C16.0214 12.4 17.2337 13.4703 17.4121 14.8965L17.783 17.8643C17.9248 18.9983 17.0405 20 15.8977 20H3.10227C1.95943 20 1.0752 18.9983 1.21695 17.8643L1.58792 14.8965C1.7662 13.4703 2.9786 12.4 4.41592 12.4H4.74999" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </div>
+          <div class="lk-login-select__text header-btn__text">Личный кабинет</div>
+        </div>
+
+        <div class="right-nav">
+          <div class="favourites right-nav-item">
+            <div class="right-nav-item__image">
+              <img src="/img/header-heart.svg" alt="">
             </div>
-            <div class="cart right-menu-item">
-              <div class="right-menu-item__image">
-                <img src="/img/header-cart.svg" alt="">
-              </div>
-              @if(isset($cart_count))
-                <div id="sticky-desktop-menu-cart-counter" class="counter">{{ $cart_count }}</div>
-              @else
-                <div id="sticky-desktop-menu-cart-counter" class="counter hidden"></div>
-              @endif
-              <div class="right-menu-item__text">Корзина</div>
-              <a href="/cart" class="full-link"></a>
+            <div id="sticky-desktop-menu-favourites-counter" class="counter {{ !isset($favourites_count) ? 'hidden' : '' }}">{{ isset($favourites_count) ? $favourites_count : '' }}</div>
+            <div class="right-nav-item__text">Избранное</div>
+            <a href="/favourites" class="full-link"></a>
+          </div>
+          <div class="cart right-nav-item">
+            <div class="right-nav-item__image">
+              <img src="/img/header-cart.svg" alt="">
             </div>
+            <div id="sticky-desktop-menu-cart-counter" class="counter {{ !isset($cart_count) ? 'hidden' : '' }}">{{ isset($cart_count) ? $cart_count : '' }}</div>
+            <div class="right-nav-item__text">Корзина</div>
+            <a href="/cart" class="full-link"></a>
           </div>
         </div>
+        
       </div>
     </div>
   </div>

@@ -534,9 +534,10 @@ document.addEventListener("DOMContentLoaded", () => {
   // Функция расчета общей стоимости товаров в корзине справа
   function asideCartTotalCalc() {
 
-    const cartAsidePlaceOrderBtns = document.querySelectorAll('.cart-aside .place-order-btn'),
+    const cartAsidePlaceOrderBtn = document.querySelector('#cart-aside-place-order-btn'),
           cartAsideProductsItems = document.querySelectorAll('.cart-aside-products .products-item'),
-          cartAsidePlaceOrderSumm = document.querySelector('.place-order-btn__summ');
+          cartAsidePlaceOrderSumm = document.querySelector('#cart-aside-place-order-btn-summ');
+
     let cartAsideTotal = 0;
 
     cartAsideProductsItems.forEach((item) => {
@@ -553,7 +554,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
     if (cartAsideProductsItems.length > 0) {
       cartAsidePlaceOrderBtn.classList.add('active');
-    }
+    } 
     
     if (cartAsidePlaceOrderSumm) {
       cartAsidePlaceOrderSumm.innerText = cartAsideTotal;
