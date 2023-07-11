@@ -70,7 +70,7 @@
               <div class="right-nav-item__image">
                 <img src="/img/header-heart.svg" alt="">
               </div>
-              <div id="header-favourites-counter" class="counter {{ !isset($favourites_count) ? 'hidden' : '' }}">{{ isset($favourites_count) ? $favourites_count : '' }}</div>
+              <div id="header-favourites-counter" class="counter {{ isset($favourites_count) ? 'active' : '' }}">{{ isset($favourites_count) ? $favourites_count : '' }}</div>
               <div class="right-nav-item__text">Избранное</div>
               <a href="/favourites" class="full-link"></a>
             </div>
@@ -78,7 +78,7 @@
               <div class="right-nav-item__image">
                 <img src="/img/header-cart.svg" alt="">
               </div>
-              <div id="header-cart-counter" class="counter {{ !isset($favourites_count) ? 'hidden' : '' }}">{{ isset($favourites_count) ? $favourites_count : '' }}</div>
+              <div id="header-cart-counter" class="counter {{ isset($favourites_count) ? 'active' : '' }}">{{ isset($favourites_count) ? $favourites_count : '' }}</div>
               <div class="right-nav-item__text">Корзина</div>
               <a href="/cart" class="full-link"></a>
             </div>
@@ -225,11 +225,7 @@
                 </div>
               </div>
               <div class="place-order-btn js-place-order-btn">
-                @if(isset($is_create_order))
-                  <div class="place-order-btn__text">Оформить заказ</div>
-                @else
-                  <div class="place-order-btn__text">Перейти к оформлению заказа</div>
-                @endif
+                <div class="place-order-btn__text">{{ isset($is_create_order) ? 'Оформить заказ' : 'Перейти к оформлению заказа' }}
                 <a href="#" class="full-link place-order-btn__link"></a>
               </div>
             </div>
@@ -284,11 +280,8 @@
               </div>
 
               <div class="grey-line"></div>
-              @if(isset($cart_count))
-                <div id="cart-aside-place-order-btn" class="place-order-btn active">
-              @else
-                <div id="cart-aside-place-order-btn" class="place-order-btn">
-              @endif
+
+              <div id="cart-aside-place-order-btn" class="place-order-btn {{ isset($cart_count) ? 'active' : '' }}">
                 <div class="place-order-btn__text">Оформить заказ</div>
                 <div class="place-order-btn__total">
                   <span id="cart-aside-place-order-btn-summ" class="place-order-btn__summ">0</span>
@@ -566,7 +559,7 @@
             <div class="right-nav-item__image">
               <img src="/img/header-heart.svg" alt="">
             </div>
-            <div id="sticky-desktop-menu-favourites-counter" class="counter {{ !isset($favourites_count) ? 'hidden' : '' }}">{{ isset($favourites_count) ? $favourites_count : '' }}</div>
+            <div id="sticky-desktop-menu-favourites-counter" class="counter {{ isset($favourites_count) ? 'active' : '' }}">{{ isset($favourites_count) ? $favourites_count : '' }}</div>
             <div class="right-nav-item__text">Избранное</div>
             <a href="/favourites" class="full-link"></a>
           </div>
@@ -574,7 +567,7 @@
             <div class="right-nav-item__image">
               <img src="/img/header-cart.svg" alt="">
             </div>
-            <div id="sticky-desktop-menu-cart-counter" class="counter {{ !isset($cart_count) ? 'hidden' : '' }}">{{ isset($cart_count) ? $cart_count : '' }}</div>
+            <div id="sticky-desktop-menu-cart-counter" class="counter {{ isset($cart_count) ? 'active' : '' }}">{{ isset($cart_count) ? $cart_count : '' }}</div>
             <div class="right-nav-item__text">Корзина</div>
             <a href="/cart" class="full-link"></a>
           </div>
@@ -592,20 +585,12 @@
       </div>
       <div class="menu-item cart-menu-item">
         <div class="title">Корзина</div>
-        @if(isset($cart_count))
-          <div id="mobile-cart-counter" class="cart-counter">{{ $cart_count }}</div>
-        @else
-          <div id="mobile-cart-counter" class="cart-counter hidden"></div>
-        @endif
+        <div id="mobile-cart-counter" class="cart-counter {{ isset($cart_count) ? 'active' : '' }}">{{ isset($cart_count) ? $cart_count : '' }}</div>
         <a href="/cart" class="full-link"></a>
       </div>
       <div class="menu-item cart-menu-item">
         <div class="title">Корзина</div>
-        @if(isset($cart_count))
-          <div id="mobile-favourites-counter" class="cart-counter">{{ $cart_count }}</div>
-        @else
-          <div id="mobile-favourites-counter" class="cart-counter hidden"></div>
-        @endif
+        <div id="mobile-favourites-counter" class="cart-counter {{ isset($favourites_count) ? 'active' : '' }}">{{ isset($favourites_count) ? $favourites_count : '' }}</div>
         <a href="/cart" class="full-link"></a>
       </div>
       <div class="menu-item">

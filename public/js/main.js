@@ -277,17 +277,17 @@ document.addEventListener("DOMContentLoaded", () => {
       // Header favourites counter
       const headerFavouritesCounter = document.querySelector('#header-favourites-counter');
       headerFavouritesCounter.innerText = str;
-      headerFavouritesCounter.classList.remove('hidden');
+      headerFavouritesCounter.classList.add('active');
 
       // Sticky desktop menu favourites counter
       const stickyDesktopMenuFavouritesCounter = document.querySelector('#sticky-desktop-menu-favourites-counter');
       stickyDesktopMenuFavouritesCounter.innerText = str;
-      stickyDesktopMenuFavouritesCounter.classList.remove('hidden');
+      stickyDesktopMenuFavouritesCounter.classList.add('active');
 
       // Mobile favourites counter
       const mobileFavouritesCounter = document.querySelector('#mobile-favourites-counter');
       mobileFavouritesCounter.innerText = str;
-      mobileFavouritesCounter.classList.remove('hidden');
+      mobileFavouritesCounter.classList.add('active');
 
       return false;      
     }
@@ -587,17 +587,17 @@ document.addEventListener("DOMContentLoaded", () => {
       // Header cart counter
       const headerCartCounter = document.querySelector('#header-cart-counter');
       headerCartCounter.innerText = arr.length > 9 ? 9 : arr.length;
-      headerCartCounter.classList.remove('hidden');
+      headerCartCounter.classList.add('active');
       
       // Sticky desktop menu cart counter
       const stickyDesktopMenuCartCounter = document.querySelector('#sticky-desktop-menu-cart-counter');
       stickyDesktopMenuCartCounter.innerText = arr.length > 9 ? 9 : arr.length;
-      stickyDesktopMenuCartCounter.classList.remove('hidden');
+      stickyDesktopMenuCartCounter.classList.add('active');
 
       // Mobile cart counter
       const mobileCartCounter = document.querySelector('#mobile-cart-counter');
       mobileCartCounter.innerText = arr.length > 9 ? 9 : arr.length;
-      mobileCartCounter.classList.remove('hidden');
+      mobileCartCounter.classList.add('active');
 
       return false;
     }
