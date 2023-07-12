@@ -93,28 +93,15 @@ Route::post('/ajax/sdek', [DeliveryController::class, 'sdek']);
 Route::post('/ajax/russian-post', [DeliveryController::class, 'russian_post']);
 
 
-
 // Личный кабинет
-// Route::get('/dashboard', function () {
-//     return view('dashboard');
-// })->middleware(['auth', 'verified'])->name('dashboard');
-
 Route::middleware(['auth', 'verified'])->group(function () {
-    Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
-    Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
-    Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+    Route::get('/lk', [LkController::class, 'home'])->name('lk.index');
+    Route::get('/lk/profile', [ProfileController::class, 'edit'])->name('profile.edit');
+    Route::patch('/lk/profile', [ProfileController::class, 'update'])->name('profile.update');
+    Route::delete('/lk/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
 require __DIR__.'/auth.php';
-
-// Личный кабинет
-Route::middleware(['auth', 'verified'])->group(function () {
-
-    Route::get('/lk', [LkController::class, 'home'])->name('lk.index');
-
-    // Route::get('profile', [ProfileController::class, 'home'])->name('profile');
-
-});
 
 // Fallback route
 Route::fallback([MainController::class, 'page_404']);
