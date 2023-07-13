@@ -1066,7 +1066,7 @@ document.addEventListener("DOMContentLoaded", () => {
     quantityCalc(productItems);
     let weight = weightCalc(productItems);
     discountCalc(productItems);
-    summCalc(productItems);
+    let summ = summCalc(productItems);
     summBeforeDiscountCalc(productItems);
 
     sdekDelivery();
@@ -1122,6 +1122,50 @@ document.addEventListener("DOMContentLoaded", () => {
       })
 
       return false;
+    }
+
+    // Скрытое поле Сумма
+    document.querySelector('#hidden-input-summ').value = summ;
+
+    // Проверка обязательных полей
+    const placeOrderForm = document.querySelector('#place-order-form'),
+          placeOrderBtn = document.querySelector('#place-order-btn');
+
+    function checkRequiredFields(form) {
+
+      let inputFirstName = form.querySelector('#first-name');
+      if (inputFirstName.value.length < 3 || inputFirstName.value.length > 20) {
+        inputFirstName.classList.add('required');
+      } else {
+        inputFirstName.classList.remove('required');
+      }
+
+      let inputLastName = form.querySelector('#last-name');
+      if (inputLastName.value.length < 3 || inputLastName.value.length > 30) {
+        inputLastName.classList.add('required');
+      } else {
+        inputLastName.classList.remove('required');
+      }
+
+      let inputPhone = form.querySelector('#phone');
+      if (inputPhone.value.length != 18) {
+        inputPhone.classList.add('required');
+      } else {
+        inputPhone.classList.remove('required');
+      }
+
+      let inputEmail = form.querySelector('#email');
+      if (inputEmail.value.length < 5 || inputEmail.value.length > 50) {
+        inputEmail.classList.add('required');
+      } else {
+        inputEmail.classList.remove('required');
+      }
+
+      return false;
+    }
+
+    placeOrderBtn.onclick = function() {
+      checkRequiredFields(placeOrderForm);
     }
 
   }

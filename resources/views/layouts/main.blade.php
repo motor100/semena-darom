@@ -79,7 +79,7 @@
               <div class="right-nav-item__image">
                 <img src="/img/header-cart.svg" alt="">
               </div>
-              <div id="header-cart-counter" class="counter {{ isset($favourites_count) ? 'active' : '' }}">{{ isset($favourites_count) ? $favourites_count : '' }}</div>
+              <div id="header-cart-counter" class="counter {{ isset($cart_count) ? 'active' : '' }}">{{ isset($cart_count) ? $cart_count : '' }}</div>
               <div class="right-nav-item__text">Корзина</div>
               <a href="/cart" class="full-link"></a>
             </div>
@@ -226,10 +226,11 @@
                 </div>
               </div>
               <div class="place-order-btn js-place-order-btn">
-                <div class="place-order-btn__text">{{ isset($is_create_order) ? 'Оформить заказ' : 'Перейти к оформлению заказа' }}
+                <div class="place-order-btn__text">{{ isset($is_create_order) ? 'Оформить заказ' : 'Перейти к оформлению заказа' }}</div>
                 <a href="#" class="full-link place-order-btn__link"></a>
               </div>
             </div>
+          @elseif(isset($is_create_order))
           @else
             <div class="cart-aside">
               <div class="cart-aside-title-wrapper">
@@ -288,7 +289,6 @@
                   <span id="cart-aside-place-order-btn-summ" class="place-order-btn__summ">0</span>
                   <span class="place-order-btn__currency">&#8381;</span>
                 </div>
-                <a href="/cart" class="full-link"></a>
               </div>
             </div>
           @endif
@@ -547,12 +547,13 @@
 
         <div class="lk-login header-btn {{ auth()->check() ? 'active' : '' }}">
           <div class="lk-login-select__image header-btn__image">
-            <svg width="19" height="19" viewBox="0 0 19 21" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <path d="M9.49966 10.5C12.123 10.5 14.2497 8.37335 14.2497 5.75C14.2497 3.12665 12.123 1 9.49966 1C6.87631 1 4.74966 3.12665 4.74966 5.75C4.74966 8.37335 6.87631 10.5 9.49966 10.5Z"/>
-              <path d="M14.25 12.4H14.5841C16.0214 12.4 17.2337 13.4703 17.4121 14.8965L17.783 17.8643C17.9248 18.9983 17.0405 20 15.8977 20H3.10227C1.95943 20 1.0752 18.9983 1.21695 17.8643L1.58792 14.8965C1.7662 13.4703 2.9786 12.4 4.41592 12.4H4.74999" stroke-linecap="round" stroke-linejoin="round"/>
+            <svg width="15" height="17" viewBox="0 0 15 17" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M7.49988 8.5C9.57095 8.5 11.2499 6.82107 11.2499 4.75C11.2499 2.67893 9.57095 1 7.49988 1C5.42881 1 3.74988 2.67893 3.74988 4.75C3.74988 6.82107 5.42881 8.5 7.49988 8.5Z"/>
+              <path d="M11.25 9.99991H11.5138C12.6484 9.99991 13.6056 10.8449 13.7464 11.9708L14.0392 14.3138C14.1511 15.2091 13.453 15.9999 12.5508 15.9999H2.44916C1.54692 15.9999 0.84884 15.2091 0.960748 14.3138L1.25362 11.9708C1.39437 10.8449 2.35153 9.99991 3.48625 9.99991H3.74999" stroke-linecap="round" stroke-linejoin="round"/>
             </svg>
           </div>
           <div class="lk-login-select__text header-btn__text">Личный кабинет</div>
+          <a href="/lk" class="full-link header-btn__link"></a>
         </div>
 
         <div class="right-nav">

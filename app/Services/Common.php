@@ -82,4 +82,17 @@ class Common {
 
         return $products;
     }
+
+    /**
+    * Телефон в формате +7 (999) 999 99 99 в число
+    * @param string
+    * @return int
+    */
+    public static function phone_to_int($phone)
+    {
+        $symbols = ["+", " ", "(", ")", "-"];
+        $phone = str_replace($symbols, '', $phone);
+
+        return (int) $phone;
+    }
 }

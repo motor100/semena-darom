@@ -216,9 +216,6 @@ class MainController extends Controller
 
     public function create_order(Request $request)
     {
-        // Переменная is_cart переключения макета корзины справа и внизу при ширине менее 1400px
-        $is_cart = true;
-
         // Переменная is_create_order переключение текста кнопки Оформить заказ
         $is_create_order = true;
 
@@ -229,10 +226,93 @@ class MainController extends Controller
 
             $products = \App\Services\Common::get_products_in_cart($request);
 
-            return view('create_order', compact('products', 'is_cart', 'is_create_order'));
+            return view('create_order', compact('products', 'is_create_order'));
         } else {
             return redirect('/cart');
         }
+    }
+
+    public function create_order_handler(Request $request)
+    {
+        $validated = $request->validate([
+            'delivery' => 'required',
+            'first-name'=> 'required|min:3|max:20',
+            'last-name'=> 'required|min:3|max:30',
+            'phone'=> 'required|size:18',
+            'email'=> 'required|min:5|max:50',
+            'payment' => 'required',
+            'summ' => 'required|numeric',
+        ]);
+
+        // Телефон из строки в цисло
+        $phone = \App\Services\Common::phone_to_int($validated['phone']);
+
+        // Онлайн оплата
+        $payment = ($validated['payment'] == 'yookassa') ? 'online' : '';
+
+        // Получение аутентифицированного пользователя
+        $user = $request->user();
+
+        // Создаю новую модель Order и получаю id новой записи
+        $order_id = \App\Models\Order::insertGetId([
+            'first_name' => $validated['first-name'],
+            'last_name' => $validated['last-name'],
+            'phone'=> $phone,
+            'email'=> $validated['email'],
+            'price' => $validated['summ'],
+            'user_id' => $user ? $user->id : NULL,
+            'status' => 'В обработке',
+            'comment' => NULL,
+            'payment' => 0,
+            'created_at' => now(),
+            'updated_at' => now(),
+        ]);
+
+        // Получение куки через фасад Cookie метод get
+        $cart = json_decode(\Illuminate\Support\Facades\Cookie::get('cart'), true);
+        
+        $insert_array = [];
+
+        foreach($cart as $key => $value) {
+            $row['order_id'] = $order_id;
+            $row['product_id'] = $key;
+            $row['quantity'] = $value;
+            $row['created_at'] = now();
+            $row['updated_at'] = now();
+            $insert_array[] = $row;
+        }
+
+        // Создание моделей OrderProduct
+        \App\Models\OrderProduct::insert($insert_array);
+        
+        // Редирект на страницу оплаты
+        return redirect()
+                ->route('thankyou', [
+                    'order_id' => $order_id,
+                    'summ' => $validated['summ'],
+                    'payment' => $payment
+                ]);
+    }
+
+    public function thankyou(Request $request)
+    {
+        if ($request->has('order_id') && $request->has('summ')) {
+
+            $order_id = $request->input('order_id');
+            $summ = $request->input('summ');
+            $payment = $request->input('payment');
+
+            return view('thankyou', compact('order_id', 'summ', 'payment'));
+        } else {
+            return view('thankyou');
+        }
+
+        // Для юкассы
+        // $summ - сумма к оплате
+        // $order_id - номер заказа
+        // http://semena-darom1.ru/thankyou?order_number=5&summ=1865 - ссылка для редиректа после оплаты
+        // без параметра payment
+        // $request->url() . '?order_id=' . $order_id . '&summ=' . $summ
     }
 
     public function poisk(Request $request)
