@@ -139,3 +139,19 @@
 .archive .list-btn {
   margin: 0 0 0 10px;
 }
+
+/* Заказы */
+.orders-table-row {
+  transition: background-color .2s;
+}
+.orders-table-row:hover {
+  background-color: rgba(255,255,255,0.7);
+}
+.orders-table-row a:hover {
+  text-decoration: underline;
+}
+
+/* Заказ */
+.order-edit .form-select {
+  width: 200px;
+}

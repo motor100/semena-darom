@@ -30,7 +30,40 @@ class AdminController extends Controller
 
     public function orders()
     {
-        return ('заказы');
+        $orders = \App\Models\Order::orderBy('id', 'desc')
+                                    ->limit(50)
+                                    ->get();
+        
+        $orders = \App\Services\Common::custom_paginator($orders, 10);
+
+        return view('dashboard.orders', compact('orders'));
+    }
+
+    public function orders_show($id)
+    {
+        $order = \App\Models\Order::findOrFail($id);
+
+        $order->phone = \App\Services\Common::int_to_phone($order->phone);
+
+        return view('dashboard.order', compact('order'));
+    }
+
+    public function order_update(Request $request)
+    {
+        $id = $request->input('id');
+        $status = $request->input('status');
+        $comment = $request->input('comment');
+
+        $now = date('Y-m-d H:i:s');
+
+        \App\Models\Order::where('id', $id)
+                        ->update([
+                            'status' => $status,
+                            'comment' => $comment,
+                            'updated_at' => $now
+                        ]);
+
+        return redirect('/admin/orders');
     }
 
     public function testimonials_update(Request $request)

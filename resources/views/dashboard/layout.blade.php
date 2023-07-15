@@ -44,6 +44,12 @@
               <span>Отзывы</span>
             </a>
           </div>
+          <div class="nav-item">
+            <a href="/admin/orders" class="item-link">
+              <i class="nav-icon fas fa-shopping-cart"></i>
+              <span>Заказы</span>
+            </a>
+          </div>
 
           <!-- 
           <div class="nav-item nav-item-has-children">

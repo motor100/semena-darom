@@ -84,6 +84,19 @@ class Common {
     }
 
     /**
+     * Число 79999999999 в телефон в формате +7 (999) 999 99 99
+     * @param number
+     * @return string
+     */
+    public static function int_to_phone($number)
+    {
+        $phone = strval($number);
+        $phone = '+'.substr($phone, 0, 1).' '.'('.substr($phone, 1, 3).')'.' '.substr($phone, 4, 3).' '.substr($phone, 7, 2).' '.substr($phone, 9, 2);
+
+        return $phone;
+    }
+
+    /**
     * Телефон в формате +7 (999) 999 99 99 в число
     * @param string
     * @return int
@@ -95,4 +108,6 @@ class Common {
 
         return (int) $phone;
     }
+
+
 }
