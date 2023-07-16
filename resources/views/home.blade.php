@@ -101,7 +101,9 @@
     <div class="popular-categories">
       <div class="row">
         @foreach($hit_products as $product)
-          @include('regular-products-item')
+        <div class="col-md-4 col-6 {{ $loop->last ? 'd-md-none' : '' }}">
+            @include('regular-products-item')
+          </div>
         @endforeach
       </div>
     </div>
@@ -115,7 +117,7 @@
     <div class="promo">
       <div class="row">
         @foreach($promos as $promo)
-          <div class="col-md-4">
+          <div class="col-sm-4">
             <div class="promo-item">
               <div class="bg-image">
                 <img src="{{ Storage::url($promo->image) }}" alt="">
@@ -143,7 +145,9 @@
     <div class="new-products">
       <div class="row">
         @foreach($new_products as $product)
-          @include('regular-products-item')
+          <div class="col-md-4 col-6 {{ $loop->last ? 'd-md-none' : '' }}">
+            @include('regular-products-item')
+          </div>
         @endforeach
       </div>
     </div>

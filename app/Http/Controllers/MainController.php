@@ -18,7 +18,7 @@ class MainController extends Controller
 
         // Хит недели
         $hit_products = Product::whereNotNull('property')
-                                ->take(3)
+                                ->take(4)
                                 ->inRandomOrder()
                                 ->get();
 
@@ -36,7 +36,7 @@ class MainController extends Controller
         */
         $new_products = Product::orderBy('id', 'desc')->limit(10)->get();
 
-        $new_products = $new_products->shuffle()->slice(0, 3);
+        $new_products = $new_products->shuffle()->slice(0, 4);
 
         return view('home', compact('sliders', 'hit_products', 'promos', 'new_products'));
     }

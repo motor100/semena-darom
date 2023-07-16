@@ -26,7 +26,7 @@
                 <img src="/img/logo.png" alt="">
               </a>
             </div>
-            <div class="header-catalog-btn">
+            <div class="header-catalog-btn hidden-mobile">
               <div class="catalog-btn__burger">
                 <span></span>
               </div>
@@ -52,7 +52,10 @@
                 <path d="M14 7.53846C14 13.4231 7.5 18 7.5 18C7.5 18 1 13.4231 1 7.53846C1 5.80435 1.68482 4.14127 2.90381 2.91507C4.12279 1.68887 5.77609 1 7.5 1C9.22391 1 10.8772 1.68887 12.0962 2.91507C13.3152 4.14127 14 5.80435 14 7.53846Z" stroke-linecap="round" stroke-linejoin="round"/>
               </svg>
             </div>
-            <div class="city-select__text header-btn__text">{{ $city_name ? $city_name : 'Выбрать город' }}</div>
+            <div class="city-select__text header-btn__text">
+              <span class="widescreen">{{ $city_name ? $city_name : 'Выбрать город' }}</span>
+              <span class="standartscreen">{{ $city_name ? $city_name : 'Город' }}</span>
+            </div>
           </div>
 
           <div class="lk-login header-btn {{ auth()->check() ? 'active' : '' }}">
@@ -62,11 +65,14 @@
                 <path d="M11.25 9.99991H11.5138C12.6484 9.99991 13.6056 10.8449 13.7464 11.9708L14.0392 14.3138C14.1511 15.2091 13.453 15.9999 12.5508 15.9999H2.44916C1.54692 15.9999 0.84884 15.2091 0.960748 14.3138L1.25362 11.9708C1.39437 10.8449 2.35153 9.99991 3.48625 9.99991H3.74999" stroke-linecap="round" stroke-linejoin="round"/>
               </svg>
             </div>
-            <div class="lk-login-select__text header-btn__text">Личный кабинет</div>
+            <div class="lk-login-select__text header-btn__text">
+              <span class="widescreen">Личный кабинет</span>
+              <span class="standartscreen">Войти</span>
+            </div>
             <a href="/lk" class="full-link header-btn__link"></a>
           </div>
 
-          <div class="right-nav">
+          <div class="right-nav hidden-mobile">
             <div class="favourites right-nav-item">
               <div class="right-nav-item__image">
                 <img src="/img/header-heart.svg" alt="">
@@ -89,7 +95,7 @@
       </div>
     </div>
 
-    <div class="top-menu">
+    <div class="top-menu hidden-mobile">
       <div class="container-fluid">
         <ul class="menu">
           <li class="menu-item">
@@ -149,7 +155,7 @@
   <div class="content-wrapper">
     <div class="container-fluid">
       <div class="row">
-        <div class="col-md-2">
+        <div class="col-lg-2 d-none d-lg-block">
           <div class="aside-nav">
             <div class="aside-nav-title">Каталог товаров</div>
             <div class="aside-nav-item">
@@ -189,7 +195,7 @@
             @endforeach
           </div>
         </div>
-        <div class="col-xxl-7 col-md-10">
+        <div class="col-xxl-7 col-lg-10 col-md-12">
           @yield('content')
         </div>
         <div class="col-xxl-3 d-none d-xxl-block">
@@ -349,14 +355,7 @@
                 <a href="/kontakty" class="menu-item__link">Контакты</a>
               </li>
             </ul>
-            <div class="social">
-              <a href="https://vk.com/semena7" target="_blank">
-                <svg width="30" height="30" viewBox="0 0 30 30" fill="none" xmlns="http://www.w3.org/2000/svg">
-                  <rect width="30" height="30" rx="5"/>
-                  <path fill-rule="evenodd" clip-rule="evenodd" d="M25.1257 9.13542C25.2833 8.63604 25.1257 8.27302 24.4284 8.27302H22.11C21.5252 8.27302 21.2551 8.59089 21.0975 8.93089C21.0975 8.93089 19.9049 11.8351 18.2394 13.7179C17.6993 14.2624 17.4518 14.4439 17.1592 14.4439C17.0016 14.4439 16.7988 14.2624 16.7988 13.7635V9.11195C16.7988 8.52227 16.6191 8.25 16.1237 8.25H12.4775C12.1172 8.25 11.8923 8.52227 11.8923 8.79453C11.8923 9.36164 12.725 9.49799 12.8149 11.086V14.5365C12.8149 15.2851 12.6821 15.4219 12.3872 15.4219C11.5996 15.4219 9.68671 12.4951 8.53921 9.16021C8.31608 8.49969 8.08941 8.25 7.50415 8.25H5.16355C4.48842 8.25 4.37598 8.56742 4.37598 8.90786C4.37598 9.52057 5.16355 12.6058 8.04426 16.6893C9.9572 19.4784 12.6803 20.9774 15.1333 20.9774C16.6191 20.9774 16.7988 20.637 16.7988 20.0699V17.9599C16.7988 17.2795 16.9338 17.1661 17.4067 17.1661C17.744 17.1661 18.3518 17.3472 19.7247 18.686C21.2998 20.274 21.5699 21 22.4478 21H24.7658C25.4409 21 25.7561 20.6596 25.576 20.0017C25.3736 19.3438 24.6082 18.3911 23.6179 17.2569C23.0777 16.6221 22.2676 15.9186 22.0201 15.5782C21.6828 15.1244 21.7726 14.9429 22.0201 14.5347C21.9975 14.5347 24.8335 10.4963 25.1257 9.13365"/>
-                </svg>
-              </a>
-            </div>
+            
           </div>
           <div class="col-xxl-4 col-md-2"></div>
           <div class="col-md-2">
@@ -364,6 +363,14 @@
             <div class="last-menu">
               <div class="menu-item phone">тел.: +7 (902) 614 09 67</div>
               <div class="menu-item callback-btn js-callback-btn">заказать обратный звонок</div>
+              <div class="social">
+                <a href="https://vk.com/semena7" target="_blank">
+                  <svg width="30" height="30" viewBox="0 0 30 30" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <rect width="30" height="30" rx="5"/>
+                    <path fill-rule="evenodd" clip-rule="evenodd" d="M25.1257 9.13542C25.2833 8.63604 25.1257 8.27302 24.4284 8.27302H22.11C21.5252 8.27302 21.2551 8.59089 21.0975 8.93089C21.0975 8.93089 19.9049 11.8351 18.2394 13.7179C17.6993 14.2624 17.4518 14.4439 17.1592 14.4439C17.0016 14.4439 16.7988 14.2624 16.7988 13.7635V9.11195C16.7988 8.52227 16.6191 8.25 16.1237 8.25H12.4775C12.1172 8.25 11.8923 8.52227 11.8923 8.79453C11.8923 9.36164 12.725 9.49799 12.8149 11.086V14.5365C12.8149 15.2851 12.6821 15.4219 12.3872 15.4219C11.5996 15.4219 9.68671 12.4951 8.53921 9.16021C8.31608 8.49969 8.08941 8.25 7.50415 8.25H5.16355C4.48842 8.25 4.37598 8.56742 4.37598 8.90786C4.37598 9.52057 5.16355 12.6058 8.04426 16.6893C9.9572 19.4784 12.6803 20.9774 15.1333 20.9774C16.6191 20.9774 16.7988 20.637 16.7988 20.0699V17.9599C16.7988 17.2795 16.9338 17.1661 17.4067 17.1661C17.744 17.1661 18.3518 17.3472 19.7247 18.686C21.2998 20.274 21.5699 21 22.4478 21H24.7658C25.4409 21 25.7561 20.6596 25.576 20.0017C25.3736 19.3438 24.6082 18.3911 23.6179 17.2569C23.0777 16.6221 22.2676 15.9186 22.0201 15.5782C21.6828 15.1244 21.7726 14.9429 22.0201 14.5347C21.9975 14.5347 24.8335 10.4963 25.1257 9.13365"/>
+                  </svg>
+                </a>
+              </div>
             </div>
           </div>
         </div>
@@ -372,7 +379,7 @@
     <div class="bottom-row">
       <div class="container-fluid">
         <div class="flex-container">
-          <div class="author">@ Семена Даром, @php echo date("Y") @endphp</div>
+          <div class="author">@ Семена Даром, {{ date("Y") }}</div>
           <div class="author">
             <a href="https://mybutton.ru/" class="author-name" target="_blank">Поддержка Button</a>
           </div>
@@ -385,7 +392,9 @@
   </footer>
 
   <div class="burger-menu-wrapper hidden-desktop">
-    <div class="burger-menu"></div>
+    <div class="burger-menu">
+      <span></span>
+    </div>
   </div>
   <div class="mobile-menu hidden-desktop">
     <div class="city-select js-mobile-menu-city-btn">
@@ -516,7 +525,7 @@
               <img src="/img/logo.png" alt="">
             </a>
           </div>
-          <div class="header-catalog-btn">
+          <div class="header-catalog-btn hidden-mobile">
             <div class="catalog-btn__burger">
               <span></span>
             </div>
@@ -542,7 +551,10 @@
               <path d="M14 7.53846C14 13.4231 7.5 18 7.5 18C7.5 18 1 13.4231 1 7.53846C1 5.80435 1.68482 4.14127 2.90381 2.91507C4.12279 1.68887 5.77609 1 7.5 1C9.22391 1 10.8772 1.68887 12.0962 2.91507C13.3152 4.14127 14 5.80435 14 7.53846Z" stroke-linecap="round" stroke-linejoin="round"/>
             </svg>
           </div>
-          <div class="city-select__text header-btn__text">{{ $city_name ? $city_name : 'Выбрать город' }}</div>
+          <div class="city-select__text header-btn__text">
+            <span class="widescreen">{{ $city_name ? $city_name : 'Выбрать город' }}</span>
+            <span class="standartscreen">{{ $city_name ? $city_name : 'Город' }}</span>
+          </div>
         </div>
 
         <div class="lk-login header-btn {{ auth()->check() ? 'active' : '' }}">
@@ -552,11 +564,14 @@
               <path d="M11.25 9.99991H11.5138C12.6484 9.99991 13.6056 10.8449 13.7464 11.9708L14.0392 14.3138C14.1511 15.2091 13.453 15.9999 12.5508 15.9999H2.44916C1.54692 15.9999 0.84884 15.2091 0.960748 14.3138L1.25362 11.9708C1.39437 10.8449 2.35153 9.99991 3.48625 9.99991H3.74999" stroke-linecap="round" stroke-linejoin="round"/>
             </svg>
           </div>
-          <div class="lk-login-select__text header-btn__text">Личный кабинет</div>
+          <div class="lk-login-select__text header-btn__text">
+            <span class="widescreen">Личный кабинет</span>
+            <span class="standartscreen">Войти</span>
+            </div>
           <a href="/lk" class="full-link header-btn__link"></a>
         </div>
 
-        <div class="right-nav">
+        <div class="right-nav hidden-mobile">
           <div class="favourites right-nav-item">
             <div class="right-nav-item__image">
               <img src="/img/header-heart.svg" alt="">
@@ -591,13 +606,9 @@
         <a href="/cart" class="full-link"></a>
       </div>
       <div class="menu-item cart-menu-item">
-        <div class="title">Корзина</div>
+        <div class="title">Избранное</div>
         <div id="mobile-favourites-counter" class="cart-counter {{ isset($favourites_count) ? 'active' : '' }}">{{ isset($favourites_count) ? $favourites_count : '' }}</div>
         <a href="/cart" class="full-link"></a>
-      </div>
-      <div class="menu-item">
-        <div class="title">Звонок</div>
-        <a href="tel:+78587546585" class="full-link"></a>
       </div>
     </div>
   </div>
