@@ -316,20 +316,14 @@ document.addEventListener("DOMContentLoaded", () => {
 
   // Окна
   let modalWindow = document.querySelectorAll('.modal-window'),
-      mobileMenuCityBtn = document.querySelector('.js-mobile-menu-city-btn'),
-      selectCityBtns = document.querySelectorAll('#city-select-btn'),
+      selectCityBtns = document.querySelectorAll('.city-select-btn'),
       selectCityModal = document.querySelector('#select-city-modal'),
-      callbackBtn = document.querySelector('.js-callback-btn'),
+      callbackBtns = document.querySelectorAll('.js-callback-btn'),
       callbackModal = document.querySelector('#callback-modal'),
       testimonialsBtn = document.querySelector('.testimonials-btn'),
       testimonialsModal = document.querySelector('#testimonials-modal'),
       // payInfoBtn = document.querySelector('.dostavka-i-oplata .pay-info-btn'),
       modalCloseBtn = document.querySelectorAll('.modal-window .modal-close');
-
-  // mobileMenuCityBtn.onclick = function () {
-  //   closeMenu();
-  //   modalOpen(selectCityModal);
-  // }
 
   selectCityBtns.forEach((item) => {
     item.onclick = function () {
@@ -337,10 +331,11 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   });
   
-
-  callbackBtn.onclick = function () {
-    modalOpen(callbackModal);
-  }
+  callbackBtns.forEach((item) => {
+    item.onclick = function () {
+      modalOpen(callbackModal);
+    }
+  });
 
   if (testimonialsBtn) {
     testimonialsBtn.onclick = function () {

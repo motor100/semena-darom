@@ -24,25 +24,25 @@
     <div class="lk-nav-item__text">Личные данные</div>
     <a href="/lk/profile" class="full-link"></a>
   </div>
-  <div class="lk-nav-item">
-    <div class="lk-nav-item__image">
-      <svg width="22" height="22" viewBox="0 0 22 22" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <rect width="22" height="22" rx="11" fill="white" stroke="F6F7F9"/>
-        <g clip-path="url(#clip0_673_20224)">
-        <path d="M9.6875 6.1875H6.625C6.50897 6.1875 6.39769 6.23359 6.31564 6.31564C6.23359 6.39769 6.1875 6.50897 6.1875 6.625V15.375C6.1875 15.491 6.23359 15.6023 6.31564 15.6844C6.39769 15.7664 6.50897 15.8125 6.625 15.8125H9.6875" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-        <path d="M9.6875 11H15.8125" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-        <path d="M13.625 8.8125L15.8125 11L13.625 13.1875" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-        </g>
-        <defs>
-        <clipPath id="clip0_673_20224">
-        <rect width="14" height="14" fill="white" transform="translate(4 4)"/>
-        </clipPath>
-        </defs>
-      </svg>
-    </div>
-    <form action="{{ route('logout') }}" class="form" method="post">
-      @csrf
-      <input type="submit" class="logout-submit-btn lk-nav-item__text" value="Выйти">
-    </form>
-  </div>
+  <form action="{{ route('logout') }}" class="form" method="post">
+    @csrf
+    <button type="submit" class="logout-submit-btn lk-nav-item__text">
+      <div class="lk-nav-item__image">
+        <svg width="22" height="22" viewBox="0 0 22 22" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <rect width="22" height="22" rx="11" fill="white" stroke="F6F7F9"/>
+          <g clip-path="url(#clip0_673_20224)">
+          <path d="M9.6875 6.1875H6.625C6.50897 6.1875 6.39769 6.23359 6.31564 6.31564C6.23359 6.39769 6.1875 6.50897 6.1875 6.625V15.375C6.1875 15.491 6.23359 15.6023 6.31564 15.6844C6.39769 15.7664 6.50897 15.8125 6.625 15.8125H9.6875" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+          <path d="M9.6875 11H15.8125" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+          <path d="M13.625 8.8125L15.8125 11L13.625 13.1875" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+          </g>
+          <defs>
+          <clipPath id="clip0_673_20224">
+          <rect width="14" height="14" fill="white" transform="translate(4 4)"/>
+          </clipPath>
+          </defs>
+        </svg>
+      </div>
+      <div class="lk-nav-item__text">Выйти</div>      
+    </button>
+  </form>
 </div>

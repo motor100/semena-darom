@@ -35,17 +35,17 @@
   </div>
   <div class="o-kompanii-item">
     <div class="row">
-      <div class="col-md-4">
+      <div class="col-sm-4 col-6">
         <div class="o-kompanii-image">
           <img src="/img/o-kompanii-image.jpg" alt="">
         </div>
       </div>
-      <div class="col-md-4">
+      <div class="col-sm-4 col-6">
         <div class="o-kompanii-image">
           <img src="/img/o-kompanii-image.jpg" alt="">
         </div>
       </div>
-      <div class="col-md-4">
+      <div class="col-sm-4 col-6">
         <div class="o-kompanii-image">
           <img src="/img/o-kompanii-image.jpg" alt="">
         </div>
@@ -54,10 +54,10 @@
   </div>
   <div class="o-kompanii-item">
     <div class="row">
-      <div class="col-md-5">
+      <div class="col-lg-5">
         <div class="page-subtitle"><span class="green-text">Ежегодно</span>, <br>перед каждым новым сезоном</div>
       </div>
-      <div class="col-md-7">
+      <div class="col-lg-7">
         <p>Все наши семена проходят проверку на качество (энергия роста, всхожесть, чистоту, влажность и др.) в ФГУ «Россельхозцентр» по Челябинской области.</p>
         <p>И мы можем с гордостью заявить, что все наши семена соответствуют требованиям ГОСТ 32592-2013 по сортовым и посевным качествам, а так же отвечают всем требованиям самых взыскательных огородников и садоводов.</p>
         <p>Они свободны от карантинных объектов, благодаря неусыпному контролю Россельхознадзора.</p>
@@ -70,7 +70,7 @@
         <div class="page-subtitle purple-accent-title">У нас Вы можете купить челябинские селекционные семена: цветов, овощей и ягод</div>
         <a href="/catalog" class="catalog-btn">Перейти в каталог</a>
       </div>
-      <div class="o-kompanii-image">
+      <div class="o-kompanii-image hidden-mobile">
         <img src="/img/o-kompanii-accent.jpg" alt="">
       </div>
     </div>
@@ -182,7 +182,7 @@
     <div class="page-subtitle feedback-title">Если у Вас появятся любого рода вопросы, знайте мы тут, чтобы помочь Вам разобраться с ними.</div>
     <form id="feedback-form" class="form" action="" method="post">
       <div class="form-title">Ваши контакты:</div>
-      <div class="flex-container top-flex-container">
+      <div class="flex-container">
         <div class="form-group">
           <label for="name-feedback" class="label">Имя</label>
           <input type="text" name="name" id="name-feedback" class="input-field js-name-callback-modal" minlength="3" maxlength="50" required>

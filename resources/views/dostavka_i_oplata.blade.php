@@ -131,44 +131,14 @@
   <div class="questions">
     <div class="questions-item">
       <div class="page-subtitle">Как выглядит<br> <span class="green-text">процесс платежа</span></div>
-      <div class="questions-item__view-more">
-        <a href="#" class="view-more-btn">подробнее</a>
-        <div class="arrow arrow-up">
-          <span></span>
-        </div>
-      </div>
       <div class="questions-item__description">Оплата происходит через авторизационный сервер Процессингового центра Банка с использованием Банковских кредитных карт платежных систем: VISA International и MasterCard World Wide</div>
       <div class="questions-item__logos">
         <img src="/img/dostavka-i-oplata-payment-mastercard.png" alt="">
         <img src="/img/dostavka-i-oplata-payment-visa.png" alt="">
       </div>
     </div>
-    <div class="questions-item">
-      <div class="page-subtitle">Как проходит процесс<br> <span class="green-text">передачи Ваших данных</span></div>
-      <div class="questions-item__view-more">
-        <a href="#" class="view-more-btn">подробнее</a>
-        <div class="arrow arrow-down">
-          <span></span>
-        </div>
-      </div>
-    </div>
-    <div class="questions-item"> 
-      <div class="page-subtitle">Стоимость<br> <span class="green-text">Товара и Доставки</span></div>
-      <div class="questions-item__view-more">
-        <a href="#" class="view-more-btn">подробнее</a>
-        <div class="arrow arrow-down">
-          <span></span>
-        </div>
-      </div>
-    </div>
     <div class="questions-item"> 
       <div class="page-subtitle">Как происходит возврат оплаты<br> <span class="green-text">в случае отказа клиентом от товара</span></div>
-      <div class="questions-item__view-more">
-        <a href="#" class="view-more-btn">подробнее</a>
-        <div class="arrow arrow-up">
-          <span></span>
-        </div>
-      </div>
     </div>
   </div>
   <div class="grey-section">
@@ -188,11 +158,14 @@
         <div class="product-return-item">2. Если товар не отправлен до 3-х рабочих дней, Вы можете отписать на почту <span class="green-text">info@semena-darom.ru</span> и вернуть деньги</div>
       </div>
       <div class="col-md-4">
-        <div class="product-return-item">3. Если Вам пришел товар и он не надлежащего качества, Вы пишите нам на почту <span class="green-text">info@internet-magazin-semyan.ru</span> и мы возвращаем деньги</div>
+        <div class="product-return-item">3. Если Вам пришел товар и он не надлежащего качества, Вы пишите нам на почту <span class="green-text">info@semena-darom.ru</span> и мы возвращаем деньги</div>
       </div>
     </div>
   </div>
   <div class="dostavka-i-oplata-item">Возврат осуществляется <span class="red-text"> в течении 10 рабочих дней</span> на ту же карту, с которой мы приняли оплату. Мы можем запросить подтверждение личности, чека на покупку и фотографий негодности товара.</div>
+  <div class="dostavka-i-oplata-item">
+    <a href="/garantiya-vozvrata-denezhnyh-sredstv" class="green-text">Порядок и условия возврата денежных средств</a>
+  </div>
 </div> 
 
 @endsection

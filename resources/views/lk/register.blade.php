@@ -19,7 +19,7 @@
 <div class="lk-register lk-login">
   <div class="page-title">Регистрация</span></div>
     <div class="row">
-      <div class="col-3">
+      <div class="col-xl-3 col-md-4">
         <div class="lk-login-subtitle"><span class="green-text">Вход</span></div>
         <div class="lk-login-text">Введите Ваши данные</div>
 
@@ -65,7 +65,7 @@
           </div>
 
           @csrf
-          <button type="submit" class="submit-btn js-submit-btn">Войти</button>
+          <button type="submit" class="submit-btn js-submit-btn">Зарегистрироваться</button>
         </form>
       </div>
     </div>

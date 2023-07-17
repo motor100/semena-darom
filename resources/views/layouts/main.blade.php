@@ -45,7 +45,7 @@
             </form>
           </div>
 
-          <div id="city-select-btn" class="city-select header-btn {{ $city_name ? 'active' : '' }}">
+          <div class="city-select city-select-btn header-btn {{ $city_name ? 'active' : '' }} hidden-mobile">
             <div class="city-select__image header-btn__image">
               <svg width="15" height="19" viewBox="0 0 15 19" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <path d="M7.50039 10.1538C8.93633 10.1538 10.1004 8.98289 10.1004 7.53845C10.1004 6.09401 8.93633 4.92307 7.50039 4.92307C6.06445 4.92307 4.90039 6.09401 4.90039 7.53845C4.90039 8.98289 6.06445 10.1538 7.50039 10.1538Z" stroke-linecap="round" stroke-linejoin="round"/>
@@ -58,7 +58,7 @@
             </div>
           </div>
 
-          <div class="lk-login header-btn {{ auth()->check() ? 'active' : '' }}">
+          <div class="lk-login header-btn {{ auth()->check() ? 'active' : '' }} hidden-mobile">
             <div class="lk-login-select__image header-btn__image">
               <svg width="15" height="17" viewBox="0 0 15 17" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <path d="M7.49988 8.5C9.57095 8.5 11.2499 6.82107 11.2499 4.75C11.2499 2.67893 9.57095 1 7.49988 1C5.42881 1 3.74988 2.67893 3.74988 4.75C3.74988 6.82107 5.42881 8.5 7.49988 8.5Z"/>
@@ -397,27 +397,34 @@
     </div>
   </div>
   <div class="mobile-menu hidden-desktop">
-    <div class="city-select js-mobile-menu-city-btn">
-      <span class="city-text">Город:&nbsp;</span>
-      <span class="city-name">
-        
-      </span>
+
+    <div class="city-select city-select-btn header-btn {{ $city_name ? 'active' : '' }}">
+      <div class="city-select__image header-btn__image">
+        <svg width="15" height="19" viewBox="0 0 15 19" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M7.50039 10.1538C8.93633 10.1538 10.1004 8.98289 10.1004 7.53845C10.1004 6.09401 8.93633 4.92307 7.50039 4.92307C6.06445 4.92307 4.90039 6.09401 4.90039 7.53845C4.90039 8.98289 6.06445 10.1538 7.50039 10.1538Z" stroke-linecap="round" stroke-linejoin="round"/>
+          <path d="M14 7.53846C14 13.4231 7.5 18 7.5 18C7.5 18 1 13.4231 1 7.53846C1 5.80435 1.68482 4.14127 2.90381 2.91507C4.12279 1.68887 5.77609 1 7.5 1C9.22391 1 10.8772 1.68887 12.0962 2.91507C13.3152 4.14127 14 5.80435 14 7.53846Z" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </div>
+      <div class="city-select__text header-btn__text">{{ $city_name ? $city_name : 'Выбрать город' }}</div>
     </div>
+
+    <div class="lk-login header-btn {{ auth()->check() ? 'active' : '' }}">
+      <div class="lk-login-select__image header-btn__image">
+        <svg width="15" height="17" viewBox="0 0 15 17" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M7.49988 8.5C9.57095 8.5 11.2499 6.82107 11.2499 4.75C11.2499 2.67893 9.57095 1 7.49988 1C5.42881 1 3.74988 2.67893 3.74988 4.75C3.74988 6.82107 5.42881 8.5 7.49988 8.5Z"/>
+          <path d="M11.25 9.99991H11.5138C12.6484 9.99991 13.6056 10.8449 13.7464 11.9708L14.0392 14.3138C14.1511 15.2091 13.453 15.9999 12.5508 15.9999H2.44916C1.54692 15.9999 0.84884 15.2091 0.960748 14.3138L1.25362 11.9708C1.39437 10.8449 2.35153 9.99991 3.48625 9.99991H3.74999" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </div>
+      <div class="lk-login-select__text header-btn__text">Личный кабинет</div>
+      <a href="/lk" class="full-link header-btn__link"></a>
+    </div>
+
     <ul class="menu">
-      <li class="menu-item">
-        <a href="{{ route('home') }}">Главная</a>
-      </li>
-      <li class="menu-item">
-        <a href="/catalog">Каталог</a>
-      </li>
       <li class="menu-item">
         <a href="/o-kompanii">О компании</a>
       </li>
       <li class="menu-item">
         <a href="/dostavka-i-oplata">Доставка и оплата</a>
-      </li>
-      <li class="menu-item">
-        <a href="/novosti">Новости</a>
       </li>
       <li class="menu-item">
         <a href="/otzyvy">Отзывы</a>
@@ -426,6 +433,13 @@
         <a href="/kontakty">Контакты</a>
       </li>
     </ul>
+
+    <div class="question">
+      <div class="question-title">Есть вопросы?</div>
+      <div class="question-phone">тел.: +7 (902) 614 09 67</div>
+      <div class="callback-btn js-callback-btn">заказать обратный звонок</div>
+    </div>          
+
   </div>
 
   <div id="callback-modal" class="modal-window callback-modal">
@@ -544,7 +558,7 @@
           </form>
         </div>
 
-        <div id="city-select-btn" class="city-select header-btn {{ $city_name ? 'active' : '' }}">
+        <div class="city-select city-select-btn header-btn {{ $city_name ? 'active' : '' }}">
           <div class="city-select__image header-btn__image">
             <svg width="15" height="19" viewBox="0 0 15 19" fill="none" xmlns="http://www.w3.org/2000/svg">
               <path d="M7.50039 10.1538C8.93633 10.1538 10.1004 8.98289 10.1004 7.53845C10.1004 6.09401 8.93633 4.92307 7.50039 4.92307C6.06445 4.92307 4.90039 6.09401 4.90039 7.53845C4.90039 8.98289 6.06445 10.1538 7.50039 10.1538Z" stroke-linecap="round" stroke-linejoin="round"/>
@@ -597,18 +611,34 @@
   <div class="fixed-bottom-menu hidden-desktop">
     <div class="menu-wrapper">
       <div class="menu-item">
-        <div class="title">Каталог</div>
+        <div class="menu-item__image">
+          <img src="/img/fixed-bottom-menu-house.svg" alt="">
+        </div>
+        <div class="menu-item__title">Главная</div>
+        <a href="/" class="full-link"></a>
+      </div>
+      <div class="menu-item">
+        <div class="menu-item__image">
+          <img src="/img/fixed-bottom-menu-lens.svg" alt="">
+        </div>
+        <div class="menu-item__title">Каталог</div>
         <a href="/catalog" class="full-link"></a>
       </div>
       <div class="menu-item cart-menu-item">
-        <div class="title">Корзина</div>
+        <div class="menu-item__image">
+          <img src="/img/fixed-bottom-menu-cart.svg" alt="">
+        </div>
+        <div class="menu-item__title">Корзина</div>
         <div id="mobile-cart-counter" class="cart-counter {{ isset($cart_count) ? 'active' : '' }}">{{ isset($cart_count) ? $cart_count : '' }}</div>
         <a href="/cart" class="full-link"></a>
       </div>
       <div class="menu-item cart-menu-item">
-        <div class="title">Избранное</div>
+        <div class="menu-item__image">
+          <img src="/img/fixed-bottom-menu-heart.svg" alt="">
+        </div>
+        <div class="menu-item__title">Избранное</div>
         <div id="mobile-favourites-counter" class="cart-counter {{ isset($favourites_count) ? 'active' : '' }}">{{ isset($favourites_count) ? $favourites_count : '' }}</div>
-        <a href="/cart" class="full-link"></a>
+        <a href="/favourites" class="full-link"></a>
       </div>
     </div>
   </div>

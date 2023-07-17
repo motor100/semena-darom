@@ -19,7 +19,7 @@
 <div class="lk-login">
   <div class="page-title">Войти<br><span class="green-text">в личный кабинет</span></div>
   <div class="row">
-    <div class="col-3">
+    <div class="col-xl-3 col-md-4">
       <div class="lk-login-subtitle"><span class="green-text">Вход</span></div>
       <div class="lk-login-text">Введите Ваши данные</div>
       <form class="form" action="{{ route('login') }}" method="POST">
@@ -41,8 +41,8 @@
         <button type="submit" class="submit-btn js-submit-btn">Войти</button>
       </form>
     </div>
-    <div class="col-3"></div>
-    <div class="col-3">
+    <div class="col-xl-3 col-md-1"></div>
+    <div class="col-xl-3 col-md-4">
       <div class="lk-login-subtitle">Нет акаунта?</div>
       <div class="lk-login-text">Зарегистрируйтесь на сайте и получайте первыми новости о скидках и распродажах!</div>
       <a href="{{ route('register') }}" class="submit-btn register-btn">Зарегистрироваться</a>

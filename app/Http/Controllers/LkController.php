@@ -17,6 +17,9 @@ class LkController extends Controller
             return redirect('/');
         }
 
-        return view('lk.home');
+        // Заказы
+        $orders = \App\Models\Order::where('user_id', $user->id)->get();
+
+        return view('lk.home', compact('orders'));
     }
 }
