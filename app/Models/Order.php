@@ -25,4 +25,16 @@ class Order extends Model
         'comment',
         'payment',
     ];
+
+    /**
+     * Многие ко многим
+     * Получить товары для этого заказа
+     * Один заказ имеет много товаров
+     * Метод withPivot() добавляет дополнительные поля промежуточной таблицы
+     */
+    public function products()
+    {
+        return $this->belongsToMany(Product::class, 'orders_products')->withPivot('quantity');
+    }
+
 }

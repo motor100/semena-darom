@@ -24,7 +24,7 @@
     <div class="lk-nav-item__text">Личные данные</div>
     <a href="/lk/profile" class="full-link"></a>
   </div>
-  <form action="{{ route('logout') }}" class="form" method="post">
+  <form action="{{ route('logout') }}" class="logout-form" method="post">
     @csrf
     <button type="submit" class="logout-submit-btn lk-nav-item__text">
       <div class="lk-nav-item__image">

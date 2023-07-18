@@ -25,12 +25,12 @@
 
     <div class="edit-item">
       <div class="row">
-        <div class="col-3">
+        <div class="col-xl-3 col-md-4">
           <div class="lk-login-text">Обновить данные</div>
-          <form id="send-verification" method="post" action="{{ route('verification.send') }}">
+          <form id="send-verification" class="form" action="{{ route('verification.send') }}" method="post">
               @csrf
           </form>
-          <form method="post" action="{{ route('profile.update') }}" class="mt-6 space-y-6">
+          <form class="form" action="{{ route('profile.update') }}" method="post">
             @csrf
             @method('patch')
 
@@ -52,10 +52,10 @@
 
     <div class="edit-item">
       <div class="row">
-        <div class="col-3">
+        <div class="col-xl-3 col-md-4">
           <div class="lk-login-text">Обновить пароль</div>
           
-          <form method="post" action="{{ route('password.update') }}" class="mt-6 space-y-6">
+          <form class="form" action="{{ route('password.update') }}" method="post">
             @csrf
             @method('put')
 
@@ -63,7 +63,6 @@
               <label for="current_password" class="form-label">Текущий пароль</label>
               <input type="password" name="current_password" id="current_password" class="input-field" min="8" max="20" required>
             </div>
-
 
             <div class="form-group">
               <label for="password" class="form-label">Новый пароль</label>
@@ -83,7 +82,7 @@
 
     <div class="edit-item">
       <div class="row">
-        <div class="col-3">
+        <div class="col-xl-3 col-md-4">
           <div class="lk-login-text">Удалить профиль</div>
           <form class="form" action="{{ route('profile.destroy') }}" method="post">
               @csrf
@@ -102,5 +101,7 @@
       </div>
     </div>
   </div>
+
+</div>
 
 @endsection 

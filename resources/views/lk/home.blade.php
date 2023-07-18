@@ -26,36 +26,24 @@
       <div class="orders">
         <div class="orders-title">Заказ</div>
         @foreach($orders as $order)
-          <div class="order-item">{{ $order->id }}</div>
+          <div class="order-item">
+            <a href="{{ route('lk.order', $order->id) }}">{{ $order->id }}</a>
+          </div>
         @endforeach
-        <div class="order-item">178G541R</div>
       </div>
       <div class="order-info">
         <div class="order-info-item">
-          <div class="order-info__title">Заказ:</div>
-          <div class="order-info__text">178G541R</div>
-        </div>
-        <div class="order-info-item">
-          <div class="order-info__title">Дата:</div>
-          <div class="order-info__text">23.08.2023</div>
-        </div>
-        <div class="order-info-item">
-          <div class="order-info__title">Товары:</div>
-          <div class="order-info__text">Огурцы заморские 10 шт</div>
-          <div class="order-info__text">Огурцы заморские 10 шт</div>
-          <div class="order-info__text">Огурцы заморские 10 шт</div>
-        </div>
-        <div class="order-info-item">
-          <div class="order-info__title">Сумма:</div>
-          <div class="order-info__text">
-            <span class="order-info__value">1 585</span>
-            <span class="order-info__currency">&#8381;</span>
-          </div>
+          <div class="order-info__title">Выберите заказ</div>
         </div>
       </div>
     </div>
+
+    {{ $orders->links() }}
+    
   @else
     <div class="no-orders">Заказов нет</div>
   @endif
+
+</div>
 
 @endsection 

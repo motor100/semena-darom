@@ -996,6 +996,7 @@ p {
 }
 .main-section .categories {
   display: flex;
+  overflow-x: hidden;
   justify-content: space-between;
 }
 .main-section .categories .category-item {
@@ -2388,6 +2389,7 @@ p {
 }
 .lk-login .lk-login-text {
   margin: 0 0 20px 0;
+  font-family: 'arimo-semibold';
 }
 .lk-login .form-group {
   margin: 0 0 20px 0;
@@ -2436,7 +2438,7 @@ p {
   display: flex;
   width: max-content;
   height: 42px;
-  margin: 0 10px 0 0;
+  margin: 0 10px 10px 0;
   padding: 10px 16px;
   border-radius: 21px;
   background-color: #F6F7F9;
@@ -2505,6 +2507,7 @@ p {
 }
 .lk .orders-wrapper {
   display: flex;
+  margin: 0 0 40px 0;
 }
 .lk .orders {
   width: 100px;
@@ -2520,8 +2523,10 @@ p {
 .lk .orders .order-item:last-child {
   margin: 0;
 }
-.lk .orders .order-item:hover,
-.lk .orders .order-item.active {
+.lk .orders .order-item a {
+  color: var(--m-text);
+}
+.lk .orders .order-item a:hover {
   color: var(--m-main-green);
   text-decoration: underline;
 }
@@ -2551,6 +2556,7 @@ p {
 .lk-edit .edit-item {
   margin: 0 0 40px 0;
 }
+
 
 /* thank you */
 .thankyou .thankyou-subtitle {
@@ -2738,7 +2744,7 @@ p {
   border-radius: 30px 30px 0px 0px;
   background-color: #fff;
   z-index: 2;
-  box-shadow: 0px 0px 20px 0px rgba(54, 54, 54, 0.10);
+  box-shadow: 0px 0px 20px 0px rgba(54, 54, 54, 0.20);
 }
 .fixed-bottom-menu .menu-wrapper {
   display: flex;
@@ -3635,6 +3641,23 @@ p {
     width: 296px;
   }
 
+  .lk .orders-wrapper {
+    display: block;
+  }
+  .lk .orders {
+    width: 100%;
+    border-right: none;
+  }
+  .lk .orders-title {
+    width: 100%;
+    border-right: none;
+    border-bottom: 1px solid var(--m-second-grey);
+  }
+  .lk .orders .order-item {
+    display: inline-block;
+    margin: 0 20px 20px 0;
+  }    
+
   .cf-item {
     margin: 0 0 30px 0;
   }
@@ -3671,6 +3694,8 @@ p {
   .cf-is-empty-btn {
     width: 100%;
   }
+
+  
   
 
   .messages-cookies {
@@ -3773,6 +3798,14 @@ p {
   .lk-login .lk-login-text,
   .lk-login .register-btn {
     width: 100%;
+  }
+
+  .lk-nav {
+    display: block;
+  }
+
+  .lk .order-info {
+    padding: 20px;
   }
 
   .politika-konfidencialnosti  .page-title,

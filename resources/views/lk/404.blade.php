@@ -1,4 +1,4 @@
-@extends('lk.layout')
+@extends('layouts.main')
 
 @section('title', 'Страница 404')
 
