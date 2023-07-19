@@ -11,4 +11,12 @@ class Product extends Model
 
     // Connection
     // protected $connection = 'mysql2';
+
+    /**
+     * Получить галлерею товара.
+     */
+    public function galleries()
+    {
+        return $this->hasMany(Gallery::class);
+    }
 }

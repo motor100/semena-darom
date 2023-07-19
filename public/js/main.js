@@ -10,6 +10,7 @@ document.addEventListener("DOMContentLoaded", () => {
       novinkiPage = document.querySelector('.novinki'), // страница новинки
       otzyvyPage = document.querySelector('.otzyvy'), // страница отзывы
       okompaniiPage = document.querySelector('.o-kompanii'), // страница о компании
+      singleProduct = document.querySelector('.single-product'), // карточка товара
       token = document.querySelector('meta[name="csrf-token"]').getAttribute('content'); // csrf token
 
   // Скрывание кнопки Мы используем куки we use cookie
@@ -1054,7 +1055,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
   }
 
-  if(createOrderPage) {
+  if (createOrderPage) {
 
     const productItems = document.querySelectorAll('.product-item');
 
@@ -1165,6 +1166,9 @@ document.addEventListener("DOMContentLoaded", () => {
 
   }
 
+  if (singleProduct) {
+    
+  }
 
   if (catalogPage) {
     slimSelectSort();
