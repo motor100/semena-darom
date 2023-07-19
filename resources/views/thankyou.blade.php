@@ -24,7 +24,7 @@
     @if (isset($order_id) && isset($summ))
       <div class="thankyou-text">Номер заказа {{ $order_id }}</div>
       <div class="thankyou-text">Сумма {{ $summ }} p.</div>
-      @if (isset($payment) && $payment == 'online')
+      @if (isset($payment) && $payment == 'yookassa')
         <button class="pay-btn">Оплатить</button>
       @endif
     @endif

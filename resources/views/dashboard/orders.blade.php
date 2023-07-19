@@ -19,16 +19,11 @@
         <tr class="orders-table-row">
           <td>
             <a href="{{ route('admin.orders-show', $order->id) }}">{{ $order->id }}</a>
-            
           </td>
           <td>{{ $order->created_at->format("d.m.Y") }}</td>
           <td>{{ $order->status }}</td>
           <td>
-            @if ($order->payment)
-              <div class="payment payment-green"></div>
-            @else
-              <div class="payment payment-red"></div>
-            @endif
+            <div class="payment {{ $order->payment_status ? 'payment-green' : 'payment-red' }}"></
           </td>
           <td>{!! $order->comment !!}</td>
           

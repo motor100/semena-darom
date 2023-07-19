@@ -122,9 +122,9 @@
             <a href="{{ route('admin.orders') }}" class="header-item display-block pos-relative">
               <i class="far fa-bell"></i>
 
-              @if(isset($notifications_count))
-                @if($notifications_count > 0)
-                  <span id="notifications-counter" class="tp-badge tp-badge-warning">{{ $notifications_count }}</span>
+              @if(isset($orders_count))
+                @if($orders_count > 0)
+                  <span id="notifications-counter" class="tp-badge tp-badge-warning">{{ $orders_count }}</span>
                 @endif
               @endif
 

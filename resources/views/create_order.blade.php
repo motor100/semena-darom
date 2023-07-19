@@ -39,7 +39,7 @@
       <div class="create-order-item-title">1. Выберите способ доставки</div>
       <div class="create-order-delivery">
         <div class="row">
-          <div class="col-6">
+          <div class="col-md-6">
             <div class="dp-item delivery-item">
               <div class="dp-item__image delivery-item__image">
                 <img src="/img/create-order-sdek.png" alt="">
@@ -65,7 +65,7 @@
               </div>
             </div>
           </div>
-          <div class="col-6">
+          <div class="col-md-6">
             <div class="dp-item delivery-item">
               <div class="dp-item__image delivery-item__image">
                 <img src="/img/create-order-russian-post.png" alt="">
@@ -100,13 +100,13 @@
       <div class="customer-info">
         <div class="customer-info-item">
           <div class="row">
-            <div class="col-6">
+            <div class="col-sm-6">
               <div class="form-group">
                 <label for="first-name" class="label">Имя</label>
                 <input type="text" name="first-name" id="first-name" class="input-field" required min="3" max="20" placeholder="Имя">
               </div>
             </div>
-            <div class="col-6">
+            <div class="col-sm-6">
               <div class="form-group">
                 <label for="last-name" class="label">Фамилия</label>
                 <input type="text" name="last-name" id="last-name" class="input-field" required min="3" max="30" placeholder="Фамилия">
@@ -116,13 +116,13 @@
         </div>
         <div class="customer-info-item">
           <div class="row">
-            <div class="col-6">
+            <div class="col-sm-6">
               <div class="form-group">
                 <label for="phone" class="label">Телефон</label>
                 <input type="text" name="phone" id="phone" class="input-field js-input-phone-mask" required size="18" placeholder="Телефон">
               </div>
             </div>
-            <div class="col-6">
+            <div class="col-sm-6">
               <div class="form-group">
                 <label for="email" class="label">Email</label>
                 <input type="email" name="email" id="email" class="input-field" required min="5" max="50" placeholder="Email">
@@ -171,7 +171,7 @@
       <div class="create-order-item-title">4. Выберите способ оплаты</div>
       <div class="create-order-payment">
         <div class="row">
-        <div class="col-6">
+        <div class="col-md-6">
             <div class="dp-item payment-item">
               <div class="dp-item__image payment-item__image">
                 <img src="/img/create-order-yookassa.png" alt="">
@@ -186,7 +186,7 @@
               </div>
             </div>
           </div>
-          <div class="col-6">
+          <div class="col-md-6">
             <div class="dp-item payment-item">
               <div class="dp-item__image payment-item__image">
                 <img src="/img/create-order-sdek.png" alt="">
@@ -202,7 +202,7 @@
               </div>
             </div>
           </div>
-          <div class="col-6">
+          <div class="col-md-6">
             <div class="dp-item payment-item payment-item-last">
               <div class="dp-item__image payment-item__image">
                 <img src="/img/create-order-russian-post.png" alt="">

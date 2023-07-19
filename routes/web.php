@@ -67,6 +67,9 @@ Route::get('/poisk', [MainController::class, 'poisk']);
 
 Route::post('/set-city', [MainController::class, 'set_city']);
 
+// Sitemap
+Route::get('/sitemap.xml', [MainController::class, 'sitemap']);
+
 // temp
 Route::get('/weight', [DeliveryController::class, 'get_weight']);
 

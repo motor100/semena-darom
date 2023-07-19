@@ -2286,6 +2286,9 @@ p {
   margin: 0 0 20px 0;
   height: 74px;
 }
+.create-order .dp-item .dp-item__image img {
+  width: 154px;
+}
 .create-order .dp-item .dp-item__description {
   display: flex;
   margin: 0 0 10px 0;
@@ -3327,6 +3330,10 @@ p {
     padding: 10px 0;
     font-size: 17px;
   }
+
+  .cart .cf-items-wrapper {
+    margin: 0 0 130px 0;
+  }
   
 
 }
@@ -3404,6 +3411,10 @@ p {
   }
   .single-product .single-product-price .products-item__old-price {
     font-size: 20px;
+  }
+
+  .cart .cf-items-wrapper {
+    margin: 0 0 100px 0;
   }
 
 }
@@ -3772,7 +3783,32 @@ p {
   .single-product .single-product-price .products-item__old-price {
     font-size: 18px;
   }
-  
+  .create-order .create-order-item {
+    margin: 0 0 30px 0;
+  }
+  .create-order .dp-item .dp-item__image {
+    height: 44px;
+  }
+  .create-order .dp-item .dp-item__image img {
+    width: 114px;
+  }
+  .create-order .dp-item {
+    padding: 20px;
+  }
+  .create-order .payment-item .payment-item__description {
+    min-height: auto;
+  }
+
+  .cart .cf-items-wrapper {
+    margin: 0 0 80px 0;
+  }
+
+  .cart-total-aside .cart-total-aside__title {
+    font-size: 28px;
+  }
+  .cco-cart-aside {
+    width: 300px;
+  } 
   
 
   .messages-cookies {
@@ -3910,7 +3946,7 @@ p {
   .cf-item .add-to {
     font-size: 16px;
   }
-  .cf-item .rm-from-form {
+  .favourites .cf-item .rm-from-form {
     left: 150px;
   }
   .cf-item .rm-from-btn {
@@ -3919,12 +3955,39 @@ p {
   .cf-item .rm-from-btn .rm-from-btn__text {
     display: none;
   }
+  .cart .cf-item .add-to-favourites {
+    display: none;
+  }
+  .cart .cf-item .rm-from-form {
+    left: auto;
+    right: -80px;
+  }
+  .cart .cf-item .cf-item__quantity {
+    top: auto;
+    right: auto;
+    bottom: 8px;
+    left: 0;
+  }
+  .cart .cf-items-wrapper {
+    overflow: hidden;
+  }
+  .cart .cf-items-wrapper {
+    margin: 0 0 60px 0;
+  }
+
+  .cco-cart-aside {
+    width: 100%;
+  }
 
   .single-product .single-product-price {
     display: block;
   }
   .single-product .single-product-price .single-product-price__text {
     margin: 0;
+  }
+
+  .create-order .dp-item .dp-item__title {
+    font-size: 18px;
   }
 
 }

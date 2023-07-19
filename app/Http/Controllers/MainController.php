@@ -201,7 +201,7 @@ class MainController extends Controller
 
     public function clear_favourites()
     {
-        // Удаляю из куки favourites через фасад Cookie метод forget
+        // Удалендие из куки favourites через фасад Cookie метод forget
         \Illuminate\Support\Facades\Cookie::queue(\Illuminate\Support\Facades\Cookie::forget('favourites'));
 
         return redirect('/favourites');
@@ -250,9 +250,6 @@ class MainController extends Controller
         // Телефон из строки в цисло
         $phone = \App\Services\Common::phone_to_int($validated['phone']);
 
-        // Онлайн оплата
-        $payment = ($validated['payment'] == 'yookassa') ? 'online' : '';
-
         // Получение аутентифицированного пользователя
         $user = $request->user();
 
@@ -266,7 +263,9 @@ class MainController extends Controller
             'user_id' => $user ? $user->id : NULL,
             'status' => 'В обработке',
             'comment' => NULL,
-            'payment' => 0,
+            'delivery' => $validated['delivery'],
+            'payment' => $validated['payment'],
+            'payment_status' => 0,
             'created_at' => now(),
             'updated_at' => now(),
         ]);
@@ -287,13 +286,16 @@ class MainController extends Controller
 
         // Создание моделей OrderProduct
         \App\Models\OrderProduct::insert($insert_array);
+
+        // Удаление куки
+        \Illuminate\Support\Facades\Cookie::queue(\Illuminate\Support\Facades\Cookie::forget('cart'));
         
         // Редирект на страницу оплаты
         return redirect()
                 ->route('thankyou', [
                     'order_id' => $order_id,
                     'summ' => $validated['summ'],
-                    'payment' => $payment
+                    'payment' => $validated['payment']
                 ]);
     }
 
@@ -456,5 +458,14 @@ class MainController extends Controller
         
         // Во всех других случаях
         abort(404);
+    }
+
+    public function sitemap()
+    {
+        $products = Product::select('slug')->get();
+
+        return response()
+                ->view('sitemap', compact('products'))
+                ->header('Content-Type', 'text/xml');
     }
 }

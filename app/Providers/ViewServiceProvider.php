@@ -96,11 +96,9 @@ class ViewServiceProvider extends ServiceProvider
             $view->with('testimonials_count', $testimonials_count);
 
             // New orders
-            /*
             $orders_count = \App\Models\Order::where('status', 'В обработке')->count();
 
             $view->with('orders_count', $orders_count);
-            */
         });
 
         // Шаблон личный кабинет

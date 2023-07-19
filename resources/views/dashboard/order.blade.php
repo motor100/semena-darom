@@ -9,7 +9,7 @@
   <div class="order-content">
     <div class="form-group mb-3">
       <div class="label-text mb-1">
-        <a href="#">Товары</a>
+        <a href="{{ route('admin.order-check', $order->id) }}">Товары</a>
       </div>
     </div>
     <div class="form-group mb-3">
@@ -18,15 +18,16 @@
     </div>
     <div class="form-group mb-3">
       <div class="label-text mb-1">Оплата</div>
-      @if($order->payment)
-        <div class="order-info">Оплачен</div>
-      @else
-        <div class="order-info order-info-red">Оплаты нет</div>
-      @endif
+      <div class="order-info">
+        @if($order->payment == 'yookassa') Онлайн @endif
+        @if($order->payment == 'sdek') СДЕК @endif
+        @if($order->payment == 'sdek') Почта России @endif
+      </div>
+      <div class="order-info {{ !$order->payment_status ? 'text-danger' : '' }}">{{ $order->payment_status ? 'Оплачен' : 'Оплаты нет' }}</div>
     </div>
     <div class="form-group mb-3">
-      <div class="label-text mb-1">ПВЗ</div>
-      <div class="order-info">{{ $order->office }}</div>
+      <div class="label-text mb-1">Доставка</div>
+      <div class="order-info">{{ $order->delivery == 'sdek' ? 'СДЕК' : 'Почта России' }}</div>
     </div>
     <div class="form-group mb-3">
       <div class="label-text mb-1">Время</div>
@@ -46,11 +47,10 @@
           <div class="order-info">{{ $order->status }}</div>
         @else
           <select name="status" id="status" class="form-select">
-            <option value="{{ $order->status }}" selected>{{ $order->status }}</option>
-            <option value="В обработке">В обработке</option>
-            <option value="Склад">Склад</option>
-            <option value="Отправлен в ПВЗ">Отправлен в ПВЗ</option>
-            <option value="Отменен">Отменен</option>
+            <option value="В обработке" {{ $order->status == 'В обработке' ? 'selected' : '' }}>В обработке</option>
+            <option value="Склад" {{ $order->status == 'Склад' ? 'selected' : '' }}>Склад</option>
+            <option value="Отправлен в ПВЗ" {{ $order->status == 'Отправлен в ПВЗ' ? 'selected' : '' }}>Отправлен в ПВЗ</option>
+            <option value="Отменен" {{ $order->status == 'Отменен' ? 'selected' : '' }}>Отменен</option>
           </select>
         @endif
       </div>
