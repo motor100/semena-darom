@@ -834,8 +834,17 @@ document.addEventListener("DOMContentLoaded", () => {
     });
 
     // Category swiper slider
-    const categorySlider = new Swiper('.main-section .category-slider', {
-      slidesPerView: 6,
+    const categorySlider = new Swiper('.main-section .categories-slider', {
+      slidesPerView: 3,
+      breakpoints: {
+        // when window width is >= 480px
+        480: {
+          slidesPerView: 4,
+        },
+        576: {
+          slidesPerView: 5,
+        },
+      },
       spaceBetween: 10,
       loop: true,
       navigation: {

@@ -11,7 +11,8 @@
   <link rel="shortcut icon" href="{{ asset('/img/favicon.svg') }}" type="image/x-icon">
   <link rel="stylesheet" href="{{ asset('/css/bootstrap-grid.min.css') }}">
   @yield('style')
-  <link rel="stylesheet" href="{{ asset('/css/main.css') }}">
+  <!-- <link rel="stylesheet" href="{{-- asset('/css/main.css') --}}"> -->
+  <link rel="stylesheet" href="/css/main.css?ver=<?php echo date('dis'); ?>">
   <title>@yield('title', config('app.name') )</title>
 </head>
 
@@ -651,7 +652,7 @@
             <a href="/admin">Панель управления</a>
           </div>
           <div class="top-line__text logout">
-            <form class="form" action="{{ route('logout') }}" method="POST">
+            <form class="form" action="{{ route('admin.logout') }}" method="POST">
               @csrf
               <button class="logout-btn" type="submit">Выйти</button>
             </form>
@@ -662,10 +663,10 @@
   @endif
 
   @yield('script')
-  <!-- jivosite -->
-  <!-- <script src="//code-ya.jivosite.com/widget/K7CaDjczmW" async></script> -->
+  <script src="//code-ya.jivosite.com/widget/K7CaDjczmW" async></script>
   <script src="{{ asset('/js/imask.min.js') }}"></script>
-  <script src="{{ asset('/js/main.js') }}"></script>
+  <!-- <script src="{{-- asset('/js/main.js') --}}"></script> -->
+  <script src="/js/main.js?ver=<?php echo date('dis'); ?>"></script>
   
 </body>
 </html>

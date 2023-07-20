@@ -38,7 +38,7 @@
     </div>
 
     <div class="categories-wrapper">
-      <div class="categories">
+      <div class="categories hidden-mobile">
         <div class="category-item orange-bg">
           <div class="categories-item-title">Огурцы</div>
           <div class="categories-item-image">
@@ -82,6 +82,57 @@
           <a href="{{ route('catalog', ['category' => 'yagody']) }}" class="full-link"></a>
         </div>
       </div>
+
+      <div class="categories hidden-desktop">
+
+        <div class="categories-slider swiper">
+          <div class="swiper-wrapper">
+            <div class="swiper-slide category-item orange-bg">
+              <div class="categories-item-title">Огурцы</div>
+              <div class="categories-item-image">
+                <img src="/img/category-cucumber.png" alt="">
+              </div>
+              <a href="{{ route('catalog', ['category' => 'ogurcy']) }}" class="full-link"></a>
+            </div>
+            <div class="swiper-slide category-item green-bg">
+              <div class="categories-item-title">Перцы</div>
+              <div class="categories-item-image">
+                <img src="/img/category-pepper.png" alt="">
+              </div>
+              <a href="{{ route('catalog', ['category' => 'percy']) }}" class="full-link"></a>
+            </div>
+            <div class="swiper-slide category-item purple-bg">
+              <div class="categories-item-title">Томаты</div>
+              <div class="categories-item-image">
+                <img src="/img/category-tomatoes.png" alt="">
+              </div>
+              <a href="{{ route('catalog', ['category' => 'tomaty']) }}" class="full-link"></a>
+            </div>
+            <div class="swiper-slide category-item red-bg">
+              <div class="categories-item-title">Овощи</div>
+              <div class="categories-item-image">
+                <img src="/img/category-vegetables.png" alt="">
+              </div>
+              <a href="{{ route('catalog', ['category' => 'ovoshchi']) }}" class="full-link"></a>
+            </div>
+            <div class="swiper-slide category-item orange-bg">
+              <div class="categories-item-title">Цветы</div>
+              <div class="categories-item-image">
+                <img src="/img/category-flovers.png" alt="">
+              </div>
+              <a href="{{ route('catalog', ['category' => 'cvety']) }}" class="full-link"></a>
+            </div>
+            <div class="swiper-slide category-item green-bg">
+              <div class="categories-item-title">Ягоды</div>
+              <div class="categories-item-image">
+                <img src="/img/category-berries.png" alt="">
+              </div>
+              <a href="{{ route('catalog', ['category' => 'yagody']) }}" class="full-link"></a>
+            </div>
+          </div>
+        </div>
+      </div>
+
     </div>
 
     <div class="grey-section">

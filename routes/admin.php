@@ -49,9 +49,11 @@ Route::prefix('admin')->group(static function () {
         // Админ панель
         Route::get('/', [AdminController::class, 'home'])->name('admin.index');
 
-        Route::get('profile', [AdminController::class, 'profile'])
+        Route::get('/profile', [AdminController::class, 'profile'])
                     ->middleware('password.confirm.admin')
                     ->name('admin.profile');
+        Route::patch('/profile', [AdminController::class, 'update'])->name('admin.profile.update');
+        Route::delete('/profile', [AdminController::class, 'destroy'])->name('admin.profile.destroy');
 
         // Route::get('/dashboard', [AdminController::class, 'home'])->name('dashboard');
 

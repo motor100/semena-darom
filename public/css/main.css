@@ -124,7 +124,7 @@ p {
   overflow: hidden;
 }
 .hidden-desktop {
-  display: none;
+  display: none !important;
 }
 .position-relative {
   position: relative;
@@ -3424,7 +3424,7 @@ p {
     display: none !important;
   }
   .hidden-desktop {
-    display: block;
+    display: block !important;
   }
 
   .section {
@@ -3495,7 +3495,8 @@ p {
   }
 
   .main-section .categories .category-item {
-    width: 117px;
+    /* width: 117px; */
+    width: auto;
     height: 117px;
     margin: 0 8px 0 0;
     padding: 15px;
@@ -3817,8 +3818,14 @@ p {
     margin: 0 auto;
   }
 
-  .wrap_b3a8 {
+  .wrap_b3a8,
+  ._orientationRight_ff30,
+  .__jivoMobileButton {
     bottom: 100px !important;
+  }
+  body.overflow-hidden .globalClass_b1cd {
+    position: relative !important;
+    z-index: 8 !important;
   }
 
   
