@@ -437,22 +437,30 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   // mobile menu
-  let burgerMenuWrapper = document.querySelector('.burger-menu-wrapper'),
-      mobileMenu = document.querySelector('.mobile-menu'),
-      burgerMenu = document.querySelector('.burger-menu');
+  // let burgerMenuWrapper = document.querySelector('.burger-menu-wrapper'),
+  const burgerMenuWrapper = document.querySelector('.burger-menu-wrapper'),
+        mobileMenu = document.querySelector('.mobile-menu'),
+        burgerMenu = document.querySelector('.burger-menu');
 
-  burgerMenuWrapper.onclick = function () {
-    body.classList.toggle('overflow-hidden');
-    mobileMenu.classList.toggle('mobile-menu-open');
-    burgerMenu.classList.toggle('close');
-    burgerMenuWrapper.classList.toggle('active');
+  burgerMenuWrapper.onclick = function() {
+    if (burgerMenuWrapper.classList.contains('menu-is-open')) {
+      closeAllMobileMenu();
+    } else {
+      openMobileMenu();
+    }
+  }
+
+  function openMobileMenu() {
+    body.classList.add('overflow-hidden');
+    mobileMenu.classList.add('active');
+    burgerMenuWrapper.classList.add('menu-is-open');
   }
 
   let listParentClick = document.querySelectorAll('.mobile-menu li.menu-item a');
   for (let i=0; i < listParentClick.length; i++) {
     listParentClick[i].onclick = function (event) {
       event.preventDefault();
-      closeMenu();
+      closeAllMobileMenu();
       let hrefClick = this.href;
       setTimeout(function() {
         location.href = hrefClick
@@ -460,15 +468,28 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   }
 
-  function closeMenu() {
-    burgerMenuWrapper.classList.remove('active');
-    burgerMenu.classList.remove('close');
-    mobileMenu.classList.remove('mobile-menu-open');
-    body.classList.remove('overflow-hidden');
+  // mobile catalog
+  const fixedBottomMenuCatalogBtn = document.querySelector('#fixed-bottom-menu-catalog-btn'),
+        mobileCatalogDropdown = document.querySelector('.mobile-catalog-dropdown');
+
+  fixedBottomMenuCatalogBtn.onclick = openMobileCatalogDropdown;
+
+  function openMobileCatalogDropdown() {
+    body.classList.add('overflow-hidden');
+    burgerMenuWrapper.classList.add('menu-is-open');
+    mobileCatalogDropdown.classList.add('active');
   }
 
+  function closeAllMobileMenu() {
+    body.classList.remove('overflow-hidden');
+    burgerMenuWrapper.classList.remove('menu-is-open');
+    mobileMenu.classList.remove('active');
+    mobileCatalogDropdown.classList.remove('active');
+  }
+
+
   // Отправка формы ajax в модальном окне
-  const callbackModalForm = document.querySelector("#callback-modal-form"),
+  const callbackModalForm = document.querySelector('#callback-modal-form'),
         callbackModalBtn = document.querySelector('.js-callback-modal-btn');
 
   function ajaxCallback(form) {
