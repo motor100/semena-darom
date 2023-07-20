@@ -248,4 +248,44 @@ class AjaxController extends Controller
         return response()->json(['message' => 'error']);
         return false;
     }
+
+    public function ajax_ordercheck(Request $request)
+    {   
+        $order_id = $request->input('order_id');
+        $code = $request->input('search_query');
+
+        if ($code) {
+
+            // Получаю все товары по номеру заказа
+            $order_id = htmlspecialchars($order_id);
+            $products_array = \Illuminate\Support\Facades\DB::table('orders_products')->where('order_id', $order_id)->get();
+
+            // Получаю товар по штрихкоду
+            $code = htmlspecialchars($code);
+            $product = Product::where('code', $code)->first();
+
+            if (!$product) {
+                return response()->json([
+                    "no_product" => true,
+                ]);
+            }
+
+            $no_order = false;
+            foreach($products_array as $value) {
+                if ($value->product_id == $product->id) {
+                    $no_order = true;
+                }
+            }
+
+            if (!$no_order) {
+                return response()->json([
+                    "no_in_order" => true,
+                ]);
+            }
+
+            return response()->json($product);
+        } else {
+            return false;
+        }
+    }
 }

@@ -69,7 +69,7 @@
   </div>
 
   <div class="print-section">
-    <a href="#" class="btn btn-primary" target="_blank">Печать</a>
+    <a href="{{ route('admin.order-print', $order->id) }}" class="btn btn-primary" target="_blank">Печать</a>
   </div>
 
 </div>

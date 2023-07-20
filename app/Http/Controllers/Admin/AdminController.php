@@ -86,10 +86,10 @@ class AdminController extends Controller
     public function orders()
     {
         $orders = \App\Models\Order::orderBy('id', 'desc')
-                                    ->limit(50)
+                                    ->limit(200)
                                     ->get();
         
-        $orders = \App\Services\Common::custom_paginator($orders, 10);
+        $orders = \App\Services\Common::custom_paginator($orders, 50);
 
         return view('dashboard.orders', compact('orders'));
     }
@@ -183,7 +183,7 @@ class AdminController extends Controller
     }
 
     public function order_check($id)
-    {       
+    {
         if ($id) {
             // Получаю все товары по номеру заказа
             $products_array = \Illuminate\Support\Facades\DB::table('orders_products')->where('order_id', $id)->get();
