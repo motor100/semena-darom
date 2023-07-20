@@ -2119,6 +2119,7 @@ p {
 .cf-item .cf-item__bottom {
   position: relative;
   height: 48px;
+  overflow-x: hidden;
 }
 .cf-item .add-to {
   position: absolute;
@@ -3767,6 +3768,7 @@ p {
 
   .single-product .single-product-title {
     font-size: 32px;
+    overflow-x: hidden;
   }
   .single-product .add-to-favourites-wrapper .add-to-favourites {
     margin: 0 0 20px 0;
@@ -3949,6 +3951,7 @@ p {
   }
   .cf-item .cf-item__title {
     max-height: 78px;
+    word-break: break-all;
   }
   .cf-item .add-to {
     font-size: 16px;
@@ -3995,6 +3998,10 @@ p {
 
   .create-order .dp-item .dp-item__title {
     font-size: 18px;
+  }
+
+  .thankyou .pay-btn {
+    width: 100%;
   }
 
 }

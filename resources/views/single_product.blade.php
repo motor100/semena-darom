@@ -171,7 +171,7 @@
         @endif
         <div class="single-product-price__text">за 1 упаковку</div>
       </div>
-      <div class="add-to-cart-wrapper">
+      <div class="add-to-cart-wrapper hidden-desktop">
         <button class="add-to-cart-btn add-to-cart" data-id="{{ $product->id }}">Добавить в корзину</button>
       </div>
     </div>

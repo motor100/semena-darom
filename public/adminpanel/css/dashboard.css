@@ -155,3 +155,110 @@
 .order-edit .form-select {
   width: 200px;
 }
+
+/* pagination pager */
+.pager {
+  display: flex;
+  margin: 0 0 50px 0;
+}
+.pager .pager-item {
+  min-width: 42px;
+  height: 42px;
+  margin: 0 8px;
+  padding: 5px 15px;
+  border-radius: 21px;
+  background-color: lightgrey;
+  font-family: inherit;
+  font-size: 20px;
+  list-style: none;
+  transition: all .3s;
+}
+.pager .pager-item:hover:not(.disabled) {
+  background-color: grey;
+}
+.pager .pager-item.active {
+  background-color: grey;
+}
+.pager .pager-item-link,
+.pager .pager-item-span {
+  display: block;
+  min-width: 12px;
+  color: #212529;
+}
+.pager .pager-item.active .pager-item-link,
+.pager .pager-item.active .pager-item-span {
+  color: #fff;
+}
+.pager .pager-item:hover .pager-item-link,
+.pager .pager-item:hover .pager-item-span {
+  color: #fff;
+}
+.pager .pager-item-nav {
+  position: relative;
+}
+.pager .pager-item-nav .pager-item-link {
+  padding: 15px 0;
+}
+.pager .pager-item .arrow-right,
+.pager .pager-item .arrow-left {
+  position: relative;
+  display: block;
+  width: 70px;
+  height: 2px;
+  background-color: #363636;
+  transition: background-color .3s;
+}
+.pager .pager-item-nav:hover .arrow-right,
+.pager .pager-item-nav:hover .arrow-left {
+  background-color: #fff;
+}
+.pager .pager-item-nav:hover .arrow-right::before,
+.pager .pager-item-nav:hover .arrow-right::after,
+.pager .pager-item-nav:hover .arrow-left::before,
+.pager .pager-item-nav:hover .arrow-left::after {
+  background-color: #fff;
+}
+.pager .pager-item .arrow-right::before,
+.pager .pager-item .arrow-right::after,
+.pager .pager-item .arrow-left::before,
+.pager .pager-item .arrow-left::after {
+  content: '';
+  position: absolute;
+  width: 10px;
+  height: 2px;
+  background-color: #363636;
+  transition: background-color .3s;
+}
+.pager .pager-item .arrow-right::before,
+.pager .pager-item .arrow-right::after {
+  right: -2px;
+}
+.pager .pager-item .arrow-right::before {
+  top: -3px;
+  transform: rotate(45deg);
+}
+.pager .pager-item .arrow-right::after {
+  top: 3px;
+  transform: rotate(-45deg);
+}
+.pager .pager-item .arrow-left::before,
+.pager .pager-item .arrow-left::after {
+  left: -2px;
+}
+.pager .pager-item .arrow-left::before {
+  top: -3px;
+  transform: rotate(-45deg);
+}
+.pager .pager-item .arrow-left::after {
+  top: 3px;
+  transform: rotate(45deg);
+}
+@media only screen and (max-width : 768px) {
+  .pager .pager-item {
+    min-width: 36px;
+    height: 36px;
+    padding: 4px 12px;
+    border-radius: 18px;
+    font-size: 18px;
+  }
+}

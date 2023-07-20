@@ -12,7 +12,7 @@
   <link rel="stylesheet" href="{{ asset('/css/bootstrap-grid.min.css') }}">
   @yield('style')
   <!-- <link rel="stylesheet" href="{{-- asset('/css/main.css') --}}"> -->
-  <link rel="stylesheet" href="/css/main.css?ver=<?php echo date('dis'); ?>">
+  <link rel="stylesheet" href="/css/main.baedb042c16e1bf.css?ver=<?php echo date('dis'); ?>">
   <title>@yield('title', config('app.name') )</title>
 </head>
 
@@ -666,7 +666,7 @@
   <script src="//code-ya.jivosite.com/widget/K7CaDjczmW" async></script>
   <script src="{{ asset('/js/imask.min.js') }}"></script>
   <!-- <script src="{{-- asset('/js/main.js') --}}"></script> -->
-  <script src="/js/main.js?ver=<?php echo date('dis'); ?>"></script>
+  <script src="/js/main.baedb042c16e1bf.js?ver=<?php echo date('dis'); ?>"></script>
   
 </body>
 </html>

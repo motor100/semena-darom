@@ -36,7 +36,7 @@ Route::prefix('admin')->group(static function () {
     });
 
     // Authenticated routes
-    Route::middleware(['auth:admin', 'verified'])->group(static function () {
+    Route::middleware(['auth:admin'])->group(static function () {
         // Confirm password routes
         Route::get('confirm-password', [\App\Http\Controllers\Admin\Auth\ConfirmablePasswordController::class, 'show'])->name('admin.password.confirm');
         Route::post('confirm-password', [\App\Http\Controllers\Admin\Auth\ConfirmablePasswordController::class, 'store']);

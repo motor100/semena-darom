@@ -12,6 +12,7 @@ class DeliveryController extends Controller
      */
     public function sdek(Request $request)
     {
+        return 350;
         // Получаю токен
         // Тестовая ссылка
         $url_token = "https://api.edu.cdek.ru/v2/oauth/token";
