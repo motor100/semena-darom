@@ -24,16 +24,12 @@
         <div class="lk-login-text">Введите Ваши данные</div>
 
         @if($errors->any())
-          <div class="errors-wrapper">
-            <div class="container">
-              <div class="alert alert-danger cart-errors">
-                <ul>
-                  @foreach($errors->all() as $error)
-                    <li>{{ $error }}</li>
-                  @endforeach
-                </ul>
-              </div>
-            </div>
+          <div class="alert alert-danger cart-errors">
+            <ul>
+              @foreach($errors->all() as $error)
+                <li>{{ $error }}</li>
+              @endforeach
+            </ul>
           </div>
         @endif
 
@@ -64,6 +60,8 @@
             <span class="checkbox-text">Согласен с <a href="/politika-konfidencialnosti" class="privacy-policy-btn" target="_blank">политикой обработки персональных данных</a></span>
           </div>
 
+          <div class="g-recaptcha" data-sitekey="{{ config('google.client_key') }}"></div>
+
           @csrf
           <button type="submit" class="submit-btn js-submit-btn">Зарегистрироваться</button>
         </form>
@@ -71,4 +69,8 @@
     </div>
 </div>
 
-@endsection 
+@endsection
+
+@section('script')
+  <script src="https://www.google.com/recaptcha/api.js"></script>
+@endsection

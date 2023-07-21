@@ -175,25 +175,18 @@ class AjaxController extends Controller
         $validated = $validator->validated();
 
         // Google Captcha
-        $g_url = 'https://www.google.com/recaptcha/api/siteverify';
+        $g_response = (new \App\Services\GoogleCaptcha($validated))->get();
 
-        $g_params = [
-            'secret' => config('google.server_key'),
-            'response' => $validated["g-recaptcha-response"],
-        ];
-
-        $g_response = \Illuminate\Support\Facades\Http::asForm()->post($g_url, $g_params);
-
-        if (!$g_response->json('success')) {
+        if (!$g_response) {
             return response()->json(['message' => 'error']);
         }
 
-        $path = NULL;
-
-        if (array_key_exists("file", $validated)) {
-            // Автоматически генерировать уникальный идентификатор для имени файла
-            $path = \Illuminate\Support\Facades\Storage::putFile('public/uploads/testimonials', $validated["file"]);
-        }
+        /**
+         * Если есть файл
+         * Автоматически генерировать уникальный идентификатор для имени файла
+         * Иначе NULL
+         */   
+        $path = array_key_exists("file", $validated) ? \Illuminate\Support\Facades\Storage::putFile('public/uploads/testimonials', $validated["file"]) : NULL;
 
         $testimonial = Testimonial::create([
                     'name' => $validated["name"],

@@ -213,6 +213,9 @@ p {
 .submit-btn:disabled {
   color: #A9A9A9 !important;
 }
+.form .g-recaptcha {
+  margin: 0 0 25px 0;
+}
 
 /* button next */
 .button-next {
@@ -1870,9 +1873,6 @@ p {
 }
 .otzyvy .form .textarea.required {
   border: 1px solid red;
-}
-.otzyvy .form .captcha {
-  margin: 0 0 25px 0;
 }
 .otzyvy .form .submit-btn {
   width: 230px;
@@ -3929,7 +3929,7 @@ p {
   .otzyvy .namefile {
     display: block;
   }
-  .otzyvy .form .captcha {
+  .otzyvy .form .g-recaptcha {
     overflow: hidden;
   }
 

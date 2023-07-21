@@ -62,9 +62,7 @@
         <label for="input-main-file" class="custom-inputfile-label">Прикрепить файл</label>
         <span class="namefile main-file-text">Файл не выбран</span>
       </div>
-      <div class="captcha">
-        <div class="g-recaptcha" data-sitekey="{{ config('google.client_key') }}"></div>
-      </div>
+      <div class="g-recaptcha" data-sitekey="{{ config('google.client_key') }}"></div>
 
       @csrf
       <button type="button" class="submit-btn js-testimonial-btn">Оставить отзыв</button>
