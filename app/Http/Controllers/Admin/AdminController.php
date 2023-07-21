@@ -123,122 +123,32 @@ class AdminController extends Controller
 
     public function order_print($id)
     {   
-        // методы order_print и order_check одинаковые
-        if ($id) {
-           
-            // Получаю все товары по номеру заказа
-            $products_array = \Illuminate\Support\Facades\DB::table('orders_products')->where('order_id', $id)->get();
+        $order = \App\Models\Order::findOrFail($id);
 
-            // Создаю массив с id товаров
-            $products_id_array = [];
-            foreach($products_array as $value) {
-                $products_id_array[] = $value->product_id;
-            }
+        $products = (new \App\Services\ProductSort($order))->get();
 
-            // Получаю товары по id
-            $products = \App\Models\Product::whereIn('id', $products_id_array)->get();
-
-            $total = [
-                "quantity" => 0,
-                "summ" => 0
-            ];
-
-            // Добавляю номер заказа, количество и сумма к каждому товару
-            foreach($products as $value) {
-                // Добавление номер заказа order_id
-                $value->order_id = $products_array->where('product_id', $value->id)->value('order_id');
-
-                // Добавление количества quantity
-                $value->quantity = $products_array->where('product_id', $value->id)->value('quantity');
-
-                // Расчет суммы одного товара
-                if ($value->promo_price) {
-                    $value->summ = $value->promo_price * $value->quantity;
-                } else {
-                    $value->summ = $value->retail_price * $value->quantity;
-                }
-
-                // Расчет количества всех товаров
-                $total["quantity"] += $value->quantity;
-                // Расчет суммы всех товаров
-                $total["summ"] += $value->summ;
-            }
-
-            // Сортировка коллекции
-            // Категория Семена, все кроме категории 2. Сортировка по значению в столбце position
-            $cat1 = $products->where('category_id', '<>', '2')->sortBy('position');
-            // Категория Агрохимия, категории 2. Сортировка по значению в столбце position
-            $cat2 = $products->where('category_id', '2')->sortBy('position');
-
-            // Объединение в одну коллекцию
-            // Сначала Семена, потом Агрохимия
-            // К коллекции cat1 (Семена) присоединяю коллекцию cat2 (Агрохимия)
-            $products = $cat1->merge($cat2);
-
-            return view('dashboard.order-print', compact('id', 'products'));
-
-        } else {
-            return view('dashboard.orders');
-        }
+        return view('dashboard.order-print', compact('id', 'products'));
     }
 
     public function order_check($id)
     {
-        if ($id) {
-            // Получаю все товары по номеру заказа
-            $products_array = \Illuminate\Support\Facades\DB::table('orders_products')->where('order_id', $id)->get();
+        $order = \App\Models\Order::findOrFail($id);
 
-            // Создаю массив с id товаров
-            $products_id_array = [];
-            foreach($products_array as $value) {
-                $products_id_array[] = $value->product_id;
-            }
+        $products = (new \App\Services\ProductSort($order))->get();
 
-            // Получаю товары по id
-            $products = \App\Models\Product::whereIn('id', $products_id_array)->get();
+        $total = [
+            "quantity" => 0,
+            "summ" => 0
+        ];
 
-            $total = [
-                "quantity" => 0,
-                "summ" => 0
-            ];
-
-            // Добавляю номер заказа, количество и сумма к каждому товару
-            foreach($products as $value) {
-                // Добавление номер заказа order_id
-                $value->order_id = $products_array->where('product_id', $value->id)->value('order_id');
-
-                // Добавление количества quantity
-                $value->quantity = $products_array->where('product_id', $value->id)->value('quantity');
-
-                // Расчет суммы одного товара
-                if ($value->promo_price) {
-                    $value->summ = $value->promo_price * $value->quantity;
-                } else {
-                    $value->summ = $value->retail_price * $value->quantity;
-                }
-
-                // Расчет количества всех товаров
-                $total["quantity"] += $value->quantity;
-                // Расчет суммы всех товаров
-                $total["summ"] += $value->summ;
-            }
-
-            // Сортировка коллекции
-            // Категория Семена, все кроме категории 2. Сортировка по значению в столбце position
-            $cat1 = $products->where('category_id', '<>', '2')->sortBy('position');
-            // Категория Агрохимия, категории 2. Сортировка по значению в столбце position
-            $cat2 = $products->where('category_id', '2')->sortBy('position');
-
-            // Объединение в одну коллекцию
-            // Сначала Семена, потом Агрохимия
-            // К коллекции cat1 (Семена) присоединяю коллекцию cat2 (Агрохимия)
-            $products = $cat1->merge($cat2);
-
-            return view('dashboard.order-check', compact('id', 'products', 'total'));
-
-        } else {
-            return view('dashboard.orders');
+        foreach($products as $product) {
+            // Расчет количества всех товаров
+            $total["quantity"] += $product->pivot->quantity;
+            // Расчет суммы всех товаров
+            $total["summ"] += $product->summ;
         }
+
+        return view('dashboard.order-check', compact('id', 'products', 'total'));
     }
 
     public function testimonials_update(Request $request)
