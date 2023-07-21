@@ -37,8 +37,8 @@
       </div>
     </div>
 
-    <div class="categories-wrapper">
-      <div class="categories hidden-mobile">
+    <div class="categories">
+      <div class="categories-desktop hidden-mobile">
         <div class="category-item orange-bg">
           <div class="categories-item-title">Огурцы</div>
           <div class="categories-item-image">
@@ -83,56 +83,52 @@
         </div>
       </div>
 
-      <div class="categories hidden-desktop">
-
-        <div class="categories-slider swiper">
-          <div class="swiper-wrapper">
-            <div class="swiper-slide category-item orange-bg">
-              <div class="categories-item-title">Огурцы</div>
-              <div class="categories-item-image">
-                <img src="/img/category-cucumber.png" alt="">
-              </div>
-              <a href="{{ route('catalog', ['category' => 'ogurcy']) }}" class="full-link"></a>
+      <div class="categories-slider swiper hidden-desktop">
+        <div class="swiper-wrapper">
+          <div class="swiper-slide category-item orange-bg">
+            <div class="categories-item-title">Огурцы</div>
+            <div class="categories-item-image">
+              <img src="/img/category-cucumber.png" alt="">
             </div>
-            <div class="swiper-slide category-item green-bg">
-              <div class="categories-item-title">Перцы</div>
-              <div class="categories-item-image">
-                <img src="/img/category-pepper.png" alt="">
-              </div>
-              <a href="{{ route('catalog', ['category' => 'percy']) }}" class="full-link"></a>
+            <a href="{{ route('catalog', ['category' => 'ogurcy']) }}" class="full-link"></a>
+          </div>
+          <div class="swiper-slide category-item green-bg">
+            <div class="categories-item-title">Перцы</div>
+            <div class="categories-item-image">
+              <img src="/img/category-pepper.png" alt="">
             </div>
-            <div class="swiper-slide category-item purple-bg">
-              <div class="categories-item-title">Томаты</div>
-              <div class="categories-item-image">
-                <img src="/img/category-tomatoes.png" alt="">
-              </div>
-              <a href="{{ route('catalog', ['category' => 'tomaty']) }}" class="full-link"></a>
+            <a href="{{ route('catalog', ['category' => 'percy']) }}" class="full-link"></a>
+          </div>
+          <div class="swiper-slide category-item purple-bg">
+            <div class="categories-item-title">Томаты</div>
+            <div class="categories-item-image">
+              <img src="/img/category-tomatoes.png" alt="">
             </div>
-            <div class="swiper-slide category-item red-bg">
-              <div class="categories-item-title">Овощи</div>
-              <div class="categories-item-image">
-                <img src="/img/category-vegetables.png" alt="">
-              </div>
-              <a href="{{ route('catalog', ['category' => 'ovoshchi']) }}" class="full-link"></a>
+            <a href="{{ route('catalog', ['category' => 'tomaty']) }}" class="full-link"></a>
+          </div>
+          <div class="swiper-slide category-item red-bg">
+            <div class="categories-item-title">Овощи</div>
+            <div class="categories-item-image">
+              <img src="/img/category-vegetables.png" alt="">
             </div>
-            <div class="swiper-slide category-item orange-bg">
-              <div class="categories-item-title">Цветы</div>
-              <div class="categories-item-image">
-                <img src="/img/category-flovers.png" alt="">
-              </div>
-              <a href="{{ route('catalog', ['category' => 'cvety']) }}" class="full-link"></a>
+            <a href="{{ route('catalog', ['category' => 'ovoshchi']) }}" class="full-link"></a>
+          </div>
+          <div class="swiper-slide category-item orange-bg">
+            <div class="categories-item-title">Цветы</div>
+            <div class="categories-item-image">
+              <img src="/img/category-flovers.png" alt="">
             </div>
-            <div class="swiper-slide category-item green-bg">
-              <div class="categories-item-title">Ягоды</div>
-              <div class="categories-item-image">
-                <img src="/img/category-berries.png" alt="">
-              </div>
-              <a href="{{ route('catalog', ['category' => 'yagody']) }}" class="full-link"></a>
+            <a href="{{ route('catalog', ['category' => 'cvety']) }}" class="full-link"></a>
+          </div>
+          <div class="swiper-slide category-item green-bg">
+            <div class="categories-item-title">Ягоды</div>
+            <div class="categories-item-image">
+              <img src="/img/category-berries.png" alt="">
             </div>
+            <a href="{{ route('catalog', ['category' => 'yagody']) }}" class="full-link"></a>
           </div>
         </div>
       </div>
-
     </div>
 
     <div class="grey-section">
@@ -161,15 +157,36 @@
   </div>
 
   @if($promos->count() == 3)
-  <div class="promo-section section">
-    <div class="section-title">
-      <div class="section-title__text">Акции</div>
-    </div>
-    <div class="promo">
-      <div class="row">
-        @foreach($promos as $promo)
-          <div class="col-sm-4">
-            <div class="promo-item">
+    <div class="promo-section section">
+      <div class="section-title">
+        <div class="section-title__text">Акции</div>
+      </div>
+      <div class="promo-desktop hidden-mobile">
+        <div class="row">
+          @foreach($promos as $promo)
+            <div class="col-sm-4">
+              <div class="promo-item">
+                <div class="bg-image">
+                  <img src="{{ Storage::url($promo->image) }}" alt="">
+                </div>
+                <div class="green-figure">
+                  <img src="/img/promo-item-figure.png" alt="">
+                </div>
+                <div class="promo-item__text">{{ Str::words($promo->title, 8, '...') }}</div>
+                <div class="discount">
+                  <span class="discount-text">- {{ $promo->discount }}</span>
+                  <span class="discount-percent">%</span>
+                </div>
+              </div>
+            </div>
+          @endforeach
+        </div>
+      </div>
+
+      <div class="promo-slider swiper hidden-desktop">
+        <div class="swiper-wrapper">
+          @foreach($promos as $promo)
+            <div class="swiper-slide promo-item">
               <div class="bg-image">
                 <img src="{{ Storage::url($promo->image) }}" alt="">
               </div>
@@ -182,11 +199,11 @@
                 <span class="discount-percent">%</span>
               </div>
             </div>
-          </div>
-        @endforeach
+            @endforeach
+        </div>
       </div>
+
     </div>
-  </div>
   @endif
 
   <div class="new-products-section">
@@ -206,8 +223,4 @@
 
 </div>
 
-@endsection
-
-@section('script')
-  <script src="{{ asset('/js/swiper-bundle.min.js') }}"></script>
 @endsection

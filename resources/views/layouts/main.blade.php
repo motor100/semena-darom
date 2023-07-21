@@ -116,33 +116,65 @@
     </div>
     
     <div class="advantages">
-      <div class="container-fluid">
-        <div class="advantages-flex-container">
-          <div class="advantages-item">
+      <div class="advantages-desktop hidden-mobile">
+        <div class="advantages-item">
+          <div class="advantages-item__image">
+            <img src="/img/header-russian-post.png" alt="">
+          </div>
+          <div class="advantages-item__text">Почта РФ</div>
+        </div>
+        <div class="advantages-item">
+          <div class="advantages-item__image">
+            <img src="/img/header-sdek.png" alt="">
+          </div>
+          <div class="advantages-item__text">CDEK курьер</div>
+        </div>
+        <div class="advantages-item">
+          <div class="advantages-item__image">
+            <img src="/img/header-fire.png" alt="">
+          </div>
+          <div class="advantages-item__text">Онлайн-оплата</div>
+        </div>
+        <div class="advantages-item">
+          <div class="advantages-item__image">
+            <img src="/img/header-percent.png" alt="">
+          </div>
+          <div class="advantages-item__text">Наложенный платеж</div>
+        </div>
+        <div class="advantages-item">
+          <div class="advantages-item__image">
+            <img src="/img/header-cart-min-order.png" alt="">
+          </div>
+          <div class="advantages-item__text">Минимальная сумма заказа 1 500 ₽</div>
+        </div>
+      </div>
+      <div class="advantages-slider swiper hidden-desktop">
+        <div class="swiper-wrapper">
+          <div class="swiper-slide advantages-item">
             <div class="advantages-item__image">
               <img src="/img/header-russian-post.png" alt="">
             </div>
             <div class="advantages-item__text">Почта РФ</div>
           </div>
-          <div class="advantages-item">
+          <div class="swiper-slide advantages-item">
             <div class="advantages-item__image">
               <img src="/img/header-sdek.png" alt="">
             </div>
             <div class="advantages-item__text">CDEK курьер</div>
           </div>
-          <div class="advantages-item">
+          <div class="swiper-slide advantages-item">
             <div class="advantages-item__image">
               <img src="/img/header-fire.png" alt="">
             </div>
             <div class="advantages-item__text">Онлайн-оплата</div>
           </div>
-          <div class="advantages-item">
+          <div class="swiper-slide advantages-item">
             <div class="advantages-item__image">
               <img src="/img/header-percent.png" alt="">
             </div>
             <div class="advantages-item__text">Наложенный платеж</div>
           </div>
-          <div class="advantages-item">
+          <div class="swiper-slide advantages-item">
             <div class="advantages-item__image">
               <img src="/img/header-cart-min-order.png" alt="">
             </div>
@@ -709,6 +741,7 @@
 
   @yield('script')
   <!-- <script src="//code-ya.jivosite.com/widget/K7CaDjczmW" async></script> -->
+  <script src="{{ asset('/js/swiper-bundle.min.js') }}"></script>
   <script src="{{ asset('/js/imask.min.js') }}"></script>
   <!-- <script src="{{-- asset('/js/main.js') --}}"></script> -->
   <script src="/js/main.baedb042c16e1bf.js?ver=<?php echo date('dis'); ?>"></script>

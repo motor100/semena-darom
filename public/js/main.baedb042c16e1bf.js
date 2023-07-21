@@ -257,6 +257,13 @@ document.addEventListener("DOMContentLoaded", () => {
   });
 
 
+  // Advantages slider
+  const advantagesSlider = new Swiper('.header .advantages-slider', {
+    slidesPerView: 'auto',
+    spaceBetween: 10,
+  });
+
+
   // Add to favourites
   const addToFavouritesBtns = document.querySelectorAll('.add-to-favourites');
 
@@ -856,21 +863,14 @@ document.addEventListener("DOMContentLoaded", () => {
 
     // Category swiper slider
     const categorySlider = new Swiper('.main-section .categories-slider', {
-      slidesPerView: 3,
-      breakpoints: {
-        // when window width is >= 480px
-        480: {
-          slidesPerView: 4,
-        },
-        576: {
-          slidesPerView: 5,
-        },
-      },
+      slidesPerView: 'auto',
       spaceBetween: 10,
       loop: true,
-      navigation: {
-        nextEl: '.category-button-next',
-      },
+    });
+
+    const promoSlider = new Swiper('.promo-section .promo-slider', {
+      slidesPerView: 'auto',
+      spaceBetween: 10,
     });
   }
 
