@@ -671,6 +671,18 @@ document.addEventListener("DOMContentLoaded", () => {
       return false;
     }
 
+    function addCreateOrderLink() {
+      // Добавляю ссылку на кнопку
+      const cartAsidePlaceOrderBtn = document.querySelector('#cart-aside-place-order-btn'),
+            cartAsidePlaceOrderBtnLink = document.querySelector('#cart-aside-place-order-btn .full-link')
+      if (!cartAsidePlaceOrderBtnLink) {
+        let tmpEl = document.createElement('a');
+        tmpEl.className = "full-link";
+        tmpEl.href = '/create-order';
+        cartAsidePlaceOrderBtn.append(tmpEl);
+      }
+    }
+
     fetch('/ajax/addtocart', {
       method: 'POST',
       headers: {'Content-Type':'application/x-www-form-urlencoded'},
@@ -682,6 +694,7 @@ document.addEventListener("DOMContentLoaded", () => {
       cartCounterUpdate(json);
       asideCartItemsUpdate(json);
       asideCartTotalCalc();
+      addCreateOrderLink();
     })
     .catch((error) => {
       console.log(error);

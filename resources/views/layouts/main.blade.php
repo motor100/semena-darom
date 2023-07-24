@@ -12,6 +12,7 @@
   <link rel="stylesheet" href="{{ asset('/css/bootstrap-grid.min.css') }}">
   @yield('style')
   <!-- <link rel="stylesheet" href="{{-- asset('/css/main.css') --}}"> -->
+  <link rel="stylesheet" href="{{ asset('/css/swiper-bundle.min.css') }}">
   <link rel="stylesheet" href="/css/main.baedb042c16e1bf.css?ver=<?php echo date('dis'); ?>">
   <title>@yield('title', config('app.name') )</title>
 </head>
@@ -328,6 +329,9 @@
                   <span id="cart-aside-place-order-btn-summ" class="place-order-btn__summ">0</span>
                   <span class="place-order-btn__currency">&#8381;</span>
                 </div>
+                @if(isset($cart_count))
+                  <a href="/create-order" class="full-link"></a>
+                @endif
               </div>
             </div>
           @endif

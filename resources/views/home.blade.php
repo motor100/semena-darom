@@ -2,10 +2,6 @@
 
 @section('title', 'Купить семена с доставкой по всей России')
 
-@section('style')
-  <link rel="stylesheet" href="{{ asset('/css/swiper-bundle.min.css') }}">
-@endsection
-
 @section('content')
 
 <div class="home">

@@ -664,6 +664,14 @@ p {
   text-align: center;
   line-height: 1.3;
 }
+.header .city-select-btn {
+  max-width: 205px;
+}
+.header .city-select-btn .city-select__text {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
 
 /* header btn */
 .header-btn {
@@ -703,14 +711,8 @@ p {
   display: none;
 }
 
-/* .header-top.sticky-desktop-menu-active {
-  margin: 0 0 20px 0;
-  padding: 0 0 10px 0; */
-
 /* aside */
 .aside-nav {
-  position: sticky;
-  top: 260px;
   font-size: 18px;
 }
 .aside-nav .aside-nav-title {
@@ -3279,9 +3281,8 @@ p {
     font-size: 10px;
     line-height: 1.7;
   }
-  
-  .aside-nav {
-    position: static;
+  .header .city-select-btn {
+    max-width: 135px;
   }
 
   .dostavka-i-oplata .title-wrapper .dostavka-i-oplata-image {

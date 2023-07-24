@@ -63,7 +63,7 @@
               @endif
             </div>
             <div class="cf-item__bottom">
-              <div class="add-to add-to-cart" data-id="{{ $product->id }}">
+              <div class="add-to">
                 <svg width="48" height="48" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
                   <path d="M13 13H15.078C16.0056 13 16.4694 13 16.8186 13.2517C17.1678 13.5034 17.3145 13.9434 17.6078 14.8234L18.3333 17" stroke="#B3B3B3" stroke-linecap="round"/>
                   <path d="M31.6671 30.334H19.0683C18.8734 30.334 18.7759 30.334 18.702 30.3257C17.9185 30.238 17.3818 29.4933 17.5463 28.7224C17.5619 28.6496 17.5927 28.5572 17.6543 28.3723C17.7228 28.1669 17.757 28.0643 17.7948 27.9737C18.1818 27.0463 19.0574 26.4151 20.0597 26.3412C20.1576 26.334 20.2658 26.334 20.4822 26.334H27.6671" stroke="#B3B3B3" stroke-linecap="round" stroke-linejoin="round"/>
@@ -71,7 +71,7 @@
                   <path d="M30.9984 35.0007C31.7348 35.0007 32.3317 34.4037 32.3317 33.6673C32.3317 32.9309 31.7348 32.334 30.9984 32.334C30.262 32.334 29.665 32.9309 29.665 33.6673C29.665 34.4037 30.262 35.0007 30.9984 35.0007Z" fill="#B3B3B3"/>
                   <path d="M20.3333 35.0007C21.0697 35.0007 21.6667 34.4037 21.6667 33.6673C21.6667 32.9309 21.0697 32.334 20.3333 32.334C19.597 32.334 19 32.9309 19 33.6673C19 34.4037 19.597 35.0007 20.3333 35.0007Z" fill="#B3B3B3"/>
                 </svg>
-                <span class="add-to-cart__text">В корзину</span>
+                <span class="add-to-cart add-to-cart__text" data-id="{{ $product->id }}">В корзину</span>
               </div>
               <form class="form rm-from-form" action="/rmfromfavourites"  method="post">
                 <input type="hidden" name="id" value="{{ $product->id }}">
