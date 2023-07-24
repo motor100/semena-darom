@@ -193,6 +193,7 @@
         </div>
       </div>
     </div>
+    <!-- 
     <div class="row">
       <div class="col-md-7">
         <div class="kak-zakazat-image">
@@ -265,6 +266,7 @@
       </div>
     </div>
   </div>
+  -->
 </div> 
 
 @endsection

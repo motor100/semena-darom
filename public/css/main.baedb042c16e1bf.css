@@ -2982,6 +2982,9 @@ p {
   opacity: 1;
   visibility: visible;
 }
+.mobile-menu .header-btn {
+  border: 1px solid var(--m-text);
+}
 .mobile-menu .city-select {
   margin: 0 0 20px 0;
   cursor: pointer;

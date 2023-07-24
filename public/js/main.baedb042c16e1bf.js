@@ -823,7 +823,7 @@ document.addEventListener("DOMContentLoaded", () => {
     summarySumm.forEach((item) => {
       item.innerText = totalSumm;
     });
-    
+
     return totalSumm;
   }
 
