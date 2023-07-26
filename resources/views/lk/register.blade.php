@@ -20,7 +20,6 @@
   <div class="page-title">Регистрация</span></div>
     <div class="row">
       <div class="col-xl-3 col-md-4">
-        <div class="lk-login-subtitle"><span class="green-text">Вход</span></div>
         <div class="lk-login-text">Введите Ваши данные</div>
 
         @if($errors->any())

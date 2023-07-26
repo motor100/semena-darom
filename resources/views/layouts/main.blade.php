@@ -13,7 +13,7 @@
   @yield('style')
   <!-- <link rel="stylesheet" href="{{-- asset('/css/main.css') --}}"> -->
   <link rel="stylesheet" href="{{ asset('/css/swiper-bundle.min.css') }}">
-  <link rel="stylesheet" href="/css/main.baedb042c16e1bf.css?ver=<?php echo date('dis'); ?>">
+  <link rel="stylesheet" href="/css/main.baedb042c16e1bt.css?ver=<?php echo date('dis'); ?>">
   <title>@yield('title', config('app.name') )</title>
 </head>
 
@@ -748,7 +748,7 @@
   <script src="{{ asset('/js/swiper-bundle.min.js') }}"></script>
   <script src="{{ asset('/js/imask.min.js') }}"></script>
   <!-- <script src="{{-- asset('/js/main.js') --}}"></script> -->
-  <script src="/js/main.baedb042c16e1bf.js?ver=<?php echo date('dis'); ?>"></script>
+  <script src="/js/main.baedb042c16e1bt.js?ver=<?php echo date('dis'); ?>"></script>
   
 </body>
 </html>

@@ -101,6 +101,9 @@ Route::post('/ajax/russian-post', [DeliveryController::class, 'russian_post']);
 
 Route::post('/ajax/ordercheck', [AjaxController::class, 'ajax_ordercheck']);
 
+// temp
+Route::get('/sdek', [DeliveryController::class, 'sdek']);
+
 
 // Личный кабинет
 Route::middleware(['auth', 'verified'])->group(function () {

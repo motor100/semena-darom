@@ -12,13 +12,12 @@ class DeliveryController extends Controller
      */
     public function sdek(Request $request)
     {
-        return 350;
         // Получаю токен
         // Тестовая ссылка
-        $url_token = "https://api.edu.cdek.ru/v2/oauth/token";
+        // $url_token = "https://api.edu.cdek.ru/v2/oauth/token";
 
         // Рабочая ссылка
-        // $url_token = "https://api.cdek.ru/v2/oauth/token";
+        $url_token = "https://api.cdek.ru/v2/oauth/token";
 
         $params_token = [
             'grant_type' =>	'client_credentials',
@@ -35,10 +34,10 @@ class DeliveryController extends Controller
 
         // Запрос на расчет
         // Тестовая ссылка
-        $url_tariff = 'https://api.edu.cdek.ru/v2/calculator/tariff';
+        // $url_tariff = 'https://api.edu.cdek.ru/v2/calculator/tariff';
 
         // Рабочая ссылка
-        // $url_tariff = "https://api.cdek.ru/v2/calculator/tariff";
+        $url_tariff = "https://api.cdek.ru/v2/calculator/tariff";
 
         $params_tariff = [
             "type" => 1,
@@ -51,6 +50,7 @@ class DeliveryController extends Controller
             ],
             "to_location" => [
                 "postal_code" => $this->get_postal_code(),
+                // "postal_code" => 101000,
                 'country_code' => 'RU',
             ],
             /*
@@ -65,7 +65,8 @@ class DeliveryController extends Controller
                 [
                     "height" => 20, // сантиметр
                     "length" => 20, // сантиметр
-                    "weight" => $this->get_weight(), // грамм
+                    // "weight" => $this->get_weight(), // грамм
+                    "weight" => 500,
                     "width" => 20 // сантиметр
                 ]
             ]
@@ -76,9 +77,10 @@ class DeliveryController extends Controller
 
         $tariff = $response_tariff->json();
 
-        if (array_key_exists("errors", $tariff)) {
-            return $tariff["errors"];
-        }
+        // Ошибки
+        // if (array_key_exists("errors", $tariff)) {
+        //     return $tariff["errors"];
+        // }
 
         // Сумма
         // $tariff["delivery_sum"]
@@ -86,7 +88,7 @@ class DeliveryController extends Controller
         // Срок доставки
         // return $tariff["period_min"] . "-" . $tariff["period_max"] . " дней";
 
-        return $tariff["delivery_sum"];
+        return array_key_exists("delivery_sum", $tariff) ? $tariff["delivery_sum"] : "-";
     }
 
     /*
