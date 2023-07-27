@@ -104,6 +104,8 @@ Route::post('/ajax/ordercheck', [AjaxController::class, 'ajax_ordercheck']);
 // temp
 Route::get('/sdek', [DeliveryController::class, 'sdek']);
 
+Route::get('/sdek-create-order', [DeliveryController::class, 'create_document']);
+
 
 // Личный кабинет
 Route::middleware(['auth', 'verified'])->group(function () {

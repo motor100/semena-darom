@@ -7,88 +7,106 @@ use Illuminate\Support\Facades\Http;
 
 class DeliveryController extends Controller
 {
-    /**
-     * Документация https://api-docs.cdek.ru/63345430.html
-     */
-    public function sdek(Request $request)
+    public function sdek()
     {
-        // Получаю токен
+        // Почтовый индекс выбранного города
+        $postal_code = (new \App\Services\PostalCode())->get();
+
+        // Вес всех товаров в корзине
+        $weight = (new \App\Services\ProductWeight())->get();
+        
+        // Тариф на доставку
+        $tariff = (new \App\Services\Sdek())->tariff($weight, $postal_code);
+        
+        return $tariff;
+    }
+
+    public function blank()
+    {
+        
+        // https://api.edu.cdek.ru/v2/print/orders
+    }
+
+    public function create_order()
+    {
+        $token = (new \App\Services\Sdek())->get_token();
+        
         // Тестовая ссылка
-        // $url_token = "https://api.edu.cdek.ru/v2/oauth/token";
+        $url_order = "https://api.edu.cdek.ru/v2/orders";
 
         // Рабочая ссылка
-        $url_token = "https://api.cdek.ru/v2/oauth/token";
+        // $url_order = "https://api.cdek.ru/v2/orders";
 
-        $params_token = [
-            'grant_type' =>	'client_credentials',
-            // тестовая учетная запись
-            'client_id'	=> config('sdek.client_id'),
-            'client_secret'	=> config('sdek.client_secret')
-        ];
-
-        // Метод asForm() устанавливает Content-type: application/x-www-form-urlencoded
-        // Без него по умолчанию передается Content-type: application/json
-        $response_token = Http::asForm()->post($url_token, $params_token);
-
-        $token = $response_token->json("access_token");
-
-        // Запрос на расчет
-        // Тестовая ссылка
-        // $url_tariff = 'https://api.edu.cdek.ru/v2/calculator/tariff';
-
-        // Рабочая ссылка
-        $url_tariff = "https://api.cdek.ru/v2/calculator/tariff";
-
-        $params_tariff = [
-            "type" => 1,
-            // "date" => date("c"),
-            "currency" => 1,
+        $params_order = [
+            "type" =>	1,
+            "number" =>	4,
             "tariff_code" => 136,
             "from_location" => [
                 "postal_code" => "456300",
-                "country_code" => 'RU',
+                "country_code" => "RU",
             ],
             "to_location" => [
-                "postal_code" => $this->get_postal_code(),
-                // "postal_code" => 101000,
-                'country_code' => 'RU',
+                "postal_code" => 101000, // Москва
+                "country_code" => "RU",
+                "region" => "Московская область",
+                "city" => "Москва",
+                "address" => "пр. Ленинградский, д.4"
             ],
-            /*
-            "services" => array(
-                array(
-                    "code" => "PACKAGE_1",
-                    // "parameter" => "1"
-                )
-            ),
-            */
             "packages" => [
-                [
-                    "height" => 20, // сантиметр
-                    "length" => 20, // сантиметр
-                    // "weight" => $this->get_weight(), // грамм
-                    "weight" => 500,
-                    "width" => 20 // сантиметр
+                "number" => 4, // Москва
+                "weight" => 200, // общий вес
+                "items" => [ // товары
+                    0 => [
+                        "ware_key" => "00055", // артикул
+                        "payment" => [
+                            "value" => 0 // предоплата
+                        ],
+                        "name" => "Томат", // название
+                        "amount" => 2, // количество
+                        "cost" => 12, // цена
+                        "weight" => 100, // вес
+                    ],
+                    1 => [
+                        "ware_key" => "00056", // артикул
+                        "payment" => [
+                            "value" => 0 // предоплата
+                        ],
+                        "name" => "Огурец",
+                        "amount" => 1,
+                        "cost" => 120,
+                        "weight" => 120,
+                    ]
                 ]
-            ]
+            ],
+            "recipient" => [
+                "name" => "Иванов Иван",
+		        "phones" => [
+		            "number" => "+79134637228"
+                ],
+            ],
         ];
 
-        // Метод withToken(token) передает Bearer токен в заголовке
-        $response_tariff = Http::withToken($token)->post($url_tariff, $params_tariff);
+        $response_order = Http::withToken($token)->post($url_order, $params_order);
+        
+        // dd($response_order->json());
+        $response_array = $response_order->json();
 
-        $tariff = $response_tariff->json();
+        return $response_array["entity"]["uuid"];
+    }
 
-        // Ошибки
-        // if (array_key_exists("errors", $tariff)) {
-        //     return $tariff["errors"];
-        // }
+    public function create_document()
+    {
+        $sdek = new \App\Services\Sdek();
 
-        // Сумма
-        // $tariff["delivery_sum"]
+        $order_uuid = $sdek->create_order();
 
-        // Срок доставки
-        // return $tariff["period_min"] . "-" . $tariff["period_max"] . " дней";
+        // $document_uuid = (new \App\Services\Sdek())->create_document($order_uuid);
+        
+        // $download = (new \App\Services\Sdek())->download_document($document_uuid);
 
-        return array_key_exists("delivery_sum", $tariff) ? $tariff["delivery_sum"] : "-";
+        $order_info = $sdek->order_info($order_uuid);
+        
+        dd($order_uuid, $order_info);
     }
 
     /*
