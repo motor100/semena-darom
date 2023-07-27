@@ -243,6 +243,7 @@ class MainController extends Controller
             'last-name'=> 'required|min:3|max:30',
             'phone'=> 'required|size:18',
             'email'=> 'required|min:5|max:50',
+            'address'=> 'required|min:5|max:150',
             'payment' => 'required',
             'summ' => 'required|numeric',
         ]);
@@ -259,6 +260,7 @@ class MainController extends Controller
             'last_name' => $validated['last-name'],
             'phone'=> $phone,
             'email'=> $validated['email'],
+            'address'=> $validated['address'],
             'price' => $validated['summ'],
             'user_id' => $user ? $user->id : NULL,
             'status' => 'В обработке',

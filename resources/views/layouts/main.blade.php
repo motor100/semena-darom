@@ -680,49 +680,46 @@
   </div>
 
   <div class="mobile-catalog-dropdown hidden-desktop">
+    <div class="mobile-catalog-dropdown-title">Каталог</div>
+    <div class="menu-wrapper">
 
-      <div class="mobile-catalog-dropdown-title">Каталог</div>
-      <div class="menu-wrapper">
-
-        <div class="aside-nav-item">
-          <div class="aside-nav-item__image">
-            <img src="{{ asset('img/percent-icon.png') }}" alt="">
-          </div>
-          <div class="aside-nav-item__title">Акции</div>
-          <a href="/akcii" class="full-link"></a>
+      <div class="aside-nav-item">
+        <div class="aside-nav-item__image">
+          <img src="{{ asset('img/percent-icon.png') }}" alt="">
         </div>
-        <div class="aside-nav-item">
-          <div class="aside-nav-item__image">
-            <img src="{{ asset('img/package-icon.png') }}" alt="">
-          </div>
-          <div class="aside-nav-item__title">Новинки</div>
-          <a href="/novinki" class="full-link"></a>
+        <div class="aside-nav-item__title">Акции</div>
+        <a href="/akcii" class="full-link"></a>
+      </div>
+      <div class="aside-nav-item">
+        <div class="aside-nav-item__image">
+          <img src="{{ asset('img/package-icon.png') }}" alt="">
         </div>
-
-        @foreach($parent_category as $cat)
-          @if($cat->count_children > 0)
-            @foreach($cat->child_category as $ct)
-              <div class="aside-nav-item">
-                <div class="aside-nav-item__image">
-                  <img src="{{ asset('storage/uploads/categories/' . $ct->image) }}" alt="">
-                </div>
-                <div class="aside-nav-item__title">{{ $ct->title }}</div>
-                <a href="{{ route('catalog', ['category' => $ct->slug]) }}" class="full-link"></a>
-              </div>
-            @endforeach
-          @else
-            <div class="aside-nav-item">
-              <div class="aside-nav-item__image">
-                <img src="{{ asset('storage/uploads/categories/' . $cat->image) }}" alt="">
-              </div>
-              <div class="aside-nav-item__title">{{ $cat->title }}</div>
-              <a href="{{ route('catalog', ['category' => $cat->slug]) }}" class="full-link"></a>
-            </div>
-          @endif
-        @endforeach
+        <div class="aside-nav-item__title">Новинки</div>
+        <a href="/novinki" class="full-link"></a>
       </div>
 
-
+      @foreach($parent_category as $cat)
+        @if($cat->count_children > 0)
+          @foreach($cat->child_category as $ct)
+            <div class="aside-nav-item">
+              <div class="aside-nav-item__image">
+                <img src="{{ asset('storage/uploads/categories/' . $ct->image) }}" alt="">
+              </div>
+              <div class="aside-nav-item__title">{{ $ct->title }}</div>
+              <a href="{{ route('catalog', ['category' => $ct->slug]) }}" class="full-link"></a>
+            </div>
+          @endforeach
+        @else
+          <div class="aside-nav-item">
+            <div class="aside-nav-item__image">
+              <img src="{{ asset('storage/uploads/categories/' . $cat->image) }}" alt="">
+            </div>
+            <div class="aside-nav-item__title">{{ $cat->title }}</div>
+            <a href="{{ route('catalog', ['category' => $cat->slug]) }}" class="full-link"></a>
+          </div>
+        @endif
+      @endforeach
+    </div>
   </div>
 
   @if(Auth::guard('admin')->user())
@@ -744,7 +741,6 @@
   @endif
 
   @yield('script')
-  <!-- <script src="//code-ya.jivosite.com/widget/K7CaDjczmW" async></script> -->
   <script src="{{ asset('/js/swiper-bundle.min.js') }}"></script>
   <script src="{{ asset('/js/imask.min.js') }}"></script>
   <!-- <script src="{{-- asset('/js/main.js') --}}"></script> -->

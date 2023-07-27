@@ -35,7 +35,7 @@
     </div>
     <div class="form-group mb-3">
       <div class="label-text mb-1">Покупатель</div>
-      <div class="order-info">{{ $order->first_name . ' ' . $order->last_name . ' ' . $order->phone . ' ' . $order->email }}</div>
+      <div class="order-info">{{ $order->first_name . ' ' . $order->last_name . ' ' . $order->phone . ' ' . $order->email . ' ' . $order->address }}</div>
     </div>
   </div>
 

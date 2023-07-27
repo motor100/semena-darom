@@ -103,13 +103,13 @@
             <div class="col-sm-6">
               <div class="form-group">
                 <label for="first-name" class="label">Имя</label>
-                <input type="text" name="first-name" id="first-name" class="input-field" required min="3" max="20" placeholder="Имя">
+                <input type="text" name="first-name" id="first-name" class="input-field" required min="3" max="20">
               </div>
             </div>
             <div class="col-sm-6">
               <div class="form-group">
                 <label for="last-name" class="label">Фамилия</label>
-                <input type="text" name="last-name" id="last-name" class="input-field" required min="3" max="30" placeholder="Фамилия">
+                <input type="text" name="last-name" id="last-name" class="input-field" required min="3" max="30">
               </div>
             </div>
           </div>
@@ -119,15 +119,21 @@
             <div class="col-sm-6">
               <div class="form-group">
                 <label for="phone" class="label">Телефон</label>
-                <input type="text" name="phone" id="phone" class="input-field js-input-phone-mask" required size="18" placeholder="Телефон">
+                <input type="text" name="phone" id="phone" class="input-field js-input-phone-mask" required size="18">
               </div>
             </div>
             <div class="col-sm-6">
               <div class="form-group">
                 <label for="email" class="label">Email</label>
-                <input type="email" name="email" id="email" class="input-field" required min="5" max="50" placeholder="Email">
+                <input type="email" name="email" id="email" class="input-field" required min="5" max="50">
               </div>
             </div>
+          </div>
+        </div>
+        <div class="customer-info-item">
+          <div class="form-group">
+            <label for="address" class="label">Адрес</label>
+            <input type="text" name="address" id="address" class="input-field" required min="5" max="150">
           </div>
         </div>
       </div>
