@@ -191,53 +191,94 @@
       <div class="row">
         <div class="col-lg-2 d-none d-lg-block">
 
+
+        <div class="aside-nav">
+          <div class="aside-nav-title">Каталог товаров</div>
+          <div class="aside-nav-item">
+            <div class="aside-nav-item__image">
+              <img src="{{ asset('img/percent-icon.png') }}" alt="">
+            </div>
+            <div class="aside-nav-item__title">Акции</div>
+            <a href="/akcii" class="full-link"></a>
+          </div>
+          <div class="aside-nav-item">
+            <div class="aside-nav-item__image">
+              <img src="{{ asset('img/package-icon.png') }}" alt="">
+            </div>
+            <div class="aside-nav-item__title">Новинки</div>
+            <a href="/novinki" class="full-link"></a>
+          </div>
+          @foreach($parent_category as $cat)
+            <div class="catalog-nav-item">
+              @if($cat->child_category)
+
+                <div class="aside-nav-item">
+                  <div class="aside-nav-item__image">
+                    <img src="{{ Storage::url($cat->image) }}" alt="">
+                  </div>
+                  <div class="aside-nav-item__title">{{ $cat->title }}</div>
+                </div>
+                <div class="catalog-nav-arrow"></div>
+                <div class="catalog-nav-submenu">
+                  @foreach($cat->child_category as $cct)
+                    <div class="catalog-nav-submenu-item">
+                      <a href="/catalog?category={{ $cct->slug }}">{{ $cct->title }}</a>
+                    </div>
+                  @endforeach
+                </div>
+              @else
+                <div class="aside-nav-item">
+                  <div class="aside-nav-item__image">
+                    <img src="{{ Storage::url($cat->image) }}" alt="">
+                  </div>
+                  <div class="aside-nav-item__title">{{ $cat->title }}</div>
+                  <a href="{{ route('catalog', ['category' => $cat->slug]) }}" class="full-link"></a>
+                </div>
+              @endif
+            </div>
+          @endforeach
+        </div>
+
+
+
           <div class="aside-nav">
             <div class="aside-nav-title">Каталог товаров</div>
             <div class="aside-nav-item">
               <div class="aside-nav-item__image">
-                <img src="{{ asset('img/percent-icon.svg') }}" alt="">
+                <img src="{{ asset('img/percent-icon.png') }}" alt="">
               </div>
               <div class="aside-nav-item__title">Акции</div>
               <a href="/akcii" class="full-link"></a>
             </div>
             <div class="aside-nav-item">
               <div class="aside-nav-item__image">
-                <img src="{{ asset('img/package-icon.svg') }}" alt="">
+                <img src="{{ asset('img/package-icon.png') }}" alt="">
               </div>
               <div class="aside-nav-item__title">Новинки</div>
               <a href="/novinki" class="full-link"></a>
             </div>
             @foreach($parent_category as $cat)
-              <div class="catalog-nav-item">
-                @if($cat->child_category)
-
-                  <div class="aside-nav-item aside-nav-item-has-children">
-                    <div class="aside-nav-item__image">
-                      <img src="{{ Storage::url($cat->image) }}" alt="">
-                    </div>
-                    <div class="aside-nav-item__title">{{ $cat->title }}</div>
-                  </div>
-                  <div class="aside-nav-arrow"></div>
-                  <div class="aside-nav-submenu">
-                    @foreach($cat->child_category as $cct)
-                      <div class="aside-nav-submenu-item">
-                        <a href="/catalog?category={{ $cct->slug }}">{{ $cct->title }}</a>
-                      </div>
-                    @endforeach
-                  </div>
-                @else
+              @if($cat->count_children > 0)
+                @foreach($cat->child_category as $ct)
                   <div class="aside-nav-item">
                     <div class="aside-nav-item__image">
-                      <img src="{{ Storage::url($cat->image) }}" alt="">
+                      <img src="{{ Storage::url($ct->image) }}" alt="">
                     </div>
-                    <div class="aside-nav-item__title">{{ $cat->title }}</div>
-                    <a href="{{ route('catalog', ['category' => $cat->slug]) }}" class="full-link"></a>
+                    <div class="aside-nav-item__title">{{ $ct->title }}</div>
+                    <a href="{{ route('catalog', ['category' => $ct->slug]) }}" class="full-link"></a>
                   </div>
-                @endif
-              </div>
+                @endforeach
+              @else
+                <div class="aside-nav-item">
+                  <div class="aside-nav-item__image">
+                    <img src="{{ Storage::url($cat->image) }}" alt="">
+                  </div>
+                  <div class="aside-nav-item__title">{{ $cat->title }}</div>
+                  <a href="{{ route('catalog', ['category' => $cat->slug]) }}" class="full-link"></a>
+                </div>
+              @endif
             @endforeach
           </div>
-
         </div>
         <div class="col-xxl-7 col-lg-10 col-md-12">
           @yield('content')
@@ -543,14 +584,14 @@
         <div class="catalog-nav-top-row">
           <div class="aside-nav-item">
             <div class="aside-nav-item__image">
-              <img src="{{ asset('img/percent-icon.svg') }}" alt="">
+              <img src="{{ asset('img/percent-icon.png') }}" alt="">
             </div>
             <div class="aside-nav-item__title">Акции</div>
             <a href="/akcii" class="full-link"></a>
           </div>
           <div class="aside-nav-item">
             <div class="aside-nav-item__image">
-              <img src="{{ asset('img/package-icon.svg') }}" alt="">
+              <img src="{{ asset('img/package-icon.png') }}" alt="">
             </div>
             <div class="aside-nav-item__title">Новинки</div>
             <a href="/novinki" class="full-link"></a>
@@ -713,14 +754,14 @@
 
       <div class="aside-nav-item">
         <div class="aside-nav-item__image">
-          <img src="{{ asset('img/percent-icon.svg') }}" alt="">
+          <img src="{{ asset('img/percent-icon.png') }}" alt="">
         </div>
         <div class="aside-nav-item__title">Акции</div>
         <a href="/akcii" class="full-link"></a>
       </div>
       <div class="aside-nav-item">
         <div class="aside-nav-item__image">
-          <img src="{{ asset('img/package-icon.svg') }}" alt="">
+          <img src="{{ asset('img/package-icon.png') }}" alt="">
         </div>
         <div class="aside-nav-item__title">Новинки</div>
         <a href="/novinki" class="full-link"></a>

@@ -33,7 +33,7 @@ class ViewServiceProvider extends ServiceProvider
             $categories = \App\Models\Category::all();
 
             // Get parent categories
-            $parent_category = $categories->where('parent', '0');
+            $parent_category = $categories->where('parent', '0')->sortBy('sort');
 
             // Get child categories
             foreach($parent_category as $pct) {

@@ -35,23 +35,25 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   // Кнопка Каталог в static и fixed шапке
-  const headerCatalogBtns = document.querySelectorAll('.header-catalog-btn');
+  const headerCatalogBtns = document.querySelectorAll('.header-catalog-btn'),
+        headerCatalogDropdown = document.querySelector('.header-catalog-dropdown'),
+        headerCatalogDropdownOverlay = headerCatalogDropdown.querySelector('.overlay');
 
   headerCatalogBtns.forEach((item) => {
-    const headerCatalogDropdown = document.querySelector('.header-catalog-dropdown');
-
     item.onclick = function() {
+      body.classList.toggle('overflow-hidden');
       item.classList.toggle('active');
       headerCatalogDropdown.classList.toggle('active');
     }
-
-    const overlay = headerCatalogDropdown.querySelector('.overlay');
-
-    overlay.onclick = function() {
-      item.classList.remove('active');
-      headerCatalogDropdown.classList.remove('active');
-    }
   });
+
+  headerCatalogDropdownOverlay.onclick = function() {
+    body.classList.remove('overflow-hidden');
+    headerCatalogBtns.forEach((item) => {
+      item.classList.remove('active');
+    });
+    headerCatalogDropdown.classList.remove('active');
+  }
 
 
   // Search
@@ -256,11 +258,21 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   });
 
-
+  
   // Advantages slider
   const advantagesSlider = new Swiper('.header .advantages-slider', {
     slidesPerView: 'auto',
     spaceBetween: 10,
+  });
+
+
+  // Open/close aside nav items
+  let asideNavItems = document.querySelectorAll('.aside-nav .aside-nav-item-has-children');
+
+  asideNavItems.forEach((item) => {
+    item.onclick = function () {
+      item.parentNode.classList.toggle('active');
+    }
   });
 
 
