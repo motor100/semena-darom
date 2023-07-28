@@ -739,6 +739,7 @@ p {
 }
 .aside-nav-item .aside-nav-item__image img {
   width: 100%;
+  margin: 0 0 10px 0;
 }
 .aside-nav-item .aside-nav-item__title {
   font-family: 'arimo-semibold';
@@ -762,7 +763,7 @@ p {
   position: absolute;
   top: 6px;
   right: 0;
-  width: 30px;
+  width: 17px;
   height: 16px;
 }
 .catalog-nav-item .aside-nav-arrow::before,
@@ -775,12 +776,12 @@ p {
   background-color: var(--m-text);
 }
 .catalog-nav-item .aside-nav-arrow::before {
-  left: 7px;
+  left: 0;
   transform: rotate(45deg);
   transition: transform .5s;
 }
 .catalog-nav-item .aside-nav-arrow::after {
-  left: 14px;
+  left: 7px;
   transform: rotate(-45deg);
   transition: transform .5s;
 }
@@ -808,50 +809,8 @@ p {
   transition: color .3s;
 }
 .catalog-nav-item .aside-nav-submenu-item a:hover {
-  color: #3E3E3E;
+  color: var(--m-light-grey);
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 /* header-catalog-dropdown */
 .header-catalog-dropdown {
@@ -3417,6 +3376,13 @@ p {
     max-width: 135px;
   }
 
+  .aside-nav .aside-nav-title {
+    font-size: 18px;
+  }
+  .aside-nav-item .aside-nav-item__title {
+    font-size: 16px;
+  }
+
   .dostavka-i-oplata .title-wrapper .dostavka-i-oplata-image {
     max-width: 220px;
   }
@@ -3478,6 +3444,13 @@ p {
     margin: 0 5px 0 0;
   }
   .header .advantages .advantages-item .advantages-item__text {
+    font-size: 14px;
+  }
+
+  .aside-nav .aside-nav-title {
+    font-size: 16px;
+  }
+  .aside-nav-item .aside-nav-item__title {
     font-size: 14px;
   }
 
