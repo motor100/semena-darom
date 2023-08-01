@@ -21,13 +21,7 @@ class DeliveryController extends Controller
         return $tariff;
     }
 
-    public function blank()
-    {
-        
-        // https://api.edu.cdek.ru/v2/print/orders
-    }
-
-    public function create_order()
+    public function create_order111()
     {
         $token = (new \App\Services\Sdek())->get_token();
         
@@ -94,19 +88,34 @@ class DeliveryController extends Controller
         return $response_array["entity"]["uuid"];
     }
 
-    public function create_document()
+    public function create_order()
     {
         $sdek = new \App\Services\Sdek();
 
-        $order_uuid = $sdek->create_order();
+        $order = $sdek->create_order();
 
-        // $document_uuid = (new \App\Services\Sdek())->create_document($order_uuid);
-        
-        // $download = (new \App\Services\Sdek())->download_document($document_uuid);
+        // $document = $sdek->create_document($order["entity"]["uuid"]);
 
-        $order_info = $sdek->order_info($order_uuid);
+        // $download = $sdek->download_document($document["entity"]["uuid"]);
+        // $download = $sdek->download_document($order["related_entities"][0]["uuid"]);
+        // 72753034-7ade-40ff-ac4d-e33aaf5fbdc2
+        // $offices = $sdek->get_offices();
+
+        // $order_info = $sdek->order_info($order["entity"]["uuid"]);
         
-        dd($order_uuid, $order_info);
+        // dd($order_uuid, $document_uuid, $download, $order_info);
+        return $order["related_entities"][0]["uuid"];
+    }
+
+    public function download_document()
+    {
+        $document_uuid = "72753034-4a2b-4d42-af14-c2fa9904b2e9";
+
+        $sdek = new \App\Services\Sdek();
+
+        $download = $sdek->download_document($document_uuid);
+
+        dd($download);
     }
 
     /*

@@ -87,22 +87,38 @@ class Sdek
         $url = "https://api.cdek.ru/v2/orders";
 
         $params = [
-            "type" =>	1,
-            "number" =>	4,
-            "tariff_code" => 136,
+            "type" =>	1, // Тип заказа 1 - интернет магазин
+            "number" => 4 . "-" . mt_rand(), // уникальный номер заказа. 4 - номер заказа + случайное число
+            // "tariff_code" => 136, // код тарифа
+            "tariff_code" => 139,
             "from_location" => [
+                "code" => "7",
+                "fias_guid" => "",
                 "postal_code" => "456300",
+                "longitude" => "",
+                "latitude" => "",
                 "country_code" => "RU",
+                "region" => "Челябинская область",
+                "sub_region" => "",
+                "city" => "Миасс",
+                "kladr_code" => "",
+                "address" => ""
             ],
             "to_location" => [
-                "postal_code" => 101000, // Москва
-                "country_code" => "RU",
-                "region" => "Московская область",
-                "city" => "Москва",
-                "address" => "пр. Ленинградский, д.4"
+                "code" => "270",
+                "fias_guid" => "",
+                "postal_code" => "",
+                "longitude" => "",
+                "latitude" => "",
+                "country_code" => "",
+                "region" => "",
+                "sub_region" => "",
+                "city" => "Новосибирск",
+                "kladr_code" => "",
+                "address" => "ул. Блюхера, 32"
             ],
             "packages" => [
-                "number" => 4, // Москва
+                "number" => 4, // Номер упаковки. Можно вставить номер заказа
                 "weight" => 200, // общий вес
                 "items" => [ // товары
                     0 => [
@@ -133,7 +149,10 @@ class Sdek
 		            "number" => "+79134637228"
                 ],
             ],
-            // "print" => "waybill",
+            "sender" => [
+                "name" => "Петров Петр"
+            ],
+            "print" => "waybill"
         ];
 
         $response = Http::withToken($token)->post($url, $params);
@@ -142,8 +161,8 @@ class Sdek
         $response_array = $response->json();
 
         // return $response_array["related_entities"][0]["uuid"];
-        return $response_array["entity"]["uuid"];
-        // return $response_array;
+        // return $response_array["entity"]["uuid"];
+        return $response_array;
     }
 
     public function create_document($order_uuid)
@@ -168,7 +187,7 @@ class Sdek
         // dd($response_order->json());
         $response_array = $response->json();
         
-        return $response_array["entity"]["uuid"];
+        return $response_array;
         // return $response_array;
     }
 
@@ -204,6 +223,23 @@ class Sdek
         return $response_array;
     }
 
+    public function get_offices()
+    {
+        $token = $this->token ? $this->token : $this->get_token();
+        
+        // Рабочая ссылка
+        $url = "https://api.cdek.ru/v2/location/cities";
+
+        $params = [
+            "city" => "Миасс",
+        ];
+        
+        $response = Http::withToken($token)->get($url, $params);
+
+        $response_array = $response->json();
+        
+        return $response_array;
+    }
 
 
     public function get_token()
