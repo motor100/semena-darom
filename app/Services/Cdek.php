@@ -4,7 +4,7 @@ namespace App\Services;
 
 use Illuminate\Support\Facades\Http;
 
-class Sdek
+class Cdek
 {
     protected $token;
     
@@ -76,9 +76,14 @@ class Sdek
         return array_key_exists("delivery_sum", $tariff) ? $tariff["delivery_sum"] : "-";
     }
 
-    public function create_order()
+    /**
+     * @params Illuminate\Database\Eloquent\Model
+     * @return array
+     */
+    public function create_order($order)
     {
-        $token = $this->token ? $this->token : $this->get_token();
+        // Получаю токен
+        $token = $this->get_token();
         
         // Тестовая ссылка
         // $url = "https://api.edu.cdek.ru/v2/orders";
@@ -86,13 +91,14 @@ class Sdek
         // Рабочая ссылка
         $url = "https://api.cdek.ru/v2/orders";
 
-        $params = [
+        // Формирую параметры заказа
+        $order_params = [
             "type" =>	1, // Тип заказа 1 - интернет магазин
-            "number" => 4 . "-" . mt_rand(), // уникальный номер заказа. 4 - номер заказа + случайное число
+            "number" => $order->id . "-" . mt_rand(), // уникальный номер заказа. 4 - номер заказа + случайное число
             // "tariff_code" => 136, // код тарифа
             "tariff_code" => 139,
             "from_location" => [
-                "code" => "7",
+                "code" => "7", // Миасс
                 "fias_guid" => "",
                 "postal_code" => "456300",
                 "longitude" => "",
@@ -104,70 +110,59 @@ class Sdek
                 "kladr_code" => "",
                 "address" => ""
             ],
-            "to_location" => [
-                "code" => "270",
-                "fias_guid" => "",
-                "postal_code" => "",
-                "longitude" => "",
-                "latitude" => "",
-                "country_code" => "",
-                "region" => "",
-                "sub_region" => "",
-                "city" => "Новосибирск",
-                "kladr_code" => "",
-                "address" => "ул. Блюхера, 32"
-            ],
+            "to_location" => [],
             "packages" => [
-                "number" => 4, // Номер упаковки. Можно вставить номер заказа
-                "weight" => 200, // общий вес
-                "items" => [ // товары
-                    0 => [
-                        "ware_key" => "00055", // артикул
-                        "payment" => [
-                            "value" => 0 // предоплата
-                        ],
-                        "name" => "Томат", // название
-                        "amount" => 2, // количество
-                        "cost" => 12, // цена
-                        "weight" => 100, // вес
-                    ],
-                    1 => [
-                        "ware_key" => "00056", // артикул
-                        "payment" => [
-                            "value" => 0 // предоплата
-                        ],
-                        "name" => "Огурец",
-                        "amount" => 1,
-                        "cost" => 120,
-                        "weight" => 120,
-                    ]
-                ]
+                "number" => $order->id, // Номер упаковки. Можно вставить номер заказа
+                "weight" => (new \App\Services\ProductWeight)->weight_order($order), // общий вес
+                "items" => [],
             ],
-            "recipient" => [
-                "name" => "Иванов Иван",
-		        "phones" => [
-		            "number" => "+79134637228"
-                ],
-            ],
+            "recipient" => [],
             "sender" => [
-                "name" => "Петров Петр"
+                "name" => "ИП Варнавин А.С."
             ],
-            "print" => "waybill"
+            "print" => "waybill" // Формирование квитанции к заказу
+            // 1 способ. Создать квитанцию вместе с заказом. Как сейчас
+            // 2 способ. Создать квитанцию отдельным методом. Документация https://api-docs.cdek.ru/36967276.html
         ];
 
-        $response = Http::withToken($token)->post($url, $params);
+        // Формирую город получателя
+        $cdek_city = $this->get_offices($order->city_id);
+        $order_params["to_location"] = $cdek_city[0];
+        $order_params["to_location"]["address"] = $order->address;
+
+        // Формирую товары в заказе
+        foreach($order->products as $product) {
+            $item = [
+                "ware_key" => $product->code, // Артикул. В данном случае уникальный штрихкод
+                "payment" => [
+                    "value" => 0 // предоплата
+                ],
+                "name" => $product->title,
+                "amount" => $product->pivot->quantity,
+                "cost" => $product->promo_price ? $product->promo_price : $product->retail_price, // цена
+                "weight" => $product->weight, // вес
+            ];
+
+            $order_params["packages"]["items"][] = $item;
+        }
+
+        // Формирую получателя
+        $order_params["recipient"]["name"] = $order->first_name . " " . $order->last_name;
+        $order_params["recipient"]["phones"]["number"] = "+" . $order->phone;
+
+        // Запрос API СДЕК
+        $response = Http::withToken($token)->post($url, $order_params);
         
-        // dd($response->json());
         $response_array = $response->json();
 
-        // return $response_array["related_entities"][0]["uuid"];
-        // return $response_array["entity"]["uuid"];
         return $response_array;
     }
 
     public function create_document($order_uuid)
     {
-        $token = $this->token ? $this->token : $this->get_token();
+        // $token = $this->token ? $this->token : $this->get_token();
+        // Получаю токен
+        $token = $this->get_token();
 
         // Тестовая ссылка
         // $url = "https://api.edu.cdek.ru/v2/print/orders";
@@ -191,10 +186,11 @@ class Sdek
         // return $response_array;
     }
 
-    public function download_document($document_uuid)
+    public function get_waybill($id)
     {
         $token = $this->token ? $this->token : $this->get_token();
         
+        /*
         // Тестовая ссылка
         // $url = "https://api.edu.cdek.ru/v2/print/orders/" . $document_uuid;
 
@@ -207,6 +203,24 @@ class Sdek
         $response_array = $response->json();
         
         return $response_array;
+        */
+
+        // Получаю модель CdekOrder по номеру заказа
+        $cdek_order = \App\Models\CdekOrder::where('order_id', $id)->first();
+
+        // url для получения квитанции pdf
+        $url_pdf = 'https://api.cdek.ru/v2/print/orders/' . $cdek_order->waybill_uuid . '.pdf';
+
+        // Запрос для получения квитанции pdf
+        $response_pdf = \Illuminate\Support\Facades\Http::withToken($token)->get($url_pdf);
+
+        // Имя файла
+        $filename = $cdek_order->waybill_uuid . '.pdf';
+
+        // Сохранение файла
+        \Illuminate\Support\Facades\Storage::put('/public/print-forms/' . $filename, $response_pdf);
+
+        return $filename;
     }
 
     public function order_info($order_uuid)
@@ -223,15 +237,22 @@ class Sdek
         return $response_array;
     }
 
-    public function get_offices()
+    /**
+     * Список населенных пунктов
+     * Документация https://api-docs.cdek.ru/33829437.html
+     */
+    public function get_offices($city_id)
     {
         $token = $this->token ? $this->token : $this->get_token();
+
+        $city = \App\Models\City::find($city_id);
         
         // Рабочая ссылка
         $url = "https://api.cdek.ru/v2/location/cities";
 
         $params = [
-            "city" => "Миасс",
+            "city" => $city->city,
+            "postal_code" => $city->postal_code
         ];
         
         $response = Http::withToken($token)->get($url, $params);
@@ -240,7 +261,6 @@ class Sdek
         
         return $response_array;
     }
-
 
     public function get_token()
     {
@@ -260,8 +280,6 @@ class Sdek
         // Метод asForm() устанавливает Content-type: application/x-www-form-urlencoded
         // Без него по умолчанию передается Content-type: application/json
         $response_token = Http::asForm()->post($url_token, $params_token);
-
-        // return $response_token->json("access_token");
 
         $this->token = $response_token->json("access_token");
 

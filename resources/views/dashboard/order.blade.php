@@ -6,6 +6,12 @@
 
 <div class="dashboard-content">
 
+  @if(session()->get('status'))
+    <div class="alert alert-success">
+      {{ session()->get('status') }}
+    </div>
+  @endif
+
   <div class="order-content">
     <div class="form-group mb-3">
       <div class="label-text mb-1">
@@ -56,7 +62,7 @@
       </div>
 
       @if($order->status != "Выдан")
-        <div class="form-group mb-3">
+        <div class="form-group mb-5">
           <label for="comment" class="form-check-label d-block mb-1">Комментарий</label>
           <input type="text" name="comment" id="comment" class="form-control" maxlength="250" value="{{ $order->comment }}">
         </div>
@@ -68,8 +74,21 @@
     </form>
   </div>
 
-  <div class="print-section">
+  <div class="print-section mb-5">
     <a href="{{ route('admin.order-print', $order->id) }}" class="btn btn-primary" target="_blank">Печать</a>
+  </div>
+
+  <div class="send-order-section mb-5">
+    <p>Сформировать заказ, отправить в СДЕК и получить квитанцию.</p>
+    <p>Кнопка для скачивания появится когда квитанция будет готова.</p>
+    <form class="form mb-1" action="{{ route('admin.cdek-create-order', $order->id) }}">
+      <button type="submit" class="btn btn-primary">Отправить в СДЕК</button>
+    </form>
+    @if ($is_waybill)
+      <form class="form mb-1" action="{{ route('admin.cdek-download-waybill', $order->id) }}">
+        <button type="submit" class="btn btn-success">Скачать квитанцию</button>
+      </form>
+    @endif
   </div>
 
 </div>

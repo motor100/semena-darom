@@ -31,4 +31,18 @@ class ProductWeight
 
         return $weight;
     }
+
+    public function weight_order($order)
+    {
+        $products = $order->products;
+
+        $weight = 0;
+
+        foreach($products as $product) {
+            $product->total_weight = (int) $product->pivot->quantity * (int) $product->weight;
+            $weight += $product->total_weight;
+        }
+
+        return $weight;
+    }
 }

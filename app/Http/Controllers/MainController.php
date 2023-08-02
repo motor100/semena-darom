@@ -254,6 +254,7 @@ class MainController extends Controller
         // Получение аутентифицированного пользователя
         $user = $request->user();
 
+        // Вставить city_id
         // Создаю новую модель Order и получаю id новой записи
         $order_id = \App\Models\Order::insertGetId([
             'first_name' => $validated['first-name'],

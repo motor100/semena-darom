@@ -16,14 +16,15 @@ class DeliveryController extends Controller
         $weight = (new \App\Services\ProductWeight())->get();
         
         // Тариф на доставку
-        $tariff = (new \App\Services\Sdek())->tariff($weight, $postal_code);
+        $tariff = (new \App\Services\Cdek())->tariff($weight, $postal_code);
         
         return $tariff;
     }
 
+    /*
     public function create_order111()
     {
-        $token = (new \App\Services\Sdek())->get_token();
+        $token = (new \App\Services\Cdek())->get_token();
         
         // Тестовая ссылка
         $url_order = "https://api.edu.cdek.ru/v2/orders";
@@ -87,10 +88,12 @@ class DeliveryController extends Controller
 
         return $response_array["entity"]["uuid"];
     }
+    */
 
+    /*
     public function create_order()
     {
-        $sdek = new \App\Services\Sdek();
+        $sdek = new \App\Services\Cdek();
 
         $order = $sdek->create_order();
 
@@ -106,17 +109,20 @@ class DeliveryController extends Controller
         // dd($order_uuid, $document_uuid, $download, $order_info);
         return $order["related_entities"][0]["uuid"];
     }
+    */
 
+    /*
     public function download_document()
     {
         $document_uuid = "72753034-4a2b-4d42-af14-c2fa9904b2e9";
 
-        $sdek = new \App\Services\Sdek();
+        $sdek = new \App\Services\Cdek();
 
         $download = $sdek->download_document($document_uuid);
 
         dd($download);
     }
+    */
 
     /*
     * Документация https://tariff.pochta.ru/post-calculator-api.pdf?99
@@ -156,6 +162,7 @@ class DeliveryController extends Controller
         return $summ;
     }
 
+    /*
     public function get_postal_code()
     {
         // Город
@@ -170,7 +177,9 @@ class DeliveryController extends Controller
 
         return $postal_code;
     }
+    */
 
+    /*
     public function get_weight()
     {
         // Получение куки через фасад Cookie метод get
@@ -194,4 +203,5 @@ class DeliveryController extends Controller
 
         return $weight;
     }
+    */
 }
