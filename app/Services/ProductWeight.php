@@ -7,7 +7,7 @@ use App\Models\Product;
 
 class ProductWeight
 {
-    public function get()
+    public function weight_cart()
     { 
         // Получение веса всех товаров в корзине
         // Получение куки через фасад Cookie метод get

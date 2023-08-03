@@ -7,11 +7,11 @@ use Illuminate\Support\Facades\Http;
 class Cdek
 {
     protected $token;
+    // const
     
     /**
      * Документация https://api-docs.cdek.ru/63345430.html
      */
-
     public function tariff($weight, $postal_code)
     { 
         $token = $this->get_token();
@@ -24,18 +24,18 @@ class Cdek
         $url_tariff = "https://api.cdek.ru/v2/calculator/tariff";
 
         $params_tariff = [
-            "type" => 1,
+            "type" => 1, //.
             // "date" => date("c"),
-            "currency" => 1,
-            "tariff_code" => 136,
+            "currency" => 1, //.
+            "tariff_code" => 136, //.
             "from_location" => [
-                "postal_code" => "456300",
-                "country_code" => "RU",
+                "postal_code" => "456300", //.
+                "country_code" => "RU", //.
             ],
             "to_location" => [
                 "postal_code" => $postal_code,
                 // "postal_code" => 101000, // Москва
-                'country_code' => "RU",
+                'country_code' => "RU", //.
             ],
             /*
             // Услуга по упаковке

@@ -34,6 +34,7 @@ class CdekController extends Controller
         // Получаю квитанцию
         $filename = (new \App\Services\Cdek())->get_waybill($id);
 
+        // Скачиваю квитанцию
         return response()
                 ->download('storage/print-forms/' . $filename)
                 ->deleteFileAfterSend(true);
