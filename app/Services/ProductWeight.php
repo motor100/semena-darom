@@ -7,9 +7,13 @@ use App\Models\Product;
 
 class ProductWeight
 {
-    public function weight_cart()
+    /**
+     * Получение веса всех товаров в корзине в граммах
+     * @param
+     * @return int
+     */
+    public function weight_cart(): int
     { 
-        // Получение веса всех товаров в корзине
         // Получение куки через фасад Cookie метод get
         $cookie_cart = json_decode(Cookie::get('cart'), true);
 
@@ -32,7 +36,12 @@ class ProductWeight
         return $weight;
     }
 
-    public function weight_order($order)
+    /**
+     * Получение веса всех товаров в заказе
+     * @param Illuminate\Database\Eloquent\Model Order
+     * @return int
+     */
+    public function weight_order($order): int
     {
         $products = $order->products;
 

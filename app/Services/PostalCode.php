@@ -7,9 +7,13 @@ use App\Models\City;
 
 class PostalCode
 {
-    public function get()
+    /**
+     * Получение почтового индекса
+     * @param
+     * @return int
+     */
+    public function get(): int
     { 
-        // Получение почтового индекса
         // Получение куки через фасад Cookie метод get
         $cookie_city = json_decode(Cookie::get('city'), true);
 

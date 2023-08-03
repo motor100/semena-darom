@@ -7,12 +7,24 @@ use Illuminate\Support\Facades\Http;
 class Cdek
 {
     protected $token;
-    // const
+    
+    const TYPE = 1; // Тип заказа 1 - интернет магазин
+    // const TARIFF_CODE = 136 // Посылка склад-склад
+    const TARIFF_CODE = 139; // Посылка дверь-дверь
+    const CURRENCY = 1; // Валюта Российский рубль
+    const FROM_POSTAL_CODE = "456320"; // Индекс отправителя
+    const COUNTRY_CODE = "RU"; // Страна
+    const FROM_REGION = "Челябинская область"; // Регион отправителя
+    const FROM_CITY = "Миасс"; // Город отправителя
+    const FROM_CODE = "7"; // Код города СДЕК Миасс
+    const SENDER_NAME = "ИП Варнавин А.С."; // Имя отправителя
     
     /**
      * Документация https://api-docs.cdek.ru/63345430.html
+     * @param
+     * @return string
      */
-    public function tariff($weight, $postal_code)
+    public function tariff(): string
     { 
         $token = $this->get_token();
         
@@ -24,18 +36,16 @@ class Cdek
         $url_tariff = "https://api.cdek.ru/v2/calculator/tariff";
 
         $params_tariff = [
-            "type" => 1, //.
-            // "date" => date("c"),
-            "currency" => 1, //.
-            "tariff_code" => 136, //.
+            "type" => self::TYPE,
+            "currency" => self::CURRENCY,
+            "tariff_code" => self::TARIFF_CODE,
             "from_location" => [
-                "postal_code" => "456300", //.
-                "country_code" => "RU", //.
+                "postal_code" => self::FROM_POSTAL_CODE,
+                "country_code" => self::COUNTRY_CODE,
             ],
             "to_location" => [
-                "postal_code" => $postal_code,
-                // "postal_code" => 101000, // Москва
-                'country_code' => "RU", //.
+                "postal_code" => (new \App\Services\PostalCode)->get(),
+                "country_code" => self::COUNTRY_CODE,
             ],
             /*
             // Услуга по упаковке
@@ -48,11 +58,7 @@ class Cdek
             */
             "packages" => [
                 [
-                    "height" => 20, // сантиметр
-                    "length" => 20, // сантиметр
-                    "weight" => $weight, // грамм
-                    "weight" => 500,
-                    "width" => 20 // сантиметр
+                    "weight" => (new \App\Services\ProductWeight())->weight_cart(), // Вес всех товаров в корзине в граммах
                 ]
             ]
         ];
@@ -77,10 +83,12 @@ class Cdek
     }
 
     /**
-     * @params Illuminate\Database\Eloquent\Model
+     * Регистрация заказа
+     * Документация https://api-docs.cdek.ru/29923926.html
+     * @param Illuminate\Database\Eloquent\Model Order
      * @return array
      */
-    public function create_order($order)
+    public function create_order($order): array
     {
         // Получаю токен
         $token = $this->get_token();
@@ -93,20 +101,19 @@ class Cdek
 
         // Формирую параметры заказа
         $order_params = [
-            "type" =>	1, // Тип заказа 1 - интернет магазин
-            "number" => $order->id . "-" . mt_rand(), // уникальный номер заказа. 4 - номер заказа + случайное число
-            // "tariff_code" => 136, // код тарифа
-            "tariff_code" => 139,
+            "type" => self::TYPE,
+            "number" => $order->id . "-" . mt_rand(), // уникальный номер заказа. Номер заказа + случайное число
+            "tariff_code" => self::TARIFF_CODE,
             "from_location" => [
-                "code" => "7", // Миасс
+                "code" => self::FROM_CODE,
                 "fias_guid" => "",
-                "postal_code" => "456300",
+                "postal_code" => self::FROM_POSTAL_CODE,
                 "longitude" => "",
                 "latitude" => "",
-                "country_code" => "RU",
-                "region" => "Челябинская область",
+                "country_code" => self::COUNTRY_CODE,
+                "region" => self::FROM_REGION,
                 "sub_region" => "",
-                "city" => "Миасс",
+                "city" => self::FROM_CITY,
                 "kladr_code" => "",
                 "address" => ""
             ],
@@ -118,7 +125,7 @@ class Cdek
             ],
             "recipient" => [],
             "sender" => [
-                "name" => "ИП Варнавин А.С."
+                "name" => self::SENDER_NAME
             ],
             "print" => "waybill" // Формирование квитанции к заказу
             // 1 способ. Создать квитанцию вместе с заказом. Как сейчас
@@ -186,29 +193,20 @@ class Cdek
         // return $response_array;
     }
 
-    public function get_waybill($id)
+    /**
+     * Получение квитанции к заказу
+     * Документация https://api-docs.cdek.ru/36967287.html
+     * @param string номер заказа
+     * @return string
+     */
+    public function get_waybill($id): string
     {
         $token = $this->token ? $this->token : $this->get_token();
-        
-        /*
-        // Тестовая ссылка
-        // $url = "https://api.edu.cdek.ru/v2/print/orders/" . $document_uuid;
-
-        // Рабочая ссылка
-        // $url = "https://api.cdek.ru/v2/print/orders/" . $document_uuid;
-        $url = "https://api.cdek.ru/v2/print/orders/" . $document_uuid;
-        
-        $response = Http::withToken($token)->get($url);
-
-        $response_array = $response->json();
-        
-        return $response_array;
-        */
 
         // Получаю модель CdekOrder по номеру заказа
         $cdek_order = \App\Models\CdekOrder::where('order_id', $id)->first();
 
-        // url для получения квитанции pdf
+        // URL для получения квитанции pdf
         $url_pdf = 'https://api.cdek.ru/v2/print/orders/' . $cdek_order->waybill_uuid . '.pdf';
 
         // Запрос для получения квитанции pdf
@@ -240,8 +238,10 @@ class Cdek
     /**
      * Список населенных пунктов
      * Документация https://api-docs.cdek.ru/33829437.html
+     * @param string id города из таблицы cities
+     * @return array
      */
-    public function get_offices($city_id)
+    public function get_offices($city_id): array
     {
         $token = $this->token ? $this->token : $this->get_token();
 
@@ -262,7 +262,13 @@ class Cdek
         return $response_array;
     }
 
-    public function get_token()
+    /**
+     * Авторизация API СДЕК
+     * Документация https://api-docs.cdek.ru/29923918.html
+     * @param
+     * @return string
+     */
+    public function get_token(): string
     {
         // Получаю токен
         // Тестовая ссылка
