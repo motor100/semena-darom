@@ -11,9 +11,8 @@
   <link rel="shortcut icon" href="{{ asset('/img/favicon.svg') }}" type="image/x-icon">
   <link rel="stylesheet" href="{{ asset('/css/bootstrap-grid.min.css') }}">
   @yield('style')
-  <!-- <link rel="stylesheet" href="{{-- asset('/css/main.css') --}}"> -->
+  <link rel="stylesheet" href="{{ asset('/css/main.css') }}">
   <link rel="stylesheet" href="{{ asset('/css/swiper-bundle.min.css') }}">
-  <link rel="stylesheet" href="/css/main.baedb042c16e1bq.css?ver=<?php echo date('dis'); ?>">
   <title>@yield('title', config('app.name') )</title>
 </head>
 
@@ -772,8 +771,7 @@
   @yield('script')
   <script src="{{ asset('/js/swiper-bundle.min.js') }}"></script>
   <script src="{{ asset('/js/imask.min.js') }}"></script>
-  <!-- <script src="{{-- asset('/js/main.js') --}}"></script> -->
-  <script src="/js/main.baedb042c16e1bq.js?ver=<?php echo date('dis'); ?>"></script>
+  <script src="{{ asset('/js/main.js') }}"></script>
   
 </body>
 </html>

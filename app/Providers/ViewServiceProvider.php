@@ -37,7 +37,7 @@ class ViewServiceProvider extends ServiceProvider
 
             // Get child categories
             foreach($parent_category as $pct) {
-                $child_category = $categories->where('parent', $pct->id);
+                $child_category = $categories->where('parent', $pct->id)->sortBy('sort');
                 if ($child_category->count() > 0) {
                     $pct->child_category = $child_category;
                 }
