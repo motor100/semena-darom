@@ -545,10 +545,6 @@ p {
   opacity: 1;
   visibility: visible;
 }
-.header-top .search-form .search-close-active {
-  opacity: 1;
-  visibility: visible;
-}
 .header-top .search-form .search-close::before,
 .header-top .search-form .search-close::after {
   content: '';
