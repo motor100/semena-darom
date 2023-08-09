@@ -3213,7 +3213,7 @@ p {
 }
 .modal-window .checkbox-text {
   display: block;
-  font-size: 12px;
+  font-size: 14px;
   line-height: 1.4;
 }
 .modal-window .privacy-policy-btn {
@@ -3262,9 +3262,6 @@ p {
 .modal-window .custom-checkbox-label {
   display: block;
   margin-top: 20px;
-}
-.modal-window .checkbox-text {
-  font-size: 14px;
 }
 
 /* callback modal */
