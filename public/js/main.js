@@ -96,27 +96,21 @@ document.addEventListener("DOMContentLoaded", () => {
 
       const searchSeeAll = document.querySelector('.search-see-all');
 
-      fetch('/ajax/product-search', {
-        method: 'POST',
-        headers: {'Content-Type':'application/x-www-form-urlencoded'},
-        cache: 'no-cache',
-        body: 'search_query=' + encodeURIComponent(searchInput.value) + '&_token=' + encodeURIComponent(token)
-      })
-      .then((response) => response.json())
-      .then((json) => {
-
+      function searchDropdownRender(json) {
         // Очистка результатов поиска
         searchRezult.innerHTML = '';
         searchSeeAll.classList.remove('search-see-all-active');
 
-        // Если в объекте есть ключ message, то не найдено
-        if (typeof json.message !== "undefined") {
+        // Если товаров 0, то не найдено
+        if (json.length == 0) {
           let tmpEl = document.createElement('li');
           tmpEl.className = "no-product";
           tmpEl.innerHTML = 'Товаров не найдено';
           searchRezult.append(tmpEl);
+        }
 
-        } else { // вывожу результаты поиска
+        // Вывод результатов поиска
+        if (json.length > 0) {
 
           // Ограничение количества выводимых результатов
           if (json.length > 4) {
@@ -148,10 +142,19 @@ document.addEventListener("DOMContentLoaded", () => {
           searchSeeAll.href = '/poisk?search_query=' + searchInput.value;
           searchSeeAll.onclick = searchResetForm;
         }
-        
+
         searchClose.classList.add('search-close-active');
         searchInput.classList.add('search-input-dp');
         searchDropdown.classList.add('search-dropdown-active');
+      }
+
+      fetch('/ajax/product-search?search_query=' + searchInput.value, {
+        method: 'GET',
+        cache: 'no-cache',
+      })
+      .then((response) => response.json())
+      .then((json) => {
+        searchDropdownRender(json);        
       })
       .catch((error) => {
         console.log(error);
@@ -166,7 +169,6 @@ document.addEventListener("DOMContentLoaded", () => {
 
   // City select
   const citySelectModalWindow = document.querySelector('#select-city-modal'),
-        // citySelectForm = document.querySelector('#city-select-form'),
         citySelectInput = document.querySelector('#city-select-input'),
         citySelectRezult = document.querySelector('#city-select-rezult'),
         citySelectModalCloseBtn = document.querySelector('#select-city-modal .modal-close');

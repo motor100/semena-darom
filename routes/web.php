@@ -77,7 +77,7 @@ Route::get('/weight', [DeliveryController::class, 'get_weight']);
 // ajax
 Route::post('/ajax/callback', MailerController::class)->name('callback');
 
-Route::post('/ajax/product-search', [AjaxController::class, 'ajax_product_search']);
+Route::get('/ajax/product-search', [AjaxController::class, 'ajax_product_search']);
 
 Route::post('/ajax/city', [AjaxController::class, 'ajax_city']);
 

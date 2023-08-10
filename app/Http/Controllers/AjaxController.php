@@ -14,30 +14,18 @@ class AjaxController extends Controller
         $search_query = $request->input('search_query');
 
         if (!$search_query) {
-            return response()->json(['message' => 'error']);
+            return response()->json([]);
         }
 
         $search_query = htmlspecialchars($search_query);
 
         $products = Product::where('title', 'like', "%{$search_query}%")
+                            ->select('title', 'slug')
                             // если нужен поиск по тексту
                             // ->orWhere('text', 'like', "%{$product}%") 
                             ->get();
 
-        $products_array = [];
-
-        if ($products && count($products) > 0) {
-            foreach ($products as $value) {
-                $product_item = [];
-                $product_item['title'] = $value->title;
-                $product_item['slug'] = $value->slug;
-                $products_array[] = $product_item;
-            }
-        } else {
-            return response()->json(['message' => 'not found']);
-        }
-
-        return response()->json($products_array);
+        return response()->json($products);
     }
 
     public function ajax_add_to_cart(Request $request)
