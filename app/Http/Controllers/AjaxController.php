@@ -185,7 +185,7 @@ class AjaxController extends Controller
          * Если есть файл
          * Автоматически генерировать уникальный идентификатор для имени файла
          * Иначе NULL
-         */   
+         */
         $path = array_key_exists("file", $validated) ? \Illuminate\Support\Facades\Storage::putFile('public/uploads/testimonials', $validated["file"]) : NULL;
 
         $testimonial = Testimonial::create([
@@ -200,15 +200,10 @@ class AjaxController extends Controller
 
     }
 
-    public function ajax_we_use_cookie(Request $request)
+    public function ajax_we_use_cookie()
     {
-        // Записываю в куки через response with coockie
-        // return response()
-        //         ->json(['Cookie set successfully'])
-        //         ->withCookie(cookie('we-used-cookie', 'yes', 525600));
-
         // Записываю в куки через фасад Cookie метод queue
-        \Illuminate\Support\Facades\Cookie::queue('we-used-cookie', 'yes', 525600);
+        \Illuminate\Support\Facades\Cookie::queue('we-use-cookie', 'yes', 525600);
 
         return false;
     }
@@ -238,8 +233,8 @@ class AjaxController extends Controller
 
         // Записываю новый массив в куки через фасад Cookie метод queue
         \Illuminate\Support\Facades\Cookie::queue('city', $city, 525600);
+
         return response()->json(['message' => 'error']);
-        return false;
     }
 
     public function ajax_ordercheck(Request $request)

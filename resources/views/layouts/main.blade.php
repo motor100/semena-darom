@@ -583,7 +583,7 @@
     <div class="overlay"></div>
   </div>
 
-  @if(!request()->cookie('we-used-cookie'))
+  @if(!request()->cookie('we-use-cookie'))
     <div class="messages-cookies">
 
       <div class="messages-cookies-wrapper">

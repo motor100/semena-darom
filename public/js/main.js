@@ -14,18 +14,18 @@ document.addEventListener("DOMContentLoaded", () => {
       token = document.querySelector('meta[name="csrf-token"]').getAttribute('content'); // csrf token
 
   // Скрывание кнопки Мы используем куки we use cookie
-  let messagesCookies = document.querySelector('.messages-cookies'),
-      messagesCookiesClose = document.querySelector('.messages-cookies-close');
+  const messagesCookies = document.querySelector('.messages-cookies');
+  const messagesCookiesClose = document.querySelector('.messages-cookies-close');
 
   if (messagesCookiesClose) {
-    messagesCookiesClose.onclick = function() {
+    
+    messagesCookiesClose.onclick = () => {
+
       messagesCookies.classList.add('hidden');
-      // document.cookie = "we-use-cookie=yes; path=/; max-age=2629743; samesite=lax";
+
       fetch('/ajax/we-use-cookie', {
-        method: 'POST',
-        headers: {'Content-Type':'application/x-www-form-urlencoded'},
+        method: 'GET',
         cache: 'no-cache',
-        body: '_token=' + encodeURIComponent(token)
       })
       .catch((error) => {
         console.log(error);

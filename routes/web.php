@@ -93,7 +93,7 @@ Route::post('/ajax/addtofavourites', [AjaxController::class, 'ajax_add_to_favour
 
 Route::post('/ajax/testimonial', [AjaxController::class, 'ajax_testimonial']);
 
-Route::post('/ajax/we-use-cookie', [AjaxController::class, 'ajax_we_use_cookie']);
+Route::get('/ajax/we-use-cookie', [AjaxController::class, 'ajax_we_use_cookie']);
 
 Route::post('/ajax/sdek', [DeliveryController::class, 'sdek']);
 
