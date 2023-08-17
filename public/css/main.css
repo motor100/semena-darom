@@ -1504,73 +1504,6 @@ p {
   font-size: 21px;
   box-shadow: 0px 2px 10px rgba(0, 0, 0, 0.05);
 }
-
-.single-product .single-product-quantity {
-  display: flex;
-  /* width: 110px; */
-  /* margin: 0 0 16px 0; */
-}
-.single-product .single-product-quantity .quantity-number {
-  width: 40px;
-  margin: 0 3px;
-  border: none;
-  text-align: center;
-  flex-grow: 1;
-  -moz-appearance: textfield;
-}
-.single-product .single-product-quantity .quantity-number::-webkit-inner-spin-button,
-.single-product .single-product-quantity .quantity-number::-webkit-outer-spin-button {
-  -webkit-appearance: none;
-  -moz-appearance: none;
-  appearance: none;
-  margin: 0;
-}
-.single-product .single-product-quantity .quantity-button {
-  display: block;
-  width: 54px;
-  height: 54px;
-  padding: 0px;
-  border: none;
-  background-color: white;
-  cursor: pointer;
-  flex-shrink: 0;
-}
-.single-product .single-product-quantity .quantity-button .circle {
-  position: relative;
-  width: 54px;
-  height: 54px;
-  margin: 0 auto;
-  padding: 0px;
-  border: none;
-  border-radius: 50%;
-  background-color: var(--m-dop-grey);
-}
-/* .single-product .single-product-quantity .quantity-button:hover .circle {
-  border: 1px solid var(--m-main-green);
-} */
-.single-product .single-product-quantity .quantity-button .circle:before,
-.single-product .single-product-quantity .quantity-button .circle:after {
-  content: '';
-  position: absolute;
-  top: 26px;
-  left: 17px;
-  width: 20px;
-  height: 1px;
-  background-color: #3E3E3E;
-  border-radius: 2px;
-  transition: background-color .3s;
-}
-/* .single-product .single-product-quantity .quantity-button:hover .circle:before,
-.single-product .single-product-quantity .quantity-button:hover .circle:after {
-  background-color: var(--m-main-green);
-} */
-.single-product .single-product-quantity .quantity-plus .circle:after {
-  transform: rotate(90deg);
-}
-.single-product .single-product-options {
-  display: flex;
-  align-items: center;
-}
 .single-product .single-product-options .single-product-options__frame {
   width: 50px;
   height: 50px;
@@ -2289,7 +2222,9 @@ p {
   color: var(--m-text);
   text-align: center;
   flex-grow: 1;
+  -webkit-appearance: textfield;
   -moz-appearance: textfield;
+  appearance: textfield;
 }
 .cf-item .cf-item__quantity .quantity-number::-webkit-inner-spin-button,
 .cf-item .cf-item__quantity .quantity-number::-webkit-outer-spin-button {

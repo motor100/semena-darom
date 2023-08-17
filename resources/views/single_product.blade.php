@@ -81,23 +81,12 @@
         </div>
         <div class="add-to-cart-wrapper hidden-mobile">
           <button class="add-to-cart-btn add-to-cart" data-id="{{ $product->id }}">Добавить в корзину</button>
-          <!-- 
-          <div class="single-product-quantity">
-            <button type="button" class="quantity-button quantity-minus" data-id="{{ $product->id }}">
-              <div class="circle"></div>
-            </button>
-            <input class="quantity-number" type="number" name="quantity" max="{{ $product->stock }}" min="1" step="1" data-id="{{ $product->id }}" value="{{ $product->quantity }}" readonly>
-            <button type="button" class="quantity-button quantity-plus" data-id="{{ $product->id }}">
-              <div class="circle"></div>
-            </button>
-          </div>
-           -->
         </div>
 
         <div class="single-product-options single-product-category">
           <div class="single-product-options__frame">
             <div class="single-product-options__image">
-              <img src="{{ asset('storage/uploads/categories/' . $product->category->image) }}" alt="">
+              <img src="{{ Storage::url($product->category->image) }}" alt="">
             </div>
           </div>
           <div class="single-product-options__title">{{ $product->category->title }}</div>

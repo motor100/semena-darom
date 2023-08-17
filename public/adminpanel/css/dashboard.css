@@ -37,7 +37,9 @@
   height: 300px;
 }
 .input-number {
+  -webkit-appearance: textfield;
   -moz-appearance: textfield;
+  appearance: textfield;
 }
 .input-number::-webkit-inner-spin-button,
 .input-number::-webkit-outer-spin-button {
