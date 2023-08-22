@@ -264,11 +264,12 @@ p {
   min-width: 42px;
   height: 42px;
   margin: 0 8px;
-  padding: 5px 15px;
+  padding: 5px 0;
   border-radius: 21px;
   background-color: var(--m-dop-grey);
   font-family: 'arimo-semibold';
   font-size: 20px;
+  text-align: center;
   transition: all .3s;
 }
 .pager .pager-item:hover:not(.disabled) {

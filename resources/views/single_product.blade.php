@@ -199,5 +199,4 @@
     });
     lightbox.init();
   </script>
-  <!-- <script type="module" src="{{ asset('/js/photoswipe.esm.js') }}"></script> -->
 @endsection
