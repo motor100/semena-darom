@@ -51,7 +51,7 @@ Route::post('/rmfromcart', [MainController::class, 'rm_from_cart']);
 
 Route::get('/create-order', [MainController::class, 'create_order']);
 
-Route::post('create-order-handler', [MainController::class, 'create_order_handler']);
+Route::post('/create-order-handler', [MainController::class, 'create_order_handler']);
 
 Route::get('/thankyou', [MainController::class, 'thankyou'])->name('thankyou');
 
