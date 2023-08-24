@@ -75,7 +75,7 @@ class ViewServiceProvider extends ServiceProvider
                 $view->with('products_in_cart', $products_in_cart);
             }
 
-            // Products in favourites
+            // Count products in favourites
             $favourites = json_decode(\Illuminate\Support\Facades\Cookie::get('favourites'), true);
 
             if ($favourites) {
