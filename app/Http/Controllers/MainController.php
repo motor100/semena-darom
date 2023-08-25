@@ -201,7 +201,7 @@ class MainController extends Controller
 
     public function clear_favourites()
     {
-        // Удалендие из куки favourites через фасад Cookie метод forget
+        // Удаление из куки favourites через фасад Cookie метод forget
         \Illuminate\Support\Facades\Cookie::queue(\Illuminate\Support\Facades\Cookie::forget('favourites'));
 
         return redirect('/favourites');
@@ -368,7 +368,6 @@ class MainController extends Controller
 
             // Записываю новый массив в куки через фасад Cookie метод queue
             \Illuminate\Support\Facades\Cookie::queue('cart', $cart_json, 525600);
-
         }
 
         return redirect('/cart');
@@ -386,26 +385,16 @@ class MainController extends Controller
 
     public function politika_konfidencialnosti()
     {
-        // $page = \App\Models\Page::where('id', 2)->first();
-
-        // return view('text-page', compact('page'));
         return view('politika-konfidencialnosti');
     }
 
     public function polzovatelskoe_soglashenie_s_publichnoj_ofertoj()
     {
-        // $page = \App\Models\Page::where('id', 1)->first();
-
-        // return view('text-page', compact('page'));
-
         return view('polzovatelskoe-soglashenie-s-publichnoj-ofertoj');
     }
 
     public function garantiya_vozvrata_denezhnyh_sredstv()
     {
-        // $page = \App\Models\Page::where('id', 3)->first();
-
-        // return view('text-page', compact('page'));
         return view('garantiya-vozvrata-denezhnyh-sredstv');
     }
 
@@ -429,8 +418,6 @@ class MainController extends Controller
                 'city' => $city["city"]
             ];
 
-            // dd(mb_detect_encoding($city["city"])); 
-            // iconv("UTF-8", "windows-1251", $string);
             $city_json = json_encode($city_array);
 
             // Установка куки через фасад Cookie метод queue
@@ -460,7 +447,7 @@ class MainController extends Controller
         }
         
         // Во всех других случаях
-        abort(404);
+        return abort(404);
     }
 
     public function sitemap()

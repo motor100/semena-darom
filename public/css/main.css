@@ -264,7 +264,7 @@ p {
   min-width: 42px;
   height: 42px;
   margin: 0 8px;
-  padding: 5px 0;
+  padding: 5px 8px;
   border-radius: 21px;
   background-color: var(--m-dop-grey);
   font-family: 'arimo-semibold';
