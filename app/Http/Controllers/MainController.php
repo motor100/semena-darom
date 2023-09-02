@@ -129,15 +129,7 @@ class MainController extends Controller
                 $product->promo_price = str_replace('.0', '', $product->promo_price);
                 
                 // Заголовок в 2 цвета
-                // функция в common
-                $words_array = explode(" ", $product->title);
-                if (count($words_array) > 1) {
-                    $first_word = "<span class=\"grey-text\">" . $words_array[0] . "</span>";
-                    $words_array[0] = $first_word;
-                    $product->color_title = implode(" ", $words_array);
-                } else {
-                    $product->color_title = "<span class=\"grey-text\">" . $product->title . "</span>";
-                }
+                $product->color_title = (new \App\Services\SingleProduct($product->title))->double_color_title();
 
                 $product->category = \App\Models\Category::where('id', $product->category_id)->first();
 

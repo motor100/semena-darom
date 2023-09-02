@@ -24,6 +24,4 @@ class AppServiceProvider extends ServiceProvider
 
         Paginator::defaultView('pagination.custom');
     }
-
-
 }

@@ -46,17 +46,16 @@ Route::prefix('admin')->group(static function () {
         Route::post('logout', [AuthenticatedSessionController::class, 'destroy'])
                     ->name('admin.logout');
 
-
         // Админ панель
         Route::get('/', [AdminController::class, 'home'])->name('admin.index');
 
         Route::get('/profile', [AdminController::class, 'profile'])
                     ->middleware('password.confirm.admin')
                     ->name('admin.profile');
-        Route::patch('/profile', [AdminController::class, 'update'])->name('admin.profile.update');
-        Route::delete('/profile', [AdminController::class, 'destroy'])->name('admin.profile.destroy');
 
-        // Route::get('/dashboard', [AdminController::class, 'home'])->name('dashboard');
+        Route::patch('/profile', [AdminController::class, 'update'])->name('admin.profile.update');
+
+        Route::delete('/profile', [AdminController::class, 'destroy'])->name('admin.profile.destroy');
 
         Route::get('/main-slider', [MainSliderController::class, 'index']);
 
@@ -92,15 +91,15 @@ Route::prefix('admin')->group(static function () {
 
         Route::get('/orders/{id}', [AdminController::class, 'orders_show'])->name('admin.orders-show');
 
-        Route::post('order/{id}/update', [AdminController::class, 'order_update'])->name('admin.order-update');
+        Route::post('/order/{id}/update', [AdminController::class, 'order_update'])->name('admin.order-update');
 
-        Route::get('order/{id}/print', [AdminController::class, 'order_print'])->name('admin.order-print');
+        Route::get('/order/{id}/print', [AdminController::class, 'order_print'])->name('admin.order-print');
 
-        Route::get('order/{id}/check', [AdminController::class, 'order_check'])->name('admin.order-check');
+        Route::get('/order/{id}/check', [AdminController::class, 'order_check'])->name('admin.order-check');
 
-        Route::get('order/{id}/sdek-create-order', [CdekController::class, 'cdek_create_order'])->name('admin.cdek-create-order');
+        Route::get('/order/{id}/sdek-create-order', [CdekController::class, 'cdek_create_order'])->name('admin.cdek-create-order');
 
-        Route::get('order/{id}/sdek-download-waybill', [CdekController::class, 'cdek_download_waybill'])->name('admin.cdek-download-waybill');
+        Route::get('/order/{id}/sdek-download-waybill', [CdekController::class, 'cdek_download_waybill'])->name('admin.cdek-download-waybill');
 
         Route::post('/testimonials-update', [AdminController::class, 'testimonials_update']);
 
@@ -119,9 +118,6 @@ Route::prefix('admin')->group(static function () {
         Route::post('/garantiya-vozvrata-denezhnyh-sredstv/update', [AdminController::class, 'garantiya_vozvrata_denezhnyh_sredstv_update']);
 
         Route::get('/page-404', [AdminController::class, 'page_404']);
-
-        // Route::fallback([AdminController::class, 'page_404']);
-
     });
 });
 

@@ -10,7 +10,7 @@
 
             <!-- Identity -->
             <div>
-                <x-label for="identity" :value="__('Admin Email')" />
+                <x-label for="email" :value="__('Admin Email')" />
 
                 <x-input id="email" class="block mt-1 w-full" type="text" name="email" :value="old('email')" required autofocus />
             </div>

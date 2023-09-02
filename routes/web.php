@@ -67,11 +67,9 @@ Route::get('/poisk', [MainController::class, 'poisk']);
 
 Route::post('/set-city', [MainController::class, 'set_city']);
 
+
 // Sitemap
 Route::get('/sitemap.xml', [MainController::class, 'sitemap']);
-
-// temp
-Route::get('/weight', [DeliveryController::class, 'get_weight']);
 
 
 // ajax
@@ -100,13 +98,6 @@ Route::post('/ajax/sdek', [DeliveryController::class, 'sdek']);
 Route::post('/ajax/russian-post', [DeliveryController::class, 'russian_post']);
 
 Route::post('/ajax/ordercheck', [AjaxController::class, 'ajax_ordercheck']);
-
-// temp
-Route::get('/sdek', [DeliveryController::class, 'sdek']);
-
-Route::get('/sdek-create-order', [DeliveryController::class, 'create_order']);
-
-Route::get('/sdek-download-document', [DeliveryController::class, 'download_document']);
 
 
 // Личный кабинет

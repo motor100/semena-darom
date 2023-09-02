@@ -955,7 +955,7 @@ document.addEventListener("DOMContentLoaded", () => {
         })
         .then((response) => response.json())
         .then((json) => {
-          // Если в объекте есть ключ message, то не найдено
+          // Если в объекте есть ключ message, то ошибка
           if (typeof json.message !== "undefined") {
             alert("Ошибка");
           } else {

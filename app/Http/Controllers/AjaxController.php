@@ -5,11 +5,11 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Product;
 use App\Models\Testimonial;
-
+use Illuminate\Http\JsonResponse;
 
 class AjaxController extends Controller
 {
-    public function ajax_product_search(Request $request)
+    public function ajax_product_search(Request $request): JsonResponse
     {
         $search_query = $request->input('search_query');
 
@@ -28,7 +28,7 @@ class AjaxController extends Controller
         return response()->json($products);
     }
 
-    public function ajax_add_to_cart(Request $request)
+    public function ajax_add_to_cart(Request $request): JsonResponse
     {
         $id = $request->input('id');
 
@@ -69,7 +69,7 @@ class AjaxController extends Controller
         return response()->json($products);
     }
 
-    public function ajax_plus_cart(Request $request)
+    public function ajax_plus_cart(Request $request): bool
     {   
         $id = $request->input('id');
 
@@ -86,7 +86,7 @@ class AjaxController extends Controller
         return false;
     }
 
-    public function ajax_minus_cart(Request $request)
+    public function ajax_minus_cart(Request $request): bool
     {   
         $id = $request->input('id');
 
@@ -106,7 +106,7 @@ class AjaxController extends Controller
         return false;
     }
 
-    public function ajax_add_to_favourites(Request $request)
+    public function ajax_add_to_favourites(Request $request): int
     {
         $id = $request->input('id');
 
@@ -141,7 +141,7 @@ class AjaxController extends Controller
         return $favourites_count;
     }
 
-    public function ajax_testimonial(Request $request)
+    public function ajax_testimonial(Request $request): JsonResponse
     {
         $validator = \Illuminate\Support\Facades\Validator::make($request->all(), [
             'name' => 'required|min:4|max:50',
@@ -185,10 +185,9 @@ class AjaxController extends Controller
                 ]);
 
         return response()->json($testimonial);
-
     }
 
-    public function ajax_we_use_cookie()
+    public function ajax_we_use_cookie(): bool
     {
         // Записываю в куки через фасад Cookie метод queue
         \Illuminate\Support\Facades\Cookie::queue('we-use-cookie', 'yes', 525600);
@@ -196,7 +195,7 @@ class AjaxController extends Controller
         return false;
     }
 
-    public function ajax_city_select(Request $request)
+    public function ajax_city_select(Request $request): JsonResponse
     {
         if (!$request->has('city')) {
             return response()->json(['message' => 'error']);
@@ -215,7 +214,7 @@ class AjaxController extends Controller
         return response()->json($cities);
     }
 
-    public function ajax_city(Request $request)
+    public function ajax_city(Request $request): JsonResponse
     {
         $city = $request->input('city');
 
@@ -225,7 +224,7 @@ class AjaxController extends Controller
         return response()->json(['message' => 'error']);
     }
 
-    public function ajax_ordercheck(Request $request)
+    public function ajax_ordercheck(Request $request): mixed
     {   
         $order_id = $request->input('order_id');
         $code = $request->input('search_query');
