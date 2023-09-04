@@ -8,7 +8,7 @@
 
   <div class="edit-item">
 
-    <h5 class="lk-login-text">Обновить данные</h5>
+    <h5 class="lk-login-text mb-3">Обновить данные</h5>
     <form id="send-verification" class="form" action="{{ route('verification.send') }}" method="post">
         @csrf
     </form>
@@ -33,7 +33,7 @@
 
   <div class="edit-item">
 
-    <h5 class="lk-login-text">Обновить пароль</h5>
+    <h5 class="lk-login-text mb-3">Обновить пароль</h5>
     
     <form class="form mb-5" action="{{ route('password.update') }}" method="post">
       @csrf
@@ -61,7 +61,7 @@
 
   <div class="edit-item">
 
-    <h5 class="lk-login-text">Удалить профиль</h5>
+    <h5 class="lk-login-text mb-3">Удалить профиль</h5>
     <form class="form mb-5" action="{{ route('admin.profile.destroy') }}" method="post">
       @csrf
       @method('delete')
