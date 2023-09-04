@@ -13,26 +13,16 @@ use Illuminate\View\View;
 
 class AdminController extends Controller
 {
-    public function home()
+    public function home(): View
     {
         return view('dashboard.home');
     }
 
-    public function profile()
+    public function profile(): View
     {
         $admin = Auth::guard('admin')->user();
 
         return view('dashboard.profile', compact('admin'));
-    }
-
-    /**
-     * Display the user's profile form.
-     */
-    public function edit(Request $request): View
-    {
-        return view('dashboard.profile', [
-            'user' => Auth::guard('admin')->user(),
-        ]);
     }
 
     /**
@@ -69,11 +59,10 @@ class AdminController extends Controller
         $request->session()->invalidate();
         $request->session()->regenerateToken();
 
-        return Redirect::to('/');
+        return redirect('/');
     }
 
-
-    public function testimonials()
+    public function testimonials(): View
     {
         $testimonials = \App\Models\Testimonial::whereNull('publicated_at')
                                         ->orderBy('created_at', 'desc')
@@ -83,7 +72,7 @@ class AdminController extends Controller
         return view('dashboard.testimonials', compact('testimonials'));
     }
 
-    public function orders()
+    public function orders(): View
     {
         $orders = \App\Models\Order::orderBy('id', 'desc')
                                     ->limit(200)
@@ -94,7 +83,7 @@ class AdminController extends Controller
         return view('dashboard.orders', compact('orders'));
     }
 
-    public function orders_show($id)
+    public function orders_show($id): View
     {
         $order = \App\Models\Order::findOrFail($id);
 
@@ -120,7 +109,7 @@ class AdminController extends Controller
         return view('dashboard.order', compact('order', 'is_waybill'));
     }
 
-    public function order_update(Request $request)
+    public function order_update(Request $request): RedirectResponse
     {
         $id = $request->input('id');
         $status = $request->input('status');
@@ -138,7 +127,7 @@ class AdminController extends Controller
         return redirect('/admin/orders');
     }
 
-    public function order_print($id)
+    public function order_print($id): View
     {   
         $order = \App\Models\Order::findOrFail($id);
 
@@ -147,7 +136,7 @@ class AdminController extends Controller
         return view('dashboard.order-print', compact('id', 'products'));
     }
 
-    public function order_check($id)
+    public function order_check($id): View
     {
         $order = \App\Models\Order::findOrFail($id);
 
@@ -168,7 +157,7 @@ class AdminController extends Controller
         return view('dashboard.order-check', compact('id', 'products', 'total'));
     }
 
-    public function testimonials_update(Request $request)
+    public function testimonials_update(Request $request): RedirectResponse
     {   
         $validated = $request->validate([
             'id' => 'required|numeric',
@@ -187,7 +176,7 @@ class AdminController extends Controller
         return redirect('/dashboard/testimonials');
     }
 
-    public function testimonials_destroy(Request $request)
+    public function testimonials_destroy(Request $request): RedirectResponse
     {   
         $id = $request->input('id');
 
@@ -205,14 +194,14 @@ class AdminController extends Controller
         return redirect('/dashboard/testimonials');
     }
 
-    public function polzovatelskoe_soglashenie_s_publichnoj_ofertoj()
+    public function polzovatelskoe_soglashenie_s_publichnoj_ofertoj(): View
     {
         $page = \App\Models\Page::where('id', 1)->first();
 
         return view('dashboard.text-page', compact('page'));
     }
 
-    public function polzovatelskoe_soglashenie_s_publichnoj_ofertoj_update(Request $request)
+    public function polzovatelskoe_soglashenie_s_publichnoj_ofertoj_update(Request $request): RedirectResponse
     {
         $page = Page::where('id', 1)
                     ->update([
@@ -222,14 +211,14 @@ class AdminController extends Controller
         return redirect('/dashboard/politika-konfidencialnosti');
     }
 
-    public function politika_konfidencialnosti()
+    public function politika_konfidencialnosti(): View
     {
         $page = \App\Models\Page::where('id', 2)->first();
 
         return view('dashboard.text-page', compact('page'));
     }
 
-    public function politika_konfidencialnosti_update(Request $request)
+    public function politika_konfidencialnosti_update(Request $request): RedirectResponse
     {
         $page = Page::where('id', 2)
                     ->update([
@@ -239,14 +228,14 @@ class AdminController extends Controller
         return redirect('/dashboard/politika-konfidencialnosti');
     }
 
-    public function garantiya_vozvrata_denezhnyh_sredstv()
+    public function garantiya_vozvrata_denezhnyh_sredstv(): View
     {
         $page = \App\Models\Page::where('id', 3)->first();
 
         return view('dashboard.text-page', compact('page'));
     }
 
-    public function garantiya_vozvrata_denezhnyh_sredstv_update(Request $request)
+    public function garantiya_vozvrata_denezhnyh_sredstv_update(Request $request): RedirectResponse
     {
         $page = Page::where('id', 3)
                     ->update([
@@ -256,7 +245,7 @@ class AdminController extends Controller
         return redirect('/dashboard/politika-konfidencialnosti');
     }
 
-    public function page_404(Request $request)
+    public function page_404(Request $request): View
     {
         return view('dashboard.404');
     }
