@@ -5,16 +5,19 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\MainSlider;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\View\View;
 
 class MainSliderController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(): View
     {
-        $sliders = MainSlider::all();
+        // LIFO
+        $sliders = MainSlider::orderby('id', 'desc')->get();
 
         return view('dashboard.main-slider', compact('sliders'));
     }
@@ -22,7 +25,7 @@ class MainSliderController extends Controller
     /**
      * Show the form for creating a new resource.
      */
-    public function create()
+    public function create(): View
     {
         return view('dashboard.main-slider-create');
     }
@@ -30,7 +33,7 @@ class MainSliderController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(Request $request): RedirectResponse
     {
         $validated = $request->validate([
             'title' => 'required|min:4|max:255',
@@ -46,13 +49,13 @@ class MainSliderController extends Controller
             'image' => $path
         ]);
 
-        return redirect('/dashboard/main-slider');
+        return redirect('/admin/main-slider');
     }
 
     /**
      * Display the specified resource.
      */
-    public function show(string $id)
+    public function show(string $id): View
     {
         $slide = MainSlider::findOrFail($id);
 
@@ -62,7 +65,7 @@ class MainSliderController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(string $id)
+    public function edit(string $id): View
     {
         $slide = MainSlider::findOrFail($id);
 
@@ -72,7 +75,7 @@ class MainSliderController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request)
+    public function update(Request $request): RedirectResponse
     {
         $validated = $request->validate([
             'id' => 'required|numeric',
@@ -97,13 +100,13 @@ class MainSliderController extends Controller
                 'image' => $path,
         ]);
 
-        return redirect('/dashboard/main-slider');
+        return redirect('/admin/main-slider');
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy(string $id): RedirectResponse
     {
         $slide = MainSlider::find($id);
 
@@ -114,6 +117,6 @@ class MainSliderController extends Controller
 
         $slide->delete();
 
-        return redirect('/dashboard/main-slider');
+        return redirect('/admin/main-slider');
     }
 }

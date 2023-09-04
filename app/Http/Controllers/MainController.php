@@ -13,8 +13,8 @@ class MainController extends Controller
 {
     public function home()
     {
-        // Main slider
-        $sliders = MainSlider::all();
+        // Main slider LIFO
+        $sliders = MainSlider::orderby('id', 'desc')->get();
 
         // Хит недели
         $hit_products = Product::whereNotNull('property')
