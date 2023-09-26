@@ -254,7 +254,7 @@ document.addEventListener("DOMContentLoaded", () => {
     let classList = event.target.classList;
     for (let j = 0; j < classList.length; j++) {
       if (classList[j] == "modal" || classList[j] == "modal-wrapper" || classList[j] == "modal-window") {
-        modalClose(citySelectModalWindow);
+        modalWindowClose(citySelectModalWindow);
         citySelectModalClose();
       }
     }
@@ -349,29 +349,27 @@ document.addEventListener("DOMContentLoaded", () => {
 
   selectCityBtns.forEach((item) => {
     item.onclick = function () {
-      modalOpen(selectCityModal);
+      modalWindowOpen(selectCityModal);
     }
   });
   
   callbackBtns.forEach((item) => {
     item.onclick = function () {
-      modalOpen(callbackModal);
+      modalWindowOpen(callbackModal);
     }
   });
 
   if (testimonialsBtn) {
     testimonialsBtn.onclick = function () {
-      modalOpen(testimonialsModal);
+      modalWindowOpen(testimonialsModal);
     }
   }
+  
+  function modalWindowOpen(win) {
+    // Закрытие мобильного меню
+    closeAllMobileMenu();
 
-  // if (payInfoBtn) {
-  //   payInfoBtn.onclick = function () {
-  //     modalOpen(callbackModal);
-  //   }
-  // }
-
-  function modalOpen(win) {
+    // Открытие окна
     body.classList.add('overflow-hidden');
     win.classList.add('active');
     setTimeout(function(){
@@ -381,7 +379,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
   for (let i=0; i < modalCloseBtn.length; i++) {
     modalCloseBtn[i].onclick = function() {
-      modalClose(modalWindow[i]);
+      modalWindowClose(modalWindow[i]);
     }
   }
 
@@ -390,13 +388,13 @@ document.addEventListener("DOMContentLoaded", () => {
       let classList = event.target.classList;
       for (let j = 0; j < classList.length; j++) {
         if (classList[j] == "modal" || classList[j] == "modal-wrapper" || classList[j] == "modal-window") {
-          modalClose(modalWindow[i])
+          modalWindowClose(modalWindow[i])
         }
       }
     }
   }
 
-  function modalClose(win) {
+  function modalWindowClose(win) {
     body.classList.remove('overflow-hidden');
     win.childNodes[1].classList.remove('active');
     setTimeout(function(){
@@ -407,14 +405,14 @@ document.addEventListener("DOMContentLoaded", () => {
   
 
   // Phone mask
-  let elementPhone = document.querySelectorAll('.js-input-phone-mask');
+  const elementPhone = document.querySelectorAll('.js-input-phone-mask');
 
-  let maskOptionsPhone = {
+  const maskOptionsPhone = {
     mask: '+{7} (000) 000 00 00'
   };
 
   elementPhone.forEach((item) => {
-    let mask = IMask(item, maskOptionsPhone);
+    const mask = IMask(item, maskOptionsPhone);
   });
 
 
@@ -458,10 +456,8 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   // mobile menu
-  // let burgerMenuWrapper = document.querySelector('.burger-menu-wrapper'),
   const burgerMenuWrapper = document.querySelector('.burger-menu-wrapper'),
-        mobileMenu = document.querySelector('.mobile-menu'),
-        burgerMenu = document.querySelector('.burger-menu');
+        mobileMenu = document.querySelector('.mobile-menu');
 
   burgerMenuWrapper.onclick = function() {
     if (burgerMenuWrapper.classList.contains('menu-is-open')) {

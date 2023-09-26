@@ -14,7 +14,7 @@
         @if(count($testimonials) > 0)
           @foreach($testimonials as $ts)
             <div class="item">
-              <form class="form" action="/dashboard/testimonials-update" method="post">
+              <form class="form" action="/admin/testimonials-update" method="post">
                 <div class="form-group mb-3">
                   <label for="inputName" class="form-check-label">Имя</label>
                   <input type="text" name="name" id="inputName" class="form-control" value="{{ $ts->name }}" required>
@@ -27,7 +27,7 @@
                 @csrf
                 <button type="submit" class="publicate-btn btn btn-primary">опубликовать</button>
               </form>
-              <form class="form rm-testimonial-form" action="/dashboard/testimonials-destroy" method="post">
+              <form class="form rm-testimonial-form" action="/admin/testimonials-destroy" method="post">
                 <input type="hidden" name="id" value="{{ $ts->id }}">
                 @csrf
                 <button type="submit" class="rm-btn btn btn-secondary">удалить</button>

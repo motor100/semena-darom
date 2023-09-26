@@ -6,6 +6,9 @@ use App\Http\Controllers\Admin\AdminController;
 use App\Http\Controllers\Admin\CdekController;
 use App\Http\Controllers\Admin\MainSliderController;
 use App\Http\Controllers\Admin\PromoController;
+use App\Http\Controllers\Admin\ProfileController;
+use App\Http\Controllers\Admin\TestimonialController;
+use App\Http\Controllers\Admin\OrderController;
 
 
 /*
@@ -49,13 +52,15 @@ Route::prefix('admin')->group(static function () {
         // Админ панель
         Route::get('/', [AdminController::class, 'home'])->name('admin.index');
 
-        Route::get('/profile', [AdminController::class, 'profile'])
+        Route::get('/profile', [ProfileController::class, 'edit'])
                     ->middleware('password.confirm.admin')
                     ->name('admin.profile');
 
-        Route::patch('/profile', [AdminController::class, 'update'])->name('admin.profile.update');
+        Route::put('password', [ProfileController::class, 'new_password'])->name('admin.newpassword');
 
-        Route::delete('/profile', [AdminController::class, 'destroy'])->name('admin.profile.destroy');
+        Route::patch('/profile', [ProfileController::class, 'update'])->name('admin.profile.update');
+
+        Route::delete('/profile', [ProfileController::class, 'destroy'])->name('admin.profile.destroy');
 
         Route::get('/main-slider', [MainSliderController::class, 'index']);
 
@@ -85,25 +90,25 @@ Route::prefix('admin')->group(static function () {
 
         Route::get('/promos/{id}/destroy', [PromoController::class, 'destroy'])->name('promos-destroy');
 
-        Route::get('/testimonials', [AdminController::class, 'testimonials'])->name('admin.testimonials');
+        Route::get('/orders', [OrderController::class, 'index'])->name('admin.orders');
 
-        Route::get('/orders', [AdminController::class, 'orders'])->name('admin.orders');
+        Route::get('/orders/{id}', [OrderController::class, 'show'])->name('admin.orders-show');
 
-        Route::get('/orders/{id}', [AdminController::class, 'orders_show'])->name('admin.orders-show');
+        Route::post('/order/{id}/update', [OrderController::class, 'update'])->name('admin.order-update');
 
-        Route::post('/order/{id}/update', [AdminController::class, 'order_update'])->name('admin.order-update');
+        Route::get('/order/{id}/print', [OrderController::class, 'print'])->name('admin.order-print');
 
-        Route::get('/order/{id}/print', [AdminController::class, 'order_print'])->name('admin.order-print');
-
-        Route::get('/order/{id}/check', [AdminController::class, 'order_check'])->name('admin.order-check');
+        Route::get('/order/{id}/check', [OrderController::class, 'check'])->name('admin.order-check');
 
         Route::get('/order/{id}/sdek-create-order', [CdekController::class, 'cdek_create_order'])->name('admin.cdek-create-order');
 
         Route::get('/order/{id}/sdek-download-waybill', [CdekController::class, 'cdek_download_waybill'])->name('admin.cdek-download-waybill');
 
-        Route::post('/testimonials-update', [AdminController::class, 'testimonials_update']);
+        Route::get('/testimonials', [TestimonialController::class, 'index'])->name('admin.testimonials');
 
-        Route::post('/testimonials-destroy', [AdminController::class, 'testimonials_destroy']);
+        Route::post('/testimonials-update', [TestimonialController::class, 'update']);
+
+        Route::post('/testimonials-destroy', [TestimonialController::class, 'destroy']);
 
         Route::get('/polzovatelskoe-soglashenie-s-publichnoj-ofertoj', [AdminController::class, 'polzovatelskoe_soglashenie_s_publichnoj_ofertoj']);
 

@@ -32,7 +32,7 @@
           <input type="password" name="password" id="password" class="input-field" required>
         </div>
         <div class="checkbox-wrapper">
-          <input type="checkbox" name="remember_me" class="custom-checkbox" id="checkbox-remember">
+          <input type="checkbox" name="remember_me" class="custom-checkbox" id="checkbox-remember" checked>
           <label for="checkbox-remember" class="custom-checkbox-label"></label>
           <span class="checkbox-text">Запомнить меня</span>
         </div>

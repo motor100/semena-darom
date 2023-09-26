@@ -236,8 +236,6 @@
     </div>
   @endif
 
-  
-
 </div>
 
 @endsection

@@ -142,12 +142,10 @@ class MainController extends Controller
                 $product->galleries->slice(0, 3);
 
                 return view('single_product', compact('product'));
-            } else {
-                return abort(404);
             }
-        } else {
-            return redirect('/');
         }
+
+        return abort(404);
     }
 
     public function favourites(Request $request)

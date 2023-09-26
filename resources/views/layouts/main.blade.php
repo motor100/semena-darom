@@ -10,9 +10,9 @@
   @yield('robots')
   <link rel="shortcut icon" href="{{ asset('/img/favicon.svg') }}" type="image/x-icon">
   <link rel="stylesheet" href="{{ asset('/css/bootstrap-grid.min.css') }}">
+  <link rel="stylesheet" href="{{ asset('/css/swiper-bundle.min.css') }}">
   @yield('style')
   <link rel="stylesheet" href="{{ asset('/css/main.css') }}">
-  <link rel="stylesheet" href="{{ asset('/css/swiper-bundle.min.css') }}">
   <title>@yield('title', config('app.name') )</title>
 </head>
 
@@ -769,8 +769,8 @@
   @endif
 
   @yield('script')
-  <script src="{{ asset('/js/swiper-bundle.min.js') }}"></script>
   <script src="{{ asset('/js/imask.min.js') }}"></script>
+  <script src="{{ asset('/js/swiper-bundle.min.js') }}"></script>
   <script src="{{ asset('/js/main.js') }}"></script>
   
 </body>
