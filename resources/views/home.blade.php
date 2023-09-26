@@ -137,20 +137,22 @@
     </div>
   </div>
 
-  <div class="popular-categories-section section">
-    <div class="section-title">
-      <div class="section-title__text">Хит недели</div>
-    </div>
-    <div class="popular-categories">
-      <div class="row">
-        @foreach($hit_products as $product)
-        <div class="col-md-4 col-6 {{ $loop->last ? 'd-md-none' : '' }}">
-            @include('regular-products-item')
-          </div>
-        @endforeach
+  @if($hit_products->count() > 0)
+    <div class="popular-categories-section section">
+      <div class="section-title">
+        <div class="section-title__text">Хит недели</div>
+      </div>
+      <div class="popular-categories">
+        <div class="row">
+          @foreach($hit_products as $product)
+          <div class="col-md-4 col-6 {{ $loop->last ? 'd-md-none' : '' }}">
+              @include('regular-products-item')
+            </div>
+          @endforeach
+        </div>
       </div>
     </div>
-  </div>
+  @endif
 
   @if($promos->count() == 3)
     <div class="promo-section section">
