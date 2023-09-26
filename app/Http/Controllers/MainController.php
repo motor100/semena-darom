@@ -244,13 +244,18 @@ class MainController extends Controller
         // Получение аутентифицированного пользователя
         $user = $request->user();
 
-        // Вставить city_id
+        // Получение id города
+        $city = json_decode(\Illuminate\Support\Facades\Cookie::get('city'), true);
+
+        $city_id = !$city ? '41' : $city['id'];
+
         // Создаю новую модель Order и получаю id новой записи
         $order_id = \App\Models\Order::insertGetId([
             'first_name' => $validated['first-name'],
             'last_name' => $validated['last-name'],
             'phone'=> $phone,
             'email'=> $validated['email'],
+            'city_id' => $city_id,
             'address'=> $validated['address'],
             'price' => $validated['summ'],
             'user_id' => $user ? $user->id : NULL,
