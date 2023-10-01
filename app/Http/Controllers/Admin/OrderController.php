@@ -105,19 +105,33 @@ class OrderController extends Controller
         //
     }
 
+    /**
+     * Prepare to print
+     * @param string $id
+     * @return Illuminate\View\View
+     */
     public function print(string $id): View
-    {   
+    {
+        // Получаю модель заказа
         $order = \App\Models\Order::findOrFail($id);
 
+        // Сортировка товаров в отдельном классе
         $products = (new \App\Services\ProductSort($order))->get();
 
         return view('dashboard.order-print', compact('id', 'products'));
     }
 
+    /**
+     * Check order and listing products
+     * @param string $id
+     * @return Illuminate\View\View
+     */
     public function check(string $id): View
     {
+        // Получаю модель заказа
         $order = \App\Models\Order::findOrFail($id);
-
+        
+        // Сортировка товаров в отдельном классе
         $products = (new \App\Services\ProductSort($order))->get();
 
         $total = [
@@ -131,7 +145,7 @@ class OrderController extends Controller
             // Расчет суммы всех товаров
             $total["summ"] += $product->summ;
         }
-
+        
         return view('dashboard.order-check', compact('id', 'products', 'total'));
     }
 }

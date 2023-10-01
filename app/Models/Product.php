@@ -13,7 +13,7 @@ class Product extends Model
     // protected $connection = 'mysql2';
 
     /**
-     * Получить галлерею товара.
+     * Получить галерею товара.
      */
     public function galleries()
     {
