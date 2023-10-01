@@ -8,7 +8,4 @@ use Illuminate\Database\Eloquent\Model;
 class Category extends Model
 {
     use HasFactory;
-
-    // Connection
-    protected $connection = 'mysql2';
 }
