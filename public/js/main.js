@@ -337,15 +337,14 @@ document.addEventListener("DOMContentLoaded", () => {
 
 
   // Окна
-  let modalWindow = document.querySelectorAll('.modal-window'),
-      selectCityBtns = document.querySelectorAll('.city-select-btn'),
-      selectCityModal = document.querySelector('#select-city-modal'),
-      callbackBtns = document.querySelectorAll('.js-callback-btn'),
-      callbackModal = document.querySelector('#callback-modal'),
-      testimonialsBtn = document.querySelector('.testimonials-btn'),
-      testimonialsModal = document.querySelector('#testimonials-modal'),
-      // payInfoBtn = document.querySelector('.dostavka-i-oplata .pay-info-btn'),
-      modalCloseBtn = document.querySelectorAll('.modal-window .modal-close');
+  const modalWindows = document.querySelectorAll('.modal-window');
+  const selectCityBtns = document.querySelectorAll('.city-select-btn');
+  const selectCityModal = document.querySelector('#select-city-modal');
+  const callbackBtns = document.querySelectorAll('.js-callback-btn');
+  const callbackModal = document.querySelector('#callback-modal');
+  const testimonialsBtn = document.querySelector('.testimonials-btn');
+  const testimonialsModal = document.querySelector('#testimonials-modal');
+  const modalCloseBtns = document.querySelectorAll('.modal-window .modal-close');
 
   selectCityBtns.forEach((item) => {
     item.onclick = function () {
@@ -377,18 +376,18 @@ document.addEventListener("DOMContentLoaded", () => {
     }, 200);
   }
 
-  for (let i=0; i < modalCloseBtn.length; i++) {
-    modalCloseBtn[i].onclick = function() {
-      modalWindowClose(modalWindow[i]);
+  for (let i=0; i < modalCloseBtns.length; i++) {
+    modalCloseBtns[i].onclick = function() {
+      modalWindowClose(modalWindows[i]);
     }
   }
 
-  for (let i = 0; i < modalWindow.length; i++) {
-    modalWindow[i].onclick = function(event) {
+  for (let i = 0; i < modalWindows.length; i++) {
+    modalWindows[i].onclick = function(event) {
       let classList = event.target.classList;
       for (let j = 0; j < classList.length; j++) {
         if (classList[j] == "modal" || classList[j] == "modal-wrapper" || classList[j] == "modal-window") {
-          modalWindowClose(modalWindow[i])
+          modalWindowClose(modalWindows[i])
         }
       }
     }
@@ -397,11 +396,10 @@ document.addEventListener("DOMContentLoaded", () => {
   function modalWindowClose(win) {
     body.classList.remove('overflow-hidden');
     win.childNodes[1].classList.remove('active');
-    setTimeout(function(){
+    setTimeout(() => {
       win.classList.remove('active');
     }, 300);
   }
-
   
 
   // Phone mask
