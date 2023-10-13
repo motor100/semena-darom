@@ -3,10 +3,17 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use Illuminate\Http\RedirectResponse;
+use Symfony\Component\HttpFoundation\BinaryFileResponse;
 
 class CdekController extends Controller
 {
-    public function cdek_create_order($id)
+    /**
+     * Создание заказа СДЕК
+     * @param integer $id
+     * @return Illuminate\Http\RedirectResponse
+     */
+    public function cdek_create_order($id): RedirectResponse
     {
         // Получаю модель заказа
         $order = \App\Models\Order::findOrFail($id);
@@ -29,7 +36,12 @@ class CdekController extends Controller
         return redirect()->back()->with('status', 'Заказ отправлен в СДЕК. Для получения квитанции обновите страницу через некоторое время.');
     }
 
-    public function cdek_download_waybill($id)
+    /**
+     * Скачать квитанцию СДЕК
+     * @param integer $id
+     * @return Symfony\Component\HttpFoundation\BinaryFileResponse
+     */
+    public function cdek_download_waybill($id): BinaryFileResponse
     {
         // Получаю квитанцию
         $filename = (new \App\Services\Cdek())->get_waybill($id);

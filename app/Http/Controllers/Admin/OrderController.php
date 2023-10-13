@@ -58,14 +58,14 @@ class OrderController extends Controller
             // Сравниваю updated_at с текущей датой и получаю разницу в минутах
             $diff_minutes = $cdek_order->updated_at->diffInMinutes(now());
 
-            // 3 минуты - время на формирование квитанции
+            // 1 минута - время на формирование квитанции
             // 60 минут - ссылка на файл с квитанцией действует 1 час
-            if ($diff_minutes > 3 && $diff_minutes < 60) {
+            if ($diff_minutes > 1 && $diff_minutes < 60) {
                 $is_waybill = true;
             }
         }
 
-        return view('dashboard.order', compact('order', 'is_waybill'));
+        return view('dashboard.order-show', compact('order', 'is_waybill'));
     }
 
     /**
