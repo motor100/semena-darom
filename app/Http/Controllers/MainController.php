@@ -24,7 +24,7 @@ class MainController extends Controller
 
         // Акции
         $promos = Promo::orderBy('id', 'desc')
-                        ->take(3)
+                        ->take(4)
                         ->get();
         
         /**

@@ -145,7 +145,7 @@
       <div class="popular-categories">
         <div class="row">
           @foreach($hit_products as $product)
-          <div class="col-md-4 col-6 {{ $loop->last ? 'd-md-none' : '' }}">
+          <div class="col-md-3 col-6 {{-- $loop->last ? 'd-md-none' : '' --}}">
               @include('regular-products-item')
             </div>
           @endforeach
@@ -211,7 +211,7 @@
     <div class="new-products">
       <div class="row">
         @foreach($new_products as $product)
-          <div class="col-md-4 col-6 {{ $loop->last ? 'd-md-none' : '' }}">
+          <div class="col-md-3 col-6 {{-- $loop->last ? 'd-md-none' : '' --}}">
             @include('regular-products-item')
           </div>
         @endforeach

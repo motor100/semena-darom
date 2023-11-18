@@ -1,3 +1,4 @@
+/*
 @font-face {
   font-family: 'arimo-regular';
   src: url(../fonts/arimo-regular.woff2) format('woff2');
@@ -22,6 +23,21 @@
   font-weight: normal;
   font-style: normal;
 }
+*/
+
+@mixin font($fname, $fstyle, $fweight, $furl) {
+  @font-face {
+    font-family: $fname;
+    font-style: $fstyle;
+    font-weight: $fweight;
+    src: url($furl) format('woff2');
+  }
+}
+
+@include font('arimo-regular', normal, 400, '../../public/fonts/arimo-regular.woff2');
+@include font('arimo-medium', normal, 400, '../../public/fonts/arimo-medium.woff2');
+@include font('arimo-semibold', normal, 400, '../../public/fonts/arimo-semibold.woff2');
+@include font('arimo-bold', normal, 400, '../../public/fonts/arimo-bold.woff2');
 
 /* variable */
 :root {
@@ -2687,7 +2703,7 @@ p {
 }
 .footer .bottom-row .flex-container {
   display: flex;
-  justify-content: end;
+  justify-content: flex-end;
 }
 .footer .bottom-row .author {
   margin: 0 0 0 20px;

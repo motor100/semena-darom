@@ -12,7 +12,7 @@
   <link rel="stylesheet" href="{{ asset('/css/bootstrap-grid.min.css') }}">
   <link rel="stylesheet" href="{{ asset('/css/swiper-bundle.min.css') }}">
   @yield('style')
-  <link rel="stylesheet" href="{{ asset('/css/main.css') }}">
+  @vite(['resources/sass/main.scss'])
   <title>@yield('title', config('app.name') )</title>
 </head>
 
