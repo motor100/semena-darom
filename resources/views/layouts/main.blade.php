@@ -24,7 +24,7 @@
           <div class="left-nav">
             <div class="logo">
               <a href="{{ route('home') }}">
-                <img src="/img/logo.png" alt="">
+                <img src="/img/logo.svg" alt="">
               </a>
             </div>
             <div class="header-catalog-btn hidden-mobile">
@@ -353,7 +353,7 @@
     <div class="logo-wrapper">
       <div class="container-fluid">
         <div class="logo">
-          <img src="{{ asset('img/logo.png') }}" alt="">
+          <img src="{{ asset('img/logo.svg') }}" alt="">
         </div>
       </div>
     </div>
@@ -600,7 +600,7 @@
         <div class="left-nav">
           <div class="logo">
             <a href="{{ route('home') }}">
-              <img src="/img/logo.png" alt="">
+              <img src="/img/logo.svg" alt="">
             </a>
           </div>
           <div class="header-catalog-btn hidden-mobile">
