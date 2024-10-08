@@ -9,8 +9,6 @@
   <meta name="csrf-token" content="{{ csrf_token() }}">
   @yield('robots')
   <link rel="shortcut icon" href="{{ asset('/img/favicon.svg') }}" type="image/x-icon">
-  <link rel="stylesheet" href="{{ asset('/css/bootstrap-grid.min.css') }}">
-  <link rel="stylesheet" href="{{ asset('/css/swiper-bundle.min.css') }}">
   @yield('style')
   @vite(['resources/sass/main.scss'])
   <title>@yield('title', config('app.name') )</title>
@@ -769,9 +767,7 @@
   @endif
 
   @yield('script')
-  <script src="{{ asset('/js/imask.min.js') }}"></script>
-  <script src="{{ asset('/js/swiper-bundle.min.js') }}"></script>
-  <script src="{{ asset('/js/main.js') }}"></script>
+  @vite(['resources/js/main.js'])
   
 </body>
 </html>

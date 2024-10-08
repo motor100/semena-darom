@@ -1,0 +1,67 @@
+// USER VARIABLES SECTION
+
+$textcolor: #363636; // Text Color
+$maingreencolor: #47A358; // Main Green Color
+$hovergreencolor: #278E3A; // Hover Green Color
+$magentacolor: #ED6D1F; // Magenta Color
+$lightgreycolor: #B3B3B3; // Light Grey Color
+$secondgreycolor: #EDEDED; // Second Grey Color
+$dopgreycolor: #F8F7F5; // Dop Grey Color
+$fontsize: 16px; // Font Size
+$lineheight: 1.5; // Document Line Height
+$userfont: 'arimo-regular', sans-serif; // User Font Family
+$systemfont: -apple-system, BlinkMacSystemFont, Arial, sans-serif; // System Font Family
+
+// Bootstrap compatible gutter variable => $gutter
+$grid-gutter-width: 24px;
+$gutter: $grid-gutter-width;
+
+// IMPORT SECTION
+
+@import 'node_modules/bootstrap/scss/bootstrap-grid.scss'; // Optional Bootstrap Grid
+@import 'node_modules/swiper/swiper-bundle'; // Swiper
+
+// FONTS LOAD SECTION
+
+@mixin font($fname, $fstyle, $fweight, $furl) {
+  @font-face {
+    font-family: $fname;
+    font-style: $fstyle;
+    font-weight: $fweight;
+    src: url($furl) format('woff2');
+  }
+}
+
+@include font('arimo-regular', normal, 400, '../../public/fonts/arimo-regular.woff2');
+@include font('arimo-medium', normal, 400, '../../public/fonts/arimo-medium.woff2');
+@include font('arimo-semibold', normal, 400, '../../public/fonts/arimo-semibold.woff2');
+@include font('arimo-bold', normal, 400, '../../public/fonts/arimo-bold.woff2');
+
+// GENERAL DOCUMENT STYLES
+
+// ::placeholder
+//   color: #7f7f7f
+
+* {
+  box-sizing: border-box;
+}
+
+input, textarea {
+  outline: none;
+}
+
+html {
+  font-size: $fontsize;
+  scroll-behavior: smooth;
+}
+
+body {
+  position: relative;
+  max-width: 1920px;
+  min-width: 320px;
+  margin: 0 auto;
+  font-family: $userfont;
+  line-height: $lineheight;
+  color: $textcolor;
+  overflow-x: hidden;
+}

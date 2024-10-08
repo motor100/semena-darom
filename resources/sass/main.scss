@@ -1,71 +1,5 @@
-/*
-@font-face {
-  font-family: 'arimo-regular';
-  src: url(../fonts/arimo-regular.woff2) format('woff2');
-  font-weight: normal;
-  font-style: normal;
-}
-@font-face {
-  font-family: 'arimo-medium';
-  src: url(../fonts/arimo-medium.woff2) format('woff2');
-  font-weight: normal;
-  font-style: normal;
-}
-@font-face {
-  font-family: 'arimo-semibold';
-  src: url(../fonts/arimo-semibold.woff2) format('woff2');
-  font-weight: normal;
-  font-style: normal;
-}
-@font-face {
-  font-family: 'arimo-bold';
-  src: url(../fonts/arimo-bold.woff2) format('woff2');
-  font-weight: normal;
-  font-style: normal;
-}
-*/
+@import '_config.scss';
 
-@mixin font($fname, $fstyle, $fweight, $furl) {
-  @font-face {
-    font-family: $fname;
-    font-style: $fstyle;
-    font-weight: $fweight;
-    src: url($furl) format('woff2');
-  }
-}
-
-@include font('arimo-regular', normal, 400, '../../public/fonts/arimo-regular.woff2');
-@include font('arimo-medium', normal, 400, '../../public/fonts/arimo-medium.woff2');
-@include font('arimo-semibold', normal, 400, '../../public/fonts/arimo-semibold.woff2');
-@include font('arimo-bold', normal, 400, '../../public/fonts/arimo-bold.woff2');
-
-/* variable */
-:root {
-  --m-text: #363636;
-  --m-main-green: #47A358;
-  --m-hover-green: #278E3A;
-  --m-magenta: #ED447D;
-  --m-light-grey: #B3B3B3;
-  --m-second-grey: #EDEDED;
-  --m-dop-grey: #F8F7F5;
-}
-
-* {
-  box-sizing: border-box;
-}
-html {
-  scroll-behavior: smooth;
-  font-size: 16px;
-}
-body {
-  min-width: 320px;
-  max-width: 1920px;
-  position: relative;
-  margin: 0 auto;
-  font-family: "arimo-regular", sans-serif;
-  color: var(--m-text);
-  line-height: 1.5;
-}
 input:active,
 input:focus,
 input:focus-visible,
@@ -173,10 +107,10 @@ p {
   line-height: 1.2;
 }
 .green-text {
-  color: var(--m-main-green);
+  color: $maingreencolor;
 }
 .red-text {
-  color: var(--m-magenta) !important;
+  color: $magentacolor !important;
 }
 .text-uppercase {
   text-transform: uppercase;
@@ -186,7 +120,7 @@ p {
 }
 .item__old-price {
   position: relative;
-  color: var(--m-light-grey);
+  color: $lightgreycolor;
 }
 .item__old-price .line-through {
   position: absolute;
@@ -194,37 +128,37 @@ p {
   left: 0;
   width: 100%;
   height: 1px;
-  background-color: var(--m-magenta);
+  background-color: $magentacolor;
   transform: rotate(10deg);
 }
 .add-to-favourites {
   cursor: pointer;
 }
 .add-to-favourites svg {
-  stroke: var(--m-light-grey);
+  stroke: $lightgreycolor;
   fill: #fff;
   transition: all .3s;
 }
 .add-to-favourites:hover svg {
-  stroke: var(--m-main-green);
-  fill: var(--m-main-green);
+  stroke: $maingreencolor;
+  fill: $maingreencolor;
 }
 .add-to-favourites.active svg {
-  stroke: var(--m-main-green);
-  fill: var(--m-main-green);
+  stroke: $maingreencolor;
+  fill: $maingreencolor;
 }
 .add-to-cart {
   cursor: pointer;
 }
 .add-to-cart-btn {
   border: none;
-  background-color: var(--m-main-green);
+  background-color: $maingreencolor;
   color: #fff;
   text-align: center;
   transition: background-color .3s;
 }
 .add-to-cart-btn:hover {
-  background-color: var(--m-hover-green);
+  background-color: $hovergreencolor;
 }
 .submit-btn:disabled {
   color: #A9A9A9 !important;
@@ -249,7 +183,7 @@ p {
   right: 14px;
   width: 20px;
   height: 2px;
-  background-color: var(--m-text);
+  background-color: $textcolor;
 }
 .button-next .arrow-right::before,
 .button-next .arrow-right::after {
@@ -257,7 +191,7 @@ p {
   position: absolute;
   width: 10px;
   height: 2px;
-  background-color: var(--m-text);
+  background-color: $textcolor;
 }
 .button-next .arrow-right::before {
   top: -3px;
@@ -282,23 +216,23 @@ p {
   margin: 0 8px;
   padding: 5px 8px;
   border-radius: 21px;
-  background-color: var(--m-dop-grey);
+  background-color: $dopgreycolor;
   font-family: 'arimo-semibold';
   font-size: 20px;
   text-align: center;
   transition: all .3s;
 }
 .pager .pager-item:hover:not(.disabled) {
-  background-color: var(--m-main-green);
+  background-color: $maingreencolor;
 }
 .pager .pager-item.active {
-  background-color: var(--m-main-green);
+  background-color: $maingreencolor;
 }
 .pager .pager-item-link,
 .pager .pager-item-span {
   display: block;
   min-width: 12px;
-  color: var(--m-text);
+  color: $textcolor;
 }
 .pager .pager-item.active .pager-item-link,
 .pager .pager-item.active .pager-item-span {
@@ -392,13 +326,13 @@ p {
 .header .top-menu .menu-item a {
   border-bottom: 1px solid #fff;
   font-size: 17px;
-  color: var(--m-light-grey);
+  color: $lightgreycolor;
   line-height: 1.3;
   transition: all .3s;
 }
 .header .top-menu .menu-item a:hover {
-  color: var(--m-main-green);
-  border-bottom: 1px solid var(--m-main-green);
+  color: $maingreencolor;
+  border-bottom: 1px solid $maingreencolor;
 }
 .header .advantages {
   padding-left: 25px;
@@ -410,7 +344,7 @@ p {
 .header .advantages .advantages-item {
   width: max-content;
   padding: 13px 16px;
-  border: 1px solid var(--m-second-grey);
+  border: 1px solid $secondgreycolor;
   border-radius: 60px;
   background-color: #F6F7F9;
   flex-shrink: 0;
@@ -461,7 +395,7 @@ p {
   height: 42px;
   margin: 0 20px 0 0;
   border-radius: 21px;
-  background-color: var(--m-main-green);
+  background-color: $maingreencolor;
   align-items: center;
   justify-content: center;
   cursor: pointer;
@@ -516,7 +450,7 @@ p {
   position: relative;
   width: 100%;
   height: 42px;
-  border: 2px solid var(--m-main-green);
+  border: 2px solid $maingreencolor;
   border-radius: 21px;
   padding: 8px 90px 8px 20px;
   font-size: 16px;
@@ -524,10 +458,10 @@ p {
   z-index: 2;
 }
 .header-top .search-form .search-input::placeholder {
-  color: var(--m-light-grey);
+  color: $lightgreycolor;
 }
 .header-top .search-form .search-input::-ms-input-placeholder {
-  color: var(--m-light-grey);
+  color: $lightgreycolor;
 }
 .header-top .search-form .search-input-active {
   border: 2px solid transparent;
@@ -570,7 +504,7 @@ p {
   left: 2px;
   width: 20px;
   height: 1px;
-  background-color: var(--m-light-grey);
+  background-color: $lightgreycolor;
 }
 .header-top .search-form .search-close::before {
   transform: rotate(45deg);
@@ -605,7 +539,7 @@ p {
   transition: background-color .2s;
 }
 .header-top .search-form .search-list-item:hover {
-  background-color: var(--m-second-grey);
+  background-color: $secondgreycolor;
 }
 .header-top .search-form .search-list-item__image {
   margin: 0 12px 0 0;
@@ -620,7 +554,7 @@ p {
   transition: color .2s;
 }
 .header-top .search-form .search-list-item:hover .search-list-item__title {
-  color: var(--m-main-green);
+  color: $maingreencolor;
 }
 .header-top .search-form .search-see-all {
   display: none;
@@ -630,7 +564,7 @@ p {
   transition: color .3s;
 }
 .header-top .search-form .search-see-all:hover {
-  color: var(--m-text);
+  color: $textcolor;
 }
 .header-top .search-form .search-see-all-active {
   display: block;
@@ -650,7 +584,7 @@ p {
   width: 22px;
   height: 22px;
   border-radius: 50%;
-  background-color: var(--m-main-green);
+  background-color: $maingreencolor;
   font-family: 'arimo-semibold';
   font-size: 12px;
   color: #fff;
@@ -701,7 +635,7 @@ p {
   transition: all .3s;
 }
 .header-btn:hover {
-  border: 1px solid var(--m-main-green);
+  border: 1px solid $maingreencolor;
 }
 .header-btn .header-btn__image {
   width: 15px;
@@ -713,8 +647,8 @@ p {
   transition: stroke .3s;
 }
 .header-btn.active {
-  border: 1px solid var(--m-main-green);
-  background-color: var(--m-main-green);
+  border: 1px solid $maingreencolor;
+  background-color: $maingreencolor;
   color: #fff;
 }
 .header-btn.active .header-btn__image svg {
@@ -757,11 +691,11 @@ p {
 .aside-nav-item .aside-nav-item__title {
   font-family: 'arimo-semibold';
   font-size: 18px;
-  color: var(--m-text);
+  color: $textcolor;
   transition: color .3s;
 }
 .aside-nav-item:hover .aside-nav-item__title {
-  color: var(--m-main-green);
+  color: $maingreencolor;
 }
 
 
@@ -786,7 +720,7 @@ p {
   top: 8px;
   width: 10px;
   height: 1px;
-  background-color: var(--m-text);
+  background-color: $textcolor;
 }
 .catalog-nav-item .aside-nav-arrow::before {
   left: 0;
@@ -818,11 +752,11 @@ p {
 }
 .catalog-nav-item .aside-nav-submenu-item a {
   font-size: 15px;
-  color: var(--m-text);
+  color: $textcolor;
   transition: color .3s;
 }
 .catalog-nav-item .aside-nav-submenu-item a:hover {
-  color: var(--m-light-grey);
+  color: $lightgreycolor;
 }
 
 /* header-catalog-dropdown */
@@ -889,11 +823,11 @@ p {
 }
 .header-catalog-dropdown .catalog-nav-subcategory-title {
   margin: 0 20px 0 0;
-  color: var(--m-text);
+  color: $textcolor;
   transition: color .3s;
 }
 .header-catalog-dropdown .catalog-nav-subcategory-title:hover {
-  color: var(--m-main-green);
+  color: $maingreencolor;
 }
 
 /* mobile catalog dropdown */
@@ -977,7 +911,7 @@ p {
   text-overflow: ellipsis;
 }
 .cart-aside .products-item__price {
-  color: var(--m-main-green);
+  color: $maingreencolor;
 }
 .cart-aside .products-item-price-wrapper {
   display: flex;
@@ -991,12 +925,12 @@ p {
   display: flex;
   padding: 20px;
   border-radius: 10px;
-  background-color: var(--m-second-grey);
+  background-color: $secondgreycolor;
   color: #B2B2B2;
   justify-content: space-between;
 }
 .cart-aside .place-order-btn.active {
-  background-color: var(--m-main-green);
+  background-color: $maingreencolor;
   color: #fff;
 }
 .cart-aside .cart-aside-is-empty-image {
@@ -1018,7 +952,7 @@ p {
 .cart-total-aside .grey-line {
   height: 1px;
   margin: 0 0 18px 0;
-  background-color: var(--m-second-grey);
+  background-color: $secondgreycolor;
 }
 .cart-total-aside .cart-total-aside-item {
   display: flex;
@@ -1044,7 +978,7 @@ p {
   display: flex;
   padding: 20px;
   border-radius: 10px;
-  background-color: var(--m-second-grey);
+  background-color: $secondgreycolor;
   color: #B2B2B2;
   text-align: center;
   justify-content: center;
@@ -1053,7 +987,7 @@ p {
   display: block;
   width: 100%;
   border: none;
-  background-color: var(--m-main-green);
+  background-color: $maingreencolor;
   font-family: inherit;
   font-size: inherit;
   color: #fff;
@@ -1095,7 +1029,7 @@ p {
   width: 240px;
   height: 52px;
   padding: 10px 0;
-  background-color: var(--m-magenta);
+  background-color: $magentacolor;
   border-radius: 26px;
   text-align: center;
 }
@@ -1161,7 +1095,7 @@ p {
   margin: 0 0 50px 0;
   padding: 13px 80px 13px 16px;
   border-radius: 10px;
-  background-color: var(--m-dop-grey);
+  background-color: $dopgreycolor;
 }
 .grey-section .flex-container {
   display: flex;
@@ -1191,7 +1125,7 @@ p {
   transition: border-color .3s, box-shadow .3s;
 }
 .regular-products-item:hover {
-  border-color: var(--m-second-grey);
+  border-color: $secondgreycolor;
   box-shadow: 0px 2px 10px rgba(0, 0, 0, 0.05);
 }
 .regular-products-item .products-item__image {
@@ -1214,7 +1148,7 @@ p {
 .regular-products-item .products-item__title {
   display: block;
   margin: 0 0 16px 0;
-  color: var(--m-text);
+  color: $textcolor;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
@@ -1244,7 +1178,7 @@ p {
   font-size: .9em;
 }
 .regular-products-item .products-item__promo-price {
-  color: var(--m-magenta);
+  color: $magentacolor;
 }
 .regular-products-item .products-item__old-price {
   font-size: 20px;
@@ -1292,7 +1226,7 @@ p {
 }
 .catalog-sort .ss-main {
   width: 170px;
-  color: var(--m-text);
+  color: $textcolor;
 }
 .catalog-sort .ss-main .ss-single-selected {
   border: none;
@@ -1306,7 +1240,7 @@ p {
 }
 .catalog-sort .ss-content .ss-list .ss-option:hover {
   background-color: #fff;
-  color: var(--m-text);
+  color: $textcolor;
   text-decoration: underline;
 }
 .catalog-sort .ss-content .ss-list .ss-disabled:hover {
@@ -1369,7 +1303,7 @@ p {
   position: absolute;
   right: 20px;
   bottom: 20px;
-  background-color: var(--m-magenta);
+  background-color: $magentacolor;
   width: 83px;
   height: 40px;
   padding: 3px 0;
@@ -1383,10 +1317,10 @@ p {
 .single-product .single-product-title {
   margin: 0 0 30px 0;
   font-size: 45px;
-  color: var(--m-main-green);
+  color: $maingreencolor;
 }
 .single-product .single-product-title .grey-text {
-  color: var(--m-text);
+  color: $textcolor;
 }
 .single-product .add-to-favourites-wrapper .add-to-favourites {
   display: flex;
@@ -1398,7 +1332,7 @@ p {
   margin: 0 16px 0 0;
 }
 .single-product .add-to-favourites-wrapper .add-to-favourites .add-to-favourites__text {
-  color: var(--m-light-grey);
+  color: $lightgreycolor;
 }
 .single-product .single-product-content {
   margin: 0 0 40px 0;
@@ -1458,7 +1392,7 @@ p {
   font-size: 38px;
 }
 .single-product .single-product-price .products-item__new-price {
-  color: var(--m-magenta);
+  color: $magentacolor;
 }
 .single-product .single-product-price .single-product-price__text {
   margin: 0 0 0 90px;
@@ -1483,7 +1417,7 @@ p {
   width: 50px;
   height: 50px;
   margin: 0 10px 0 0;
-  border: 1px solid var(--m-second-grey);
+  border: 1px solid $secondgreycolor;
   border-radius: 10px;
 }
 .single-product .single-product-category,
@@ -1526,7 +1460,7 @@ p {
 .single-product .single-product-about-text {
   margin: 0 0 6px 0;
   font-family: 'arimo-medium';
-  color: var(--m-light-grey);
+  color: $lightgreycolor;
 }
 .single-product .single-product-description {
   margin: 0 0 60px 0;
@@ -1590,7 +1524,7 @@ p {
 .o-kompanii .frame {
   margin: 0 0 60px 0;
   padding: 40px;
-  border: 3px solid var(--m-second-grey);
+  border: 3px solid $secondgreycolor;
   border-radius: 30px;
 }
 .o-kompanii .frame .frame-title {
@@ -1620,7 +1554,7 @@ p {
   border-color: #5EE380;
 }
 .o-kompanii .frame .red-border {
-  border-color: var(--m-magenta);
+  border-color: $magentacolor;
 }
 .o-kompanii .frame .purple-border {
   border-color: #9B38DC;
@@ -1702,14 +1636,14 @@ p {
   text-decoration: underline;
 }
 .o-kompanii .contacts .light-grey-text {
-  color: var(--m-light-grey);
+  color: $lightgreycolor;
 }
 .o-kompanii .contacts .contacts-item {
   margin: 0 0 30px 0;
   font-size: 18px;
 }
 .o-kompanii .contacts .contacts-item a {
-  color: var(--m-main-green);
+  color: $maingreencolor;
   text-decoration: underline;
 }
 
@@ -1733,7 +1667,7 @@ p {
   margin: 0 0 60px 0;
 }
 .dostavka-i-oplata .warranty .warranty-title {
-  color: var(--m-text);
+  color: $textcolor;
 }
 .dostavka-i-oplata .warranty .warranty-item {
   margin: 0 0 20px 0;
@@ -1750,7 +1684,7 @@ p {
   justify-content: space-between;
 }
 .dostavka-i-oplata .payment .payment-title {
-  color: var(--m-main-green);  
+  color: $maingreencolor;  
 }
 .dostavka-i-oplata .payment .sdek-logo {
   width: 123px;
@@ -1769,14 +1703,14 @@ p {
   min-height: 296px;
   margin: 0 0 8px 0;
   padding: 20px;
-  border: 2px solid var(--m-main-green);
+  border: 2px solid $maingreencolor;
   border-radius: 20px;
 }
 .dostavka-i-oplata .payment .payment-item .payment-item__title {
   margin: 0 16px 0 0;
   font-family: 'arimo-medium';
   font-size: 18px;
-  color: var(--m-main-green);
+  color: $maingreencolor;
   line-height: 1.2;
 }
 .dostavka-i-oplata .payment .online-payment {
@@ -1801,7 +1735,7 @@ p {
   margin: 0 0 40px 0;
   padding: 17px 0;
   border-radius: 30px;
-  background-color: var(--m-main-green);
+  background-color: $maingreencolor;
   color: #fff;
   text-align: center;
 }
@@ -1812,13 +1746,13 @@ p {
   margin: 0 0 20px 0;
   padding: 20px;
   border-radius: 20px;
-  background-color: var(--m-dop-grey);
+  background-color: $dopgreycolor;
 }
 .otzyvy .testimonials-item .testimonials-item__name {
   margin: 0 0 30px 0;
   font-family: 'arimo-medium';
   font-size: 18px;
-  color: var(--m-main-green);
+  color: $maingreencolor;
 }
 .otzyvy .testimonials-item .mb30 {
   margin: 0 0 30px 0;
@@ -1840,7 +1774,7 @@ p {
   margin: 0 0 30px 0;
   font-family: 'arimo-semibold';
   font-size: 32px;
-  color: var(--m-main-green);
+  color: $maingreencolor;
 }
 .otzyvy .form .flex-container {
   display: flex;
@@ -1856,10 +1790,10 @@ p {
   width: 100%;
   padding: 0 0 5px 0;
   border: none;
-  border-bottom: 1px solid var(--m-light-grey);
+  border-bottom: 1px solid $lightgreycolor;
   font-family: 'arimo-regular';
   font-size: 20px;
-  color: var(--m-text);
+  color: $textcolor;
 }
 .otzyvy .form .input-field.required {
   border-bottom: 1px solid red;
@@ -1868,11 +1802,11 @@ p {
   width: 100%;
   height: 200px;
   padding: 20px;
-  border: 1px solid var(--m-light-grey);
+  border: 1px solid $lightgreycolor;
   border-radius: 10px;
   font-family: 'arimo-regular';
   font-size: 20px;
-  color: var(--m-text);
+  color: $textcolor;
 }
 .otzyvy .form .textarea.required {
   border: 1px solid red;
@@ -1883,7 +1817,7 @@ p {
   margin: 0 0 16px 0;
   border: none;
   border-radius: 25px;
-  background-color: var(--m-main-green);
+  background-color: $maingreencolor;
   font-family: 'arimo-medium';
   font-size: 17px;
   color: #fff;
@@ -1902,7 +1836,7 @@ p {
   display: block;
   width: 20px;
   height: 20px;
-  border: 1px solid var(--m-dop-grey);
+  border: 1px solid $dopgreycolor;
   border-radius: 5px;
   margin: 0 10px 0 0;
   background-repeat: no-repeat;
@@ -1919,7 +1853,7 @@ p {
   font-size: 14px;
 }
 .form .privacy-policy-btn {
-  color: var(--m-main-green);
+  color: $maingreencolor;
   text-decoration: underline;
 }
 
@@ -1934,18 +1868,18 @@ p {
   width: 200px;
   height: 42px;
   padding: 8px 0;
-  border: 1px solid var(--m-light-grey);
+  border: 1px solid $lightgreycolor;
   border-radius: 21px;
   text-align: center;
   cursor: pointer;
   transition: border .3s;
 }
 .otzyvy .custom-inputfile-label:hover {
-  border: 1px solid var(--m-main-green);
+  border: 1px solid $maingreencolor;
 }
 .otzyvy .namefile {
   margin-left: 10px;
-  color: var(--m-light-grey);
+  color: $lightgreycolor;
 }
 
 /* kontakty */
@@ -2018,11 +1952,11 @@ p {
   margin: 0 0 50px 0;
   padding: 30px;
   border-radius: 20px;
-  background-color: var(--m-dop-grey);
+  background-color: $dopgreycolor;
 }
 .cart .min-order .min-order-text {
   margin: 0 0 20px 0;
-  color: var(--m-light-grey);
+  color: $lightgreycolor;
 }
 .cart .min-order .min-order-line {
   position: relative;
@@ -2084,7 +2018,7 @@ p {
   width: 100%;
 }
 .cf-clear .cf-clear__link {
-  color: var(--m-text);
+  color: $textcolor;
 }
 
 /* cart and favourites item */
@@ -2125,14 +2059,14 @@ p {
   padding: 0 10px 0 0;
 }
 .cf-item .cf-item__price {
-  color: var(--m-main-green);
+  color: $maingreencolor;
   flex-shrink: 0;
 }
 .cf-item .cf-item__promo {
   font-size: 18px;
 }
 .cf-item .cf-item__old-price {
-  color: var(--m-light-grey);
+  color: $lightgreycolor;
   flex-shrink: 0;
 }
 .cf-item .cf-item__bottom {
@@ -2167,7 +2101,7 @@ p {
   background-color: #fff;
   font-family: 'arimo-regular';
   font-size: 18px;
-  color: var(--m-text);
+  color: $textcolor;
   align-items: center;
 }
 .cf-item .rm-from-btn img {
@@ -2188,7 +2122,7 @@ p {
   border: none;
   font-family: 'arimo-semibold';
   font-size: 20px;
-  color: var(--m-text);
+  color: $textcolor;
   text-align: center;
   flex-grow: 1;
   -webkit-appearance: textfield;
@@ -2220,7 +2154,7 @@ p {
   padding: 0px;
   border: none;
   border-radius: 5px;
-  background-color: var(--m-dop-grey);
+  background-color: $dopgreycolor;
   transition: border .3s;
 }
 .cf-item .cf-item__quantity .quantity-button .circle:before,
@@ -2237,7 +2171,7 @@ p {
 }
 .cf-item .cf-item__quantity .quantity-button:hover .circle:before,
 .cf-item .cf-item__quantity .quantity-button:hover .circle:after {
-  background-color: var(--m-main-green);
+  background-color: $maingreencolor;
 }
 .cf-item .cf-item__quantity .quantity-plus .circle:after {
   transform: rotate(90deg);
@@ -2277,8 +2211,8 @@ p {
   border: 2px solid #3E3E3E;
 }
 .cf-is-empty-home-btn {
-  border: 2px solid var(--m-main-green);
-  background-color: var(--m-main-green);
+  border: 2px solid $maingreencolor;
+  background-color: $maingreencolor;
 }
 .cf-is-empty-home-btn .cf-is-empty-btn__text {
   color: #fff;
@@ -2345,15 +2279,15 @@ p {
   width: 32px;
   height: 32px;
   background-color: #fff;
-  border: 1px solid var(--m-light-grey);
+  border: 1px solid $lightgreycolor;
   border-radius: 16px;
   background-repeat: no-repeat;
   background-position: center center;
   background-size: 100% 50%;
 }
 .create-order .dp-item .dp-item__radio .custom-radio:checked + .custom-radio-label {
-  border: 1px solid var(--m-main-green);
-  background-color: var(--m-main-green);
+  border: 1px solid $maingreencolor;
+  background-color: $maingreencolor;
   background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 8 8'%3e%3cpath fill='%23fff' d='M6.564.75l-3.59 3.612-1.538-1.55L0 4.26 2.974 7.25 8 2.193z'/%3e%3c/svg%3e");
 }
 .create-order .customer-info .customer-info-item {
@@ -2404,7 +2338,7 @@ p {
 }
 .create-order .create-order-products .product-item__quantity {
   font-size: 18px;
-  color: var(--m-light-grey);
+  color: $lightgreycolor;
 }
 .create-order .payment-item .payment-item__description {
   min-height: 104px;
@@ -2426,17 +2360,17 @@ p {
 .lk-login .form-label {
   display: block;
   margin: 0 0 8px 0;
-  color: var(--m-light-grey);
+  color: $lightgreycolor;
 }
 .lk-login .input-field {
   width: 100%;
   height: 40px;
   padding: 10px 14px;
-  border: 1px solid var(--m-dop-grey);
+  border: 1px solid $dopgreycolor;
   border-radius: 20px;
   font-family: inherit;
   font-size: 14px;
-  color: var(--m-text);
+  color: $textcolor;
 }
 .lk-login .checkbox-wrapper {
   margin: 0 0 20px 0;
@@ -2447,7 +2381,7 @@ p {
   padding: 0;
   border: none;
   border-radius: 10px;
-  background-color: var(--m-main-green);
+  background-color: $maingreencolor;
   font-size: 16px;
   color: #fff;
 }
@@ -2475,7 +2409,7 @@ p {
 }
 .lk-nav .lk-nav-item:hover,
 .lk-nav .lk-nav-item.active {
-  background-color: var(--m-main-green);
+  background-color: $maingreencolor;
 }
 .lk-nav .lk-nav-item__image {
   margin: 0 10px 0 0;
@@ -2486,11 +2420,11 @@ p {
 }
 .lk-nav .lk-nav-item:hover .lk-nav-item__image path,
 .lk-nav .lk-nav-item.active .lk-nav-item__image path {
-  stroke: var(--m-main-green);
+  stroke: $maingreencolor;
 }
 .lk-nav .lk-nav-item .lk-nav-item__text {
   font-size: 15px;
-  color: var(--m-light-grey);
+  color: $lightgreycolor;
   transition: color .3s;
 }
 .lk-nav .lk-nav-item:hover .lk-nav-item__text,
@@ -2510,15 +2444,15 @@ p {
   background-color: #F6F7F9;
   font-family: "arimo-regular";
   font-size: 14px;
-  color: var(--m-light-grey);
+  color: $lightgreycolor;
   line-height: 1.6;
   transition: background-color .3s, color .3s;
 }
 .lk-nav .logout-submit-btn:hover {
-  background-color: var(--m-main-green);
+  background-color: $maingreencolor;
 }
 .lk-nav .logout-submit-btn:hover .lk-nav-item__image path {
-  stroke: var(--m-main-green);
+  stroke: $maingreencolor;
 }
 .lk-nav .logout-submit-btn:hover {
   color: #fff;
@@ -2529,8 +2463,8 @@ p {
   width: 100px;
   margin: 0 0 20px 0;
   padding: 0 40px 20px 0;
-  border-right: 1px solid var(--m-second-grey);
-  border-bottom: 1px solid var(--m-second-grey);
+  border-right: 1px solid $secondgreycolor;
+  border-bottom: 1px solid $secondgreycolor;
   font-family: 'arimo-semibold';
   font-size: 18px;
 }
@@ -2543,7 +2477,7 @@ p {
   height: 100%;
   margin: 0 35px 0 0;
   padding: 20px 0 5px 0;
-  border-right: 1px solid var(--m-second-grey);
+  border-right: 1px solid $secondgreycolor;
 }
 .lk .orders .order-item {
   margin: 0 0 20px 0;
@@ -2553,10 +2487,10 @@ p {
   margin: 0;
 }
 .lk .orders .order-item a {
-  color: var(--m-text);
+  color: $textcolor;
 }
 .lk .orders .order-item a:hover {
-  color: var(--m-main-green);
+  color: $maingreencolor;
   text-decoration: underline;
 }
 .lk .order-info {
@@ -2574,7 +2508,7 @@ p {
 }
 .lk .order-info .order-info__text {
   margin: 0 0 5px 0;
-  color: var(--m-main-green);
+  color: $maingreencolor;
 }
 .lk .no-orders {
   font-family: 'arimo-semibold';
@@ -2603,7 +2537,7 @@ p {
   padding: 15px 0;
   border: none;
   border-radius: 10px;
-  background-color: var(--m-main-green);
+  background-color: $maingreencolor;
   font-family: 'arimo-medium';
   font-size: 20px;
   color: #fff;
@@ -2621,7 +2555,7 @@ p {
 .no-products-found .no-products-found-text {
   font-family: 'arimo-semibold';
   font-size: 30px;
-  color: var(--m-main-green);
+  color: $maingreencolor;
   text-align: center;
 }
 .no-products-found .no-products-found-btn {
@@ -2629,9 +2563,9 @@ p {
   max-width: 1023px;
   margin: 0 auto;
   padding: 15px 0px;
-  border: 2px solid var(--m-text);
+  border: 2px solid $textcolor;
   border-radius: 15px;
-  background-color: var(--m-text);
+  background-color: $textcolor;
   text-align: center;
 }
 .no-products-found .no-products-found-btn .cart-is-empty-btn__text {
@@ -2644,7 +2578,7 @@ p {
 .footer {
   margin: 60px 0 0 0;
   padding: 40px 0 20px 0;
-  background-color: var(--m-dop-grey);
+  background-color: $dopgreycolor;
 }
 .footer .logo-wrapper {
   margin: 0 0 30px 0;
@@ -2671,11 +2605,11 @@ p {
   line-height: 1.3;
 }
 .footer .bottom-menu .menu .menu-item .menu-item__link {
-  color: var(--m-light-grey);
+  color: $lightgreycolor;
   transition: color .3s;
 }
 .footer .bottom-menu .menu .menu-item .menu-item__link:hover {
-  color: var(--m-main-green);
+  color: $maingreencolor;
 }
 .footer .bottom-menu .social svg rect {
   fill: #DDDDDD;
@@ -2686,13 +2620,13 @@ p {
   transition: fill .3s;
 }
 .footer .bottom-menu .social svg:hover rect {
-  fill: var(--m-main-green);
+  fill: $maingreencolor;
 }
 .footer .bottom-menu .social svg:hover path {
   fill: #fff;
 }
 .footer .bottom-menu .last-menu .menu-item {
-  color: var(--m-text);
+  color: $textcolor;
 }
 .footer .bottom-menu .last-menu .phone {
   margin: 0 0 8px 0;
@@ -2710,12 +2644,12 @@ p {
   margin: 0 0 0 20px;
 }
 .footer .bottom-row .author .author-name {
-  color: var(--m-text);
+  color: $textcolor;
 }
 
 /* polzovatelskoe-soglashenie-s-publichnoj-ofertoj */
 .polzovatelskoe-soglashenie-s-publichnoj-ofertoj a {
-  color: var(--m-main-green);
+  color: $maingreencolor;
 }
 
 /* breadcrumbs */
@@ -2731,7 +2665,7 @@ p {
   height: 32px;
   margin: 0 16px 0 0;
   padding: 5px 10px;
-  background-color: var(--m-dop-grey);
+  background-color: $dopgreycolor;
   border-radius: 16px;
   text-align: center;
   cursor: pointer;
@@ -2747,7 +2681,7 @@ p {
 }
 .breadcrumbs .active {
   display: inline-block;
-  color: var(--m-main-green);
+  color: $maingreencolor;
 }
 .breadcrumbs .arrow {
   display: inline-block;
@@ -2798,7 +2732,7 @@ p {
   width: 18px;
   height: 18px;
   border-radius: 50%;
-  background-color: var(--m-main-green);
+  background-color: $maingreencolor;
   font-size: 10px;
   color: #fff;
   line-height: 1.7;
@@ -2848,10 +2782,10 @@ p {
 .messages-cookies .messages-cookies-wrapper {
   max-width: 450px;
   padding: 20px;
-  background-color: var(--m-second-grey);
-  border: 1px solid var(--m-text);
+  background-color: $secondgreycolor;
+  border: 1px solid $textcolor;
   border-radius: 15px;
-  color: var(--m-text);
+  color: $textcolor;
 }
 .messages-cookies .messages-cookies-text {
 	margin: 0 0 16px 0;
@@ -2862,8 +2796,8 @@ p {
   width: 108px;
   height: 40px;
   margin: 0 auto;
-  border: 1px solid var(--m-text);
-  background-color: var(--m-second-grey);
+  border: 1px solid $textcolor;
+  background-color: $secondgreycolor;
   border-radius: 20px;
 }
 
@@ -2916,7 +2850,7 @@ p {
   width: 100%;
   height: 2px;
   border-radius: 2px;
-  background-color: var(--m-main-green);
+  background-color: $maingreencolor;
   transition: all .5s;
 }
 .burger-menu-wrapper .burger-menu:before {
@@ -2960,7 +2894,7 @@ p {
   visibility: visible;
 }
 .mobile-menu .header-btn {
-  border: 1px solid var(--m-text);
+  border: 1px solid $textcolor;
 }
 .mobile-menu .city-select {
   margin: 0 0 20px 0;
@@ -3065,7 +2999,7 @@ p {
   padding: 0 0 3px 0;
   font-family: 'arimo-semibold';
   font-size: 20px;
-  border-bottom: 1px solid var(--m-second-grey);
+  border-bottom: 1px solid $secondgreycolor;
 }
 .modal-window .label {
   display: block;
@@ -3078,21 +3012,21 @@ p {
   padding: 0 0 5px 0;
   border-top: none;
   border-right: none;
-  border-bottom: 1px solid var(--m-second-grey);
+  border-bottom: 1px solid $secondgreycolor;
   border-left: none;
   font-family: 'arimo-regular';
   font-size: inherit;
-  color: var(--m-text);
+  color: $textcolor;
 }
 .modal-window .input-field::placeholder {
-  color: var(--m-light-grey);
+  color: $lightgreycolor;
   opacity: 1;
 }
 .modal-window .input-field::-ms-input-placeholder {
-  color: var(--m-light-grey);
+  color: $lightgreycolor;
 }
 .modal-window .input-field:focus {
-  border-bottom: 1px solid var(--m-main-green);
+  border-bottom: 1px solid $maingreencolor;
 }
 .modal-window .required {
   border-bottom: 1px solid #FF7272;
@@ -3121,7 +3055,7 @@ p {
   height: 64px;
   margin: 30px 0 0 0;
   border: none;
-  background-color: var(--m-main-green);
+  background-color: $maingreencolor;
   font-family: 'arimo-semibold';  
   font-size: inherit;
   color: #fff;
@@ -3160,11 +3094,11 @@ p {
   font-size: 18px;
   font-family: "arimo-regular";
   font-weight: normal;
-  color: var(--m-text);
+  color: $textcolor;
   transition: color .3s;
 }
 .select-city-modal .city-select-rezult .city-item-submit-btn:hover {
-  color: var(--m-main-green);
+  color: $maingreencolor;
 }
 
 /* page 404 */
@@ -3175,7 +3109,7 @@ p {
   margin: 0 0 64px 0;
   font-family: 'arimo-bold';
   font-size: 28px;
-  color: var(--m-main-green);
+  color: $maingreencolor;
   text-align: center;
 }
 .page404 .btn404 {
@@ -3192,8 +3126,8 @@ p {
   border: 2px solid #3E3E3E;
 }
 .page404 .purple-btn {
-  border: 2px solid var(--m-main-green);
-  background-color: var(--m-main-green);
+  border: 2px solid $maingreencolor;
+  background-color: $maingreencolor;
   color: #E8E8E8;
 }
 
@@ -3581,7 +3515,7 @@ p {
     margin: 0 0 8px 0;
   }
   .footer .bottom-menu .social svg rect {
-    fill: var(--m-main-green);
+    fill: $maingreencolor;
   }
   .footer .bottom-menu .social svg path {
     fill: #fff;
@@ -3718,7 +3652,7 @@ p {
   .lk .orders-title {
     width: 100%;
     border-right: none;
-    border-bottom: 1px solid var(--m-second-grey);
+    border-bottom: 1px solid $secondgreycolor;
   }
   .lk .orders .order-item {
     display: inline-block;
