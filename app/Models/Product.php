@@ -9,8 +9,23 @@ class Product extends Model
 {
     use HasFactory;
 
-    // Connection
-    // protected $connection = 'mysql2';
+    protected $fillable = [
+        'title',
+        'slug',
+        'category_id',
+        'image',
+        'text',
+        'code',
+        'stock',
+        'buying_price',
+        'wholesale_price',
+        'retail_price',
+        'promo_price',
+        'weight',
+        'brand',
+        'property',
+        'position',
+    ];
 
     /**
      * Получить галерею товара.

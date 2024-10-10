@@ -50,7 +50,7 @@
 </div>
 
 <script>
-  const menuItem = 1;
+  const menuItem = 2;
 </script>
 
 @endsection

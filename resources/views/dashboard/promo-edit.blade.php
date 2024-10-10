@@ -46,7 +46,7 @@
 </div>
 
 <script>
-  const menuItem = 3;
+  const menuItem = 2;
 </script>
 
 @endsection
