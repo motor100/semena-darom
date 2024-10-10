@@ -9,6 +9,7 @@
   <meta name="csrf-token" content="{{ csrf_token() }}">
   @yield('robots')
   <link rel="shortcut icon" href="{{ asset('/img/favicon.svg') }}" type="image/x-icon">
+  <link rel="stylesheet" href="{{ asset('/css/bootstrap-grid.min.css') }}">
   @yield('style')
   @vite(['resources/sass/main.scss'])
   <title>@yield('title', config('app.name') )</title>
@@ -32,7 +33,7 @@
               <div class="catalog-btn__text">Каталог</div>
             </div>
             <form class="search-form" action="/poisk" method="get">
-              <input type="text" name="search_query" class="search-input" minlength="3" maxlength="20" autocomplete="off" required placeholder="Искать товары">
+              <input type="text" name="search_query" class="search-input" minlength="3" maxlength="50" autocomplete="off" required placeholder="Искать товары">
               <button type="submit" class="submit-btn">
                 <img src="/img/header-search-btn.svg" alt="">
               </button>
@@ -496,10 +497,10 @@
         <form id="callback-modal-form" class="form" method="post">
           @csrf
           <label class="label">
-            <input type="text" id="name-callback-modal" class="input-field js-name-callback-modal" name="name" required minlength="3" maxlength="20" placeholder="Ваше имя">
+            <input type="text" id="name-callback-modal" class="input-field js-name-callback-modal" name="name" autocomplete="on" required minlength="3" maxlength="20" placeholder="Ваше имя">
           </label>
           <label class="label">
-            <input type="text" id="phone-callback-modal" class="input-field js-phone-callback-modal js-input-phone-mask" name="phone" required maxlength="18" placeholder="+7 (999) 999 99 99">
+            <input type="text" id="phone-callback-modal" class="input-field js-phone-callback-modal js-input-phone-mask" autocomplete="on" name="phone" required maxlength="18" placeholder="+7 (999) 999 99 99">
           </label>
           <input type="hidden" id="email-callback-modal" class="js-email-callback-modal" name="email" value="no email">
           <div class="checkbox-wrapper">

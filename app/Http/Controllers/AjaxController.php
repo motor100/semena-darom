@@ -9,6 +9,11 @@ use Illuminate\Http\JsonResponse;
 
 class AjaxController extends Controller
 {
+    /**
+     * Ajax product search
+     * @param Illuminate\Http\Request
+     * @return Illuminate\Http\JsonResponse
+     */
     public function ajax_product_search(Request $request): JsonResponse
     {
         $search_query = $request->input('search_query');
@@ -22,7 +27,7 @@ class AjaxController extends Controller
         $products = Product::where('title', 'like', "%{$search_query}%")
                             ->select('title', 'slug')
                             // если нужен поиск по тексту
-                            // ->orWhere('text', 'like', "%{$product}%") 
+                            ->orWhere('text', 'like', "%{$search_query}%") 
                             ->get();
 
         return response()->json($products);
@@ -34,7 +39,8 @@ class AjaxController extends Controller
 
         $cart = [];
         
-        if ($request->hasCookie('cart')) { // Если есть в куки cart, то добавляю в конец массива
+        // Если есть в куки cart, то добавляю в конец массива
+        if ($request->hasCookie('cart')) {
 
             // Получение куки через фасад Cookie метод get
             $cart = json_decode(\Illuminate\Support\Facades\Cookie::get('cart'), true);

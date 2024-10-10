@@ -80,7 +80,7 @@
           <div class="single-product-price__text">за 1 упаковку</div>
         </div>
         <div class="add-to-cart-wrapper hidden-mobile">
-          <button class="add-to-cart-btn add-to-cart" data-id="{{ $product->id }}">Добавить в корзину</button>
+          <button class="add-to-cart-btn add-to-cart" data-id="{{ $product->id }}">В корзину</button>
         </div>
 
         <div class="single-product-options single-product-category">
@@ -161,7 +161,7 @@
         <div class="single-product-price__text">за 1 упаковку</div>
       </div>
       <div class="add-to-cart-wrapper hidden-desktop">
-        <button class="add-to-cart-btn add-to-cart" data-id="{{ $product->id }}">Добавить в корзину</button>
+        <button class="add-to-cart-btn add-to-cart" data-id="{{ $product->id }}">В корзину</button>
       </div>
     </div>
 

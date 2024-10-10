@@ -32,9 +32,9 @@
       </div>
     @endif
   </div>
-  <div class="add-to-cart-btn add-to-cart" data-id="{{ $product->id }}">
-    <span class="widescreen">Добавить в корзину</span>
-    <span class="mobile">В корзину</span>
+  <div class="add-to-cart-btn add-to-cart" data-id="{{ $product->id }}">В корзину
+    <!-- <span class="widescreen">Добавить в корзину</span>
+    <span class="mobile">В корзину</span> -->
   </div>
   <div class="add-to-favourites" data-id="{{ $product->id }}">
     <svg width="100%" height="100%" viewBox="0 0 23 21" fill="none" xmlns="http://www.w3.org/2000/svg">

@@ -141,7 +141,7 @@ class MainController extends Controller
                 // Ограничение количества элементов в коллекции галерея
                 $product->galleries->slice(0, 3);
 
-                return view('single_product', compact('product'));
+                return view('single-product', compact('product'));
             }
         }
 

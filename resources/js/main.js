@@ -97,7 +97,8 @@ searchInput.oninput = searchOnInput;
 
 function searchOnInput() {
 
-  if (searchInput.value.length > 3 && searchInput.value.length < 40) {
+  // Ограничение по количеству символов > 3 и <=50
+  if (searchInput.value.length > 3 && searchInput.value.length <= 50) {
 
     const searchSeeAll = document.querySelector('.search-see-all');
 
@@ -173,10 +174,10 @@ function searchOnInput() {
 }
 
 // City select
-const citySelectModalWindow = document.querySelector('#select-city-modal'),
-      citySelectInput = document.querySelector('#city-select-input'),
-      citySelectRezult = document.querySelector('#city-select-rezult'),
-      citySelectModalCloseBtn = document.querySelector('#select-city-modal .modal-close');
+const citySelectModalWindow = document.querySelector('#select-city-modal');
+const citySelectInput = document.querySelector('#city-select-input');
+const citySelectRezult = document.querySelector('#city-select-rezult');
+const citySelectModalCloseBtn = document.querySelector('#select-city-modal .modal-close');
 
 citySelectInput.oninput = citySelectOnInput;
 
