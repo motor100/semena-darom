@@ -174,6 +174,7 @@
   @yield('script')
   <script src="{{ asset('/adminpanel/js/template.js') }}"></script>
   <script src="{{ asset('/adminpanel/js/dashboard.js') }}"></script>
+  @vite(['resources/js/editor.js'])
 
 </body>
 </html>

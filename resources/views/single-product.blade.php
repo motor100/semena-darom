@@ -167,7 +167,7 @@
 
   <div class="single-product-description">
     <div class="single-product-description__title single-product-about-text">Описание:</div>
-    <div class="single-product-description__text">{!! $product->text !!}</div>
+    <div class="single-product-description__text">{!! $product->text_html !!}</div>
   </div>
 
   <div class="recommend-product">

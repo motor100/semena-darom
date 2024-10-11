@@ -10,6 +10,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Validation\Rule;
 
 class ProductController extends Controller
 {
@@ -58,7 +59,7 @@ class ProductController extends Controller
         $validated = $request->validate([
             'title' => 'required|min:2|max:250',
             'category' => 'required',
-            'text' => 'required|min:2',
+            'text_json' => 'required|min:2|max:65535',
             'input-main-file' => 'required|image|mimes:jpg,png,jpeg',
             'code' => 'required|min:10|max:16|unique:App\Models\Product,code',
             'stock' => 'required|min:0|max:10000',
@@ -93,14 +94,16 @@ class ProductController extends Controller
         // $img = \App\Http\Controllers\Admin\AdminController::rename_file($slug, $validated['input-main-file'], $folder);
         $img = (new \App\Services\File())->rename_file($slug, $validated['input-main-file'], $folder);
 
-        // Массив для вставки в модель \App\Models\Product и во внешнюю БД таблица products
+        $html = (new \App\Services\JsonToHtml($validated['text_json']))->render();
 
+        // Массив для вставки в модель \App\Models\Product и во внешнюю БД таблица products
         $product_array = [
             'title' => $validated['title'],
             'slug' => $slug,
             'category_id' => $validated['category'],
             'image' => $img,
-            'text' => $validated['text'],
+            'text_json' => $validated['text_json'],
+            'text_html' => $html,
             'code' => $validated['code'],
             'stock' => $validated['stock'],
             'buying_price' => $validated['buying-price'] ? str_replace(',', '.', $validated['buying-price']) : NULL,
@@ -176,54 +179,61 @@ class ProductController extends Controller
 
         $current_category = $category->where('id', $product->category_id)->first();
 
-        return view('dashboard.products-edit', compact('product', 'category', 'current_category'));
+        // Передача данных в редактор Editor JS
+        $to_editorjs = $product->text_json;
+
+        return view('dashboard.products-edit', compact('product', 'category', 'current_category', 'to_editorjs'));
     }
 
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  \Illuminate\Http\Request $request
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request)
+    public function update(Request $request, string $id)
     {
-        $request->validate([
+        $validated = $request->validate([
             'title' => 'required|min:2|max:250',
-            'code' => 'required|min:10|max:16',
+            'category' => 'required',
+            'text_json' => 'required|min:2|max:65535',
+            'input-main-file' => [
+                                'nullable',
+                                \Illuminate\Validation\Rules\File::types(['jpg', 'png'])
+                                                                    ->min(10)
+                                                                    ->max(3000)
+                                ],
+            'input-gallery-file' => 'nullable|max:4',
+            'input-gallery-file.*' => [
+                                \Illuminate\Validation\Rules\File::types(['jpg', 'png'])
+                                                                    ->min(10)
+                                                                    ->max(3000)
+                                ],
+            'code' => [
+                'required',
+                'min:10',
+                'max:16',
+                Rule::unique('products')->ignore($id)
+            ],
             'stock' => 'required|min:0|max:10000',
-            'buying-price' => 'required|min:0',
-            'wholesale-price' => 'required|min:0',
-            'retail-price' => 'required|min:0',
+            'buying_price' => 'required|min:0',
+            'wholesale_price' => 'required|min:0',
+            'retail_price' => 'required|min:0',
             'weight' => 'required|min:1',
             'position' => 'required|min:1|max:1000000',
+            'gallery' => 'nullable',
+            'promo_price' => 'nullable',
+            'brand'  => 'nullable',
+            'property' => 'nullable',
+            'delete_gallery' => 'nullable',
         ]);
 
-        $id = $request->input('id');
+        $product = Product::findOrFail($id);
 
-        $pr = Product::find($id);
+        $slug = Str::slug($validated['title']);
 
-        $title = $request->input('title');
-        $category = $request->input('category');
-        $text = $request->input('text');
-        $image = $request->file('input-main-file');
-        $gallery = $request->file('input-gallery-file');
-        $code = $request->input('code');
-        $stock = $request->input('stock');
-        $code = $request->input('code');
-        $buying_price = $request->input('buying-price');
-        $wholesale_price = $request->input('wholesale-price');
-        $retail_price = $request->input('retail-price');
-        $promo_price = $request->input('promo-price');
-        $weight = $request->input('weight');
-        $brand = $request->input('brand');
-        $property = $request->input('property');
-        $position = $request->input('position');
-        $delete_gallery = $request->input('delete_gallery');
-
-        $slug = Str::slug($title);
-
-        if($slug != $pr->slug) {
+        if($slug != $product->slug) {
             // Проверка на уникальный slug
             $have_slug = Product::where('slug', $slug)
                                 ->get();
@@ -236,25 +246,22 @@ class ProductController extends Controller
             }
         }
 
-        if(!$promo_price) {
-            $promo_price = NULL;
-        }
+        $html = (new \App\Services\JsonToHtml($validated['text_json']))->render();
 
         $folder = 'products';
 
-        if($image) {
-            if (Storage::disk('public')->exists('/uploads/products/' . $pr->image)) {
-                Storage::disk('public')->delete('/uploads/products/' . $pr->image);
+        if (isset($validated['input_main_file'])) {
+            if (Storage::disk('public')->exists('/uploads/products/' . $product->image)) {
+                Storage::disk('public')->delete('/uploads/products/' . $product->image);
             }
-            // $img = \App\Http\Controllers\Admin\AdminController::rename_file($slug, $image, $folder);
-            $img = (new \App\Services\File())->rename_file($slug, $image, $folder);
+            $img = (new \App\Services\File())->rename_file($slug, $validated['input_main_file'], $folder);
         } else {
-            $img = $pr->image;
+            $img = $product->image;
         }
 
-        if($delete_gallery) {
+        if ($validated['delete_gallery']) {
             // Удаление файлов gallery images 
-            foreach($pr->galleries as $gl) {
+            foreach($product->galleries as $gl) {
                 if (Storage::disk('public')->exists('/uploads/products/' . $gl->image)) {
                     Storage::disk('public')->delete('/uploads/products/' . $gl->image);
                 }
@@ -262,7 +269,7 @@ class ProductController extends Controller
             }
         }
 
-        if($gallery) {
+        if(isset($validated['input-gallery-file'])) {
             $old_gallery = Gallery::where('product_id', $id)->get();
             foreach($old_gallery as $gl) {
                 if (Storage::disk('public')->exists('/uploads/products/' . $gl->image)) {
@@ -278,12 +285,14 @@ class ProductController extends Controller
                 ->where('product_id', $id)
                 ->delete();
 
-            // Новая вставка
+            // Вставка новых записей галереи
             $gallery_array = [];
+
+            $gallery = $validated['input-gallery-file'];
+
             foreach($gallery as $gl) {
                 $gallery_item = [];
                 $gallery_item["product_id"] = $id;
-                // $gallery_item["image"] = \App\Http\Controllers\Admin\AdminController::rename_file($slug, $gl, $folder);
                 $gallery_item["image"] = (new \App\Services\File())->rename_file($slug, $gl, $folder);
                 $gallery_item["created_at"] = now();
                 $gallery_item["updated_at"] = now();
@@ -299,35 +308,34 @@ class ProductController extends Controller
         }
 
         $product_array = [
-            'title' => $title,
+            'title' => $validated['title'],
             'slug' => $slug,
-            'category_id' => $category,
+            'category_id' => $validated['category'],
             'image' => $img,
-            'text' => $text,
-            'code' => $code,
-            'stock' => $stock,
-            'buying_price' => $buying_price ? str_replace(',', '.', $buying_price) : NULL,
-            'wholesale_price' => str_replace(',', '.', $wholesale_price),
-            'retail_price' => str_replace(',', '.', $retail_price),
-            'promo_price' => $promo_price ? str_replace(',', '.', $promo_price) : NULL,
-            'weight' => $weight,
-            'brand' => $brand,
-            'property' => $property,
-            'position' => $position,
+            'text_json' => $validated['text_json'],
+            'text_html' => $html,
+            'code' => $validated['code'],
+            'stock' => $validated['stock'],
+            'buying_price' => $validated['buying_price'] ? str_replace(',', '.', $validated['buying_price']) : NULL,
+            'wholesale_price' => str_replace(',', '.', $validated['wholesale_price']),
+            'retail_price' => str_replace(',', '.', $validated['retail_price']),
+            'promo_price' => $validated['promo_price'] ? str_replace(',', '.', $validated['promo_price']) : NULL,
+            'weight' => $validated['weight'],
+            'brand' => $validated['brand'],
+            'property' => $validated['property'],
+            'position' => $validated['position'],
             'updated_at' => now()
         ];
 
-        $pr->update($product_array);
+        $product->update($product_array);
 
         // Обновление во внешней БД таблица products
-        // $external_db = config('database.connections.mysql2.database') . '.';
-
         DB::connection('mysql2')
             ->table('products')
-            ->where('id', $pr->id)
+            ->where('id', $product->id)
             ->update($product_array);
 
-        return redirect('/admin/products');
+        return redirect()->back();
     }
 
     /**

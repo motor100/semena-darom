@@ -1,8 +1,6 @@
 @extends('dashboard.layout')
 
-@section('title')
-Добавить товар
-@endsection
+@section('title', 'Добавить товар')
 
 @section('dashboardcontent')
 
@@ -18,15 +16,20 @@
     </div>
   @endif
 
-  <form class="form" action="{{ route('products-store') }}" method="post" enctype="multipart/form-data">
+  <form id="save-data-form" class="form" action="{{ route('products-store') }}" method="post" enctype="multipart/form-data">
     <div class="form-group mb-3">
       <label for="title">Название</label>
       <input type="text" class="form-control" name="title" id="title" minlength="2" maxlength="250" required value="{{ old('title') }}">
     </div>
-    <div class="form-group mb-3">
+    <!-- <div class="form-group mb-3">
       <label for="text">Описание</label>
       <textarea class="form-control" name="text" id="text">{{ old('text') }}</textarea>
+    </div> -->
+    <div class="form-group mb-3">
+      <div class="label-text mb-1">Описание</div>
+      <div id="editorjs"></div>
     </div>
+
     <div class="form-group mb-3">
       <div class="label-text mb-1">Категория</div>
       <select name="category" id="category" class="form-select mt-1">
@@ -91,6 +94,8 @@
       <label for="position">Позиция на складе</label>
       <input type="number" class="form-control input-position input-number" name="position" id="position" max="1000000" required value="{{ old('position') }}">
     </div>
+
+    <input type="hidden" name="text_json" id="save-data-input" value="">
 
     @csrf
     <button type="submit" class="btn btn-primary">Добавить</button>

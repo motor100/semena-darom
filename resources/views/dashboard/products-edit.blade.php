@@ -1,8 +1,6 @@
 @extends('dashboard.layout')
 
-@section('title')
-Редактировать товар
-@endsection
+@section('title', 'Редактировать товар')
 
 @section('dashboardcontent')
 
@@ -18,15 +16,23 @@
     </div>
   @endif
 
-  <form class="form" action="{{ route('products-update') }}" method="post" enctype="multipart/form-data">
+  <form class="form" id="save-data-form" action="{{ route('products-update', $product->id) }}" method="post" enctype="multipart/form-data">
     <div class="form-group mb-3">
       <label for="title" class="label-text">Название</label>
       <input type="text" class="form-control" name="title" id="title" maxlength="200" required value="{{ $product->title }}">
     </div>
-    <div class="form-group mb-3">
+    <!-- <div class="form-group mb-3">
       <label for="text" class="label-text">Описание</label>
       <textarea class="form-control" name="text" id="text">{{ $product->text }}</textarea>
+    </div> -->
+    <div class="form-group mb-3">
+      <div class="label-text mb-1">Описание</div>
+      @if(isset($to_editorjs))
+        <div id="to-editorjs" style="display: none;">{{ $to_editorjs }}</div>
+      @endif
+      <div id="editorjs"></div>
     </div>
+
     <div class="form-group mb-3">
       <div class="label-text">Категория</div>
       <select name="category" id="category" class="form-select mt-1">
@@ -76,19 +82,19 @@
     </div>
     <div class="form-group mb-3">
       <label for="buying-price" class="label-text">Закупочная цена</label>
-      <input type="number" class="form-control input-buying-price input-number" name="buying-price" id="buying-price" min="0" step="0.5" value="{{ $product->buying_price }}">
+      <input type="number" class="form-control input-buying-price input-number" name="buying_price" id="buying-price" min="0" step="0.5" value="{{ $product->buying_price }}">
     </div>
     <div class="form-group mb-3">
       <label for="wholesale-price" class="label-text">Оптовая цена</label>
-      <input type="wholesale-price" class="form-control input-wholesale-price input-number" name="wholesale-price" id="wholesale-price" min="0" step="0.5" required value="{{ $product->wholesale_price }}">
+      <input type="wholesale-price" class="form-control input-wholesale-price input-number" name="wholesale_price" id="wholesale-price" min="0" step="0.5" required value="{{ $product->wholesale_price }}">
     </div>
     <div class="form-group mb-3">
       <label for="retail-price" class="label-text">Розничная цена</label>
-      <input type="number" class="form-control input-retail-price input-number" name="retail-price" id="retail-price" min="0" step="0.5" required value="{{ $product->retail_price }}">
+      <input type="number" class="form-control input-retail-price input-number" name="retail_price" id="retail-price" min="0" step="0.5" required value="{{ $product->retail_price }}">
     </div>
     <div class="form-group mb-3">
       <label for="promo-price" class="label-text">Акционная цена</label>
-      <input type="number" class="form-control input-promo-price input-number" name="promo-price" id="promo-price" min="0" step="0.5" value="{{ $product->promo_price }}">
+      <input type="number" class="form-control input-promo-price input-number" name="promo_price" id="promo-price" min="0" step="0.5" value="{{ $product->promo_price }}">
     </div>
     <div class="form-group mb-3">
       <label for="weight" class="label-text">Вес, гр.</label>
@@ -112,6 +118,7 @@
     </div>
     <input type="hidden" name="id" value="{{ $product->id }}">
     <input type="hidden" name="delete_gallery" value="">
+    <input type="hidden" name="text_json" id="save-data-input" value="">
 
     @csrf
     <button type="submit" class="btn btn-primary">Обновить</button>

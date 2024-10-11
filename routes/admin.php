@@ -72,7 +72,7 @@ Route::prefix('admin')->group(static function () {
 
         Route::get('products/{id}/edit', [ProductController::class, 'edit'])->name('products-edit');
 
-        Route::post('products/update', [ProductController::class, 'update'])->name('products-update');
+        Route::post('products/{id}/update', [ProductController::class, 'update'])->name('products-update');
 
         Route::get('products/{id}/destroy', [ProductController::class, 'destroy'])->name('products-destroy');
 
