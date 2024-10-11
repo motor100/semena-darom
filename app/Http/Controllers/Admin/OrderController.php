@@ -94,7 +94,7 @@ class OrderController extends Controller
                             'updated_at' => $now
                         ]);
 
-        return redirect('/admin/orders');
+        return redirect()->back();
     }
 
     /**
