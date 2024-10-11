@@ -2583,72 +2583,76 @@ p {
   margin: 60px 0 0 0;
   padding: 40px 0 20px 0;
   background-color: $dopgreycolor;
-}
-.footer .logo-wrapper {
-  margin: 0 0 30px 0;
-}
-.footer .logo-wrapper .logo {
-  width: 133px;
-}
-.footer .logo-wrapper .logo img {
-  width: 100%;
-}
-.footer .bottom-menu {
-  margin: 0 0 50px 0;
-}
-.footer .bottom-menu .menu-title {
-  margin: 0 0 20px 0;
-  font-family: 'arimo-semibold';
-  font-size: 20px;
-}
-.footer .bottom-menu .menu {
-  margin: 0 0 25px 0;
-}
-.footer .bottom-menu .menu .menu-item {
-  margin: 0 0 16px 0;
-  line-height: 1.3;
-}
-.footer .bottom-menu .menu .menu-item .menu-item__link {
-  color: $lightgreycolor;
-  transition: color .3s;
-}
-.footer .bottom-menu .menu .menu-item .menu-item__link:hover {
-  color: $maingreencolor;
-}
-.footer .bottom-menu .social svg rect {
-  fill: #DDDDDD;
-  transition: fill .3s;
-}
-.footer .bottom-menu .social svg path {
-  fill: #BBBBBB;
-  transition: fill .3s;
-}
-.footer .bottom-menu .social svg:hover rect {
-  fill: $maingreencolor;
-}
-.footer .bottom-menu .social svg:hover path {
-  fill: #fff;
-}
-.footer .bottom-menu .last-menu .menu-item {
-  color: $textcolor;
-}
-.footer .bottom-menu .last-menu .phone {
-  margin: 0 0 8px 0;
-}
-.footer .bottom-menu .last-menu .callback-btn {
-  margin: 0 0 16px 0;
-  text-decoration: underline;
-  cursor: pointer;
-}
-.footer .bottom-row .flex-container {
-  display: flex;
-  justify-content: flex-end;
-}
-.footer .bottom-row .author {
-  margin: 0 0 0 20px;
-}
-.footer .bottom-row .author .author-name {
-  color: $textcolor;
+  .logo-wrapper {
+    margin: 0 0 30px 0;
+  }
+  .logo-wrapper .logo {
+    width: 133px;
+  }
+  .logo-wrapper .logo img {
+    width: 100%;
+  }
+  .bottom-menu {
+    margin: 0 0 50px 0;
+  }
+  .bottom-menu .menu-title {
+    margin: 0 0 20px 0;
+    font-family: 'arimo-semibold';
+    font-size: 20px;
+    line-height: 1.3;
+  }
+  .bottom-menu .menu {
+    margin: 0 0 25px 0;
+  }
+  .bottom-menu .menu .menu-item {
+    margin: 0 0 16px 0;
+    line-height: 1.3;
+  }
+  .bottom-menu .menu .menu-item .menu-item__link {
+    color: $lightgreycolor;
+    transition: color .3s;
+  }
+  .bottom-menu .menu .menu-item .menu-item__link:hover {
+    color: $maingreencolor;
+  }
+  .bottom-menu .social svg rect {
+    fill: #DDDDDD;
+    transition: fill .3s;
+  }
+  .bottom-menu .social svg path {
+    fill: #BBBBBB;
+    transition: fill .3s;
+  }
+  .bottom-menu .social svg:hover rect {
+    fill: $maingreencolor;
+  }
+  .bottom-menu .social svg:hover path {
+    fill: #fff;
+  }
+  .bottom-menu .last-menu .menu-item {
+    color: $textcolor;
+  }
+  .bottom-menu .last-menu .phone {
+    margin: 0 0 8px 0;
+  }
+  .bottom-menu .last-menu .callback-btn {
+    margin: 0 0 16px 0;
+    text-decoration: underline;
+    cursor: pointer;
+  }
+  // .bottom-row .flex-container {
+  //   display: flex;
+  //   justify-content: space-between;
+  // }
+  // .bottom-row .author {
+  //   margin: 0 0 0 20px;
+  // }
+  .bottom-row .author .author-name {
+    color: $textcolor;
+  }
+  .bottom-row .author .author-name:hover {
+    text-decoration: underline;
+  }
 }
 
 /* polzovatelskoe-soglashenie-s-publichnoj-ofertoj */
@@ -3303,6 +3307,13 @@ p {
     }
   }
 
+  // footer
+  .footer {
+    .bottom-menu .menu-title {
+      font-size: 18px;
+    }
+  }
+
 }
 
 @media only screen and (max-width : 992px) {
@@ -3530,24 +3541,25 @@ p {
     font-size: 18px;
   }
 
+  // footer
   .footer {
-    padding: 40px 0 100px 0;
+    padding: 40px 0 120px 0;
     text-align: center;
-  }
-  .footer .logo-wrapper .logo {
-    margin: 0 auto;
-  }
-  .footer .bottom-row .flex-container {
-    display: block;
-  }
-  .footer .bottom-row .author {
-    margin: 0 0 8px 0;
-  }
-  .footer .bottom-menu .social svg rect {
-    fill: $maingreencolor;
-  }
-  .footer .bottom-menu .social svg path {
-    fill: #fff;
+    .logo-wrapper .logo {
+      margin: 0 auto;
+    }
+    .bottom-row .flex-container {
+      display: block;
+    }
+    .bottom-row .inn {
+      margin: 0 0 10px 0;
+    }
+    .bottom-menu .social svg rect {
+      fill: $maingreencolor;
+    }
+    .bottom-menu .social svg path {
+      fill: #fff;
+    }
   }
 
   .o-kompanii .o-kompanii-item {

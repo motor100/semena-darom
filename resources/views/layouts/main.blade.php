@@ -359,7 +359,7 @@
     <div class="bottom-menu">
       <div class="container-fluid">
         <div class="row">
-          <div class="col-md-2">
+          <div class="col-xxl-2 col-md-3">
             <div class="menu-title">Покупателям</div>
             <ul class="menu">
               <li class="menu-item">
@@ -376,7 +376,7 @@
               </li>
             </ul>
           </div>
-          <div class="col-xxl-2 col-md-3">
+          <div class="col-md-3">
             <div class="menu-title">Правовая информация</div>
             <ul class="menu">
               <li class="menu-item">
@@ -402,11 +402,11 @@
             </ul>
             
           </div>
-          <div class="col-xxl-4 col-md-2"></div>
-          <div class="col-md-2">
+          <div class="col-xxl-3 d-none d-xxl-block"></div>
+          <div class="col-xxl-2 col-md-3">
             <div class="menu-title">Есть вопросы?</div>
             <div class="last-menu">
-              <div class="menu-item phone">тел.: +7 (902) 614 09 67</div>
+              <div class="menu-item phone">+7 (902) 614 09 67</div>
               <div class="menu-item callback-btn js-callback-btn">заказать обратный звонок</div>
               <div class="social">
                 <a href="https://vk.com/semena7" target="_blank">
@@ -423,13 +423,19 @@
     </div>
     <div class="bottom-row">
       <div class="container-fluid">
-        <div class="flex-container">
-          <div class="author">@ Семена Даром, {{ date("Y") }}</div>
-          <div class="author">
-            <a href="https://mybutton.ru/" class="author-name" target="_blank">Поддержка Button</a>
+        <div class="row">
+          <div class="col-xxl-2 col-md-4">
+            <div class="copyright">@ Семена Даром, {{ date("Y") }}</div>
+            <div class="inn">ИНН 7415099134</div>
           </div>
-          <div class="author">
-            <a href="https://nhfuture.ru/" class="author-name" target="_blank">Дизайн Andrewwebnh</a>
+          <div class="col-xxl-8 col-md-5"></div>
+          <div class="col-xxl-2 col-md-3">
+            <div class="author">
+              <a href="https://mybutton.ru/" class="author-name" target="_blank">Поддержка Button</a>
+            </div>
+            <div class="author">
+              <a href="https://nhfuture.ru/" class="author-name" target="_blank">Дизайн Andrewwebnh</a>
+            </div>
           </div>
         </div>
       </div>
@@ -481,7 +487,7 @@
 
     <div class="question">
       <div class="question-title">Есть вопросы?</div>
-      <div class="question-phone">тел.: +7 (902) 614 09 67</div>
+      <div class="question-phone">+7 (902) 614 09 67</div>
       <div class="callback-btn js-callback-btn">заказать обратный звонок</div>
     </div>          
 
