@@ -220,8 +220,6 @@ class MainController extends Controller
 
             $products = \App\Services\Common::get_products_in_cart($request);
 
-            $cdek = new \App\Services\Cdek();
-
             return view('create-order', compact('products', 'is_create_order'));
         } else {
             return redirect('/cart');

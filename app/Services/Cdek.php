@@ -18,6 +18,26 @@ class Cdek
     const FROM_CITY = "Миасс"; // Город отправителя
     const FROM_CODE = "7"; // Код города СДЕК Миасс
     const SENDER_NAME = "ИП Варнавин А.С."; // Имя отправителя
+
+    /**
+     * @var string Test client id or Account
+     */
+    public const TEST_CLIENT_ID = "wqGwiQx0gg8mLtiEKsUinjVSICCjtTEP1";
+
+    /**
+     * @var string Test client secret or Secure password
+     */
+    public const TEST_CLIENT_SECRET = "RmAmgvSgSl1yirlz9QupbzOJVqhCxcP5";
+
+    /**
+     * @var string Тестовая ссылка для получения токена
+     */
+    public const TEST_URL_TOKEN = "https://api.edu.cdek.ru/v2/oauth/token";
+
+    /**
+     * @var string Рабочая ссылка для получения токена
+     */
+    public const WORK_URL_TOKEN = "https://api.cdek.ru/v2/oauth/token";
     
     /**
      * Документация https://api-docs.cdek.ru/63345430.html
@@ -27,6 +47,11 @@ class Cdek
     public function tariff(): string
     { 
         $token = $this->get_token();
+
+        // Если не пришел токен, то возвращаю "-"
+        if (!$token) {
+            return "-";
+        }
         
         // Запрос на расчет
         // Тестовая ссылка
@@ -263,32 +288,42 @@ class Cdek
     }
 
     /**
-     * Авторизация API СДЕК
+     * Авторизация и получение токена API СДЕК
      * Документация https://api-docs.cdek.ru/29923918.html
      * @param
-     * @return string
+     * @return mixed
      */
-    public function get_token(): string
+    public function get_token(): mixed
     {
-        // Получаю токен
-        // Тестовая ссылка
-        // $url_token = "https://api.edu.cdek.ru/v2/oauth/token";
-
         // Рабочая ссылка
-        $url_token = "https://api.cdek.ru/v2/oauth/token";
+        $url_token = self::WORK_URL_TOKEN;
+
+        // Тестовая ссылка
+        $url_token = self::TEST_URL_TOKEN;
 
         $params_token = [
             'grant_type' =>	'client_credentials',
+
+            // Рабочие client_id и client_secret
             'client_id'	=> config('sdek.client_id'),
-            'client_secret'	=> config('sdek.client_secret')
+            'client_secret'	=> config('sdek.client_secret'),
+            
+            // Тестовые client_id и client_secret
+            // 'client_id'	=> self::TEST_CLIENT_ID,
+            // 'client_secret'	=> self::TEST_CLIENT_SECRET,
         ];
 
         // Метод asForm() устанавливает Content-type: application/x-www-form-urlencoded
         // Без него по умолчанию передается Content-type: application/json
         $response_token = Http::asForm()->post($url_token, $params_token);
+        
+        // Если статус ответа 200, то возвращаю токен
+        if ($response_token->status() == 200) {
+            $this->token = $response_token->json("access_token");
 
-        $this->token = $response_token->json("access_token");
+            return $response_token->json("access_token");
+        }
 
-        return $response_token->json("access_token");
+        return false;
     }
 }
