@@ -21,10 +21,6 @@
       <label for="title" class="label-text">Название</label>
       <input type="text" class="form-control" name="title" id="title" maxlength="200" required value="{{ $product->title }}">
     </div>
-    <!-- <div class="form-group mb-3">
-      <label for="text" class="label-text">Описание</label>
-      <textarea class="form-control" name="text" id="text">{{ $product->text }}</textarea>
-    </div> -->
     <div class="form-group mb-3">
       <div class="label-text mb-1">Описание</div>
       @if(isset($to_editorjs))
@@ -32,7 +28,6 @@
       @endif
       <div id="editorjs"></div>
     </div>
-
     <div class="form-group mb-3">
       <div class="label-text">Категория</div>
       <select name="category" id="category" class="form-select mt-1">
@@ -73,12 +68,12 @@
       <span class="namefile gallery-file-text">Файлы не выбраны</span>
     </div>
     <div class="form-group mb-3">
-      <label for="code" class="label-text">Штрихкод</label>
-      <input type="number" class="form-control input-code input-number" name="code" id="code" min="0" step="1" required value="{{ $product->code }}">
+      <label for="barcode" class="label-text">Штрихкод</label>
+      <input type="number" class="form-control input-barcode input-number" name="barcode" id="barcode" min="0" step="1" required value="{{ $product->barcode }}">
     </div>
     <div class="form-group mb-3">
       <label for="stock" class="label-text">Количество</label>
-      <input type="number" class="form-control input-stock input-number" name="stock" id="stock" min="0" step="1" required value="{{ $product->stock }}">
+      <input type="number" class="form-control input-stock input-number" name="stock" id="stock" min="0" step="1" value="{{ $product->stock }}">
     </div>
     <div class="form-group mb-3">
       <label for="buying-price" class="label-text">Закупочная цена</label>

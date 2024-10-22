@@ -21,15 +21,10 @@
       <label for="title">Название</label>
       <input type="text" class="form-control" name="title" id="title" minlength="2" maxlength="250" required value="{{ old('title') }}">
     </div>
-    <!-- <div class="form-group mb-3">
-      <label for="text">Описание</label>
-      <textarea class="form-control" name="text" id="text">{{ old('text') }}</textarea>
-    </div> -->
     <div class="form-group mb-3">
       <div class="label-text mb-1">Описание</div>
       <div id="editorjs"></div>
     </div>
-
     <div class="form-group mb-3">
       <div class="label-text mb-1">Категория</div>
       <select name="category" id="category" class="form-select mt-1">
@@ -41,7 +36,7 @@
     </div>
     <div class="form-group mb-3">
       <div class="label-text mb-1">Изображение</div>
-      <input type="file" name="input-main-file" id="input-main-file" class="inputfile" required accept="image/jpeg,image/png">
+      <input type="file" name="input-main-file" id="input-main-file" class="inputfile" accept="image/jpeg,image/png">
       <label for="input-main-file" class="custom-inputfile-label">Выберите файл</label>
       <span class="namefile main-file-text">Файл не выбран</span>
     </div>
@@ -52,12 +47,12 @@
       <span class="namefile gallery-file-text">Файлы не выбраны</span>
     </div>
     <div class="form-group mb-3">
-      <label for="code">Штрихкод</label>
-      <input type="number" class="form-control input-code input-number" name="code" id="code" min="0" step="1" minlength="8" maxlength="15" required >
+      <label for="barcode">Штрихкод</label>
+      <input type="number" class="form-control input-barcode input-number" name="barcode" id="barcode" min="0" step="1" minlength="8" maxlength="15" required >
     </div>
     <div class="form-group mb-3">
       <label for="stock">Количество</label>
-      <input type="number" class="form-control input-stock input-number" name="stock" id="stock" min="0" step="1" required value="{{ old('stock') }}">
+      <input type="number" class="form-control input-stock input-number" name="stock" id="stock" min="0" step="1" value="{{ old('stock') }}">
     </div>
     <div class="form-group mb-3">
       <label for="buying-price">Закупочная цена</label>

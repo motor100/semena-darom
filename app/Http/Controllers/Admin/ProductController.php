@@ -60,9 +60,9 @@ class ProductController extends Controller
             'title' => 'required|min:2|max:250',
             'category' => 'required',
             'text_json' => 'required|min:2|max:65535',
-            'input-main-file' => 'required|image|mimes:jpg,png,jpeg',
-            'code' => 'required|min:10|max:16|unique:App\Models\Product,code',
-            'stock' => 'required|min:0|max:10000',
+            'input-main-file' => 'nullable|image|mimes:jpg,png,jpeg',
+            'barcode' => 'required|min:10|max:16|unique:App\Models\Product,barcode',
+            'stock' => 'nullable|min:0|max:10000',
             'buying-price' => 'required|min:0',
             'wholesale-price' => 'required|min:0',
             'retail-price' => 'required|min:0',
@@ -91,8 +91,11 @@ class ProductController extends Controller
 
         $folder = 'products';
 
-        // $img = \App\Http\Controllers\Admin\AdminController::rename_file($slug, $validated['input-main-file'], $folder);
-        $img = (new \App\Services\File())->rename_file($slug, $validated['input-main-file'], $folder);
+        $img = NULL;
+
+        if (isset($validated['input-main-file'])) {
+            $img = (new \App\Services\File())->rename_file($slug, $validated['input-main-file'], $folder);
+        }
 
         $html = (new \App\Services\JsonToHtml($validated['text_json']))->render();
 
@@ -104,8 +107,8 @@ class ProductController extends Controller
             'image' => $img,
             'text_json' => $validated['text_json'],
             'text_html' => $html,
-            'code' => $validated['code'],
-            'stock' => $validated['stock'],
+            'barcode' => $validated['barcode'],
+            'stock' => $validated['stock'] ? $validated['stock'] : 0, // количество на складе по умолчанию 0
             'buying_price' => $validated['buying-price'] ? str_replace(',', '.', $validated['buying-price']) : NULL,
             'wholesale_price' => str_replace(',', '.', $validated['wholesale-price']),
             'retail_price' => str_replace(',', '.', $validated['retail-price']),
@@ -210,13 +213,13 @@ class ProductController extends Controller
                                                                     ->min(10)
                                                                     ->max(3000)
                                 ],
-            'code' => [
+            'barcode' => [
                 'required',
                 'min:10',
                 'max:16',
                 Rule::unique('products')->ignore($id)
             ],
-            'stock' => 'required|min:0|max:10000',
+            'stock' => 'nullable|min:0|max:10000',
             'buying_price' => 'required|min:0',
             'wholesale_price' => 'required|min:0',
             'retail_price' => 'required|min:0',
@@ -314,8 +317,8 @@ class ProductController extends Controller
             'image' => $img,
             'text_json' => $validated['text_json'],
             'text_html' => $html,
-            'code' => $validated['code'],
-            'stock' => $validated['stock'],
+            'barcode' => $validated['barcode'],
+            'stock' => $validated['stock'] ? $validated['stock'] : 0,
             'buying_price' => $validated['buying_price'] ? str_replace(',', '.', $validated['buying_price']) : NULL,
             'wholesale_price' => str_replace(',', '.', $validated['wholesale_price']),
             'retail_price' => str_replace(',', '.', $validated['retail_price']),
