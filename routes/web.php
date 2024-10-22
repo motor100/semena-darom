@@ -67,6 +67,10 @@ Route::get('/poisk', [MainController::class, 'poisk']);
 
 Route::post('/set-city', [MainController::class, 'set_city']);
 
+// test
+// Удаление штрихкода из описания товаров
+Route::get('/remove-barcode-from-text-html', [MainController::class, 'remove_barcode_from_text_html']);
+
 
 // Sitemap
 Route::get('/sitemap.xml', [MainController::class, 'sitemap']);

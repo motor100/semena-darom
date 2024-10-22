@@ -1147,12 +1147,15 @@ p {
     object-fit: cover;
   }
   .products-item__title {
-    display: block;
+    height: 42px;
     margin: 0 0 16px 0;
     color: $textcolor;
-    white-space: nowrap;
-    overflow: hidden;
     text-overflow: ellipsis;
+    overflow: hidden;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    line-height: 1.3;
   }
   .products-item__text {
     height: 39px;
@@ -3482,7 +3485,6 @@ p {
   .regular-products-item .products-item__title {
     white-space: normal;
     font-size: 15px;
-    line-height: 1.3;
     height: 39px;
   }
   .regular-products-item .products-item-price-wrapper {
