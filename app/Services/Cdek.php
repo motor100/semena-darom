@@ -295,28 +295,28 @@ class Cdek
      */
     public function get_token(): mixed
     {
+        // Тестовая ссылка
+        // $url_token = self::TEST_URL_TOKEN;
+
         // Рабочая ссылка
         $url_token = self::WORK_URL_TOKEN;
-
-        // Тестовая ссылка
-        $url_token = self::TEST_URL_TOKEN;
 
         $params_token = [
             'grant_type' =>	'client_credentials',
 
-            // Рабочие client_id и client_secret
-            'client_id'	=> config('sdek.client_id'),
-            'client_secret'	=> config('sdek.client_secret'),
-            
             // Тестовые client_id и client_secret
             // 'client_id'	=> self::TEST_CLIENT_ID,
             // 'client_secret'	=> self::TEST_CLIENT_SECRET,
+
+            // Рабочие client_id и client_secret
+            'client_id'	=> config('sdek.client_id'),
+            'client_secret'	=> config('sdek.client_secret'),
         ];
 
         // Метод asForm() устанавливает Content-type: application/x-www-form-urlencoded
         // Без него по умолчанию передается Content-type: application/json
         $response_token = Http::asForm()->post($url_token, $params_token);
-        
+
         // Если статус ответа 200, то возвращаю токен
         if ($response_token->status() == 200) {
             $this->token = $response_token->json("access_token");

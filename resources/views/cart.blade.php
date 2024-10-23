@@ -57,12 +57,14 @@
                 <div class="cf-item__title">{{ $product->title }}</div>
                 @if($product->promo_price)
                   <div class="cf-item__price red-text">
-                    <span class="cf-item__value js-item-price">{{ str_replace('.0', '', $product->promo_price) }}</span>
+                    <!-- <span class="cf-item__value js-item-price">{{ str_replace('.0', '', $product->promo_price) }}</span> -->
+                    <span class="cf-item__value js-item-price">{{ $product->promo_price }}</span>
                     <span class="cf-item__currency">&#8381;</span>
                   </div>
                 @else
                   <div class="cf-item__price">
-                    <span class="cf-item__value js-item-price">{{ str_replace('.0', '', $product->retail_price) }}</span>
+                    <!-- <span class="cf-item__value js-item-price">{{ str_replace('.0', '', $product->retail_price) }}</span> -->
+                    <span class="cf-item__value js-item-price">{{ $product->retail_price }}</span>
                     <span class="cf-item__currency">&#8381;</span>
                   </div>
                 @endif             
@@ -71,7 +73,8 @@
                 <div class="cf-item__promo">
                   <div class="cf-item__promo-text red-text">Акция</div>
                   <div class="cf-item__old-price item__old-price">
-                    <span class="cf-item__value js-item-price js-item-old-price">{{ str_replace('.0', '', $product->retail_price) }}</span>
+                    <!-- <span class="cf-item__value js-item-price js-item-old-price">{{ str_replace('.0', '', $product->retail_price) }}</span> -->
+                    <span class="cf-item__value js-item-price js-item-old-price">{{ $product->retail_price }}</span>
                     <span class="cf-item__currency">&#8381;</span>
                     <span class="line-through"></span>
                   </div>

@@ -300,17 +300,20 @@
                         <div class="products-item-price-wrapper">
                           @if($product->promo_price)
                             <div class="products-item__price products-item__promo-price red-text">
-                              <span class="products-item__value">{{ str_replace('.0', '', $product->promo_price) }}</span>
+                              <!-- <span class="products-item__value">{{ str_replace('.0', '', $product->promo_price) }}</span> -->
+                              <span class="products-item__value">{{ $product->promo_price }}</span>
                               <span class="products-item__currency">&#8381;</span>
                             </div>
                             <div class="products-item__old-price item__old-price">
-                              <span class="products-item__value">{{ str_replace('.0', '', $product->retail_price) }}</span>
+                              <!-- <span class="products-item__value">{{ str_replace('.0', '', $product->retail_price) }}</span> -->
+                              <span class="products-item__value">{{ $product->retail_price }}</span>
                               <span class="products-item__currency">&#8381;</span>
                               <span class="line-through"></span>
                             </div>
                           @else
                             <div class="products-item__price products-item__retail-price">
-                              <span class="products-item__value">{{ str_replace('.0', '', $product->retail_price) }}</span>
+                              <!-- <span class="products-item__value">{{ str_replace('.0', '', $product->retail_price) }}</span> -->
+                              <span class="products-item__value">{{ $product->retail_price }}</span>
                               <span class="products-item__currency">&#8381;</span>
                               <span class="line-through"></span>
                             </div>

@@ -158,13 +158,16 @@
             <div class="js-item-weight hidden">{{ $product->weight }}</div>
 
             @if($product->promo_price)
-              <div class="js-item-price hidden">{{ str_replace('.0', '', $product->promo_price) }}</div>
+              <!-- <div class="js-item-price hidden">{{ str_replace('.0', '', $product->promo_price) }}</div> -->
+              <div class="js-item-price hidden">{{ $product->promo_price }}</div>
             @else
-              <div class="js-item-price hidden">{{ str_replace('.0', '', $product->retail_price) }}</div>
+              <!-- <div class="js-item-price hidden">{{ str_replace('.0', '', $product->retail_price) }}</div> -->
+              <div class="js-item-price hidden">{{ $product->retail_price }}</div>
             @endif
 
             @if($product->promo_price)
-              <div class="js-item-old-price hidden">{{ str_replace('.0', '', $product->retail_price) }}</div>
+              <!-- <div class="js-item-old-price hidden">{{ str_replace('.0', '', $product->retail_price) }}</div> -->
+              <div class="js-item-old-price hidden">{{ $product->retail_price }}</div>
             @endif
             
           </div>

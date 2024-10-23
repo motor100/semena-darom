@@ -126,8 +126,8 @@ class MainController extends Controller
             $product = Product::where('slug', $slug)->first();
 
             if ($product) {
-                $product->retail_price = str_replace('.0', '', $product->retail_price);
-                $product->promo_price = str_replace('.0', '', $product->promo_price);
+                // $product->retail_price = str_replace('.0', '', $product->retail_price);
+                // $product->promo_price = str_replace('.0', '', $product->promo_price);
                 
                 // Заголовок в 2 цвета
                 $product->color_title = (new \App\Services\SingleProduct($product->title))->double_color_title();
