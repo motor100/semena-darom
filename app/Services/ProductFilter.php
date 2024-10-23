@@ -29,8 +29,15 @@ class ProductFilter
         $category = \App\Models\Category::where('slug', $value)->first();
 
         if (!$category) return;
-        
-        $this->builder->where('category_id', $category->id);
+
+        // Если это родительская категория, то получаю дочерние категории и применяю в запросе whereIn для получения товаров
+        if ($category->parent == 0) {
+            $subcategory = \App\Models\Category::where('parent', $category->id)->pluck('id');
+            $this->builder->whereIn('category_id', $subcategory);
+        } else {
+            // Если это дочерняя категория, то применяю в запросе where для получения товаров
+            $this->builder->where('category_id', $category->id);
+        }
     }
 
     public function price($value)

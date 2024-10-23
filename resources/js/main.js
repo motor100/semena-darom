@@ -588,6 +588,7 @@ function asideCartTotalCalc() {
     } else {
       cartAsideTotal += Number(retailPrice.innerText) * Number(quantity.innerText);
     }
+
   });
 
   if (cartAsideProductsItems.length > 0) {

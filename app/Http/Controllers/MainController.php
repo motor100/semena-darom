@@ -72,7 +72,7 @@ class MainController extends Controller
 
         $products = (new \App\Services\ProductFilter($products, $request))
                                             ->apply()
-                                            ->orderBy('id', 'desc')
+                                            // ->orderBy('id', 'desc')
                                             ->paginate(30)
                                             ->withQueryString();
 

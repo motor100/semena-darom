@@ -673,6 +673,7 @@ p {
   position: relative;
   display: flex;
   margin: 0 0 32px 0;
+  padding: 0 30px 0 0;
   align-items: center;
   cursor: pointer;
   z-index: 1;
@@ -683,6 +684,7 @@ p {
   margin: 0 15px 0 0;
   border-radius: 13px;
   overflow: hidden;
+  flex-shrink: 0;
 }
 .aside-nav-item .aside-nav-item__image img {
   width: 100%;
@@ -692,6 +694,7 @@ p {
   font-family: 'arimo-semibold';
   font-size: 18px;
   color: $textcolor;
+  line-height: 1.1;
   transition: color .3s;
 }
 .aside-nav-item:hover .aside-nav-item__title {
@@ -3271,6 +3274,14 @@ p {
 
   .aside-nav .aside-nav-title {
     font-size: 16px;
+  }
+  .aside-nav-item {
+    padding: 0 23px 0 0;
+  }
+  .aside-nav-item .aside-nav-item__image {
+    width: 22px;
+    height: 22px;
+    margin: 0 9px 0 0;
   }
   .aside-nav-item .aside-nav-item__title {
     font-size: 14px;
