@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Category;
 use Illuminate\Http\Request;
 use App\Models\Product;
 use App\Models\MainSlider;
@@ -66,7 +67,7 @@ class MainController extends Controller
     }
 
     public function catalog(Request $request)
-    {
+    {   
         $products = Product::where('stock', '>', 0);
         // $products = Product::query(); // без where
 
@@ -79,6 +80,46 @@ class MainController extends Controller
         $category_title = \App\Services\Common::get_category_title($request);
 
         return view('catalog', compact('products', 'category_title'));
+    }
+
+    public function newcatalog(Request $request)
+    {   
+        /*
+        $products = Product::where('stock', '>', 0);
+        // $products = Product::query(); // без where
+
+        $products = (new \App\Services\ProductFilter($products, $request))
+                                            ->apply()
+                                            // ->orderBy('id', 'desc')
+                                            ->paginate(30)
+                                            ->withQueryString();
+
+        $category_title = \App\Services\Common::get_category_title($request);
+
+        return view('catalog', compact('products', 'category_title'));
+        */
+        $categories = \App\Models\Category::where('parent', '0')->get();
+
+        return view('newcatalog', compact('categories'));
+    }
+
+    public function category($category)
+    {
+        if (strlen($category) > 3 && strlen($category) < 100) {
+
+            $cat = Category::where('slug', $category)
+                            ->where('parent', 0)
+                            ->first();
+
+            if ($cat) {
+                $categories = Category::where('parent', $cat->id)->get();
+
+                return view('newcatalog', compact('categories'));
+            }
+
+        }
+
+        return abort(404);
     }
 
     public function akcii(Request $request)

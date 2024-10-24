@@ -37,6 +37,10 @@ Route::get('/novinki', [MainController::class, 'novinki']);
 
 Route::get('/catalog/{slug}', [MainController::class, 'single_product']);
 
+// Route::get('/catalog/{category}', [MainController::class, 'category']);
+
+// Route::get('/catalog/{category}/{slug}', [MainController::class, 'single_product']);
+
 Route::get('/favourites', [MainController::class, 'favourites']);
 
 Route::get('/clear-favourites', [MainController::class, 'clear_favourites']);
