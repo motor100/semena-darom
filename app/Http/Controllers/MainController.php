@@ -56,7 +56,8 @@ class MainController extends Controller
     {
         $testimonials = Testimonial::whereNotNull('publicated_at')
                                     ->orderBy('id', 'desc')
-                                    ->paginate(20);
+                                    ->paginate(20)
+                                    ->onEachSide(1);
 
         return view('otzyvy', compact('testimonials'));
     }
@@ -75,6 +76,7 @@ class MainController extends Controller
                                             ->apply()
                                             // ->orderBy('id', 'desc')
                                             ->paginate(30)
+                                            ->onEachSide(1)
                                             ->withQueryString();
 
         $category_title = \App\Services\Common::get_category_title($request);
@@ -136,7 +138,7 @@ class MainController extends Controller
             $products = $products->orderBy('retail_price', $request->price);
         }
         
-        $products = $products->paginate(30)->withQueryString();
+        $products = $products->paginate(30)->onEachSide(1)->withQueryString();
 
         return view('akcii', compact('products'));
     }
@@ -155,7 +157,7 @@ class MainController extends Controller
             $products = $products->orderBy('retail_price', $request->price);
         }
         
-        $products = $products->paginate(30)->withQueryString();
+        $products = $products->paginate(30)->onEachSide(1)->withQueryString();
 
         return view('novinki', compact('products'));
     }
@@ -377,7 +379,7 @@ class MainController extends Controller
         $search_query = htmlspecialchars($search_query);
 
         $products = Product::where('title', 'like', "%{$search_query}%")
-                            ->orWhere('text', 'like', "%{$search_query}%")
+                            ->orWhere('text_html', 'like', "%{$search_query}%")
                             ->get();
 
         if (!$products) {
@@ -497,13 +499,12 @@ class MainController extends Controller
     }
 
     // test
-    // Удаление штрихкода из описания товара
     public function remove_barcode_from_text_html()
     {
-        $test_str = '<p style="font-style:italic;">Citrullus lanatus (Thumb.) Matsum.&amp; Nakai</p><p><strong>Скороспелый! Сверхурожайный! Устойчивый к пониженным температурам! </strong></p><p>Осторожно! Опасен для здоровья человека! Можно надорвать спину, перенося урожай с огорода в подвал! Плоды вырастают до 18 кг, а среднестатистические – до 9 кг. Скороспелый, сверхурожайный гибрид для выращивания в открытом грунте и под временными плёночными укрытиями. Плоды округло-овальные, ярко-зелёные, с более тёмными полосами. Мякоть ярко-красная, нежная, зернистая, очень сладкая и ароматная.</p><p><strong>Ценность гибрида:</strong> отличные вкусовые качества, устойчивость к пониженным температурам и неблагоприятным условиям выращивания. Плоды сохраняют товарные качества в течение 20-30 дней.</p><p>Посев на рассаду – в начале мая. Высадка рассады в грунт в конце мая – начале июня, в фазе 3-4 настоящих листьев. Схема посадки 100х100 см. В южных регионах можно выращивать путём прямого посева в грунт в апреле – мае. При выращивании под плёночными укрытиями растения формируют в один стебель (удаляют все боковые побеги до высоты 50 см, последующие прищипывают над 1-3 листом), подвязывают к шпалере. Для хорошего роста и обильного плодоношения растениям необходим своевременный полив, регулярная прополка и подкормка минеральными удобрениями.</p>';
+        // $test_str = '<p style="font-style:italic;">Citrullus lanatus (Thumb.) Matsum.&amp; Nakai</p><p><strong>Скороспелый! Сверхурожайный! Устойчивый к пониженным температурам! </strong></p><p>Осторожно! Опасен для здоровья человека! Можно надорвать спину, перенося урожай с огорода в подвал! Плоды вырастают до 18 кг, а среднестатистические – до 9 кг. Скороспелый, сверхурожайный гибрид для выращивания в открытом грунте и под временными плёночными укрытиями. Плоды округло-овальные, ярко-зелёные, с более тёмными полосами. Мякоть ярко-красная, нежная, зернистая, очень сладкая и ароматная.</p><p><strong>Ценность гибрида:</strong> отличные вкусовые качества, устойчивость к пониженным температурам и неблагоприятным условиям выращивания. Плоды сохраняют товарные качества в течение 20-30 дней.</p><p>Посев на рассаду – в начале мая. Высадка рассады в грунт в конце мая – начале июня, в фазе 3-4 настоящих листьев. Схема посадки 100х100 см. В южных регионах можно выращивать путём прямого посева в грунт в апреле – мае. При выращивании под плёночными укрытиями растения формируют в один стебель (удаляют все боковые побеги до высоты 50 см, последующие прищипывают над 1-3 листом), подвязывают к шпалере. Для хорошего роста и обильного плодоношения растениям необходим своевременный полив, регулярная прополка и подкормка минеральными удобрениями.</p>';
 
         // Получаю все товары
-        $products = \App\Models\Product::all();
+        // $products = \App\Models\Product::all();
 
         // Удаление штрихкода из описания товара
         // $i = 0;
@@ -519,9 +520,14 @@ class MainController extends Controller
         // }
 
         // Перемещение строки с латинским название из начала в конец описания
+
+        // Получаю все товары
+        /*
+        $products = \App\Models\Product::all();
+
         $i = 0;
         foreach ($products as $product) {
-            // if ($i == 0) {
+            // if ($product["id"] == 60) {
                 if ($product["text_html"]) {
                     $needle = '</p>';
                     $start = 0;
@@ -541,6 +547,181 @@ class MainController extends Controller
             // }
             $i++;
         }
+        */
+
+
+        // Вставка новой категории Ягоды после Цветы
+
+        // Получаю все категории
+        /*
+        $categories = \Illuminate\Support\Facades\DB::table('categories')->get();
+        // $categories02 = \App\Models\Category::where('id', '<', 3)->get();
+
+        $categories = $categories->toArray();
+
+        $newcat = [];
+        foreach($categories as $cat) {
+            $newcat[] = (array)$cat;
+        }
+
+        $first_array = array_merge(
+            array_slice( $newcat, 0, 2 ),
+            [
+                [
+                    "id" => 3,
+                    "parent" => 0,
+                    "title" => "Ягоды",
+                    "slug" => "yagody",
+                    "image" => "public/uploads/categories/ovoshchi.jpg",
+                    "count_children" => 0,
+                    "sort" => 0,
+                    "created_at" => "2024-10-21 19:22:32",
+                    "updated_at" => "2024-10-21 19:22:32",
+                ]
+            ],
+            
+        );
+
+        $tail_array = array_slice( $newcat, 2 );
+
+        $new_tail_array = [];
+        foreach($tail_array as $value) {
+            $item["id"] = $value["id"] + 1;
+            $item["parent"] = $value["parent"];
+            $item["title"] = $value["title"];
+            $item["slug"] = $value["slug"];
+            $item["image"] = $value["image"];
+            $item["count_children"] = $value["count_children"];
+            $item["sort"] = $value["sort"];
+            $item["created_at"] = $value["created_at"];
+            $item["updated_at"] = $value["updated_at"];
+
+            $new_tail_array[] = $item;
+        }
+        // $tail_array[0]["id"] = 1;
+
+        // $sliced1 = $categories->slice(2, 0);
+
+        // $model = new \App\Models\Category();
+
+        // $model->parent = 0;
+        // $model->title = "Цветы";
+        // $model->image = "public/uploads/categories/ovoshchi.jpg";
+        // $model->count_children = 0;
+        // $model->sort = 0;
+
+        // $categories02->merge($model);
+
+        // \App\Models\Category::truncate();
+
+        // dd(\App\Models\Category::insert($insert_array));
+
+        $insert_array = array_merge(
+            $first_array,
+            $new_tail_array
+        );
+
+        // dd($insert_array);
+
+        \App\Models\Category::truncate();
+
+        dd(\App\Models\Category::insert($insert_array));
+        */
+
+        // Обновление parent для дочерних категорий > 3 + 1
+
+        /*
+        $categories = \App\Models\Category::all();
+
+        foreach($categories as $cat) {
+            if ($cat->parent >= 3) {
+                $cat->parent = $cat->parent + 1;
+                $cat->save();
+            }
+        }
+        */
+
+        // Обновление category_id для товаров > 3 + 1
+        /*
+        $products = \App\Models\Product::all();
+
+        foreach($products as $product) {
+            if ($product->category_id >= 3) {
+                $product->category_id = $product->category_id + 1;
+                $product->save();
+            }
+        }
+        */
+
+
+        // Удаление <p style="font-size:92%;">4656758757527</p> из описания товара. Таблица products, поле text_html
+        /*
+        $products = \App\Models\Product::all();
+
+        $i = 0;
+        foreach ($products as $product) {
+            // if ($product["id"] == 55) {
+                // Проверка на наличие текста в поле text_html
+                if ($product["text_html"]) {
+
+                    // Поиск 13 цифр по регулярному выражению
+                    preg_match('/\d{13}/', $product->text_html, $found);
+                    
+                    // Проверка на массива $found на пустоту
+                    if ($found) {
+                        // Строка для замены
+                        $search = '<p style="font-size:92%;">' . $found[0] . '</p>';
+
+                        // Замена текста
+                        $product->text_html = str_replace($search, '', $product["text_html"]);
+
+                        // Обновление модели
+                        $product->save();
+                    }
+                }
+            // }
+            $i++;
+        }
+        */
+
+
+        // Добавить каждому 30му товару промоскидку поле promo_price = 1.75 * wholesale_price
+        $products = \App\Models\Product::all();
+
+        $i = 0;
+        foreach ($products as $product) {
+            // if ($product["id"] == 1) {
+                if ($i % 30 === 0) {
+                    $product->promo_price = $product->wholesale_price * 1.75;
+                    $product->save();
+                }
+
+            // }
+            $i++;
+        }
+
+
+        // Убрать (УД) Е/П (ВХ) (ШТВ)
+        $products = \App\Models\Product::all();
+        $i = 0;
+        foreach ($products as $product) {
+            // if ($product["id"] == 1) {
+                if ($product["title"]) {
+                    // $product->title = str_replace('(УД)', '', $product["title"]);
+                    // $product->title = str_replace('Е/П', '', $product["title"]);
+                    // $product->title = str_replace('(ВХ)', '', $product["title"]);
+                    // $product->title = str_replace('(ШТВ)', '', $product["title"]);
+                    // $product->title = str_replace('Б/Ф', '', $product["title"]);
+                    // $product->title = str_replace('(Скидка не предоставляется)', '', $product["title"]);
+                    $product->title = str_replace('Арбуз Сибирскийигант', 'Арбуз Сибирский гигант', $product["title"]);
+                    
+                    
+                    $product->save();
+                }
+            // }
+            $i++;
+        }
+       
 
         return false;
     }

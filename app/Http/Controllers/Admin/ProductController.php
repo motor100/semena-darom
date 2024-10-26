@@ -27,9 +27,13 @@ class ProductController extends Controller
 
         if($search_query) {
             $search_query = htmlspecialchars($search_query);
-            $products = Product::where('title', 'like', "%{$search_query}%")->get();
+            $products = Product::where('title', 'like', "%{$search_query}%") // поиск по заголовку
+                                ->orWhere('barcode', $search_query) // поиск по штрихкоду
+                                ->paginate();
         } else {
-            $products = Product::orderBy('id', 'desc')->limit(20)->get();
+            $products = Product::orderBy('id', 'desc')
+                                ->paginate(50)
+                                ->onEachSide(1);
         }
         
         return view('dashboard.products', compact('products'));
@@ -61,7 +65,7 @@ class ProductController extends Controller
             'category' => 'required',
             'text_json' => 'required|min:2|max:65535',
             'input-main-file' => 'nullable|image|mimes:jpg,png,jpeg',
-            'barcode' => 'required|min:10|max:16|unique:App\Models\Product,barcode',
+            'barcode' => 'required|min:8|max:15|unique:App\Models\Product,barcode',
             'stock' => 'nullable|min:0|max:10000',
             'buying-price' => 'required|min:0',
             'wholesale-price' => 'required|min:0',

@@ -748,10 +748,11 @@ p {
   transition: max-height .5s ease-in-out;
 }
 .catalog-nav-item.active .aside-nav-submenu {
-  max-height: 1000px;
+  max-height: 3400px;
 }
 .catalog-nav-item .aside-nav-submenu-item {
-  margin: 0 0 5px 0;
+  // margin: 0 0 2px 0;
+  margin: 0;
 }
 .catalog-nav-item .aside-nav-submenu-item a {
   font-size: 15px;

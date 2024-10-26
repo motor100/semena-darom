@@ -122,7 +122,7 @@ if (saveDataForm) {
         },
       }
     },
-
+    data: (toEditorJs && toEditorJs.innerText) ? JSON.parse(toEditorJs.innerText) : ''
   });
 
   // Отправка формы с перезагрузкой
@@ -150,8 +150,8 @@ if (saveDataForm) {
   }
 
   // Передача данных в редактор после инициализации
-  if (toEditorJs && toEditorJs.innerText) {
-    editor.data = JSON.parse(toEditorJs.innerText);
-  }
+  // if (toEditorJs && toEditorJs.innerText) {
+  //   editor.data = JSON.parse(toEditorJs.innerText);
+  // }
 
 }

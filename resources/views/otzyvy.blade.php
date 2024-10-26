@@ -39,7 +39,7 @@
 
   <div class="pagination-links">
     <div class="container">
-      {{ $testimonials->onEachSide(1)->links() }}
+      {{ $testimonials->links('pagination.custom') }}
     </div>
   </div>
 

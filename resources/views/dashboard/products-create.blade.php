@@ -48,7 +48,7 @@
     </div>
     <div class="form-group mb-3">
       <label for="barcode">Штрихкод</label>
-      <input type="number" class="form-control input-barcode input-number" name="barcode" id="barcode" min="0" step="1" minlength="8" maxlength="15" required >
+      <input type="number" class="form-control input-barcode input-number" name="barcode" id="barcode" min="0" step="1" minlength="8" maxlength="15" required value="{{ old('barcode') }}">
     </div>
     <div class="form-group mb-3">
       <label for="stock">Количество</label>

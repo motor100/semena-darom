@@ -22,6 +22,7 @@ class AppServiceProvider extends ServiceProvider
     {
         // View Composer in ViewServiceProvider class
 
-        Paginator::defaultView('pagination.custom');
+        // Paginator::defaultView('pagination.custom');
+        Paginator::useBootstrapFour();
     }
 }

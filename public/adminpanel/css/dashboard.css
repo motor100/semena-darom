@@ -111,6 +111,11 @@
   cursor: pointer;
 }
 
+/* Пагинация */
+.small.text-muted {
+  display: none;
+}
+
 
 /* Отзывы */
 .testimonials-wrapper .item {

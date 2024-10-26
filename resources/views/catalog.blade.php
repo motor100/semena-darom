@@ -52,7 +52,7 @@
     </div>
   </div>
 
-  {{ $products->onEachSide(1)->links() }}
+  {{ $products->links('pagination.custom') }}
 
 </div> 
 

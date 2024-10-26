@@ -27,7 +27,7 @@ class AjaxController extends Controller
         $products = Product::where('title', 'like', "%{$search_query}%")
                             ->select('title', 'slug')
                             // если нужен поиск по тексту
-                            ->orWhere('text', 'like', "%{$search_query}%") 
+                            ->orWhere('text_html', 'like', "%{$search_query}%") 
                             ->get();
 
         return response()->json($products);

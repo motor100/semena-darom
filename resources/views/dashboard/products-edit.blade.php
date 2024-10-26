@@ -41,9 +41,11 @@
       </select>
     </div>
     <div class="form-group">
-      <div class="image-preview">
-        <img src="{{ asset('storage/uploads/products/' . $product->image) }}" alt="">
-      </div>
+      @if($product->image)
+        <div class="image-preview">
+          <img src="{{ asset('storage/uploads/products/' . $product->image) }}" alt="">
+        </div>
+      @endif
     </div>
     <div class="form-group mb-3">
       <div class="label-text">Изображение</div>

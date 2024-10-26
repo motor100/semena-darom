@@ -55,7 +55,7 @@
     </div>
   </div>
 
-  {{ $orders->links() }}
+  {{ $orders->links('pagination.custom') }}
 
   <script>
     const lkNavItem = document.querySelectorAll('.lk-nav-item');

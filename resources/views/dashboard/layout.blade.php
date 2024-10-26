@@ -7,6 +7,7 @@
   <meta name="csrf-token" content="{{ csrf_token() }}">
   <link rel="shortcut icon" href="{{ asset('/img/favicon.svg') }}" type="image/x-icon">
   @yield('style')
+  @vite(['resources/css/app.css'])
   <link rel="stylesheet" href="{{ asset('/adminpanel/css/bootstrap.min.css') }}">
   <link rel="stylesheet" href="{{ asset('/adminpanel/css/all.min.css') }}">
   <link rel="stylesheet" href="{{ asset('/adminpanel/css/template.css') }}">

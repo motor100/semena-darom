@@ -16,7 +16,7 @@ class Product extends Model
         'image',
         'text_json',
         'text_html',
-        'code',
+        'barcode',
         'stock',
         'buying_price',
         'wholesale_price',

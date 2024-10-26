@@ -38,7 +38,7 @@
       </div>
     </div>
 
-    {{ $orders->links() }}
+    {{ $orders->links('pagination.custom') }}
     
   @else
     <div class="no-orders">Заказов нет</div>
