@@ -23,6 +23,13 @@
       <div class="order-info">{{ $order->price }}р</div>
     </div>
     <div class="form-group mb-3">
+      <div class="label-text mb-1">Штрихкод</div>
+      <div class="barcode">
+        <div class="barcode-image">{!! DNS1D::getBarcodeHTML(strval($order->id), 'EAN13') !!}</div>
+        <div class="barcode-number">{{ $order->barcode }}</div>
+      </div>
+    </div>
+    <div class="form-group mb-3">
       <div class="label-text mb-1">Оплата</div>
       <div class="order-info">
         @if($order->payment == 'yookassa') Онлайн @endif

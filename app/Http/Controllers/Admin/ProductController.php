@@ -11,15 +11,17 @@ use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Validation\Rule;
+use Illuminate\View\View;
 
 class ProductController extends Controller
 {
     /**
      * Display a listing of the resource.
      *
-     * @return \Illuminate\Http\Response
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\View\View
      */
-    public function index(Request $request)
+    public function index(Request $request): View
     {   
         $search_query = $request->input('search_query');
 
@@ -42,9 +44,9 @@ class ProductController extends Controller
     /**
      * Show the form for creating a new resource.
      *
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\View\View
      */
-    public function create()
+    public function create(): View
     {   
         // $category = \App\Models\Category::where('count_children', 0)->get();
         $category = \App\Models\Category::all();
@@ -175,9 +177,9 @@ class ProductController extends Controller
      * Show the form for editing the specified resource.
      *
      * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\View\View
      */
-    public function edit($id)
+    public function edit($id): View
     {   
         $product = Product::findOrFail($id);
 
@@ -197,9 +199,9 @@ class ProductController extends Controller
      *
      * @param  \Illuminate\Http\Request $request
      * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @return Illuminate\Http\RedirectResponse
      */
-    public function update(Request $request, string $id)
+    public function update(Request $request, string $id): RedirectResponse
     {
         $validated = $request->validate([
             'title' => 'required|min:2|max:250',
@@ -349,9 +351,9 @@ class ProductController extends Controller
      * Remove the specified resource from storage.
      *
      * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @return Illuminate\Http\RedirectResponse
      */
-    public function destroy($id)
+    public function destroy($id): RedirectResponse
     {
         $product = Product::find($id);
 

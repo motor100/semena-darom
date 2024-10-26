@@ -3,22 +3,56 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\Order;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\View\View;
+
+use function PHPSTORM_META\type;
 
 class OrderController extends Controller
 {
     /**
      * Display a listing of the resource.
+     * 
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\View\View
      */
-    public function index(): View
+    public function index(Request $request): View
     {
-        $orders = \App\Models\Order::orderBy('id', 'desc')
-                                    ->limit(200)
-                                    ->get();
-        
-        $orders = \App\Services\Common::custom_paginator($orders, 50);
+        $validated = $request->validate([
+            'search_query' => 'nullable|numeric|digits:13'
+        ]);
+
+        if(isset($validated['search_query'])) {
+
+            // $number = intval($validated['search_query']);
+
+            // Генерация числа 13 знаков для штрихкода
+            // Справа число из $validated['search_query'], остальное слева заполняю нолями
+            // $barcode = (new \App\Services\Barcode())->int_to_barcode($order->id);;
+
+            // Штрихкод 13 знаков
+            // Справа число из id заказа, остальное слева заполняю нолями
+            // Число в штрихкод - добавить ноли слева функция str_pad
+            // Штрихкод в число - у строки убрать ноли слева
+
+            // Убираю ноли в начале строки
+            $id = (new \App\Services\Barcode())->barcode_to_int($validated['search_query']);
+
+            $orders = Order::where('id', $id)
+                            ->paginate(50)
+                            ->onEachSide(1);
+        } else {
+            $orders = Order::orderBy('id', 'desc')
+                            ->paginate(50)
+                            ->onEachSide(1);
+        }
+
+        // Добавляю свойство barcode
+        foreach($orders as $order) {
+            $order->barcode = (new \App\Services\Barcode())->int_to_barcode($order->id);
+        }
 
         return view('dashboard.orders', compact('orders'));
     }
@@ -41,12 +75,19 @@ class OrderController extends Controller
 
     /**
      * Display the specified resource.
+     * 
+     * @param  int  $id
+     * @return \Illuminate\View\View
      */
     public function show(string $id): View
     {
-        $order = \App\Models\Order::findOrFail($id);
+        $order = Order::findOrFail($id);
 
+        // Число в номер телефона
         $order->phone = \App\Services\Common::int_to_phone($order->phone);
+
+        // id в штрихкод
+        $order->barcode = (new \App\Services\Barcode())->int_to_barcode($order->id);
 
         // Получаю модель CdekOrder по номеру заказа
         $cdek_order = \App\Models\CdekOrder::where('order_id', $id)->first();
@@ -78,21 +119,24 @@ class OrderController extends Controller
 
     /**
      * Update the specified resource in storage.
+     * 
+     * @param  \Illuminate\Http\Request $request
+     * @return Illuminate\Http\RedirectResponse
      */
     public function update(Request $request): RedirectResponse
     {
-        $id = $request->input('id');
-        $status = $request->input('status');
-        $comment = $request->input('comment');
+        $validated = $request->validate([
+            'id' => 'required|numeric',
+            'status'  => 'required',
+            'comment'  => 'nullable'
+        ]);
 
-        $now = date('Y-m-d H:i:s');
-
-        \App\Models\Order::where('id', $id)
-                        ->update([
-                            'status' => $status,
-                            'comment' => $comment,
-                            'updated_at' => $now
-                        ]);
+        Order::where('id', $validated['id'])
+                ->update([
+                    'status' => $validated['status'],
+                    'comment' => $validated['comment'],
+                    'updated_at' => now()
+                ]);
 
         return redirect()->back();
     }
@@ -106,19 +150,22 @@ class OrderController extends Controller
     }
 
     /**
-     * Prepare to print
+     * Страница для печати
      * @param string $id
      * @return Illuminate\View\View
      */
     public function print(string $id): View
     {
         // Получаю модель заказа
-        $order = \App\Models\Order::findOrFail($id);
+        $order = Order::findOrFail($id);
 
-        // Сортировка товаров в отдельном классе
+        // Добавляю штрихкод
+        $order->barcode = (new \App\Services\Barcode())->int_to_barcode($order->id);
+
+        // Сортировка товаров
         $products = (new \App\Services\ProductSort($order))->get();
 
-        return view('dashboard.order-print', compact('id', 'products'));
+        return view('dashboard.order-print', compact('order', 'products'));
     }
 
     /**
@@ -129,7 +176,7 @@ class OrderController extends Controller
     public function check(string $id): View
     {
         // Получаю модель заказа
-        $order = \App\Models\Order::findOrFail($id);
+        $order = Order::findOrFail($id);
         
         // Сортировка товаров в отдельном классе
         $products = (new \App\Services\ProductSort($order))->get();
