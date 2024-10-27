@@ -13,29 +13,18 @@
   <div class="products-item-price-wrapper">
     @if($product->promo_price)
       <div class="products-item__price products-item__promo-price">
-        <!-- <span class="products-item__value">{{ str_replace('.0', '', $product->promo_price) }}</span> -->
+        <div class="products-item__old-price item__old-price">
+          <span class="products-item__value">{{ $product->retail_price }}</span>
+          <span class="products-item__currency">&#8381;</span>
+          <span class="line-through"></span>
+        </div>
         <span class="products-item__value">{{ $product->promo_price }}</span>
         <span class="products-item__currency">&#8381;</span>
-        <div class="products-item__percent hidden-mobile">
-          <img src="/img/product-percent-icon.png" alt="">
-        </div>
-      </div>
-      <div class="products-item__old-price item__old-price">
-        <!-- <span class="products-item__value">{{ str_replace('.0', '', $product->retail_price) }}</span> -->
-        <span class="products-item__value">{{ $product->retail_price }}</span>
-        <span class="products-item__currency">&#8381;</span>
-        <span class="line-through"></span>
       </div>
     @else
       <div class="products-item__price">
-        <!-- <span class="products-item__value">{{ str_replace('.0', '', $product->retail_price) }}</span> -->
         <span class="products-item__value">{{ $product->retail_price }}</span>
         <span class="products-item__currency">&#8381;</span>
-        @if($product->property)
-          <div class="products-item__percent">
-            <img src="/img/product-hit-icon.png" alt="">
-          </div>
-        @endif
       </div>
     @endif
   </div>

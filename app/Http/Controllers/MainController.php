@@ -713,7 +713,7 @@ class MainController extends Controller
                     // $product->title = str_replace('(ШТВ)', '', $product["title"]);
                     // $product->title = str_replace('Б/Ф', '', $product["title"]);
                     // $product->title = str_replace('(Скидка не предоставляется)', '', $product["title"]);
-                    $product->title = str_replace('Арбуз Сибирскийигант', 'Арбуз Сибирский гигант', $product["title"]);
+                    $product->title = str_replace('Огурец Набор сортов огурца для открытогорунта 50% БЕСПЛАТНО', 'Огурец Набор сортов огурца для открытого грунта 50% БЕСПЛАТНО', $product["title"]);
                     
                     
                     $product->save();
