@@ -75,7 +75,7 @@ class MainController extends Controller
         $products = (new \App\Services\ProductFilter($products, $request))
                                             ->apply()
                                             // ->orderBy('id', 'desc')
-                                            ->paginate(30)
+                                            ->paginate(40)
                                             ->onEachSide(1)
                                             ->withQueryString();
 
@@ -93,7 +93,7 @@ class MainController extends Controller
         $products = (new \App\Services\ProductFilter($products, $request))
                                             ->apply()
                                             // ->orderBy('id', 'desc')
-                                            ->paginate(30)
+                                            ->paginate(40)
                                             ->withQueryString();
 
         $category_title = \App\Services\Common::get_category_title($request);
@@ -138,7 +138,7 @@ class MainController extends Controller
             $products = $products->orderBy('retail_price', $request->price);
         }
         
-        $products = $products->paginate(30)->onEachSide(1)->withQueryString();
+        $products = $products->paginate(40)->onEachSide(1)->withQueryString();
 
         return view('akcii', compact('products'));
     }
@@ -157,7 +157,7 @@ class MainController extends Controller
             $products = $products->orderBy('retail_price', $request->price);
         }
         
-        $products = $products->paginate(30)->onEachSide(1)->withQueryString();
+        $products = $products->paginate(40)->onEachSide(1)->withQueryString();
 
         return view('novinki', compact('products'));
     }
@@ -380,7 +380,9 @@ class MainController extends Controller
 
         $products = Product::where('title', 'like', "%{$search_query}%")
                             ->orWhere('text_html', 'like', "%{$search_query}%")
-                            ->get();
+                            ->paginate(40)
+                            ->onEachSide(1)
+                            ->withQueryString();
 
         if (!$products) {
             return redirect('/');

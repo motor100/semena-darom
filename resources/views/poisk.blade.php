@@ -18,8 +18,6 @@
 
 <div class="poisk">
 
-
-  
   @if (count($products) > 0)
     <div class="poisk-title page-title">Результаты поиска «{{ $search_query }}»</div>
     <div class="products">
@@ -49,6 +47,8 @@
       </div>
     </div>
   @endif
+
+  {{ $products->links('pagination.custom') }}
 
 </div>
 
