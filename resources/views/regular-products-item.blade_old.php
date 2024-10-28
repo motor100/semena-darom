@@ -1,6 +1,6 @@
 <div class="regular-products-item">
   <div class="products-item__image">
-    <a href="/catalog/{{ $product->category->slug }}/{{ $product->slug }}" class="products-item__link">
+    <a href="/catalog/{{ $product->slug }}" class="products-item__link">
       @if($product->image)
         <img src="{{ asset('storage/uploads/products/' . $product->image) }}" alt="">
       @else
@@ -8,7 +8,7 @@
       @endif
     </a>
   </div>
-  <a href="/catalog/{{ $product->category->slug }}/{{ $product->slug }}" class="products-item__title">{{ $product->title }}</a>
+  <a href="/catalog/{{ $product->slug }}" class="products-item__title">{{ $product->title }}</a>
   <div class="products-item__text">{{ Str::words(strip_tags(preg_replace('/&(.+?);/','', $product->text_html)), 8) }}</div>
   <div class="products-item-price-wrapper">
     @if($product->promo_price)

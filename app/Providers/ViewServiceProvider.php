@@ -26,24 +26,24 @@ class ViewServiceProvider extends ServiceProvider
     public function boot()
     {   
         // Шаблон главной страницы
-        view()->composer('layouts.main', function ($view) // прикрепить компоновщик к шаблону layouts.main
+        view()->composer('*', function ($view) // прикрепить компоновщик ко всем шаблонам
         {
             // Categories
             // Get all categories
             $categories = \App\Models\Category::all();
 
             // Get parent categories
-            $parent_category = $categories->where('parent', '0')->sortBy('sort');
+            $parent_categories = $categories->where('parent', '0')->sortBy('sort');
 
             // Get child categories
-            foreach($parent_category as $pct) {
+            foreach($parent_categories as $pct) {
                 $child_category = $categories->where('parent', $pct->id)->sortBy('sort');
                 if ($child_category->count() > 0) {
                     $pct->child_category = $child_category;
                 }
             }
 
-            $view->with('parent_category', $parent_category);
+            $view->with('parent_categories', $parent_categories);
             
             // City
             $city = json_decode(\Illuminate\Support\Facades\Cookie::get('city'), true);

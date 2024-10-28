@@ -40,6 +40,7 @@ if (messagesCookiesClose) {
 }
 
 // Кнопка Каталог в static и fixed шапке
+/*
 const headerCatalogBtns = document.querySelectorAll('.header-catalog-btn'),
       headerCatalogDropdown = document.querySelector('.header-catalog-dropdown'),
       headerCatalogDropdownOverlay = headerCatalogDropdown.querySelector('.overlay');
@@ -59,6 +60,7 @@ headerCatalogDropdownOverlay.onclick = function() {
   });
   headerCatalogDropdown.classList.remove('active');
 }
+*/
 
 
 // Search
@@ -490,6 +492,7 @@ for (let i=0; i < listParentClick.length; i++) {
 }
 
 // mobile catalog
+/*
 const fixedBottomMenuCatalogBtn = document.querySelector('#fixed-bottom-menu-catalog-btn'),
       mobileCatalogDropdown = document.querySelector('.mobile-catalog-dropdown');
 
@@ -507,6 +510,7 @@ function closeAllMobileMenu() {
   mobileMenu.classList.remove('active');
   mobileCatalogDropdown.classList.remove('active');
 }
+*/
 
 
 // Отправка формы ajax в модальном окне

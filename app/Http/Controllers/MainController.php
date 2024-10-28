@@ -8,6 +8,7 @@ use App\Models\Product;
 use App\Models\MainSlider;
 use App\Models\Promo;
 use App\Models\Testimonial;
+use Illuminate\View\View;
 
 
 class MainController extends Controller
@@ -67,7 +68,7 @@ class MainController extends Controller
         return view('kontakty');
     }
 
-    public function catalog(Request $request)
+    public function old_catalog(Request $request)
     {   
         $products = Product::where('stock', '>', 0);
         // $products = Product::query(); // без where
@@ -84,41 +85,62 @@ class MainController extends Controller
         return view('catalog', compact('products', 'category_title'));
     }
 
-    public function newcatalog(Request $request)
+    public function catalog(Request $request)
     {   
-        /*
-        $products = Product::where('stock', '>', 0);
+        // $products = Product::where('stock', '>', 0);
         // $products = Product::query(); // без where
 
-        $products = (new \App\Services\ProductFilter($products, $request))
-                                            ->apply()
-                                            // ->orderBy('id', 'desc')
-                                            ->paginate(40)
-                                            ->withQueryString();
+        // $products = (new \App\Services\ProductFilter($products, $request))
+        //                                     ->apply()
+        //                                     // ->orderBy('id', 'desc')
+        //                                     ->paginate(40)
+        //                                     ->withQueryString();
 
+        /*
         $category_title = \App\Services\Common::get_category_title($request);
 
         return view('catalog', compact('products', 'category_title'));
-        */
+        
         $categories = \App\Models\Category::where('parent', '0')->get();
+        */
 
-        return view('newcatalog', compact('categories'));
+
+        return view('catalog');
     }
 
-    public function category($category)
+    /**
+     * Категория каталога
+     * Поиск по slug модель \App\Models\Category метод getRouteKeyName()
+     * 
+     * @param  \App\Models\Category $category
+     * @return \Illuminate\View\View
+     */
+    public function category(Category $category = null): View
     {
-        if (strlen($category) > 3 && strlen($category) < 100) {
+        if ($category) {
 
-            $cat = Category::where('slug', $category)
-                            ->where('parent', 0)
-                            ->first();
+            if ($category->parent == 0) { // Если это родительская категория, то вывожу все ее дочерние категории и все товары из них
 
-            if ($cat) {
-                $categories = Category::where('parent', $cat->id)->get();
+                // Дочерние категории
+                $child_categories = Category::where('parent', $category->id)->get();
 
-                return view('newcatalog', compact('categories'));
+                // Товары из дочерних категорий
+                // Метод pluck('id') выводит коллекцию из id
+                $products = Product::whereIn('category_id', $child_categories->pluck('id'))
+                                    ->paginate(40)
+                                    ->onEachSide(1);
+
+                return view('category', compact('category', 'child_categories', 'products'));
+
+            } else { // Если это дочерняя категория, вывожу все ее все товары из нее
+
+                // Товары из родительской категории
+                $products = Product::where('category_id', $category->id)
+                                    ->paginate(40)
+                                    ->onEachSide(1);
+            
+                return view('category', compact('category', 'products'));
             }
-
         }
 
         return abort(404);
@@ -162,31 +184,34 @@ class MainController extends Controller
         return view('novinki', compact('products'));
     }
 
-    public function single_product($slug)
+    /**
+     * Карточка товара
+     * Поиск по slug модель \App\Models\Category метод getRouteKeyName()
+     * Поиск по slug модель \App\Models\Product метод getRouteKeyName()
+     * 
+     * @param  \App\Models\Category $category
+     * @param  \App\Models\Product $product
+     * @return \Illuminate\View\View
+     */
+    public function product(Category $category = null, Product $product = null): View
     {
-        if (strlen($slug) > 3 && strlen($slug) < 100) {
+        // Если есть модели Category и Product и товар из этой категории $product->category_id == $category->id
+        if ($category && $product && $product->category_id == $category->id) {
 
-            $product = Product::where('slug', $slug)->first();
+            // Заголовок в 2 цвета
+            $product->double_color_title = (new \App\Services\ProductTitle($product->title))->double_color_title();
 
-            if ($product) {
-                // $product->retail_price = str_replace('.0', '', $product->retail_price);
-                // $product->promo_price = str_replace('.0', '', $product->promo_price);
-                
-                // Заголовок в 2 цвета
-                $product->color_title = (new \App\Services\SingleProduct($product->title))->double_color_title();
+            // Ограничение количества элементов в коллекции галерея
+            $product->galleries->slice(0, 3);
 
-                $product->category = \App\Models\Category::where('id', $product->category_id)->first();
+            // Рекомендуемые товары
+            $product->recommend_products = Product::where('category_id', $product->category_id) // товары из текущей категории
+                                                    ->whereNot('id', $product->id) // исключая текущий товар
+                                                    ->inRandomOrder()
+                                                    ->limit(4)
+                                                    ->get();
 
-                $product->recommend_products = Product::where('category_id', $product->category_id)
-                                                        ->inRandomOrder()
-                                                        ->limit(3)
-                                                        ->get();
-
-                // Ограничение количества элементов в коллекции галерея
-                $product->galleries->slice(0, 3);
-
-                return view('single-product', compact('product'));
-            }
+            return view('product', compact('product'));
         }
 
         return abort(404);
@@ -708,14 +733,14 @@ class MainController extends Controller
         $i = 0;
         foreach ($products as $product) {
             // if ($product["id"] == 1) {
-                if ($product["title"]) {
+                if ($product["text_html"]) {
                     // $product->title = str_replace('(УД)', '', $product["title"]);
                     // $product->title = str_replace('Е/П', '', $product["title"]);
                     // $product->title = str_replace('(ВХ)', '', $product["title"]);
                     // $product->title = str_replace('(ШТВ)', '', $product["title"]);
                     // $product->title = str_replace('Б/Ф', '', $product["title"]);
                     // $product->title = str_replace('(Скидка не предоставляется)', '', $product["title"]);
-                    $product->title = str_replace('Огурец Набор сортов огурца для открытогорунта 50% БЕСПЛАТНО', 'Огурец Набор сортов огурца для открытого грунта 50% БЕСПЛАТНО', $product["title"]);
+                    $product->text_html = str_replace('</strong>', '</b>', $product["text_html"]);
                     
                     
                     $product->save();

@@ -2,7 +2,7 @@
 
 namespace App\Services;
 
-class SingleProduct
+class ProductTitle
 {
     protected $title;
 
@@ -13,6 +13,7 @@ class SingleProduct
 
     /**
      * Заголовок в 2 цвета
+     * 
      * @return string
      */
     public function double_color_title(): string
@@ -20,7 +21,7 @@ class SingleProduct
         // Строка в массив слов
         $words_array = explode(" ", $this->title);
 
-        if (count($words_array) > 1) { // Если количество слов в заголовке > 1, то добавляю span к первому слову
+        if (count($words_array) > 1) { // Если количество слов в заголовке > 1, то добавляю тег span к первому слову
             $first_word = "<span class=\"grey-text\">" . $words_array[0] . "</span>";
             $words_array[0] = $first_word;
             return implode(" ", $words_array);

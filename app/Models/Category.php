@@ -8,4 +8,12 @@ use Illuminate\Database\Eloquent\Model;
 class Category extends Model
 {
     use HasFactory;
+
+    /**
+     * Поиск модели по slug
+     */
+    public function getRouteKeyName()
+    {
+        return 'slug';
+    }
 }

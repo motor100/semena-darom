@@ -10,7 +10,7 @@
     <img src="/img/breadscrumbs-back.png" alt="">
   </div>
   <div class="parent">
-    <a href="{{ route('home') }}">главная страница</a>
+    <a href="{{ route('home') }}">главная</a>
   </div>
   <div class="arrow"></div>
   <div class="active">спасибо за заказ</div>

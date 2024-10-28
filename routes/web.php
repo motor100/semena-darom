@@ -35,11 +35,11 @@ Route::get('/akcii', [MainController::class, 'akcii']);
 
 Route::get('/novinki', [MainController::class, 'novinki']);
 
-Route::get('/catalog/{slug}', [MainController::class, 'single_product']);
+// Route::get('/catalog/{slug}', [MainController::class, 'product']);
 
-// Route::get('/catalog/{category}', [MainController::class, 'category']);
+Route::get('/catalog/{category}', [MainController::class, 'category'])->name('category');
 
-// Route::get('/catalog/{category}/{slug}', [MainController::class, 'single_product']);
+Route::get('/catalog/{category}/{product}', [MainController::class, 'product'])->name('product');
 
 Route::get('/favourites', [MainController::class, 'favourites']);
 

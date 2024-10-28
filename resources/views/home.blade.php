@@ -40,42 +40,42 @@
           <div class="categories-item-image">
             <img src="/img/category-cucumber.png" alt="">
           </div>
-          <a href="{{ route('catalog', ['category' => 'ogurec']) }}" class="full-link"></a>
+          <a href="/catalog/ogurec" class="full-link"></a>
         </div>
         <div class="category-item green-bg">
           <div class="categories-item-title">Перцы</div>
           <div class="categories-item-image">
             <img src="/img/category-pepper.png" alt="">
           </div>
-          <a href="{{ route('catalog', ['category' => 'perec-sladkii']) }}" class="full-link"></a>
+          <a href="/catalog/perec-sladkii" class="full-link"></a>
         </div>
         <div class="category-item purple-bg">
           <div class="categories-item-title">Томаты</div>
           <div class="categories-item-image">
             <img src="/img/category-tomatoes.png" alt="">
           </div>
-          <a href="{{ route('catalog', ['category' => 'tomat']) }}" class="full-link"></a>
+          <a href="/catalog/tomat" class="full-link"></a>
         </div>
         <div class="category-item red-bg">
           <div class="categories-item-title">Овощи</div>
           <div class="categories-item-image">
             <img src="/img/category-vegetables.png" alt="">
           </div>
-          <a href="{{ route('catalog', ['category' => 'ovoshhi']) }}" class="full-link"></a>
+          <a href="/catalog/ovoshhi" class="full-link"></a>
         </div>
         <div class="category-item orange-bg">
           <div class="categories-item-title">Цветы</div>
           <div class="categories-item-image">
             <img src="/img/category-flovers.png" alt="">
           </div>
-          <a href="{{ route('catalog', ['category' => 'cvety']) }}" class="full-link"></a>
+          <a href="/catalog/cvety" class="full-link"></a>
         </div>
         <div class="category-item green-bg">
           <div class="categories-item-title">Ягоды</div>
           <div class="categories-item-image">
             <img src="/img/category-berries.png" alt="">
           </div>
-          <a href="{{ route('catalog', ['category' => 'yagody']) }}" class="full-link"></a>
+          <a href="/catalog/yagody" class="full-link"></a>
         </div>
       </div>
 
@@ -86,42 +86,42 @@
             <div class="categories-item-image">
               <img src="/img/category-cucumber.png" alt="">
             </div>
-            <a href="{{ route('catalog', ['category' => 'ogurec']) }}" class="full-link"></a>
+            <a href="/catalog/ogurec" class="full-link"></a>
           </div>
           <div class="swiper-slide category-item green-bg">
             <div class="categories-item-title">Перцы</div>
             <div class="categories-item-image">
               <img src="/img/category-pepper.png" alt="">
             </div>
-            <a href="{{ route('catalog', ['category' => 'perec-sladkii']) }}" class="full-link"></a>
+            <a href="/catalog/perec-sladkii" class="full-link"></a>
           </div>
           <div class="swiper-slide category-item purple-bg">
             <div class="categories-item-title">Томаты</div>
             <div class="categories-item-image">
               <img src="/img/category-tomatoes.png" alt="">
             </div>
-            <a href="{{ route('catalog', ['category' => 'tomat']) }}" class="full-link"></a>
+            <a href="/catalog/tomat" class="full-link"></a>
           </div>
           <div class="swiper-slide category-item red-bg">
             <div class="categories-item-title">Овощи</div>
             <div class="categories-item-image">
               <img src="/img/category-vegetables.png" alt="">
             </div>
-            <a href="{{ route('catalog', ['category' => 'ovoshhi']) }}" class="full-link"></a>
+            <a href="/catalog/ovoshhi" class="full-link"></a>
           </div>
           <div class="swiper-slide category-item orange-bg">
             <div class="categories-item-title">Цветы</div>
             <div class="categories-item-image">
               <img src="/img/category-flovers.png" alt="">
             </div>
-            <a href="{{ route('catalog', ['category' => 'cvety']) }}" class="full-link"></a>
+            <a href="/catalog/cvety" class="full-link"></a>
           </div>
           <div class="swiper-slide category-item green-bg">
             <div class="categories-item-title">Ягоды</div>
             <div class="categories-item-image">
               <img src="/img/category-berries.png" alt="">
             </div>
-            <a href="{{ route('catalog', ['category' => 'yagody']) }}" class="full-link"></a>
+            <a href="/catalog/yagody" class="full-link"></a>
           </div>
         </div>
       </div>

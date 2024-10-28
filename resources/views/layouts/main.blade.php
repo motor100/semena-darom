@@ -26,12 +26,18 @@
                 <img src="/img/logo.svg" alt="">
               </a>
             </div>
-            <div class="header-catalog-btn hidden-mobile">
+            <!-- <div class="header-catalog-btn hidden-mobile">
               <div class="catalog-btn__burger">
                 <span></span>
               </div>
               <div class="catalog-btn__text">Каталог</div>
-            </div>
+            </div> -->
+            <a href="/catalog" class="header-catalog-btn hidden-mobile">
+              <span class="catalog-btn__burger">
+                <span></span>
+              </span>
+              <span class="catalog-btn__text">Каталог</span>
+            </a>
             <form class="search-form" action="/poisk" method="get">
               <input type="text" name="search_query" class="search-input" minlength="3" maxlength="50" autocomplete="off" required placeholder="Искать товары">
               <button type="submit" class="submit-btn">
@@ -205,7 +211,7 @@
               <div class="aside-nav-item__title">Новинки</div>
               <a href="/novinki" class="full-link"></a>
             </div>
-            @foreach($parent_category as $cat)
+            @foreach($parent_categories as $cat)
               <div class="catalog-nav-item">
                 @if($cat->child_category)
 
@@ -219,7 +225,7 @@
                   <div class="aside-nav-submenu">
                     @foreach($cat->child_category as $cct)
                       <div class="aside-nav-submenu-item">
-                        <a href="/catalog?category={{ $cct->slug }}">{{ $cct->title }}</a>
+                        <a href="{{ route('category', ['category' => $cct->slug]) }}">{{ $cct->title }}</a>
                       </div>
                     @endforeach
                   </div>
@@ -229,7 +235,7 @@
                       <img src="{{ Storage::url($cat->image) }}" alt="">
                     </div>
                     <div class="aside-nav-item__title">{{ $cat->title }}</div>
-                    <a href="{{ route('catalog', ['category' => $cat->slug]) }}" class="full-link"></a>
+                    <a href="{{ route('category', ['category' => $cat->slug]) }}" class="full-link"></a>
                   </div>
                 @endif
               </div>
@@ -541,64 +547,12 @@
     </div>
   </div>
 
-  <div class="header-catalog-dropdown">
-    <div class="catalog-nav-wrapper">
-      <div class="catalog-nav-title-wrapper">
-        <div class="catalog-nav-title">Каталог</div>
-      </div>
-      <div class="catalog-nav">
-        <div class="catalog-nav-top-row">
-          <div class="aside-nav-item">
-            <div class="aside-nav-item__image">
-              <img src="{{ asset('img/percent-icon.svg') }}" alt="">
-            </div>
-            <div class="aside-nav-item__title">Акции</div>
-            <a href="/akcii" class="full-link"></a>
-          </div>
-          <div class="aside-nav-item">
-            <div class="aside-nav-item__image">
-              <img src="{{ asset('img/package-icon.svg') }}" alt="">
-            </div>
-            <div class="aside-nav-item__title">Новинки</div>
-            <a href="/novinki" class="full-link"></a>
-          </div>
-        </div>
-        <div class="catalog-nav-categories">
-          
-          @foreach($parent_category as $cat)
-            <div class="catalog-nav-category">
-              <div class="aside-nav-item">
-                <div class="aside-nav-item__image">
-                  <img src="{{ Storage::url($cat->image) }}" alt="">
-                </div>
-                <div class="aside-nav-item__title">{{ $cat->title }}</div>
-                @if(!$cat->child_category)
-                  <a href="{{ route('catalog', ['category' => $cat->slug]) }}" class="full-link"></a>
-                @endif
-              </div>
-              @if($cat->child_category)
-                <div class="catalog-nav-subcategories">
-                  @foreach($cat->child_category as $ct)
-                    <a href="{{ route('catalog', ['category' => $ct->slug]) }}" class="catalog-nav-subcategory-title">{{ $ct->title }}</a>
-                  @endforeach
-                </div>
-              @endif
-            </div>
-          @endforeach
-        </div>
-      </div>
-    </div>
-    <div class="overlay"></div>
-  </div>
-
   @if(!request()->cookie('we-use-cookie'))
     <div class="messages-cookies">
-
       <div class="messages-cookies-wrapper">
         <div class="messages-cookies-text">Этот сайт использует файлы cookies и сервисы сбора технических данных посетителей. Продолжая использовать наш сайт, вы автоматически соглашаетесь с использованием cookies. Нажмите "ОК" чтобы закрыть это сообщение.</div>
         <button class="messages-cookies-close">ОК</button>
       </div>
-
     </div>
   @endif
 
@@ -611,12 +565,12 @@
               <img src="/img/logo.svg" alt="">
             </a>
           </div>
-          <div class="header-catalog-btn hidden-mobile">
-            <div class="catalog-btn__burger">
+          <a href="/catalog" class="header-catalog-btn hidden-mobile">
+            <span class="catalog-btn__burger">
               <span></span>
-            </div>
-            <div class="catalog-btn__text">Каталог</div>
-          </div>
+            </span>
+            <span class="catalog-btn__text">Каталог</span>
+          </a>
           <form class="search-form" action="/poisk" method="get">
             <input type="text" name="search_query" class="search-input" minlength="3" maxlength="20" autocomplete="off" required placeholder="Искать товары">
             <button type="submit" class="submit-btn">
@@ -689,12 +643,12 @@
         <div class="menu-item__title">Главная</div>
         <a href="/" class="full-link"></a>
       </div>
-      <div id="fixed-bottom-menu-catalog-btn" class="menu-item fixed-bottom-menu-catalog-btn">
+      <a href="/catalog" id="fixed-bottom-menu-catalog-btn" class="menu-item fixed-bottom-menu-catalog-btn">
         <div class="menu-item__image">
           <img src="/img/fixed-bottom-menu-lens.svg" alt="">
         </div>
         <div class="menu-item__title">Каталог</div>
-      </div>
+      </a>
       <div class="menu-item cart-menu-item">
         <div class="menu-item__image">
           <img src="/img/fixed-bottom-menu-cart.svg" alt="">
@@ -733,7 +687,7 @@
         <a href="/novinki" class="full-link"></a>
       </div>
 
-      @foreach($parent_category as $cat)
+      @foreach($parent_categories as $cat)
         @if($cat->count_children > 0)
           @foreach($cat->child_category as $ct)
             <div class="aside-nav-item">

@@ -1,6 +1,6 @@
 @extends('layouts.main')
 
-@section('title', 'Новинки')
+@section('title', 'Каталог')
 
 @section('style')
   <link rel="stylesheet" href="{{ asset('css/slimselect.min.css') }}">
@@ -17,16 +17,25 @@
     <a href="{{ route('home') }}">главная</a>
   </div>
   <div class="arrow"></div>
-  <div class="active">новинки</div>
+  <div class="parent">
+    <a href="{{ route('catalog') }}">каталог</a>
+  </div>
+  @if($category_title)
+    <div class="arrow"></div>
+    <div class="active">{{ $category_title }}</div>
+  @endif
 </div>
 
-<div class="novinki">
-  <div class="page-title">Новинки</div>
+<div class="catalog">
+  <div class="page-title">{{ $category_title ? $category_title : "Каталог" }}</div>
 
   <div class="catalog-sort">
     <div class="catalog-sort-text">Сортировка:</div>
-    <form id="catalog-sort-form" action="/novinki" method="get">
-      <select name="price" id="catalog-sort-select">
+    <form id="catalog-sort-form" class="catalog-sort-form" action="/catalog" method="get">
+      @if(request()->category)
+        <input type="hidden" name="category" value="{{ request()->category }}">
+      @endif
+      <select name="price" id="catalog-sort-select" class="catalog-sort-select">
         <option value="desc" {{ request()->price == "desc" ? "selected" : "" }}>Сначала дорогие</option>
         <option value="asc" {{ request()->price == "asc" ? "selected" : "" }}>Сначала дешевые</option>
       </select>
@@ -45,7 +54,6 @@
 
   {{ $products->links('pagination.custom') }}
 
-  
 </div> 
 
 @endsection

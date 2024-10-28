@@ -14,25 +14,23 @@
     <img src="/img/breadscrumbs-back.png" alt="">
   </div>
   <div class="parent">
-    <a href="{{ route('home') }}">главная страница</a>
+    <a href="{{ route('home') }}">главная</a>
   </div>
   <div class="arrow"></div>
   <div class="parent">
     <a href="{{ route('catalog') }}">каталог</a>
   </div>
-  @if($product->category->title)
-    <div class="arrow"></div>
-    <div class="parent">
-      <a href="{{ route('catalog', ['category' => $product->category->slug]) }}">{{ $product->category->title }}</a>
-    </div>
-  @endif
+  <div class="arrow"></div>
+  <div class="parent">
+    <a href="{{ route('category', ['category' => $product->category->slug]) }}">{{ $product->category->title }}</a>
+  </div>
   <div class="arrow"></div>
   <div class="active">{{ $product->title }}</div>
 </div>
 
 <div class="single-product">
 
-  <div class="single-product-title">{!! $product->color_title !!}</div>
+  <div class="single-product-title">{!! $product->double_color_title !!}</div>
   
   <div class="add-to-favourites-wrapper">
     <div class="add-to-favourites" data-id="{{ $product->id }}">
@@ -170,17 +168,18 @@
     <div class="single-product-description__text">{!! $product->text_html !!}</div>
   </div>
 
-  <div class="recommend-product">
-    <div class="recommend-product-title">Рекомендуем также</div>
-    <div class="row">
-      @foreach($product->recommend_products as $product)
-        <div class="col-md-3 col-6">
-          @include('regular-products-item')
-        </div>
-      @endforeach
+  @if($product->recommend_products->count() > 0)
+    <div class="recommend-product">
+      <div class="recommend-product-title">Рекомендуем также</div>
+      <div class="row">
+        @foreach($product->recommend_products as $product)
+          <div class="col-md-3 col-6">
+            @include('regular-products-item')
+          </div>
+        @endforeach
+      </div>
     </div>
-
-  </div>
+  @endif
 
 </div>
 

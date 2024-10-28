@@ -29,10 +29,27 @@ class Product extends Model
     ];
 
     /**
+     * Получить категорю товара.
+     * Один к одному обратное соотношение
+     */
+    public function category()
+    {
+        return $this->belongsTo(Category::class);
+    }
+
+    /**
      * Получить галерею товара.
      */
     public function galleries()
     {
         return $this->hasMany(Gallery::class);
+    }
+
+    /**
+     * Поиск модели по slug
+     */
+    public function getRouteKeyName()
+    {
+        return 'slug';
     }
 }
