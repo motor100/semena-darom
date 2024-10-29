@@ -30,7 +30,7 @@
 
 <div class="single-product">
 
-  <div class="single-product-title">{!! $product->double_color_title !!}</div>
+  <h1 class="single-product-title">{!! $product->double_color_title !!}</h1>
   
   <div class="add-to-favourites-wrapper">
     <div class="add-to-favourites" data-id="{{ $product->id }}">
