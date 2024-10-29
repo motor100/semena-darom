@@ -434,8 +434,9 @@
       <div class="container-fluid">
         <div class="row">
           <div class="col-xxl-2 col-md-4">
-            <div class="copyright">@ Семена Даром, {{ date("Y") }}</div>
+            <div class="copyright">OOO Уральские Семена, {{ date("Y") }}</div>
             <div class="inn">ИНН 7415099134</div>
+            <div class="ogrn">ОГРН 1177456098434</div>
           </div>
           <div class="col-xxl-8 col-md-5"></div>
           <div class="col-xxl-2 col-md-3">
@@ -510,7 +511,6 @@
         </div>
         <div class="modal-title">Введите свое имя <br>и номер телефона</div>
         <form id="callback-modal-form" class="form" method="post">
-          @csrf
           <label class="label">
             <input type="text" id="name-callback-modal" class="input-field js-name-callback-modal" name="name" autocomplete="on" required minlength="3" maxlength="20" placeholder="Ваше имя">
           </label>
@@ -523,6 +523,8 @@
             <label for="checkbox-callback-modal" class="custom-checkbox-label"></label>
             <span class="checkbox-text">Согласен с <a href="/politika-konfidencialnosti" class="privacy-policy-btn" target="_blank">политикой обработки персональных данных</a></span>
           </div>
+          <input type="hidden" name="_token" value="{{ csrf_token() }}">
+
           <input type="button" class="submit-btn js-callback-modal-btn" value="Заказать звонок">
         </form>
       </div>
