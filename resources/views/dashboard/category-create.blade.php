@@ -1,13 +1,13 @@
 @extends('dashboard.layout')
 
-@section('title', 'Слайдер')
+@section('title', 'Добавить категорию')
 
 @section('dashboardcontent')
 
 <div class="dashboard-content">
-
+    
   @if($errors->any())
-    <div class="alert alert-danger cart-errors">
+    <div class="alert alert-danger">
       <ul>
         @foreach($errors->all() as $error)
           <li>{{ $error }}</li>
@@ -16,15 +16,14 @@
     </div>
   @endif
 
-  <form class="form" action="{{ route('main-slider-store') }}" enctype="multipart/form-data" method="post">
-
+  <form class="form" action="{{ route('category-store') }}" method="post" enctype="multipart/form-data">
     <div class="form-group mb-3">
-      <label for="title" class="form-check-label mb-1">Заголовок</label>
-      <input type="text" name="title" id="title" class="form-control" required>
+      <label for="title">Название</label>
+      <input type="text" class="form-control" name="title" id="title" maxlength="200" required>
     </div>
     <div class="form-group mb-3">
-      <label for="text" class="form-check-label mb-1">Текст</label>
-      <input type="text" name="text" id="text" class="form-control" required>
+      <label for="sort">Сортировка</label>
+      <input type="number" class="form-control input-number" name="sort" id="sort" min="0" max="100" required>
     </div>
     <div class="form-group mb-5">
       <div class="label-text mb-1">Изображение</div>
@@ -35,13 +34,12 @@
 
     @csrf
     <button type="submit" class="btn btn-primary">Добавить</button>
-
   </form>
 
 </div>
 
 <script>
-  const menuItem = 2;
+  const menuItem = 1;
 </script>
 
 @endsection

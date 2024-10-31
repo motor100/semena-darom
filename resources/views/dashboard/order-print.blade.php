@@ -27,5 +27,9 @@
       </tr>
     @endforeach
   </table>
+
+  <script>
+    const menuItem = 5;
+  </script>
 </body>
 </html>

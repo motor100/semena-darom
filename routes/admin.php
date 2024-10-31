@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Admin\AdminController;
 use App\Http\Controllers\Admin\CdekController;
 use App\Http\Controllers\Admin\ProductController;
+use App\Http\Controllers\Admin\CategoryController;
 use App\Http\Controllers\Admin\MainSliderController;
 use App\Http\Controllers\Admin\PromoController;
 use App\Http\Controllers\Admin\ProfileController;
@@ -76,6 +77,18 @@ Route::prefix('admin')->group(static function () {
 
         Route::get('products/{id}/destroy', [ProductController::class, 'destroy'])->name('products-destroy');
 
+        // Categories
+        Route::get('category', [CategoryController::class, 'index']);
+
+        Route::get('category/create', [CategoryController::class, 'create'])->name('category-create');
+
+        Route::post('category/store', [CategoryController::class, 'store'])->name('category-store');
+
+        Route::get('category/{id}/edit', [CategoryController::class, 'edit'])->name('category-edit');
+
+        Route::post('category/{id}/update', [CategoryController::class, 'update'])->name('category-update');
+
+        Route::get('subcategory/create', [CategoryController::class, 'subcategory_create'])->name('subcategory-create');
 
 
         Route::get('/main-slider', [MainSliderController::class, 'index']);

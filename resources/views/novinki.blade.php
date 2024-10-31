@@ -42,9 +42,6 @@
       @endforeach
     </div>
   </div>
-
-  {{ $products->links('pagination.custom') }}
-
   
 </div> 
 

@@ -9,6 +9,15 @@ class Category extends Model
 {
     use HasFactory;
 
+    protected $fillable = [
+        'title',
+        'parent',
+        'slug',
+        'image',
+        'count_children',
+        'sort',
+    ];
+
     /**
      * Поиск модели по slug
      */

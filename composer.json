@@ -8,6 +8,7 @@
         "php": "^8.1",
         "codex-team/editor.js": "dev-master",
         "doctrine/dbal": "^3.6",
+        "eseath/sypexgeo": "^2.3",
         "guzzlehttp/guzzle": "^7.2",
         "laravel/framework": "^10.0",
         "laravel/sanctum": "^3.2",

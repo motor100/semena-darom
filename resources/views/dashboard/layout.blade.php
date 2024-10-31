@@ -34,6 +34,12 @@
             </a>
           </div>
           <div class="nav-item">
+            <a href="/admin/category" class="item-link">
+              <i class="nav-icon fas fa-th-list"></i>
+              <span>Категории</span>
+            </a>
+          </div>
+          <div class="nav-item">
             <a href="/admin/main-slider" class="item-link">
               <i class="nav-icon fas fa-images"></i>
               <span>Слайдер</span>
@@ -57,37 +63,6 @@
               <span>Заказы</span>
             </a>
           </div>
-
-          <!-- 
-          <div class="nav-item nav-item-has-children">
-            <a href="" class="item-link">
-              <i class="nav-icon fas fa-bell"></i>
-              <span>Страницы</span>
-              <i class="fas fa-angle-down arrow"></i>
-            </a>
-
-            <div class="nav nav-treeview">
-              <div class="nav-item">
-                <a href="/admin/polzovatelskoe-soglashenie-s-publichnoj-ofertoj" class="item-link">
-                  <i class="far fa-circle nav-icon"></i>
-                  <span>Пользовательское соглашение с публичной офертой</span>
-                </a>
-              </div>
-              <div class="nav-item">
-                <a href="/admin/politika-konfidencialnosti" class="item-link">
-                  <i class="far fa-circle nav-icon"></i>
-                  <span>Политика конфиденциальности</span>
-                </a>
-              </div>
-              <div class="nav-item">
-                <a href="/admin/garantiya-vozvrata-denezhnyh-sredstv" class="item-link">
-                  <i class="far fa-circle nav-icon"></i>
-                  <span>Гарантия возврата денежных средств</span>
-                </a>
-              </div>
-            </div>
-          </div>
-           -->
           
         </div>
       </div>

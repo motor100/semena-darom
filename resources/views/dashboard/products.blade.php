@@ -1,8 +1,6 @@
 @extends('dashboard.layout')
 
-@section('title')
-Товары
-@endsection
+@section('title', 'Товары')
 
 @section('dashboardcontent')
 

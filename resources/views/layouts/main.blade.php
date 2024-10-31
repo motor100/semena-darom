@@ -194,7 +194,6 @@
     <div class="container-fluid">
       <div class="row">
         <div class="col-lg-2 d-none d-lg-block">
-
           <div class="aside-nav">
             <div class="aside-nav-title">Каталог товаров</div>
             <div class="aside-nav-item">
@@ -212,9 +211,8 @@
               <a href="/novinki" class="full-link"></a>
             </div>
             @foreach($parent_categories as $cat)
-              <div class="catalog-nav-item">
+                <div class="catalog-nav-item {{ (isset($category) && $category->parent == $cat->id) ? 'active' : '' }}">
                 @if($cat->child_category)
-
                   <div class="aside-nav-item aside-nav-item-has-children">
                     <div class="aside-nav-item__image">
                       <img src="{{ Storage::url($cat->image) }}" alt="">
@@ -224,8 +222,8 @@
                   <div class="aside-nav-arrow"></div>
                   <div class="aside-nav-submenu">
                     @foreach($cat->child_category as $cct)
-                      <div class="aside-nav-submenu-item">
-                        <a href="{{ route('category', ['category' => $cct->slug]) }}">{{ $cct->title }}</a>
+                      <div class="aside-nav-submenu-item {{ (isset($category) && $category->id == $cct->id) ? 'active' : ''}}">
+                      <a href="{{ route('category', ['category' => $cct->slug]) }}">{{ $cct->title }}</a>
                       </div>
                     @endforeach
                   </div>
@@ -241,7 +239,6 @@
               </div>
             @endforeach
           </div>
-
         </div>
         <div class="col-xxl-7 col-lg-10 col-md-12">
           @yield('content')

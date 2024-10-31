@@ -37,7 +37,8 @@ class ViewServiceProvider extends ServiceProvider
 
             // Get child categories
             foreach($parent_categories as $pct) {
-                $child_category = $categories->where('parent', $pct->id)->sortBy('sort');
+                $child_category = $categories->where('parent', $pct->id)->sortBy('title'); // сортировка по названию
+                // $child_category = $categories->where('parent', $pct->id)->sortBy('sort'); // сортировка по полю sort
                 if ($child_category->count() > 0) {
                     $pct->child_category = $child_category;
                 }
@@ -51,7 +52,7 @@ class ViewServiceProvider extends ServiceProvider
             if ($city) {
                 $city_name = $city['city'];
             } else {
-                $city_name = '';
+                $city_name = (new \App\Services\City())->get_city_name();
             }
 
             $view->with('city_name', $city_name);

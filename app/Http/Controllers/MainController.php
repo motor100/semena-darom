@@ -85,26 +85,8 @@ class MainController extends Controller
         return view('catalog', compact('products', 'category_title'));
     }
 
-    public function catalog(Request $request)
+    public function catalog()
     {   
-        // $products = Product::where('stock', '>', 0);
-        // $products = Product::query(); // без where
-
-        // $products = (new \App\Services\ProductFilter($products, $request))
-        //                                     ->apply()
-        //                                     // ->orderBy('id', 'desc')
-        //                                     ->paginate(40)
-        //                                     ->withQueryString();
-
-        /*
-        $category_title = \App\Services\Common::get_category_title($request);
-
-        return view('catalog', compact('products', 'category_title'));
-        
-        $categories = \App\Models\Category::where('parent', '0')->get();
-        */
-
-
         return view('catalog');
     }
 
@@ -112,52 +94,65 @@ class MainController extends Controller
      * Категория каталога
      * Поиск по slug модель \App\Models\Category метод getRouteKeyName()
      * 
+     * @param \Illuminate\Http\Request $request;
      * @param  \App\Models\Category $category
      * @return \Illuminate\View\View
      */
-    public function category(Category $category = null): View
+    public function category(Request $request, Category $category = null): View
     {
         if ($category) {
+
+            $child_categories = collect();
 
             if ($category->parent == 0) { // Если это родительская категория, то вывожу все ее дочерние категории и все товары из них
 
                 // Дочерние категории
-                $child_categories = Category::where('parent', $category->id)->get();
+                $child_categories = Category::where('parent', $category->id)
+                                            ->orderBy('title')
+                                            ->get();
 
                 // Товары из дочерних категорий
                 // Метод pluck('id') выводит коллекцию из id
-                $products = Product::whereIn('category_id', $child_categories->pluck('id'))
-                                    ->paginate(40)
-                                    ->onEachSide(1);
+                $products = Product::whereIn('category_id', $child_categories->pluck('id'));
 
-                return view('category', compact('category', 'child_categories', 'products'));
-
-            } else { // Если это дочерняя категория, вывожу все ее все товары из нее
+            } else { // Если это дочерняя категория, вывожу все товары из нее
 
                 // Товары из родительской категории
-                $products = Product::where('category_id', $category->id)
-                                    ->paginate(40)
-                                    ->onEachSide(1);
-            
-                return view('category', compact('category', 'products'));
+                $products = Product::where('category_id', $category->id);
             }
+
+            // Сортировка по полю price
+            if ($request->has('price')) {
+                if ($request->price == "desc" || $request->price == "asc") {
+                    $products = $products->orderBy('retail_price', $request->price);
+                }
+            }
+
+            // Пагинация
+            $products = $products->paginate(40)->onEachSide(1);
+
+            return view('category', compact('category', 'child_categories', 'products'));
         }
 
         return abort(404);
     }
 
-    public function akcii(Request $request)
+    /**
+     * Акции
+     * Все товары с ценой в поле promo_price
+     * 
+     * @param \Illuminate\Http\Request $request;
+     * @return \Illuminate\View\View
+     */
+    public function akcii(Request $request): View
     {
         $products = Product::where('stock', '>', 0)
                             ->whereNotNull('promo_price');
         
         if ($request->has('price')) {
-
-            if ($request->price != "desc" && $request->price != "asc") {
-                return redirect('/akcii');
+            if ($request->price == "desc" || $request->price == "asc") {
+                $products = $products->orderBy('retail_price', $request->price);
             }
-
-            $products = $products->orderBy('retail_price', $request->price);
         }
         
         $products = $products->paginate(40)->onEachSide(1)->withQueryString();
@@ -165,21 +160,29 @@ class MainController extends Controller
         return view('akcii', compact('products'));
     }
 
-    public function novinki(Request $request)
+    /**
+     * Новинки
+     * Последние 60 товаров с сортировкой по id
+     * 
+     * @param \Illuminate\Http\Request $request;
+     * @return \Illuminate\View\View
+     */
+    public function novinki(Request $request): View
     {
+        // Последние 60 товаров
         $products = Product::where('stock', '>', 0)
-                            ->take(150);
+                            ->orderBy('id', 'desc')
+                            ->limit(60)
+                            ->get();
         
+        // Сортировка коллекции 
         if ($request->has('price')) {
-
-            if ($request->price != "desc" && $request->price != "asc") {
-                return redirect('/novinki');
+            if ($request->price == "asc") {
+                $products = $products->sortBy('retail_price');
+            } else {
+                $products = $products->sortByDesc('retail_price');
             }
-
-            $products = $products->orderBy('retail_price', $request->price);
         }
-        
-        $products = $products->paginate(40)->onEachSide(1)->withQueryString();
 
         return view('novinki', compact('products'));
     }
@@ -211,7 +214,8 @@ class MainController extends Controller
                                                     ->limit(4)
                                                     ->get();
 
-            return view('product', compact('product'));
+            // Модель $category нужна для открытия левого меню 
+            return view('product', compact('category', 'product'));
         }
 
         return abort(404);

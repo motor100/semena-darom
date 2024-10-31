@@ -10,7 +10,7 @@ let body = document.querySelector('body'),
     mainSection = document.querySelector('.main-section'),
     cartPage = document.querySelector('.js-cart-page'), // страница корзина
     createOrderPage = document.querySelector('.js-create-order'), // страница оформления заказа
-    catalogPage = document.querySelector('.catalog'), // страница каталог
+    catalogPage = document.querySelector('.catalog-page'), // страница каталог
     akciiPage = document.querySelector('.akcii'), // страница акции
     novinkiPage = document.querySelector('.novinki'), // страница новинки
     otzyvyPage = document.querySelector('.otzyvy'), // страница отзывы
@@ -281,6 +281,10 @@ let asideNavItems = document.querySelectorAll('.aside-nav .aside-nav-item-has-ch
 
 asideNavItems.forEach((item) => {
   item.onclick = function () {
+    // Аккордеон. Закрытие одного меню и открытие другого
+    // for (let i = 0; i < asideNavItems.length; i++) {
+    //   asideNavItems[i].parentNode.classList.remove('active');
+    // }
     item.parentNode.classList.toggle('active');
   }
 });
@@ -374,7 +378,7 @@ if (testimonialsBtn) {
 
 function modalWindowOpen(win) {
   // Закрытие мобильного меню
-  closeAllMobileMenu();
+  closeMobileMenu();
 
   // Открытие окна
   body.classList.add('overflow-hidden');
@@ -461,17 +465,10 @@ function slimSelectSort() {
   return false;
 }
 
-// mobile menu
-const burgerMenuWrapper = document.querySelector('.burger-menu-wrapper'),
-      mobileMenu = document.querySelector('.mobile-menu');
 
-burgerMenuWrapper.onclick = function() {
-  if (burgerMenuWrapper.classList.contains('menu-is-open')) {
-    closeAllMobileMenu();
-  } else {
-    openMobileMenu();
-  }
-}
+// mobile menu
+const burgerMenuWrapper = document.querySelector('.burger-menu-wrapper');
+const mobileMenu = document.querySelector('.mobile-menu');
 
 function openMobileMenu() {
   body.classList.add('overflow-hidden');
@@ -479,11 +476,25 @@ function openMobileMenu() {
   burgerMenuWrapper.classList.add('menu-is-open');
 }
 
+function closeMobileMenu() {
+  body.classList.remove('overflow-hidden');
+  burgerMenuWrapper.classList.remove('menu-is-open');
+  mobileMenu.classList.remove('active');
+}
+
+burgerMenuWrapper.onclick = function() {
+  if (burgerMenuWrapper.classList.contains('menu-is-open')) {
+    closeMobileMenu();
+  } else {
+    openMobileMenu();
+  }
+}
+
 let listParentClick = document.querySelectorAll('.mobile-menu li.menu-item a');
 for (let i=0; i < listParentClick.length; i++) {
   listParentClick[i].onclick = function (event) {
     event.preventDefault();
-    closeAllMobileMenu();
+    closeMobileMenu();
     let hrefClick = this.href;
     setTimeout(function() {
       location.href = hrefClick
@@ -503,14 +514,10 @@ function openMobileCatalogDropdown() {
   burgerMenuWrapper.classList.add('menu-is-open');
   mobileCatalogDropdown.classList.add('active');
 }
-
-function closeAllMobileMenu() {
-  body.classList.remove('overflow-hidden');
-  burgerMenuWrapper.classList.remove('menu-is-open');
-  mobileMenu.classList.remove('active');
-  mobileCatalogDropdown.classList.remove('active');
-}
 */
+
+
+
 
 
 // Отправка формы ajax в модальном окне

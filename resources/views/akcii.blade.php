@@ -20,7 +20,7 @@
   <div class="active">акции</div>
 </div>
 
-<div class="catalog">
+<div class="akcii">
   <div class="page-title">Акции</div>
 
   <div class="catalog-sort">
