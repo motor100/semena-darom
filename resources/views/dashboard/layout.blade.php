@@ -39,6 +39,12 @@
               <span>Категории</span>
             </a>
           </div>
+          <li class="nav-item">
+            <a href="/admin/stock" class="item-link">
+              <i class="nav-icon fas fa-truck"></i>
+              <span>Склад</span>
+            </a>
+          </li>
           <div class="nav-item">
             <a href="/admin/main-slider" class="item-link">
               <i class="nav-icon fas fa-images"></i>

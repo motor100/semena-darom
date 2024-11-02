@@ -67,6 +67,6 @@
 </div>
 
 <script>
-  const menuItem = 4;
+  const menuItem = 5;
 </script>
 @endsection

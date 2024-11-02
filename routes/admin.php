@@ -6,6 +6,7 @@ use App\Http\Controllers\Admin\AdminController;
 use App\Http\Controllers\Admin\CdekController;
 use App\Http\Controllers\Admin\ProductController;
 use App\Http\Controllers\Admin\CategoryController;
+use App\Http\Controllers\Admin\StockController;
 use App\Http\Controllers\Admin\MainSliderController;
 use App\Http\Controllers\Admin\PromoController;
 use App\Http\Controllers\Admin\ProfileController;
@@ -89,6 +90,11 @@ Route::prefix('admin')->group(static function () {
         Route::post('category/{id}/update', [CategoryController::class, 'update'])->name('category-update');
 
         Route::get('subcategory/create', [CategoryController::class, 'subcategory_create'])->name('subcategory-create');
+
+        // Stock склад
+        Route::get('stock', [StockController::class, 'stock'])->name('stock');
+
+        Route::post('stock/update', [StockController::class, 'stock_update'])->name('stock-update');
 
 
         Route::get('/main-slider', [MainSliderController::class, 'index']);

@@ -29,7 +29,7 @@
   </table>
 
   <script>
-    const menuItem = 5;
+    const menuItem = 6;
   </script>
 </body>
 </html>

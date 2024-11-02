@@ -145,7 +145,7 @@
 </div>
 
 <script>
-  const menuItem = 5;
+  const menuItem = 6;
 </script>
 
 @endsection
