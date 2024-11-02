@@ -431,9 +431,9 @@
       <div class="container-fluid">
         <div class="row">
           <div class="col-xxl-2 col-md-4">
-            <div class="copyright">OOO Уральские Семена, {{ date("Y") }}</div>
-            <div class="inn">ИНН 7415099134</div>
-            <div class="ogrn">ОГРН 1177456098434</div>
+            <div class="copyright">OOO Челябинская СС, {{ date("Y") }}</div>
+            <div class="inn">ИНН 7415086375</div>
+            <div class="ogrn">ОГРН 1147415003592</div>
           </div>
           <div class="col-xxl-8 col-md-5"></div>
           <div class="col-xxl-2 col-md-3">

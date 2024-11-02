@@ -19,13 +19,13 @@
 <div class="kontakty">
 
   <div class="kontakty-title page-title">Контакты</div>
-  <div class="company-name">Общество с ограниченной ответственностью ООО "Уральские Семена"</div>
+  <div class="company-name">Общество с ограниченной ответственностью ООО "Челябинская селекционная станция"</div>
   <div class="flex-container">
     <div class="kontakty-item">
       <div class="kontakty-item__title">Адрес</div>
       <div class="kontakty-item__text">
         <img src="/img/contacts-geolocation.svg" alt="">
-        <span>456300 Россия, Челябинская область, город Миасс, Объездная дорога 4/48, офис 3.</span>
+        <span>456300 Россия, Челябинская область, город Миасс, ул.Кирова 53.</span>
         </div>
     </div>
     <div class="kontakty-item">
@@ -47,11 +47,11 @@
   <div class="flex-container">
     <div class="kontakty-item">
       <div class="kontakty-item__title">ОГРН</div>
-      <div class="kontakty-item__text">41177456098434</div>
+      <div class="kontakty-item__text">1147415003592</div>
     </div>
     <div class="kontakty-item">
       <div class="kontakty-item__title">ИНН</div>
-      <div class="kontakty-item__text">7415099134</div>
+      <div class="kontakty-item__text">7415086375</div>
     </div>
     <div class="kontakty-item">
       <div class="kontakty-item__title">КПП</div>
@@ -60,16 +60,16 @@
   </div>
   <div class="flex-container mb60">
     <div class="kontakty-item">
-      <div class="kontakty-item__title">ПАО "Сбербанк"</div>
-      <div class="kontakty-item__text">454048, г. Челябинск, ул. Энтузиастов, 9а.</div>
+      <div class="kontakty-item__title">ОАО "Челиндбанк"</div>
+      <div class="kontakty-item__text">г. Челябинск, филиале "Золотая долина" г. Миасс</div>
     </div>
     <div class="kontakty-item">
       <div class="kontakty-item__title">Расчетный счет</div>
-      <div class="kontakty-item__text">40702810372000021827</div>
+      <div class="kontakty-item__text">40702810309100001213</div>
     </div>
     <div class="kontakty-item">
       <div class="kontakty-item__title">Кор счет</div>
-      <div class="kontakty-item__text">30101810700000000602</div>
+      <div class="kontakty-item__text">30101810400000000711</div>
     </div>
   </div>
 
