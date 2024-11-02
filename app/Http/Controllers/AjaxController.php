@@ -232,41 +232,35 @@ class AjaxController extends Controller
 
     public function ajax_ordercheck(Request $request): mixed
     {   
-        $order_id = $request->input('order_id');
-        $code = $request->input('search_query');
+        $validated = $request->validate([
+            'order_id' => 'required|numeric|min:0',
+            'search_query' => 'required|numeric|min:0',
+        ]);
 
-        if ($code) {
+        $products = \App\Models\OrderProduct::where('order_id', $validated['order_id'])->get();
 
-            // Получаю все товары по номеру заказа
-            $order_id = htmlspecialchars($order_id);
-            $products_array = \Illuminate\Support\Facades\DB::table('orders_products')->where('order_id', $order_id)->get();
+        $product = Product::where('barcode', $validated['search_query'])->first();
 
-            // Получаю товар по штрихкоду
-            $code = htmlspecialchars($code);
-            $product = Product::where('code', $code)->first();
-
-            if (!$product) {
-                return response()->json([
-                    "no_product" => true,
-                ]);
-            }
-
-            $no_order = false;
-            foreach($products_array as $value) {
-                if ($value->product_id == $product->id) {
-                    $no_order = true;
-                }
-            }
-
-            if (!$no_order) {
-                return response()->json([
-                    "no_in_order" => true,
-                ]);
-            }
-
-            return response()->json($product);
-        } else {
-            return false;
+        if (!$product) {
+            return response()->json([
+                "no_product" => true,
+            ]);
         }
+
+        $no_order = false;
+        foreach($products as $value) {
+            if ($value->product_id == $product->id) {
+                $no_order = true;
+            }
+        }
+
+        if (!$no_order) {
+            return response()->json([
+                "no_in_order" => true,
+            ]);
+        }
+
+        return response()->json($product);
+
     }
 }

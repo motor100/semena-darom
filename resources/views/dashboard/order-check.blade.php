@@ -48,12 +48,12 @@
     </tr>
   </table>
 
-  <div class="error-message"></div>
+  <div id="error-message" class="error-message"></div>
 
   <script>
 
-    const searchForm = document.querySelector('#search-form'),
-          errorMessage = document.querySelector('.error-message');
+    const searchForm = document.getElementById('search-form');
+    const errorMessage = document.getElementById('error-message');
 
     searchForm.onsubmit = function() {
 
@@ -64,7 +64,7 @@
       })
       .then((response) => response.json())
       .then(json => {
-        console.log(json);
+
         if (json.hasOwnProperty('no_product')) {
           errorMessage.innerText = 'Товар не найден';
           return false;
@@ -98,7 +98,6 @@
           }
         });
 
-        // Вызов функции пересчет количества и суммы
         calc();
 
         return false;
@@ -108,7 +107,9 @@
         console.log(error);
       })
 
-      // submit event preventDefault
+      // Очистка формы
+      searchForm.reset();
+
       return false; 
     }
 
@@ -118,14 +119,14 @@
     // Если в поле Количество td
     // Функция пересчет количества и суммы
     function calc() {
-      const quantityIns = document.querySelectorAll('.quantity-in'),
-            summIns = document.querySelectorAll('.summ-in');
+      const quantityIns = document.querySelectorAll('.quantity-in');
+      const summIns = document.querySelectorAll('.summ-in');
 
-      const checkQuantity = document.getElementById('check-quantity'),
-            checkSumm = document.getElementById('check-summ');
+      const checkQuantity = document.getElementById('check-quantity');
+      const checkSumm = document.getElementById('check-summ');
 
-      let quant = 0,
-          summ = 0;
+      let quant = 0;
+      let summ = 0;
 
       quantityIns.forEach((item) => {
         quant += Number(item.innerText);
