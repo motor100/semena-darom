@@ -60,7 +60,7 @@
                 </div>
               </div>
               <div class="dp-item__radio delivery-item-radio">
-                <input type="radio" name="delivery" id="delivery-sdek" class="custom-radio" checked value="sdek">
+                <input type="radio" name="delivery" id="delivery-sdek" class="custom-radio js-shipping-method" checked value="sdek">
                 <label for="delivery-sdek" class="custom-radio-label"></label>
               </div>
             </div>
@@ -86,7 +86,7 @@
                 </div>
               </div>
               <div class="dp-item__radio delivery-item-radio">
-                <input type="radio" name="delivery" id="delivery-russian-post" class="custom-radio" value="russian-post">
+                <input type="radio" name="delivery" id="delivery-russian-post" class="custom-radio js-shipping-method" value="russian-post">
                 <label for="delivery-russian-post" class="custom-radio-label"></label>
               </div>
             </div>

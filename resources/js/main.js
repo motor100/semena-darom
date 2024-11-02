@@ -1121,7 +1121,6 @@ if (cartPage) {
     }
 
   });
-
 }
 
 if (createOrderPage) {
@@ -1193,8 +1192,8 @@ if (createOrderPage) {
   document.querySelector('#hidden-input-summ').value = summ;
 
   // Проверка обязательных полей
-  const placeOrderForm = document.querySelector('#place-order-form'),
-        placeOrderBtn = document.querySelector('#place-order-btn');
+  const placeOrderForm = document.querySelector('#place-order-form');
+  const placeOrderBtn = document.querySelector('#place-order-btn');
 
   function checkRequiredFields(form) {
 
@@ -1232,6 +1231,39 @@ if (createOrderPage) {
   placeOrderBtn.onclick = function() {
     checkRequiredFields(placeOrderForm);
   }
+
+  /**
+   * Зависимость метода оплаты от метода доставки
+   * Если выбрана доставка сдек, то оплата сдек и юкасса
+   * Если выбрана доставка почта, то оплата почта и юкасса
+   */
+  function paymentMethod() {
+    // Методы доставки
+    const shippingMethods = document.querySelectorAll('.js-shipping-method'); // методы доставки
+    const deliverySdek = document.getElementById('delivery-sdek'); // доставка сдек
+
+    // Методы оплаты
+    const paymentSdek = document.getElementById('payment-sdek'); // оплата сдек
+    const paymentRussianPost = document.getElementById('payment-russian-post'); // оплата почта
+
+    // По умолчанию выбрана доставка сдек и отключена оплата почта
+    deliverySdek.checked = true;
+    paymentRussianPost.disabled = true;
+
+    shippingMethods.forEach((item) => {
+      item.onchange = function() {
+        if (deliverySdek.checked) { // Если выбрана доставка сдек, то оплата сдек и юкасса
+          paymentRussianPost.disabled = true;
+          paymentSdek.disabled = false;
+        } else { // Если выбрана доставка почта, то оплата почта и юкасса
+          paymentSdek.disabled = true;
+          paymentRussianPost.disabled = false;
+        }
+      }
+    });
+  }
+
+  paymentMethod();
 
 }
 
