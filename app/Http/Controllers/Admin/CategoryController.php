@@ -41,11 +41,14 @@ class CategoryController extends Controller
     /**
      * Show the form for creating a new resource.
      *
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\View\View
      */
-    public function create()
+    public function create(): View
     {   
-        return view('dashboard.category-create');
+        // Parent categories
+        $categories = Category::where('parent', 0)->get();
+        
+        return view('dashboard.category-create', compact('categories'));
     }
 
     /**
@@ -58,8 +61,8 @@ class CategoryController extends Controller
     {
         $validated = $request->validate([
             'title' => 'required|min:3|max:200',
-            'parent' => 'nullable',
-            'sort' => 'required|numeric',
+            'sort' => 'nullable|numeric',
+            'category' => 'nullable',
             'input-main-file' => [
                 'required',
                 \Illuminate\Validation\Rules\File::types(['jpg', 'png'])
@@ -77,23 +80,13 @@ class CategoryController extends Controller
         // Сохранение файла
         $image = array_key_exists("input-main-file", $validated) ? Storage::putFile('public/uploads/categories', $validated["input-main-file"]) : NULL;
 
-        $parent = 0;
-
-        if (array_key_exists("parent", $validated)) {
-            $cat = Category::where('id', $validated["parent"])->first();
-            $cat->update([
-                'count_children' => $cat->count_children + 1,
-            ]);
-            $parent = $validated["parent"];
-        }
-
         Category::create([
             'title' => $validated["title"],
-            'parent' => $parent,
+            'parent' => isset($validated['category']) ? $validated['category'] : 0,
             'slug' => $slug,
             'image' => $image,
             'count_children' => 0,
-            'sort' => $validated["sort"]
+            'sort' => $validated["sort"] ? $validated["sort"] : 0
         ]);
 
         return redirect('/admin/category');
@@ -114,38 +107,43 @@ class CategoryController extends Controller
      * Show the form for editing the specified resource.
      *
      * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\View\View
      */
-    public function edit($id)
+    public function edit($id): View
     {   
         $category = Category::findOrFail($id);
 
-        $parent_ct = Category::where('parent', '0')->get();
+        $pr_categories = Category::where('parent', '0')
+                                        ->whereNot('id', $category->id) // исключая текущую категорию
+                                        ->get();
 
-        $current_ct = $parent_ct->where('id', $category->parent)->first();
-
-        return view('dashboard.category-edit', compact('category', 'parent_ct', 'current_ct'));
+        return view('dashboard.category-edit', compact('category', 'pr_categories'));
     }
 
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  \Illuminate\Http\Request $request
      * @param  int  $id
      * @return \Illuminate\Http\RedirectResponse;
      */
-    public function update(Request $request): RedirectResponse
+    public function update(Request $request, string $id): RedirectResponse
     {
         $validated = $request->validate([
-            'id' => 'required|numeric',
             'title' => 'required|min:3|max:200',
-            'parent' => 'required',
+            'category' => 'nullable',
             'sort' => 'required|numeric',
+            'input-main-file' => [
+                                'nullable',
+                                \Illuminate\Validation\Rules\File::types(['jpg', 'png'])
+                                                                    ->min(10)
+                                                                    ->max(3000)
+            ]
         ]);
 
-        $ct = Category::find($validated["id"]);
+        $ct = Category::findOrFail($id);
 
-        if ($request->has('input-main-file')) {
+        if (isset($validated['input-main-file'])) {
             if (Storage::exists($ct->image)) {
                 Storage::delete($ct->image);
             }
@@ -161,31 +159,8 @@ class CategoryController extends Controller
             $slug = (new \App\Services\Slug(Category::query(), $slug))->check();
         }
 
-        $parent = 0;
-
-        if ($ct->parent == 0) {
-            $parent = $ct->parent;
-        } else {
-
-            // $ct->parent текущая
-            // $parent новая
-            $old_cat = Category::where('id', $ct->parent)->first();
-            $old_cat->update([
-                'count_children' => $old_cat->count_children - 1,
-            ]);
-
-            $new_cat = Category::where('id', $validated["parent"])->first();
-            $new_cat->update([
-                'count_children' => $new_cat->count_children + 1,
-            ]);
-
-            $parent = $validated["parent"];
-            // -1 у текущей
-            // +1 у новой
-        }
-
         $ct->update([
-            'parent' => $parent,
+            'parent' => isset($validated['category']) ? $validated['category'] : 0,
             'title' => $validated["title"],
             'slug' => $slug,
             'image' => $path,
@@ -193,17 +168,32 @@ class CategoryController extends Controller
             'sort' => $validated["sort"]
         ]);
 
-        return redirect('/admin/category');
+        return redirect()->back();
     }
 
     /**
      * Remove the specified resource from storage.
      *
      * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\RedirectResponse;
      */
-    public function destroy($id)
+    public function destroy($id): RedirectResponse
     {
-        //
+        $category = Category::findOrFail($id);
+        
+        $products = \App\Models\Product::where('category_id', $category->id)->get();
+
+        // Удаление только категории без товаров
+        if ($products->count() == 0) {
+            // Удаление файла category image
+            if (Storage::disk('public')->exists('/uploads/categories/' . $category->image)) {
+                Storage::disk('public')->delete('/uploads/categories/' . $category->image);
+            }
+
+            // Удаление модели Category
+            $category->delete();
+        }
+
+        return redirect()->back();
     }
 }

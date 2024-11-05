@@ -35,9 +35,12 @@
             <a href="{{ route('category-edit', $ct->id) }}" class="btn btn-primary">
               <i class="fas fa-pen"></i>
             </a>
-            <button type="submit" class="btn btn-danger">
-              <i class="fas fa-trash"></i>
-            </button>
+            <form class="form" action="{{ route('category-destroy', $ct->id) }}" method="get">
+              @csrf
+              <button type="submit" class="btn btn-danger">
+                <i class="fas fa-trash"></i>
+              </button>
+            </form>
           </td>
         </tr>
       @endforeach
@@ -66,9 +69,11 @@
               <a href="{{ route('category-edit', $sct->id) }}" class="btn btn-primary">
                 <i class="fas fa-pen"></i>
               </a>
-              <button type="submit" class="btn btn-danger">
-                <i class="fas fa-trash"></i>
-              </button>
+              <form class="form" action="{{ route('category-destroy', $sct->id) }}" method="get">
+                <button type="submit" class="btn btn-danger">
+                  <i class="fas fa-trash"></i>
+                </button>
+              </form>
             </td>
           </tr>
         @endforeach

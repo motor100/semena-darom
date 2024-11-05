@@ -89,6 +89,8 @@ Route::prefix('admin')->group(static function () {
 
         Route::post('category/{id}/update', [CategoryController::class, 'update'])->name('category-update');
 
+        Route::get('category/{id}/destroy', [CategoryController::class, 'destroy'])->name('category-destroy');
+
         Route::get('subcategory/create', [CategoryController::class, 'subcategory_create'])->name('subcategory-create');
 
         // Stock склад

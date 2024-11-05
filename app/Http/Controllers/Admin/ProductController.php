@@ -355,7 +355,7 @@ class ProductController extends Controller
      */
     public function destroy($id): RedirectResponse
     {
-        $product = Product::find($id);
+        $product = Product::findOrFail($id);
 
         // Удаление файла product image
         if (Storage::disk('public')->exists('/uploads/products/' . $product->image)) {

@@ -19,11 +19,20 @@
   <form class="form" action="{{ route('category-store') }}" method="post" enctype="multipart/form-data">
     <div class="form-group mb-3">
       <label for="title">Название</label>
-      <input type="text" class="form-control" name="title" id="title" maxlength="200" required>
+      <input type="text" class="form-control" name="title" id="title" maxlength="200" required value="{{ old('title') }}">
     </div>
     <div class="form-group mb-3">
       <label for="sort">Сортировка</label>
-      <input type="number" class="form-control input-number" name="sort" id="sort" min="0" max="100" required>
+      <input type="number" class="form-control input-number" name="sort" id="sort" min="0" max="100" value="{{ old('sort') }}">
+    </div>
+    <div class="form-group mb-3">
+      <div class="label-text mb-1">Родительская категория</div>
+      <select name="category" id="category" class="form-select mt-1">
+        <option value="" selected="selected"></option>
+        @foreach($categories as $cat)
+          <option value="{{ $cat->id }}">{{ $cat->title }}</option>
+        @endforeach
+      </select>
     </div>
     <div class="form-group mb-5">
       <div class="label-text mb-1">Изображение</div>
