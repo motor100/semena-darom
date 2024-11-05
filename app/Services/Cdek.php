@@ -165,7 +165,7 @@ class Cdek
         // Формирую товары в заказе
         foreach($order->products as $product) {
             $item = [
-                "ware_key" => $product->code, // Артикул. В данном случае уникальный штрихкод
+                "ware_key" => $product->barcode, // Артикул. В данном случае уникальный штрихкод
                 "payment" => [
                     "value" => 0 // предоплата
                 ],
