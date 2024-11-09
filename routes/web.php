@@ -75,6 +75,9 @@ Route::post('/set-city', [MainController::class, 'set_city']);
 // Удаление штрихкода из описания товаров
 Route::get('/remove-barcode-from-text-html', [MainController::class, 'remove_barcode_from_text_html']);
 
+Route::get('/rp-test', [\App\Http\Controllers\Admin\RussianPostController::class, 'test']);
+
+Route::any('/test-test', [\App\Http\Controllers\Admin\RussianPostController::class, 'test_test']);
 
 // Sitemap
 Route::get('/sitemap.xml', [MainController::class, 'sitemap']);

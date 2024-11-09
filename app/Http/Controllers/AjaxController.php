@@ -10,7 +10,8 @@ use Illuminate\Http\JsonResponse;
 class AjaxController extends Controller
 {
     /**
-     * Ajax product search
+     * Ajax product search Поиск товаров
+     * 
      * @param Illuminate\Http\Request
      * @return Illuminate\Http\JsonResponse
      */
@@ -24,10 +25,9 @@ class AjaxController extends Controller
 
         $search_query = htmlspecialchars($search_query);
 
-        $products = Product::where('title', 'like', "%{$search_query}%")
-                            ->select('title', 'slug')
-                            // если нужен поиск по тексту
-                            ->orWhere('text_html', 'like', "%{$search_query}%") 
+        $products = Product::where('title', 'like', "%{$search_query}%") // поиск по названию товара
+                            ->orWhere('text_html', 'like', "%{$search_query}%") // поиск по тексту
+                            ->with('category')
                             ->get();
 
         return response()->json($products);

@@ -139,13 +139,15 @@ if (saveDataForm) {
       saveDataInput.value = JSON.stringify(savedData);
 
       // Если данные есть, то отправляю форму
-      if (savedData.blocks.length > 0) {
+      // if (savedData.blocks.length > 0) {
         saveDataForm.submit();
-      }
+      // }
     })
     .catch((error) => {
       console.error('Saving error', error);
     });
+
+
 
   }
 

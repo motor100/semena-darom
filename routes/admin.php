@@ -12,7 +12,7 @@ use App\Http\Controllers\Admin\PromoController;
 use App\Http\Controllers\Admin\ProfileController;
 use App\Http\Controllers\Admin\TestimonialController;
 use App\Http\Controllers\Admin\OrderController;
-
+use App\Http\Controllers\Admin\RussianPostController;
 
 /*
 |--------------------------------------------------------------------------
@@ -140,6 +140,8 @@ Route::prefix('admin')->group(static function () {
         Route::get('/orders/{id}/sdek-create-order', [CdekController::class, 'cdek_create_order'])->name('admin.cdek-create-order');
 
         Route::get('/order/{id}/sdek-download-waybill', [CdekController::class, 'cdek_download_waybill'])->name('admin.cdek-download-waybill');
+
+        Route::get('/orders/{id}/russianpost-create-order', [RussianPostController::class, 'create_order'])->name('admin.russianpost-create-order');
 
         Route::get('/testimonials', [TestimonialController::class, 'index'])->name('admin.testimonials');
 

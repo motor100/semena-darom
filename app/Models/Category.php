@@ -14,7 +14,6 @@ class Category extends Model
         'parent',
         'slug',
         'image',
-        'count_children',
         'sort',
     ];
 

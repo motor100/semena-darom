@@ -63,12 +63,12 @@ headerCatalogDropdownOverlay.onclick = function() {
 */
 
 
-// Search
-let searchForm = document.querySelector('.search-form'),
-    searchInput = document.querySelector('.search-input'),
-    searchClose = document.querySelector('.search-close'),
-    searchDropdown = document.querySelector('.search-dropdown'),
-    searchRezult = document.querySelector('.js-search-rezult');
+// Search поиск товаров в хэдере
+let searchForm = document.querySelector('.search-form');
+let searchInput = document.querySelector('.search-input');
+let searchClose = document.querySelector('.search-close');
+let searchDropdown = document.querySelector('.search-dropdown');
+let searchRezult = document.querySelector('.js-search-rezult');
 
 function searchDropdownClose() {
   searchDropdown.classList.remove('search-dropdown-active');
@@ -131,7 +131,7 @@ function searchOnInput() {
           tmpEl.className = "search-list-item";
           let str = '<div class="search-list-item__image"><img src="/img/search-lens.png" alt=""></div>';
           str += '<div class="search-list-item__title">' + item.title + '</div>';
-          str += '<a href="/catalog/' + item.slug + '" class="full-link search-list-item__link"></a>';
+          str += '<a href="/catalog/' + item.category.slug + '/' + item.slug + '" class="full-link search-list-item__link"></a>';
           tmpEl.innerHTML = str;
           searchRezult.append(tmpEl);
         });
@@ -443,10 +443,12 @@ window.onscroll = function() {
  * Функция сортировки по цене в Каталог Акции Новинки
  */
 function sortByPrice() {
-  const catalogSortForm = document.querySelector('#catalog-sort-form'),
-        catalogSortSelect = document.querySelector('#catalog-sort-select')
+  const catalogSortForm = document.getElementById('catalog-sort-form');
+  const catalogSortSelect = document.getElementById('catalog-sort-select');
 
-  catalogSortSelect.addEventListener('change', () => { catalogSortForm.submit() }, false);
+  if (catalogSortSelect) {
+    catalogSortSelect.addEventListener('change', () => { catalogSortForm.submit() }, false);
+  }
 
   return false;
 }
@@ -457,11 +459,17 @@ function sortByPrice() {
  * @returns boolean false
  */
 function slimSelectSort() {
-  new SlimSelect({
-    select: '#catalog-sort-select',
-    showSearch: false,
-    searchFocus: false,
-  });
+
+  const catalogSortSelect = document.getElementById('catalog-sort-select');
+
+  if (catalogSortSelect) {
+    new SlimSelect({
+      select: '#catalog-sort-select',
+      showSearch: false,
+      searchFocus: false,
+    });
+  }
+
   return false;
 }
 
@@ -501,23 +509,6 @@ for (let i=0; i < listParentClick.length; i++) {
     }, 500);
   }
 }
-
-// mobile catalog
-/*
-const fixedBottomMenuCatalogBtn = document.querySelector('#fixed-bottom-menu-catalog-btn'),
-      mobileCatalogDropdown = document.querySelector('.mobile-catalog-dropdown');
-
-fixedBottomMenuCatalogBtn.onclick = openMobileCatalogDropdown;
-
-function openMobileCatalogDropdown() {
-  body.classList.add('overflow-hidden');
-  burgerMenuWrapper.classList.add('menu-is-open');
-  mobileCatalogDropdown.classList.add('active');
-}
-*/
-
-
-
 
 
 // Отправка формы ajax в модальном окне
@@ -583,23 +574,24 @@ callbackModalBtn.onclick = function() {
 // Функция расчета общей стоимости товаров в корзине справа
 function asideCartTotalCalc() {
 
-  const cartAsidePlaceOrderBtn = document.querySelector('#cart-aside-place-order-btn'),
-        cartAsideProductsItems = document.querySelectorAll('.cart-aside-products .products-item'),
-        cartAsidePlaceOrderSumm = document.querySelector('#cart-aside-place-order-btn-summ');
+  const cartAsidePlaceOrderBtn = document.querySelector('#cart-aside-place-order-btn');
+  const cartAsideProductsItems = document.querySelectorAll('.cart-aside-products .products-item');
+  const cartAsidePlaceOrderSumm = document.querySelector('#cart-aside-place-order-btn-summ');
 
   let cartAsideTotal = 0;
+  let cartAsideTotalFormatted = 0;
 
   cartAsideProductsItems.forEach((item) => {
-    const retailPrice = item.querySelector('.products-item__retail-price .products-item__value'),
-          promoPrice = item.querySelector('.products-item__promo-price .products-item__value'),
-          quantity = item.querySelector('.products-item__quantity');
+    const retailPrice = item.querySelector('.products-item__retail-price .products-item__value');
+    const promoPrice = item.querySelector('.products-item__promo-price .products-item__value');
+    const quantity = item.querySelector('.products-item__quantity');
 
     if (promoPrice) {
       cartAsideTotal += Number(promoPrice.innerText) * Number(quantity.innerText);
     } else {
       cartAsideTotal += Number(retailPrice.innerText) * Number(quantity.innerText);
     }
-
+    cartAsideTotalFormatted = cartAsideTotal.toFixed(2);  // Округление до 2 знаков
   });
 
   if (cartAsideProductsItems.length > 0) {
@@ -607,7 +599,7 @@ function asideCartTotalCalc() {
   } 
   
   if (cartAsidePlaceOrderSumm) {
-    cartAsidePlaceOrderSumm.innerText = cartAsideTotal;
+    cartAsidePlaceOrderSumm.innerText = cartAsideTotalFormatted;
   }
 
   return false;
@@ -699,12 +691,13 @@ function addToCart(elem) {
 
   function addCreateOrderLink() {
     // Добавляю ссылку на кнопку
-    const cartAsidePlaceOrderBtn = document.querySelector('#cart-aside-place-order-btn'),
-          cartAsidePlaceOrderBtnLink = document.querySelector('#cart-aside-place-order-btn .full-link')
+    const cartAsidePlaceOrderBtn = document.querySelector('#cart-aside-place-order-btn');
+    const cartAsidePlaceOrderBtnLink = document.querySelector('#cart-aside-place-order-btn .full-link');
+
     if (!cartAsidePlaceOrderBtnLink) {
       let tmpEl = document.createElement('a');
       tmpEl.className = "full-link";
-      tmpEl.href = '/create-order';
+      tmpEl.href = '/cart';
       cartAsidePlaceOrderBtn.append(tmpEl);
     }
   }
@@ -797,9 +790,12 @@ function discountCalc(cartItems) {
   const summaryDiscount = document.querySelectorAll('.js-summary-discount');
 
   let totalDiscount = 0;
+  let totalDiscountFormatted = 0;
 
   cartItems.forEach((item) => {
+
     let oldPrice = item.querySelector('.js-item-old-price');
+
     if (oldPrice) {
       const quantityNumber = item.querySelector('.js-item-quantity');
 
@@ -812,12 +808,14 @@ function discountCalc(cartItems) {
         summItemDiscount = Number(quantityNumberValue) * (Number(oldPrice.innerText) - Number(price.innerText));
         totalDiscount += summItemDiscount;
       }
+
+      totalDiscountFormatted = totalDiscount.toFixed(2);  // Округление до 2 знаков
     }
     
   });
   
   summaryDiscount.forEach((item) => {
-    item.innerText = totalDiscount;
+    item.innerText = totalDiscountFormatted;
   });
 
   return false;
@@ -833,6 +831,7 @@ function summCalc(cartItems) {
   const summarySumm = document.querySelectorAll('.js-summary-summ');
 
   let totalSumm = 0;
+  let totalSummFormatted = 0;
 
   cartItems.forEach((item) => {
     const quantityNumber = item.querySelector('.js-item-quantity');
@@ -844,13 +843,15 @@ function summCalc(cartItems) {
       
     summItemSumm = Number(quantityNumberValue) * Number(itemPrice);
     totalSumm += summItemSumm;
+
+    totalSummFormatted = totalSumm.toFixed(2);  // Округление до 2 знаков
   });
 
   summarySumm.forEach((item) => {
-    item.innerText = totalSumm;
+    item.innerText = totalSummFormatted;
   });
 
-  return totalSumm;
+  return totalSummFormatted;
 }
 
 /**
@@ -863,6 +864,7 @@ function summBeforeDiscountCalc(cartItems) {
   const summarySummBeforeDiscount = document.querySelectorAll('.js-summary-summ-before-discount');
 
   let totalSumm = 0;
+  let totalSummFormatted = 0;
 
   cartItems.forEach((item) => {
     const quantityNumber = item.querySelector('.js-item-quantity');
@@ -881,13 +883,14 @@ function summBeforeDiscountCalc(cartItems) {
     }
     
     totalSumm += summItemSumm;
+    totalSummFormatted = totalSumm.toFixed(2);  // Округление до 2 знаков
   });
 
   summarySummBeforeDiscount.forEach((item) => {
-    item.innerText = totalSumm;
+    item.innerText = totalSummFormatted;
   });
 
-  return totalSumm;
+  return totalSummFormatted;
 }
 
 
@@ -1265,10 +1268,6 @@ if (createOrderPage) {
 
   paymentMethod();
 
-}
-
-if (singleProduct) {
-  
 }
 
 if (catalogPage) {

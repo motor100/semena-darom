@@ -303,19 +303,16 @@
                         <div class="products-item-price-wrapper">
                           @if($product->promo_price)
                             <div class="products-item__price products-item__promo-price red-text">
-                              <!-- <span class="products-item__value">{{ str_replace('.0', '', $product->promo_price) }}</span> -->
                               <span class="products-item__value">{{ $product->promo_price }}</span>
                               <span class="products-item__currency">&#8381;</span>
                             </div>
                             <div class="products-item__old-price item__old-price">
-                              <!-- <span class="products-item__value">{{ str_replace('.0', '', $product->retail_price) }}</span> -->
                               <span class="products-item__value">{{ $product->retail_price }}</span>
                               <span class="products-item__currency">&#8381;</span>
                               <span class="line-through"></span>
                             </div>
                           @else
                             <div class="products-item__price products-item__retail-price">
-                              <!-- <span class="products-item__value">{{ str_replace('.0', '', $product->retail_price) }}</span> -->
                               <span class="products-item__value">{{ $product->retail_price }}</span>
                               <span class="products-item__currency">&#8381;</span>
                               <span class="line-through"></span>
@@ -344,7 +341,7 @@
                   <span class="place-order-btn__currency">&#8381;</span>
                 </div>
                 @if(isset($cart_count))
-                  <a href="/create-order" class="full-link"></a>
+                  <a href="/cart" class="full-link"></a>
                 @endif
               </div>
             </div>
@@ -665,50 +662,6 @@
         <a href="/favourites" class="full-link"></a>
       </div>
     </div>
-  </div>
-
-  <div class="mobile-catalog-dropdown hidden-desktop">
-    <div class="mobile-catalog-dropdown-title">Каталог</div>
-    <div class="menu-wrapper">
-
-      <div class="aside-nav-item">
-        <div class="aside-nav-item__image">
-          <img src="{{ asset('img/percent-icon.svg') }}" alt="">
-        </div>
-        <div class="aside-nav-item__title">Акции</div>
-        <a href="/akcii" class="full-link"></a>
-      </div>
-      <div class="aside-nav-item">
-        <div class="aside-nav-item__image">
-          <img src="{{ asset('img/package-icon.svg') }}" alt="">
-        </div>
-        <div class="aside-nav-item__title">Новинки</div>
-        <a href="/novinki" class="full-link"></a>
-      </div>
-
-      @foreach($parent_categories as $cat)
-        @if($cat->count_children > 0)
-          @foreach($cat->child_category as $ct)
-            <div class="aside-nav-item">
-              <div class="aside-nav-item__image">
-                <img src="{{ Storage::url($ct->image) }}" alt="">
-              </div>
-              <div class="aside-nav-item__title">{{ $ct->title }}</div>
-              <a href="{{ route('catalog', ['category' => $ct->slug]) }}" class="full-link"></a>
-            </div>
-          @endforeach
-        @else
-          <div class="aside-nav-item">
-            <div class="aside-nav-item__image">
-              <img src="{{ Storage::url($cat->image) }}" alt="">
-            </div>
-            <div class="aside-nav-item__title">{{ $cat->title }}</div>
-            <a href="{{ route('catalog', ['category' => $cat->slug]) }}" class="full-link"></a>
-          </div>
-        @endif
-      @endforeach
-    </div>
-
   </div>
 
   @if(Auth::guard('admin')->user())

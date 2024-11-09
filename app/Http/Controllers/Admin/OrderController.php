@@ -84,29 +84,43 @@ class OrderController extends Controller
         $order = Order::findOrFail($id);
 
         // Число в номер телефона
-        $order->phone = \App\Services\Common::int_to_phone($order->phone);
+        $order->phone = (new \App\Services\Phone())->int_to_phone($order->phone);
 
         // id в штрихкод
         $order->barcode = (new \App\Services\Barcode())->int_to_barcode($order->id);
 
-        // Получаю модель CdekOrder по номеру заказа
-        $cdek_order = \App\Models\CdekOrder::where('order_id', $id)->first();
+        // Разные квитанции в зависимости от метода доставки
+        if ($order->delivery == 'sdek') { // доставка СДЕК
 
-        $is_waybill = false;
+            // Получаю модель CdekOrder по номеру заказа
+            $cdek_order = \App\Models\CdekOrder::where('order_id', $id)->first();
 
-        // Если есть модель СdekOrder с таким order_id
-        if ($cdek_order) {
-            // Сравниваю updated_at с текущей датой и получаю разницу в минутах
-            $diff_minutes = $cdek_order->updated_at->diffInMinutes(now());
+            $is_waybill = false;
 
-            // 1 минута - время на формирование квитанции
-            // 60 минут - ссылка на файл с квитанцией действует 1 час
-            if ($diff_minutes > 1 && $diff_minutes < 60) {
-                $is_waybill = true;
+            // Если есть модель СdekOrder с таким order_id
+            if ($cdek_order) {
+                // Сравниваю updated_at с текущей датой и получаю разницу в минутах
+                $diff_minutes = $cdek_order->updated_at->diffInMinutes(now());
+
+                // 1 минута - время на формирование квитанции
+                // 60 минут - ссылка на файл с квитанцией действует 1 час
+                if ($diff_minutes > 1 && $diff_minutes < 60) {
+                    $is_waybill = true;
+                }
             }
+
+            return view('dashboard.order-show', compact('order', 'is_waybill'));
+
+        } else { // доставка Почта России
+            return view('dashboard.order-show', compact('order'));
+
         }
 
-        return view('dashboard.order-show', compact('order', 'is_waybill'));
+
+
+        
+
+        
     }
 
     /**

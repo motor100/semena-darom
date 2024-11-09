@@ -48,8 +48,8 @@ class ProductController extends Controller
      */
     public function create(): View
     {   
-        // $category = \App\Models\Category::where('count_children', 0)->get();
-        $category = \App\Models\Category::all();
+        // Товар может быть только в дочерних категориях. Получаю дочерние категории
+        $category = \App\Models\Category::where('parent', '>', '0')->get();
 
         return view('dashboard.products-create', compact('category'));
     }
@@ -183,9 +183,10 @@ class ProductController extends Controller
     {   
         $product = Product::findOrFail($id);
 
-        // $category = \App\Models\Category::where('count_children', 0)->get();
-        $category = \App\Models\Category::all();
+        // Товар может быть только в дочерних категориях. Получаю дочерние категории
+        $category = \App\Models\Category::where('parent', '>', '0')->get();
 
+        // Текущая категория у этого товара
         $current_category = $category->where('id', $product->category_id)->first();
 
         // Передача данных в редактор Editor JS

@@ -85,7 +85,6 @@ class CategoryController extends Controller
             'parent' => isset($validated['category']) ? $validated['category'] : 0,
             'slug' => $slug,
             'image' => $image,
-            'count_children' => 0,
             'sort' => $validated["sort"] ? $validated["sort"] : 0
         ]);
 
@@ -164,7 +163,6 @@ class CategoryController extends Controller
             'title' => $validated["title"],
             'slug' => $slug,
             'image' => $path,
-            'count_children' => 0,
             'sort' => $validated["sort"]
         ]);
 
