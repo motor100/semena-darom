@@ -7,6 +7,8 @@ use App\Http\Controllers\MailerController;
 use App\Http\Controllers\DeliveryController;
 use App\Http\Controllers\LkController;
 use App\Http\Controllers\AjaxController;
+use App\Http\Controllers\YookassaController;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -70,6 +72,8 @@ Route::get('/kak-oformit-zakaz', [MainController::class, 'kak_oformit_zakaz']);
 Route::get('/poisk', [MainController::class, 'poisk']);
 
 Route::post('/set-city', [MainController::class, 'set_city']);
+
+Route::post('/yookassa-redirect', [YookassaController::class, 'redirect'])->name('yookassa_redirect');
 
 // test
 // Удаление штрихкода из описания товаров
