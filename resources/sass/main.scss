@@ -759,11 +759,17 @@ p {
   color: $textcolor;
   transition: color .3s;
 }
-.catalog-nav-item .aside-nav-submenu-item.active a,
+.catalog-nav-item .aside-nav-submenu-item.active a {
+  padding: 2px 5px;
+  background-color: #47a358;
+  color: #fff;
+}
 .catalog-nav-item .aside-nav-submenu-item a:hover {
   color: $maingreencolor;
 }
-
+.catalog-nav-item .aside-nav-submenu-item.active a:hover {
+  color: #fff
+}
 
 // Страница Каталог catalog page
 .catalog-page {
