@@ -49,7 +49,7 @@
               <div class="dp-item__image delivery-item__image">
                 <img src="/img/create-order-cdek.png" alt="">
               </div>
-              <div class="dp-item__title delivery-item__title">СДЭК (в ПВЗ)</div>
+              <div class="dp-item__title delivery-item__title">СДЭК (в пункт выдачи)</div>
               <div class="dp-item__description delivery-item__description">
                 <div class="dp-item__text delivery-item__text">Стоимость доставки</div>
                 <div class="dp-item__value delivery-item__value">

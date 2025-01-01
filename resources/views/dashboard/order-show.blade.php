@@ -12,6 +12,16 @@
     </div>
   @endif
 
+  @if($errors->any())
+    <div class="alert alert-danger">
+      <ul>
+        @foreach($errors->all() as $error)
+          <li>{{ $error }}</li>
+        @endforeach
+      </ul>
+    </div>
+  @endif
+
   <div class="order-content">
     <div class="form-group mb-3">
       <div class="label-text mb-1">
@@ -48,7 +58,12 @@
     </div>
     <div class="form-group mb-3">
       <div class="label-text mb-1">Покупатель</div>
-      <div class="order-info">{{ $order->first_name . ' ' . $order->last_name . ' ' . $order->phone . ' ' . $order->email . ' ' . $order->address }}</div>
+      <div class="order-info">{{ $order->first_name }}</div>
+      <div class="order-info">{{ $order->last_name }}</div>
+      <div class="order-info">{{ $order->phone }}</div>
+      <div class="order-info">{{ $order->email }}</div>
+      <div class="order-info">{{ $order->address }}</div>
+      <div class="order-info">{{ $order->postcode }}</div>
     </div>
   </div>
 

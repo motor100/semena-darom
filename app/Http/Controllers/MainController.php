@@ -296,8 +296,6 @@ class MainController extends Controller
 
     public function create_order_handler(Request $request)
     {
-        // dd(\Illuminate\Validation\Rule::requiredIf($request->input('delivery') == 'russian-post'));
-        
         $validated = $request->validate([
             'delivery' => 'required',
             'first-name'=> 'required|min:3|max:20',
@@ -327,7 +325,7 @@ class MainController extends Controller
             'phone'=> $phone,
             'email'=> $validated['email'],
             'city_id' => $city['id'],
-            'postcode' => $validated['postcode'],
+            // 'postcode' => $validated['postcode'],
             'address'=> $validated['address'],
             'price' => $validated['summ'],
             'user_id' => $user ? $user->id : NULL,

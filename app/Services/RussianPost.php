@@ -19,7 +19,7 @@ class RussianPost
      * Документация https://tariff.pochta.ru/post-calculator-api.pdf?99
      * Онлайн калькулятор https://tariff.pochta.ru/
      * Пример https://tariff.pochta.ru/#/106?object=4020&weight=1000&closed=1&sumoc=10000&date=20220617&time=1652
-     * Онлайн калькулятор от заказчиков https://www.pochta.ru/parcel-new
+     * Онлайн калькулятор от заказчика https://www.pochta.ru/parcel-new
      * 
      * @param
      * @return string
@@ -30,11 +30,11 @@ class RussianPost
         $params = [
             'object' => self::OBJECT,
             'from' => self::FROM_POSTAL_CODE,
-            'to' => (new \App\Services\PostalCode)->get(),
-            'weight' => (new \App\Services\ProductWeight)->weight_cart(),
+            'to' => (new \App\Services\City)->get_postcode_from_cookie(),
+            'weight' => (new \App\Services\ProductWeight)->weight_cart(), // Вес всех товаров в корзине в граммах. Метод weight_cart() получает товары из куки
             // 'pack' => '40', // Упаковка
             'closed'=> '1',
-            'sumoc' => (new \App\Services\ProductSumm)->summ_cart() * 100 // Объявленная ценность. Сумма товара * 100
+            'sumoc' => (new \App\Services\ProductSumm)->summ_cart() * 100 // Объявленная ценность в копейках. Сумма товара * 100
         ];
 
         $tariff = Http::get(self::TARIFF_URL, $params); // method GET format JSON
@@ -63,31 +63,32 @@ class RussianPost
         $url = self::CREATE_ORDER_URL . $path;
 
         // Кодирую логин и пароль russianpost_login
-        // $login_password_string = config('russianpost.login') . ":" . config('russianpost.password');
+        $login_password_string = config('russianpost.login') . ":" . config('russianpost.password');
 
-        // $login_password = base64_encode($login_password_string);
-        $login_password = base64_encode('crm-74ss@yandex.ru:7415086375');
+        $login_password = base64_encode($login_password_string);
+        // $login_password = base64_encode('crm-74ss@yandex.ru:7415086375');
 
         $params = [
             [
-                "address-type-to" => "DEFAULT",
+                "address-type-to" => "DEFAULT", // тип адреса Стандартный (улица, дом, квартира)
                 "given-name" => $order->first_name, // имя получателя
-                "house-to" => "13", // дом получателя
+                "house-to" => "", // дом получателя
                 "index-to" => $order->postcode, // индекс получателя
-                "mail-category" => "ORDINARY",
-                "mail-direct" => 643,
-                "mail-type" => "PARCEL_CLASS_1", // посылка первого класса
-                "mass" => 2000,
-                "middle-name" => "",
+                "mail-category" => "ORDINARY", // категория отправления https://otpravka.pochta.ru/specification#/enums-base-mail-category
+                "mail-direct" => 643, // страна РФ https://otpravka.pochta.ru/specification#/dictionary-countries
+                "mail-type" => "PARCEL_CLASS_1", // вид отправления https://otpravka.pochta.ru/specification#/enums-base-mail-type
+                "mass" => (new \App\Services\ProductWeight())->weight_order($order), // вес всех товаров в заказе в граммах. Метод weight_order() получает товары из заказа
+                "middle-name" => "", // отчество необязательно
                 "order-num" => $order->id, // номер заказа
-                "place-to" => "г Новосибирск",
-                "postoffice-code" => self::FROM_POSTAL_CODE, // индекс отправителя
-                "region-to" => "обл Новосибирская",
-                "room-to" => "99",
-                "street-to" => "проезд Газовый",
+                // "place-to" => (new \App\Services\City())->get_city_from_cookie(), // населенный пункт
+                "postoffice-code" => self::FROM_POSTAL_CODE, // индекс отправителя (места приема)
+                // "region-to" => (new \App\Services\City())->get_region_from_cookie(),
+                "room-to" => "",
+                "street-to" => $order->address,
                 "surname" => $order->last_name,
                 "tel-address" => $order->phone,
-                "transport-type" => "SURFACE"
+                "insr-value" => (new \App\Services\ProductSumm)->summ_cart() * 100, // Объявленная ценность в копейках. Сумма товара * 100
+                "transport-type" => "SURFACE" // вид транспортировки https://otpravka.pochta.ru/specification#/enums-base-transport-type 
             ]
         ];
 
@@ -100,6 +101,14 @@ class RussianPost
 
         $response = Http::withHeaders($headers)->put($url, $params);
   
-        dd($response->json());
+        $response_array = $response->json();
+
+        // Если в ответе есть ключ errors то ответ с ошибкой
+        if (isset($response_array["errors"])) {
+            return redirect()->back()->withErrors(['Сообщение', 'Ошибка отправки']);
+        }
+
+        dd($response_array);
+        
     }
 }

@@ -52,7 +52,7 @@ class ViewServiceProvider extends ServiceProvider
             if ($city) {
                 $city_name = $city['city'];
             } else {
-                $city_name = (new \App\Services\City())->get_city_name();
+                $city_name = (new \App\Services\City())->get_city_from_ip();
             }
 
             $view->with('city_name', $city_name);

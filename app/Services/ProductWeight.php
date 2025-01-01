@@ -9,6 +9,9 @@ class ProductWeight
 {
     /**
      * Получение веса всех товаров в корзине в граммах
+     * Получение товаров из куки
+     * На странице оформление заказа расчет тарифа доставки 
+     * 
      * @param
      * @return int
      */
@@ -38,6 +41,8 @@ class ProductWeight
 
     /**
      * Получение веса всех товаров в заказе
+     * Получение товаров из заказа
+     * 
      * @param Illuminate\Database\Eloquent\Model Order
      * @return int
      */

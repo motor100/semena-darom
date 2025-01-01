@@ -69,7 +69,7 @@ class Cdek
                 "country_code" => self::COUNTRY_CODE,
             ],
             "to_location" => [
-                "postal_code" => (new \App\Services\PostalCode)->get(),
+                "postal_code" => strval((new \App\Services\City)->get_postcode_from_cookie()), // Метод get_postcode_from_cookie() возвращает число. По документации к запросу нужна строка
                 "country_code" => self::COUNTRY_CODE,
             ],
             /*
@@ -83,7 +83,7 @@ class Cdek
             */
             "packages" => [
                 [
-                    "weight" => (new \App\Services\ProductWeight())->weight_cart(), // Вес всех товаров в корзине в граммах
+                    "weight" => (new \App\Services\ProductWeight())->weight_cart(), // Вес всех товаров в корзине в граммах. Метод weight_cart() получает товары из куки
                 ]
             ]
         ];
@@ -145,7 +145,7 @@ class Cdek
             "to_location" => [],
             "packages" => [
                 "number" => $order->id, // Номер упаковки. Можно вставить номер заказа
-                "weight" => (new \App\Services\ProductWeight)->weight_order($order), // общий вес
+                "weight" => (new \App\Services\ProductWeight)->weight_order($order), // вес всех товаров в заказе в граммах. Метод weight_order() получает товары из заказа
                 "items" => [],
             ],
             "recipient" => [],
@@ -158,7 +158,13 @@ class Cdek
         ];
 
         // Формирую город получателя
+        // Тут вопрос
+
         $cdek_city = $this->get_offices($order->city_id);
+
+
+        // Тут вопрос
+        
         $order_params["to_location"] = $cdek_city[0];
         $order_params["to_location"]["address"] = $order->address;
 
