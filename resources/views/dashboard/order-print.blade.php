@@ -16,12 +16,14 @@
   <table class="table">
     <tr>
       <th>№</th>
+      <th>Склад</th>
       <th>Название</th>
       <th>Количество</th>
     </tr>
     @foreach($products as $key => $value)
       <tr>
         <td>{{ $key + 1 }}</td>
+        <td>{{ $value->position }}</td>
         <td>{{ $value->title }}</td>
         <td>{{ $value->quantity }}</td>
       </tr>

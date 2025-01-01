@@ -25,7 +25,7 @@
       </div>
       <div class="col-md-4">
         <div class="dostavka-i-oplata-image">
-          <img src="/img/sdek.jpg" alt="">
+          <img src="/img/cdek.jpg" alt="">
         </div>
         <div class="dostavka-i-oplata-image">
           <img src="/img/russian-post.jpg" alt="">
@@ -39,11 +39,11 @@
         <div class="dostavka-i-oplata-item__image">
           <img src="/img/dostavka-i-oplata-russian-post.png" alt="">
         </div>
-        <div class="dostavka-i-oplata-item__text">«Почта России» — стоимость доставки для всех Регионов единая и составляет 290 руб.</div>
+        <div class="dostavka-i-oplata-item__text">«Почта России» — стоимость доставки для всех Регионов единая и составляет 290 руб.</div>
       </div>
       <div class="col-md-6">
         <div class="dostavka-i-oplata-item__image">
-          <img src="/img/dostavka-i-oplata-sdek.png" alt="">
+          <img src="/img/dostavka-i-oplata-cdek.png" alt="">
         </div>
         <div class="dostavka-i-oplata-item__text">«CDEK» — доставка осуществляется Курьером до двери, или до ближайшего к Вашему адресу Пункту Выдачи CDEK (стоимость доставки рассчитывается автоматически при оформлении заказа)</div>
       </div>
@@ -113,7 +113,7 @@
         <div class="payment-item">
           <div class="payment-title-wrapper">
             <div class="payment-item__title">Оплата на Пункте Выдачи CDEK/Курьеру CDEK.</div>
-            <img src="/img/dostavka-i-oplata-payment-sdek.png" class="sdek-logo" alt="">
+            <img src="/img/dostavka-i-oplata-payment-cdek.png" class="cdek-logo" alt="">
           </div>
           <p class="payment-item__text">Оплата производится при получении посылки на ПВ CDEK, или Курьеру CDEK.</p>
           <p class="payment-item__text">Стоимость доставки насчитывается при оформлении заказа.</p>
@@ -162,7 +162,7 @@
       </div>
     </div>
   </div>
-  <div class="dostavka-i-oplata-item">Возврат осуществляется <span class="red-text"> в течении 10 рабочих дней</span> на ту же карту, с которой мы приняли оплату. Мы можем запросить подтверждение личности, чека на покупку и фотографий негодности товара.</div>
+  <div class="dostavka-i-oplata-item">Возврат осуществляется <span class="orange-text"> в течении 10 рабочих дней</span> на ту же карту, с которой мы приняли оплату. Мы можем запросить подтверждение личности, чека на покупку и фотографий негодности товара.</div>
   <div class="dostavka-i-oplata-item">
     <a href="/garantiya-vozvrata-denezhnyh-sredstv" class="green-text">Порядок и условия возврата денежных средств</a>
   </div>

@@ -431,8 +431,8 @@ document.addEventListener("DOMContentLoaded", () => {
    * Функция сортировки по цене в Каталог Акции Новинки
    */
   function sortByPrice() {
-    const catalogSortForm = document.querySelector('#catalog-sort-form'),
-          catalogSortSelect = document.querySelector('#catalog-sort-select')
+    const catalogSortForm = document.querySelector('#catalog-sort-form');
+    const catalogSortSelect = document.querySelector('#catalog-sort-select');
 
     catalogSortSelect.addEventListener('change', () => { catalogSortForm.submit() }, false);
 
@@ -652,7 +652,7 @@ document.addEventListener("DOMContentLoaded", () => {
         str += '<div class="products-item__title">' + item.title + '</div>';
         str += '<div class="products-item-price-wrapper">';
         if (item.promo_price) {
-          str += '<div class="products-item__price products-item__promo-price red-text">';
+          str += '<div class="products-item__price products-item__promo-price orange-text">';
           str += '<span class="products-item__value">' + item.promo_price + '</span>';
           str += '<span class="products-item__currency">&#8381;</span>';
           str += '</div>';
@@ -1116,19 +1116,19 @@ document.addEventListener("DOMContentLoaded", () => {
     let summ = summCalc(productItems);
     summBeforeDiscountCalc(productItems);
 
-    sdekDelivery();
+    cdekDelivery();
     russianPostDelivery();
 
     // Стоимость доставки СДЕК
-    function sdekDelivery() {
+    function cdekDelivery() {
 
-      function setSdekDeliverySumm(str) {
-        let sdekDeliverySumm = document.querySelector('#sdek-delivery-summ');
-        sdekDeliverySumm.innerText = str;
+      function setCdekDeliverySumm(str) {
+        let cdekDeliverySumm = document.querySelector('#cdek-delivery-summ');
+        cdekDeliverySumm.innerText = str;
         return false;
       }
 
-      fetch('/ajax/sdek', {
+      fetch('/ajax/cdek', {
         method: 'POST',
         headers: {'Content-Type':'application/x-www-form-urlencoded'},
         cache: 'no-cache',
@@ -1136,7 +1136,7 @@ document.addEventListener("DOMContentLoaded", () => {
       })
       .then((response) => response.text())
       .then((text) => {
-        setSdekDeliverySumm(text);
+        setCdekDeliverySumm(text);
       })
       .catch((error) => {
         console.log(error);

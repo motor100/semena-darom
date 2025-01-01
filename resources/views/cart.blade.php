@@ -56,7 +56,7 @@
               <div class="cf-item__title-wrapper">
                 <div class="cf-item__title">{{ $product->title }}</div>
                 @if($product->promo_price)
-                  <div class="cf-item__price red-text">
+                  <div class="cf-item__price orange-text">
                     <span class="cf-item__value js-item-price">{{ $product->promo_price }}</span>
                     <span class="cf-item__currency">&#8381;</span>
                   </div>
@@ -69,7 +69,7 @@
               </div>
               @if($product->promo_price)
                 <div class="cf-item__promo">
-                  <div class="cf-item__promo-text red-text">Акция</div>
+                  <div class="cf-item__promo-text orange-text">Акция</div>
                   <div class="cf-item__old-price item__old-price">
                     <span class="cf-item__value js-item-price js-item-old-price">{{ $product->retail_price }}</span>
                     <span class="cf-item__currency">&#8381;</span>
@@ -100,7 +100,7 @@
                 <button type="button" class="quantity-button quantity-minus" data-id="{{ $product->id }}">
                   <div class="circle"></div>
                 </button>
-                <input class="quantity-number js-item-quantity" type="number" name="quantity" max="{{ $product->stock }}" min="1" step="1" data-id="{{ $product->id }}" value="{{ $product->quantity }}" readonly>
+                <input class="quantity-number input-number js-item-quantity" type="number" name="quantity" max="{{ $product->stock }}" min="1" step="1" data-id="{{ $product->id }}" value="{{ $product->quantity }}" readonly>
                 <button type="button" class="quantity-button quantity-plus" data-id="{{ $product->id }}">
                   <div class="circle"></div>
                 </button>
@@ -132,8 +132,8 @@
         <div class="cart-total-aside-item">
           <div class="cart-total-aside-text">Скидка</div>
           <div class="cart-total-aside-value">
-            <span class="cart-total-aside__counter red-text js-summary-discount">0</span>
-            <span class="cart-total-aside__currency red-text">&#8381;</span>
+            <span class="cart-total-aside__counter orange-text js-summary-discount">0</span>
+            <span class="cart-total-aside__currency orange-text">&#8381;</span>
           </div>                
         </div>
         <div class="grey-line"></div>
@@ -169,7 +169,7 @@
                   <div class="products-item__title">{{ $product->short_title }}</div>
                   <div class="products-item-price-wrapper">
                     @if($product->promo_price)
-                      <div class="products-item__price products-item__promo-price red-text">
+                      <div class="products-item__price products-item__promo-price orange-text">
                         <span class="products-item__value">{{ $product->promo_price }}</span>
                         <span class="products-item__currency">&#8381;</span>
                       </div>

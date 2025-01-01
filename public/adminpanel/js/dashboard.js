@@ -39,3 +39,21 @@ if (inputMainFile) {
   }
 }
 
+
+// Translate route to confirmDeleteModal
+const confirmDeleteModal = document.getElementById('confirmDeleteModal');
+
+if (confirmDeleteModal) {
+  const cancelBtn = document.getElementById('cancel-btn');
+  const delBtn = document.querySelectorAll('.del-btn');
+  const deleteForm = document.getElementById('delete-form');
+
+  delBtn.forEach((item) => {
+    item.addEventListener('click', () => {
+      deleteForm.action = item.dataset.route;
+      confirmDeleteModal.onfocus = function() {
+        cancelBtn.focus();
+      }
+    });
+  });
+}

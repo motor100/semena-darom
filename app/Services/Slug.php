@@ -4,24 +4,33 @@ namespace App\Services;
 
 class Slug
 {
-    protected $model;
+    protected $builder;
     protected $slug;
-
-    public function __construct($model, $slug)
+    
+    /**
+     * @param Illuminate\Database\Eloquent\Builder $builder
+     * @param string $slug
+     */
+    public function __construct($builder, $slug)
     {
-        $this->model = $model;
+        $this->builder = $builder;
         $this->slug = $slug;
     }
 
-    public function check()
+    /**
+     * Проверка на уникальный slug
+     * 
+     * @param
+     * @return string
+     */
+    public function check(): string
     {
-        // Проверка на уникальный slug
-        $have_slug = $this->model->where('slug', $this->slug)
-                            ->get();
+        $have_slug = $this->builder->where('slug', $this->slug)->get();
+
         if (count($have_slug) > 0) {
             $newslug = $this->slug . '-%';
-            $slugs = $this->model->where('slug', 'like', $newslug)
-                            ->get();
+            $slugs = $this->builder->where('slug', 'like', $newslug)->get();
+
             $count_slugs = count($slugs) + 1;
             $this->slug = $this->slug . '-' . $count_slugs;
         }

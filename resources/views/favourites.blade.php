@@ -40,7 +40,7 @@
               <div class="cf-item__title-wrapper">
                 <div class="cf-item__title">{{ $product->title }}</div>
                 @if($product->promo_price)
-                  <div class="cf-item__price red-text">
+                  <div class="cf-item__price orange-text">
                     <!-- <span class="cf-item__value">{{ str_replace('.0', '', $product->promo_price) }}</span> -->
                     <span class="cf-item__value">{{ $product->promo_price }}</span>
                     <span class="cf-item__currency">&#8381;</span>
@@ -55,7 +55,7 @@
               </div>
               @if($product->promo_price)
                 <div class="cf-item__promo">
-                  <div class="cf-item__promo-text red-text">Акция</div>
+                  <div class="cf-item__promo-text orange-text">Акция</div>
                   <div class="cf-item__old-price item__old-price">
                     <!-- <span class="cf-item__value">{{ str_replace('.0', '', $product->retail_price) }}</span> -->
                     <span class="cf-item__value">{{ $product->retail_price }}</span>

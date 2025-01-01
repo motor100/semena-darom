@@ -39,12 +39,12 @@
               <span>Категории</span>
             </a>
           </div>
-          <li class="nav-item">
+          <div class="nav-item">
             <a href="/admin/stock" class="item-link">
               <i class="nav-icon fas fa-truck"></i>
               <span>Склад</span>
             </a>
-          </li>
+          </div>
           <div class="nav-item">
             <a href="/admin/main-slider" class="item-link">
               <i class="nav-icon fas fa-images"></i>
@@ -67,6 +67,12 @@
             <a href="/admin/orders" class="item-link">
               <i class="nav-icon fas fa-shopping-cart"></i>
               <span>Заказы</span>
+            </a>
+          </div>
+          <div class="nav-item">
+            <a href="/admin/brands" class="item-link">
+              <i class="nav-icon fas fa-building"></i>
+              <span>Производители</span>
             </a>
           </div>
           

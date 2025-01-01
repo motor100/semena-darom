@@ -9,4 +9,4 @@ Custom Dashboard Template
 TinyMCE Editor, Input Mask
 
 #### APIs
-SDEK API, Russian Post API
+CDEK API, Russian Post API

@@ -11,11 +11,8 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('cdek_orders', function (Blueprint $table) {
-            $table->id();
-            $table->unsignedBigInteger('order_id');
-            $table->string('uuid');
-            $table->timestamps();
+        Schema::table('products', function (Blueprint $table) {
+            $table->renameColumn('brand', 'brand_id');
         });
     }
 
@@ -24,6 +21,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('cdek_orders');
+        //
     }
 };

@@ -12,6 +12,7 @@ use App\Http\Controllers\Admin\PromoController;
 use App\Http\Controllers\Admin\ProfileController;
 use App\Http\Controllers\Admin\TestimonialController;
 use App\Http\Controllers\Admin\OrderController;
+use App\Http\Controllers\Admin\BrandController;
 use App\Http\Controllers\Admin\RussianPostController;
 
 /*
@@ -52,9 +53,10 @@ Route::prefix('admin')->group(static function () {
         Route::post('logout', [AuthenticatedSessionController::class, 'destroy'])
                     ->name('admin.logout');
 
-        // Админ панель
+        // Dashboard home главная
         Route::get('/', [AdminController::class, 'home'])->name('admin.index');
 
+        // Profile профиль
         Route::get('/profile', [ProfileController::class, 'edit'])
                     ->middleware('password.confirm.admin')
                     ->name('admin.profile');
@@ -65,7 +67,7 @@ Route::prefix('admin')->group(static function () {
 
         Route::delete('/profile', [ProfileController::class, 'destroy'])->name('admin.profile.destroy');
 
-        // Products
+        // Products товары
         Route::get('products', [ProductController::class, 'index']);
 
         Route::get('products/create', [ProductController::class, 'create'])->name('products-create');
@@ -78,7 +80,7 @@ Route::prefix('admin')->group(static function () {
 
         Route::get('products/{id}/destroy', [ProductController::class, 'destroy'])->name('products-destroy');
 
-        // Categories
+        // Categories категории
         Route::get('category', [CategoryController::class, 'index']);
 
         Route::get('category/create', [CategoryController::class, 'create'])->name('category-create');
@@ -98,7 +100,7 @@ Route::prefix('admin')->group(static function () {
 
         Route::post('stock/update', [StockController::class, 'stock_update'])->name('stock-update');
 
-
+        // Slider слайдер
         Route::get('/main-slider', [MainSliderController::class, 'index']);
 
         Route::get('/main-slider/create', [MainSliderController::class, 'create'])->name('main-slider-create');
@@ -113,6 +115,7 @@ Route::prefix('admin')->group(static function () {
 
         Route::get('/main-slider/{id}/destroy', [MainSliderController::class, 'destroy'])->name('main-slider-destroy');
 
+        // Promo акции
         Route::get('/promos', [PromoController::class, 'index']);
 
         Route::get('/promos/create', [PromoController::class, 'create'])->name('promos-create');
@@ -127,6 +130,7 @@ Route::prefix('admin')->group(static function () {
 
         Route::get('/promos/{id}/destroy', [PromoController::class, 'destroy'])->name('promos-destroy');
 
+        // Orders заказы
         Route::get('/orders', [OrderController::class, 'index'])->name('admin.orders');
 
         Route::get('/orders/{id}', [OrderController::class, 'show'])->name('admin.orders-show');
@@ -137,30 +141,35 @@ Route::prefix('admin')->group(static function () {
 
         Route::get('/orders/{id}/check', [OrderController::class, 'check'])->name('admin.order-check');
 
-        Route::get('/orders/{id}/sdek-create-order', [CdekController::class, 'cdek_create_order'])->name('admin.cdek-create-order');
+        Route::get('/orders/{id}/cdek-create-order', [CdekController::class, 'cdek_create_order'])->name('admin.cdek-create-order');
 
-        Route::get('/order/{id}/sdek-download-waybill', [CdekController::class, 'cdek_download_waybill'])->name('admin.cdek-download-waybill');
+        Route::get('/order/{id}/cdek-download-waybill', [CdekController::class, 'cdek_download_waybill'])->name('admin.cdek-download-waybill');
 
         Route::get('/orders/{id}/russianpost-create-order', [RussianPostController::class, 'create_order'])->name('admin.russianpost-create-order');
 
+        // Testimonials отзывы
         Route::get('/testimonials', [TestimonialController::class, 'index'])->name('admin.testimonials');
 
         Route::post('/testimonials-update', [TestimonialController::class, 'update']);
 
         Route::post('/testimonials-destroy', [TestimonialController::class, 'destroy']);
 
-        Route::get('/polzovatelskoe-soglashenie-s-publichnoj-ofertoj', [AdminController::class, 'polzovatelskoe_soglashenie_s_publichnoj_ofertoj']);
+        // Brands производители
+        Route::get('/brands', [BrandController::class, 'index'])->name('admin.brands');
 
-        Route::post('/polzovatelskoe-soglashenie-s-publichnoj-ofertoj/update', [AdminController::class, 'polzovatelskoe_soglashenie_s_publichnoj_ofertoj_update']);
+        Route::get('/brands/create', [BrandController::class, 'create'])->name('admin.brands-create');
 
-        Route::get('/politika-konfidencialnosti', [AdminController::class, 'politika_konfidencialnosti']);
+        Route::post('/brands/store', [BrandController::class, 'store'])->name('admin.brands-store');
 
-        Route::post('/politika-konfidencialnosti/update', [AdminController::class, 'politika_konfidencialnosti_update']);
+        Route::get('/brands/{id}', [BrandController::class, 'show'])->name('admin.brands-show');
 
-        Route::get('/garantiya-vozvrata-denezhnyh-sredstv', [AdminController::class, 'garantiya_vozvrata_denezhnyh_sredstv']);
+        Route::get('/brands/{id}/edit', [BrandController::class, 'edit'])->name('admin.brands-edit');
 
-        Route::post('/garantiya-vozvrata-denezhnyh-sredstv/update', [AdminController::class, 'garantiya_vozvrata_denezhnyh_sredstv_update']);
+        Route::post('/brands/{id}/update', [BrandController::class, 'update'])->name('admin.brands-update');
 
+        Route::get('/brands/{id}/destroy', [BrandController::class, 'destroy'])->name('admin.brands-destroy');
+
+        // 404
         Route::get('/page-404', [AdminController::class, 'page_404']);
     });
 });

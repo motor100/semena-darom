@@ -7,28 +7,25 @@ use Illuminate\Support\Facades\Http;
 class RussianPost
 {
     const FROM_POSTAL_CODE = '456320'; // Индекс отправителя
-    // const OBJECT = '23030'; // Организация
-    const OBJECT = '4020'; // Физлицо
 
-    /**
-     * @var string Рабочая ссылка для получения токена
-     */
-    public const WORK_URL_TOKEN = "https://otpravka-api.pochta.ru";
+    const OBJECT = '4020'; // 4020 Физлицо или 23030 Организация
+
+    const TARIFF_URL = "https://tariff.pochta.ru/v2/calculate/tariff";
+
+    const CREATE_ORDER_URL = "https://otpravka-api.pochta.ru"; // Адрес доступа к API для создания заказа
     
     /**
+     * Расчет стоимости доставки (тариф)
      * Документация https://tariff.pochta.ru/post-calculator-api.pdf?99
      * Онлайн калькулятор https://tariff.pochta.ru/
      * Пример https://tariff.pochta.ru/#/106?object=4020&weight=1000&closed=1&sumoc=10000&date=20220617&time=1652
      * Онлайн калькулятор от заказчиков https://www.pochta.ru/parcel-new
-     * method GET
-     * format JSON
+     * 
      * @param
      * @return string
      */
     public function tariff(): string
     { 
-        $url = "https://tariff.pochta.ru/v2/calculate/tariff?";
-        
         // Параметры: вес, город получателя, объявленная ценность (сумма всех товаров * 100)
         $params = [
             'object' => self::OBJECT,
@@ -40,7 +37,7 @@ class RussianPost
             'sumoc' => (new \App\Services\ProductSumm)->summ_cart() * 100 // Объявленная ценность. Сумма товара * 100
         ];
 
-        $tariff = Http::get($url, $params);
+        $tariff = Http::get(self::TARIFF_URL, $params); // method GET format JSON
 
         $tariff = $tariff->json();
 
@@ -48,115 +45,61 @@ class RussianPost
 
         //  return ($tariff["paynds"]) / 100; // Итоговая сумма платы с НДС в копейках
 
-        // Округление копеек до рублей и возврат значения
+        // Если есть "paynds", то округляю копейки до рублей. Иначе "-".
         return array_key_exists("paynds", $tariff) ? round(($tariff["paynds"] / 100), 0) : "-";
     }
 
-    public function test()
+    /**
+     * Создание заказа
+     * Документация https://otpravka.pochta.ru/specification#/orders-creating_order
+     * 
+     * @param Illuminate\Database\Eloquent\Model Order
+     * @return
+     */
+    public function create_order($order)
     {
-        $url_token = "https://otpravka-api.pochta.ru";
+        // Формирую url
         $path = "/1.0/user/backlog";
-        $url = $url_token . $path;
+        $url = self::CREATE_ORDER_URL . $path;
 
+        // Кодирую логин и пароль russianpost_login
+        // $login_password_string = config('russianpost.login') . ":" . config('russianpost.password');
+
+        // $login_password = base64_encode($login_password_string);
         $login_password = base64_encode('crm-74ss@yandex.ru:7415086375');
 
         $params = [
-        [
-            "address-type-to" => "DEFAULT",
-            "given-name" => "Иван",
-            "house-to" => "37",
-            "index-to" => 117105,
-            "mail-category" => "ORDINARY",
-            "mail-direct" => 643,
-            "mail-type" => "POSTAL_PARCEL",
-            "mass" => 1000,
-            "middle-name" => "Иванович",
-            "order-num" => "001",
-            "place-to" => "г Москва",
-            "postoffice-code" => "101000",
-            "region-to" => "г Москва",
-            "street-to" => "ш Варшавское",
-            "surname" => "Иванов",
-            "tel-address" => 79459562067,
-            "transport-type" => "SURFACE",
-            "dimension" => [
-                "height" => 3,
-                "length" => 9,
-                "width" => 73
-            ],
-            "fragile" => "true"
-        ],
-	    [
-            # По данному объекту ожидается ошибка при обработке: "code" : "ILLEGAL_MASS_EXCESS"
-            # т.к. масса больше установленного ограничения
-
-            "address-type-to" => "DEFAULT",
-            "given-name" => "Сергей",
-            "house-to" => "13",
-            "index-to" => 630084,
-            "mail-category" => "ORDINARY",
-            "mail-direct" => 643,
-            "mail-type" => "POSTAL_PARCEL",
-            "mass" => 2000,
-            "middle-name" => "Владимирович",
-            "order-num" => "002",
-            "place-to" => "г Новосибирск",
-            "postoffice-code" => "101000",
-            "region-to" => "обл Новосибирская",
-            "room-to" => "99",
-            "street-to" => "проезд Газовый",
-            "surname" => "Сидоров",
-            "tel-address" => 79458712076,
-            "transport-type" => "SURFACE"
-        ]
+            [
+                "address-type-to" => "DEFAULT",
+                "given-name" => $order->first_name, // имя получателя
+                "house-to" => "13", // дом получателя
+                "index-to" => $order->postcode, // индекс получателя
+                "mail-category" => "ORDINARY",
+                "mail-direct" => 643,
+                "mail-type" => "PARCEL_CLASS_1", // посылка первого класса
+                "mass" => 2000,
+                "middle-name" => "",
+                "order-num" => $order->id, // номер заказа
+                "place-to" => "г Новосибирск",
+                "postoffice-code" => self::FROM_POSTAL_CODE, // индекс отправителя
+                "region-to" => "обл Новосибирская",
+                "room-to" => "99",
+                "street-to" => "проезд Газовый",
+                "surname" => $order->last_name,
+                "tel-address" => $order->phone,
+                "transport-type" => "SURFACE"
+            ]
         ];
 
-        $response = Http::withHeaders([
-                        'Content-Type' => 'application/json',
-                        'Accept' => 'application/json;charset=UTF-8',
-                        'Authorization' => 'AccessToken ' . config('russianpost.application_token'),
-                        'X-User-Authorization' => 'Basic ' . $login_password,
-                         ])
-                    ->put($url, $params);
+        $headers = [
+            'Content-Type' => 'application/json',
+            'Accept' => 'application/json;charset=UTF-8',
+            'Authorization' => 'AccessToken ' . config('russianpost.access_token'),
+            'X-User-Authorization' => 'Basic ' . $login_password,
+        ];
+
+        $response = Http::withHeaders($headers)->put($url, $params);
   
         dd($response->json());
-    }
-
-    /**
-     * Авторизация и получение токена API Почта России
-     * Документация https://otpravka.pochta.ru/specification#/authorization-token
-     * 
-     * @param
-     * @return mixed
-     */
-    public function get_token(): mixed
-    {
-        // Рабочая ссылка
-        $url_token = self::WORK_URL_TOKEN;
-
-        $params_token = [
-            'Authorization' => 'AccessToken ' . config('russianpost.application_token'),
-        ];
-
-        // Метод asForm() устанавливает Content-type: application/x-www-form-urlencoded
-        // Без него по умолчанию передается Content-type: application/json
-        $response_token = Http::withHeaders([
-                                // 'Content-Type' => 'application/json',
-	                            'Accept' => 'application/json;charset=UTF-8',
-	                            'Authorization' => 'AccessToken ' . config('russianpost.application_token'),
-	                            'X-User-Authorization' => 'Basic ' . config('russianpost.user_key')
-                                ])
-                            // ->asForm()
-                            ->post($url_token);
-
-        // Если статус ответа 200, то возвращаю токен
-        dd($response_token);
-        // if ($response_token->status() == 200) {
-        //     $this->token = $response_token->json("access_token");
-
-        //     return $response_token->json("access_token");
-        // }
-
-        return false;
     }
 }

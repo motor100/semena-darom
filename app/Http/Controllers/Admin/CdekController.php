@@ -10,6 +10,7 @@ class CdekController extends Controller
 {
     /**
      * Создание заказа СДЕК
+     * 
      * @param integer $id
      * @return Illuminate\Http\RedirectResponse
      */

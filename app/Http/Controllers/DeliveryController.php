@@ -12,7 +12,7 @@ class DeliveryController extends Controller
      * @param
      * @return string
      */
-    public function sdek(): string
+    public function cdek(): string
     {
         return (new \App\Services\Cdek())->tariff();
     }

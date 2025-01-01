@@ -158,7 +158,7 @@ p {
 .green-text {
   color: var(--m-main-green);
 }
-.red-text {
+.orange-text {
   color: var(--m-magenta) !important;
 }
 .text-uppercase {

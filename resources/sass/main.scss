@@ -109,7 +109,7 @@ p {
 .green-text {
   color: $maingreencolor;
 }
-.red-text {
+.orange-text {
   color: $magentacolor !important;
 }
 .text-uppercase {
@@ -165,6 +165,18 @@ p {
 }
 .form .g-recaptcha {
   margin: 0 0 25px 0;
+}
+.input-number {
+  -webkit-appearance: textfield;
+  -moz-appearance: textfield;
+  appearance: textfield;
+}
+.input-number::-webkit-inner-spin-button,
+.input-number::-webkit-outer-spin-button {
+  margin: 0;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
 }
 
 /* button next */
@@ -1694,7 +1706,7 @@ p {
 .dostavka-i-oplata .payment .payment-title {
   color: $maingreencolor;  
 }
-.dostavka-i-oplata .payment .sdek-logo {
+.dostavka-i-oplata .payment .cdek-logo {
   width: 123px;
   height: 29px;
   flex-shrink: 0;
@@ -2133,17 +2145,17 @@ p {
   color: $textcolor;
   text-align: center;
   flex-grow: 1;
-  -webkit-appearance: textfield;
-  -moz-appearance: textfield;
-  appearance: textfield;
+  // -webkit-appearance: textfield;
+  // -moz-appearance: textfield;
+  // appearance: textfield;
 }
-.cf-item .cf-item__quantity .quantity-number::-webkit-inner-spin-button,
-.cf-item .cf-item__quantity .quantity-number::-webkit-outer-spin-button {
-  -webkit-appearance: none;
-  -moz-appearance: none;
-  appearance: none;
-  margin: 0;
-}
+// .cf-item .cf-item__quantity .quantity-number::-webkit-inner-spin-button,
+// .cf-item .cf-item__quantity .quantity-number::-webkit-outer-spin-button {
+//   -webkit-appearance: none;
+//   -moz-appearance: none;
+//   appearance: none;
+//   margin: 0;
+// }
 .cf-item .cf-item__quantity .quantity-button {
   display: block;
   width: 32px;
@@ -2304,16 +2316,28 @@ p {
 .create-order .customer-info .customer-info-item {
   margin: 0 0 20px 0;
 }
+.create-order .customer-info .cdek-pvz-wrapper {
+  display: none;
+}
+.create-order .customer-info .customer-info-item.active {
+  display: block;
+}
 .create-order .customer-info .label {
   display: block;
   margin: 0 0 10px 0;
   font-family: 'arimo-medium';
   font-size: 18px;
 }
+.create-order .customer-info .postcode-required {
+  display: none;
+}
+.create-order .customer-info .postcode-required.active {
+  display: initial;
+}
 .create-order .customer-info .input-field {
   width: 100%;
   padding: 15px 25px;
-  border: none;
+  border: 1px solid #F6F7F9;
   border-radius: 20px;
   background-color: #F6F7F9;
   font-size: inherit;
@@ -2321,9 +2345,34 @@ p {
 .create-order .customer-info .input-field.required {
   border: 1px solid red;
 }
+.create-order .customer-info .ss-main .ss-single-selected {
+  width: 100%;
+  height: auto;
+  padding: 15px 25px;
+  border: 1px solid #F6F7F9;
+  border-radius: 20px;
+  background-color: #F6F7F9;
+  font-size: inherit;
+}
+.create-order .customer-info .ss-main .ss-content {
+  margin: 10px 0 0;
+  border: none;
+  border-radius: 10px;
+  overflow: hidden;
+  box-shadow: 0px 2px 10px rgba(0, 0, 0, 0.15);
+}
+.create-order .customer-info .ss-content .ss-list .ss-option:hover {
+  background-color: #fff;
+  color: #363636;
+  text-decoration: underline;
+}
+.create-order .customer-info .ss-content .ss-search input:focus {
+  box-shadow: 0 0 5px #F6F7F9;
+}
+
 .create-order .create-order-products .product-item {
   display: flex;
-  margin: 0 0 20px 0;
+  margin: 0 0 10px 0;
 }
 .create-order .create-order-products .product-item__image {
   width: 88px;
@@ -2341,7 +2390,7 @@ p {
   padding: 10px 0 0 0;
 }
 .create-order .create-order-products .product-item__title {
-  margin: 0 0 10px 0;
+  // margin: 0 0 10px 0;
   font-size: 18px;
 }
 .create-order .create-order-products .product-item__promo {
@@ -3114,6 +3163,7 @@ p {
   font-family: "arimo-regular";
   font-weight: normal;
   color: $textcolor;
+  text-align: left;
   transition: color .3s;
 }
 .select-city-modal .city-select-rezult .city-item-submit-btn:hover {

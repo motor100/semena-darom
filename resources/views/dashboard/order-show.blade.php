@@ -33,14 +33,14 @@
       <div class="label-text mb-1">Оплата</div>
       <div class="order-info">
         @if($order->payment == 'yookassa') Онлайн @endif
-        @if($order->payment == 'sdek') СДЕК @endif
-        @if($order->payment == 'sdek') Почта России @endif
+        @if($order->payment == 'cdek') СДЕК @endif
+        @if($order->payment == 'cdek') Почта России @endif
       </div>
       <div class="order-info {{ !$order->payment_status ? 'text-danger' : '' }}">{{ $order->payment_status ? 'Оплачен' : 'Оплаты нет' }}</div>
     </div>
     <div class="form-group mb-3">
       <div class="label-text mb-1">Доставка</div>
-      <div class="order-info">{{ $order->delivery == 'sdek' ? 'СДЕК' : 'Почта России' }}</div>
+      <div class="order-info">{{ $order->delivery == 'cdek' ? 'СДЕК' : 'Почта России' }}</div>
     </div>
     <div class="form-group mb-3">
       <div class="label-text mb-1">Время</div>
@@ -86,7 +86,7 @@
   </div>
 
   <div class="send-order-section mb-5">
-    @if($order->delivery == 'sdek')
+    @if($order->delivery == 'cdek')
       <p>Сформировать заказ, отправить в СДЕК и получить квитанцию.</p>
       <p>Кнопка для скачивания появится когда квитанция будет готова.</p>
       <form class="form mb-1" action="{{ route('admin.cdek-create-order', $order->id) }}">

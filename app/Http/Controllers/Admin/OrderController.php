@@ -90,7 +90,7 @@ class OrderController extends Controller
         $order->barcode = (new \App\Services\Barcode())->int_to_barcode($order->id);
 
         // Разные квитанции в зависимости от метода доставки
-        if ($order->delivery == 'sdek') { // доставка СДЕК
+        if ($order->delivery == 'cdek') { // доставка СДЕК
 
             // Получаю модель CdekOrder по номеру заказа
             $cdek_order = \App\Models\CdekOrder::where('order_id', $id)->first();
@@ -115,12 +115,6 @@ class OrderController extends Controller
             return view('dashboard.order-show', compact('order'));
 
         }
-
-
-
-        
-
-        
     }
 
     /**

@@ -2,6 +2,10 @@
 
 @section('title', 'Оформление заказа')
 
+@section('style')
+  <link rel="stylesheet" href="{{ asset('css/slimselect.min.css') }}">
+@endsection
+
 @section('content')
 
 <div class="breadcrumbs">
@@ -35,6 +39,7 @@
   @endif
     
   <form id="place-order-form" class="form" action="/create-order-handler" method="post">
+
     <div class="create-order-item">
       <div class="create-order-item-title">1. Выберите способ доставки</div>
       <div class="create-order-delivery">
@@ -42,13 +47,13 @@
           <div class="col-md-6">
             <div class="dp-item delivery-item">
               <div class="dp-item__image delivery-item__image">
-                <img src="/img/create-order-sdek.png" alt="">
+                <img src="/img/create-order-cdek.png" alt="">
               </div>
-              <div class="dp-item__title delivery-item__title">СДЭК (в отделение)</div>
+              <div class="dp-item__title delivery-item__title">СДЭК (в ПВЗ)</div>
               <div class="dp-item__description delivery-item__description">
                 <div class="dp-item__text delivery-item__text">Стоимость доставки</div>
                 <div class="dp-item__value delivery-item__value">
-                  <span id="sdek-delivery-summ" class="dp-item__summ delivery-item__summ">0</span>
+                  <span id="cdek-delivery-summ" class="dp-item__summ delivery-item__summ">0</span>
                   <span class="dp-item__text delivery-item__text">&#8381;</span>
                 </div>
               </div>
@@ -60,8 +65,8 @@
                 </div>
               </div>
               <div class="dp-item__radio delivery-item-radio">
-                <input type="radio" name="delivery" id="delivery-sdek" class="custom-radio js-shipping-method" checked value="sdek">
-                <label for="delivery-sdek" class="custom-radio-label"></label>
+                <input type="radio" name="delivery" id="delivery-cdek" class="custom-radio js-shipping-method" checked value="cdek">
+                <label for="delivery-cdek" class="custom-radio-label"></label>
               </div>
             </div>
           </div>
@@ -94,7 +99,7 @@
         </div>
       </div>
     </div>
-    
+
     <div class="create-order-item">
       <div class="create-order-item-title">2. Информация о покупателе</div>
       <div class="customer-info">
@@ -102,14 +107,14 @@
           <div class="row">
             <div class="col-sm-6">
               <div class="form-group">
-                <label for="first-name" class="label">Имя</label>
-                <input type="text" name="first-name" id="first-name" class="input-field" required min="3" max="20">
+                <label for="first-name" class="label">Имя <span class="orange-text" title="обязательно">*</span></label>
+                <input type="text" name="first-name" id="first-name" class="input-field" required min="3" max="20" autocomplete="on">
               </div>
             </div>
             <div class="col-sm-6">
               <div class="form-group">
-                <label for="last-name" class="label">Фамилия</label>
-                <input type="text" name="last-name" id="last-name" class="input-field" required min="3" max="30">
+                <label for="last-name" class="label">Фамилия <span class="orange-text" title="обязательно">*</span></label>
+                <input type="text" name="last-name" id="last-name" class="input-field" required min="3" max="30" autocomplete="on">
               </div>
             </div>
           </div>
@@ -118,22 +123,46 @@
           <div class="row">
             <div class="col-sm-6">
               <div class="form-group">
-                <label for="phone" class="label">Телефон</label>
-                <input type="text" name="phone" id="phone" class="input-field js-input-phone-mask" required size="18">
+                <label for="phone" class="label">Телефон <span class="orange-text" title="обязательно">*</span></label>
+                <input type="text" name="phone" id="phone" class="input-field js-input-phone-mask" required size="18" autocomplete="on">
               </div>
             </div>
             <div class="col-sm-6">
               <div class="form-group">
-                <label for="email" class="label">Email</label>
-                <input type="email" name="email" id="email" class="input-field" required min="5" max="50">
+                <label for="email" class="label">Email <span class="orange-text" title="обязательно">*</span></label>
+                <input type="email" name="email" id="email" class="input-field" required min="5" max="50" autocomplete="on">
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="customer-info-item">
+          <div class="row">
+            <div class="col-sm-6">
+              <div class="form-group">
+                <label for="city" class="label">Город <span class="orange-text" title="обязательно">*</span></label>
+                <input type="text" name="city" id="city" class="input-field" required min="3" max="50" readonly value="{{ $city['city'] }}">
+              </div>
+            </div>
+            <div class="col-sm-6">
+              <div class="form-group">
+                <label for="postcode" class="label">Почтовый индекс <span id="postcode-required" class="orange-text postcode-required" title="обязательно">*</span></label>
+                <input type="number" name="postcode" id="postcode" class="input-field input-number" min="100000" max="999999" autocomplete="on">
               </div>
             </div>
           </div>
         </div>
         <div class="customer-info-item">
           <div class="form-group">
-            <label for="address" class="label">Адрес</label>
-            <input type="text" name="address" id="address" class="input-field" required min="5" max="150">
+            <label for="address" class="label">Адрес <span class="orange-text" title="обязательно">*</span></label>
+            <input type="text" name="address" id="address" class="input-field" required min="5" max="150" autocomplete="on">
+          </div>
+        </div>
+        <div id="cdek-pvz-wrapper" class="customer-info-item cdek-pvz-wrapper active">
+          <div class="form-group">
+            <label class="label">Пункт выдачи заказов <span class="orange-text" title="обязательно">*</span></label>
+            <select name="cdek-pvz" id="cdek-pvz-select" class="cdek-pvz-select">
+              <option value="" selected disabled></option>
+            </select>
           </div>
         </div>
       </div>
@@ -145,9 +174,9 @@
 
         @foreach($products as $product)
           <div class="product-item">
-            <div class="product-item__image">
-              <img src="{{ asset('storage/uploads/products/' . $product->image) }}" alt="">
-            </div>
+            <!-- <div class="product-item__image">
+              <img src="{{-- asset('storage/uploads/products/' . $product->image) --}}" alt="">
+            </div> -->
             <div class="product-item__content">
               <div class="product-item__title">{{ $product->title}}</div>
               <div class="product-item__quantity">
@@ -198,7 +227,7 @@
           <div class="col-md-6">
             <div class="dp-item payment-item">
               <div class="dp-item__image payment-item__image">
-                <img src="/img/create-order-sdek.png" alt="">
+                <img src="/img/create-order-cdek.png" alt="">
               </div>
               <div class="dp-item__title payment-item__title">Оплата на Пункте Выдачи CDEK</div>
               <div class="payment-item__description">
@@ -206,8 +235,8 @@
                 <p>Стоимость доставки насчитывается при оформлении заказа.</p>
               </div>
               <div class="dp-item__radio payment-item-radio">
-                <input type="radio" name="payment" id="payment-sdek" class="custom-radio" value="sdek">
-                <label for="payment-sdek" class="custom-radio-label"></label>
+                <input type="radio" name="payment" id="payment-cdek" class="custom-radio" value="cdek">
+                <label for="payment-cdek" class="custom-radio-label"></label>
               </div>
             </div>
           </div>
@@ -250,8 +279,8 @@
       <div class="cart-total-aside-item">
         <div class="cart-total-aside-text">Скидка</div>
         <div class="cart-total-aside-value">
-          <span class="cart-total-aside__counter red-text js-summary-discount">0</span>
-          <span class="cart-total-aside__currency red-text">&#8381;</span>
+          <span class="cart-total-aside__counter orange-text js-summary-discount">0</span>
+          <span class="cart-total-aside__currency orange-text">&#8381;</span>
         </div>                
       </div>
       <div class="grey-line"></div>
@@ -273,4 +302,8 @@
 
 </div>
 
+@endsection
+
+@section('script')
+  <script src="{{ asset('js/slimselect.min.js') }}"></script>
 @endsection

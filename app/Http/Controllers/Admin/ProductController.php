@@ -186,13 +186,16 @@ class ProductController extends Controller
         // Товар может быть только в дочерних категориях. Получаю дочерние категории
         $category = \App\Models\Category::where('parent', '>', '0')->get();
 
+        // Производители
+        $brands = \App\Models\Brand::all();
+
         // Текущая категория у этого товара
         $current_category = $category->where('id', $product->category_id)->first();
 
         // Передача данных в редактор Editor JS
         $to_editorjs = $product->text_json;
 
-        return view('dashboard.products-edit', compact('product', 'category', 'current_category', 'to_editorjs'));
+        return view('dashboard.products-edit', compact('product', 'category', 'current_category', 'brands', 'to_editorjs'));
     }
 
     /**
@@ -331,7 +334,7 @@ class ProductController extends Controller
             'retail_price' => str_replace(',', '.', $validated['retail_price']),
             'promo_price' => $validated['promo_price'] ? str_replace(',', '.', $validated['promo_price']) : NULL,
             'weight' => $validated['weight'],
-            'brand' => $validated['brand'],
+            'brand_id' => $validated['brand'] ? $validated['brand'] : NULL,
             'property' => $validated['property'],
             'position' => $validated['position'],
             'updated_at' => now()

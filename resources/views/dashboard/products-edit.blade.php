@@ -98,8 +98,26 @@
       <input type="number" class="form-control input-weight input-number" name="weight" id="weight" min="0" step="1" value="{{ $product->weight }}" required>
     </div>
     <div class="form-group mb-3">
-      <label for="brand" class="label-text">Производитель</label>
-      <input type="text" class="form-control" name="brand" id="brand" maxlength="200" value="{{ $product->brand }}">
+      <div class="label-text">Производитель</div>
+      @if($product->brand)
+        <select name="brand" id="brand" class="form-select mt-1">
+          <option value=""></option>
+          @foreach($brands as $brand)
+            @if($brand->id == $product->brand->id)
+              <option value="{{ $brand->id }}" selected>{{ $brand->title }}</option>
+            @else
+              <option value="{{ $brand->id }}">{{ $brand->title }}</option>
+            @endif
+          @endforeach
+        </select>
+      @else
+        <select name="brand" id="brand" class="form-select mt-1">
+          <option value="" selected="selected"></option>
+          @foreach($brands as $brand)
+            <option value="{{ $brand->id }}">{{ $brand->title }}</option>
+          @endforeach
+        </select>
+      @endif
     </div>
     <div class="form-group mb-3">
       <div class="label-text" class="label-text">Свойство</div>

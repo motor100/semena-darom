@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\Product;
 use App\Models\Testimonial;
 use Illuminate\Http\JsonResponse;
+use \Illuminate\Support\Facades\Cookie;
 
 class AjaxController extends Controller
 {
@@ -43,7 +44,7 @@ class AjaxController extends Controller
         if ($request->hasCookie('cart')) {
 
             // Получение куки через фасад Cookie метод get
-            $cart = json_decode(\Illuminate\Support\Facades\Cookie::get('cart'), true);
+            $cart = json_decode(Cookie::get('cart'), true);
 
             // Если в массиве есть ключ с таким id, то прибавляю количество на 1
             if (array_key_exists($id, $cart)) {
@@ -59,7 +60,7 @@ class AjaxController extends Controller
         $cart_json = json_encode($cart);
 
         // Установка куки через фасад Cookie метод queue
-        \Illuminate\Support\Facades\Cookie::queue('cart', $cart_json, 525600);
+        Cookie::queue('cart', $cart_json, 525600);
 
         // Все что ниже нужно для показа товаров в корзине справа >1400px
         $keys = array_keys($cart);
@@ -80,14 +81,14 @@ class AjaxController extends Controller
         $id = $request->input('id');
 
         // Получение куки через фасад Cookie метод get
-        $cart = json_decode(\Illuminate\Support\Facades\Cookie::get('cart'), true);
+        $cart = json_decode(Cookie::get('cart'), true);
 
         $cart[$id] = $cart[$id] + 1;
 
         $cart_json = json_encode($cart);
 
         // Установка куки через фасад Cookie метод queue
-        \Illuminate\Support\Facades\Cookie::queue('cart', $cart_json, 525600);
+        Cookie::queue('cart', $cart_json, 525600);
 
         return false;
     }
@@ -97,7 +98,7 @@ class AjaxController extends Controller
         $id = $request->input('id');
 
         // Получение куки через фасад Cookie метод get
-        $cart = json_decode(\Illuminate\Support\Facades\Cookie::get('cart'), true);
+        $cart = json_decode(Cookie::get('cart'), true);
 
         $cart[$id] = $cart[$id] - 1;
         
@@ -106,7 +107,7 @@ class AjaxController extends Controller
             $cart_json = json_encode($cart);
             
             // Установка куки через фасад Cookie метод queue
-            \Illuminate\Support\Facades\Cookie::queue('cart', $cart_json, 525600);
+            Cookie::queue('cart', $cart_json, 525600);
         }
 
         return false;
@@ -122,7 +123,7 @@ class AjaxController extends Controller
         if ($request->hasCookie('favourites')) { // Если есть в куки favourites, то добавляю в конец массива
 
             // Получение куки через фасад Cookie метод get
-            $favourites = json_decode(\Illuminate\Support\Facades\Cookie::get('favourites'), true);
+            $favourites = json_decode(Cookie::get('favourites'), true);
 
             // Если в массиве есть ключ с таким id, то прибавляю количество на 1
             if (array_key_exists($id, $favourites)) {
@@ -142,7 +143,7 @@ class AjaxController extends Controller
         $favourites_json = json_encode($favourites);
 
         // Установка куки через фасад Cookie метод queue
-        \Illuminate\Support\Facades\Cookie::queue('favourites', $favourites_json, 525600);
+        Cookie::queue('favourites', $favourites_json, 525600);
         
         return $favourites_count;
     }
@@ -196,7 +197,7 @@ class AjaxController extends Controller
     public function ajax_we_use_cookie(): bool
     {
         // Записываю в куки через фасад Cookie метод queue
-        \Illuminate\Support\Facades\Cookie::queue('we-use-cookie', 'yes', 525600);
+        Cookie::queue('we-use-cookie', 'yes', 525600);
 
         return false;
     }
@@ -225,7 +226,7 @@ class AjaxController extends Controller
         $city = $request->input('city');
 
         // Записываю новый массив в куки через фасад Cookie метод queue
-        \Illuminate\Support\Facades\Cookie::queue('city', $city, 525600);
+        Cookie::queue('city', $city, 525600);
 
         return response()->json(['message' => 'error']);
     }
@@ -262,5 +263,45 @@ class AjaxController extends Controller
 
         return response()->json($product);
 
+    }
+
+    /**
+     * Метод для получения списка ПВЗ СДЕК
+     * 
+     * @param
+     * @return Illuminate\Http\JsonResponse
+     */
+    public function ajax_cdek_get_offices(): JsonResponse
+    {
+        // Получение куки через фасад Cookie метод get
+        $cookie_city = json_decode(Cookie::get("city"), true);
+
+        // Если в массиве $cookie_city есть ключ id, то получаю индекс города и отправляю запрос в СДЕК
+        if (isset($cookie_city["id"])) {
+
+            $city = \App\Models\City::find($cookie_city["id"]);
+
+            $cdek = new \App\Services\Cdek();
+
+            $cdek_offices = $cdek->get_offices($city->postal_code);
+            
+            // Если такого индекса не cуществует, то в ответе приходит ошибка  
+            if (isset($cdek_offices["errors"])) {
+                return response()->json(["error" => "Postcode error"]);
+            }
+
+            $offices = [];
+
+            foreach($cdek_offices as $office) {
+                $tmp = [];
+                $tmp["uuid"] = $office["uuid"];
+                $tmp["address"] = $office["location"]["city"] . ", " . $office["location"]["address"];
+                $offices[] = $tmp;
+            }
+
+            return response()->json($offices);
+        }
+
+        return response()->json(["error" => "City id not found"]);
     }
 }

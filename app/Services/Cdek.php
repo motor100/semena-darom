@@ -263,10 +263,11 @@ class Cdek
     /**
      * Список населенных пунктов
      * Документация https://api-docs.cdek.ru/33829437.html
+     * 
      * @param string id города из таблицы cities
      * @return array
      */
-    public function get_offices($city_id): array
+    public function get_location_cities($city_id): array
     {
         $token = $this->token ? $this->token : $this->get_token();
 
@@ -288,8 +289,34 @@ class Cdek
     }
 
     /**
+     * Метод предназначен для получения списка действующих офисов СДЭК.
+     * Документация https://api-docs.cdek.ru/36982648.html
+     * 
+     * @param string postal_code индекс города
+     * @return array
+     */
+    public function get_offices($postal_code): array
+    {
+        // Получение токена
+        $token = $this->get_token();
+        
+        // Рабочая ссылка
+        $url = "https://api.cdek.ru/v2/deliverypoints";
+
+        $params = [
+            "postal_code" => $postal_code,
+            "type" => "PVZ", // только ПВЗ
+        ];
+        
+        $response = Http::withToken($token)->get($url, $params);
+
+        return $response->json(); // Метод json() получает json данные из запроса и возвращает массив
+    }
+
+    /**
      * Авторизация и получение токена API СДЕК
      * Документация https://api-docs.cdek.ru/29923918.html
+     * 
      * @param
      * @return mixed
      */
@@ -309,8 +336,8 @@ class Cdek
             // 'client_secret'	=> self::TEST_CLIENT_SECRET,
 
             // Рабочие client_id и client_secret
-            'client_id'	=> config('sdek.client_id'),
-            'client_secret'	=> config('sdek.client_secret'),
+            'client_id'	=> config('cdek.client_id'),
+            'client_secret'	=> config('cdek.client_secret'),
         ];
 
         // Метод asForm() устанавливает Content-type: application/x-www-form-urlencoded

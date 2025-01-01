@@ -68,23 +68,6 @@ class MainController extends Controller
         return view('kontakty');
     }
 
-    public function old_catalog(Request $request)
-    {   
-        $products = Product::where('stock', '>', 0);
-        // $products = Product::query(); // без where
-
-        $products = (new \App\Services\ProductFilter($products, $request))
-                                            ->apply()
-                                            // ->orderBy('id', 'desc')
-                                            ->paginate(40)
-                                            ->onEachSide(1)
-                                            ->withQueryString();
-
-        $category_title = \App\Services\Common::get_category_title($request);
-
-        return view('catalog', compact('products', 'category_title'));
-    }
-
     public function catalog()
     {   
         return view('catalog');
@@ -121,11 +104,15 @@ class MainController extends Controller
                 $products = Product::where('category_id', $category->id);
             }
 
-            // Сортировка по полю price
-            if ($request->has('price')) {
-                if ($request->price == "desc" || $request->price == "asc") {
-                    $products = $products->orderBy('retail_price', $request->price);
+            // Сортировка по параметру sort
+            if ($request->has('sort')) {
+                if ($request->sort == "desc" || $request->sort == "asc") {
+                    $products = $products->orderBy('retail_price', $request->sort);
+                } else {
+                    $products = $products->orderBy('title', 'asc');
                 }
+            } else {
+                $products = $products->orderBy('title', 'asc');
             }
 
             // Пагинация
@@ -280,7 +267,13 @@ class MainController extends Controller
         return view('cart', compact('products', 'is_cart'));
     }
 
-    public function create_order(Request $request)
+    /**
+     * Оформление заказа
+     * 
+     * @param  @param \Illuminate\Http\Request $request;
+     * @return mixed
+     */
+    public function create_order(Request $request): mixed
     {
         // Переменная is_create_order переключение текста кнопки Оформить заказ
         $is_create_order = true;
@@ -288,11 +281,14 @@ class MainController extends Controller
         // Получение куки через фасад Cookie метод get
         $cart = json_decode(\Illuminate\Support\Facades\Cookie::get('cart'), true);
 
+         // Получение куки через фасад Cookie метод get
+        $city = json_decode(\Illuminate\Support\Facades\Cookie::get('city'), true);
+
         if ($cart) {
 
             $products = \App\Services\Common::get_products_in_cart($request);
 
-            return view('create-order', compact('products', 'is_create_order'));
+            return view('create-order', compact('products', 'is_create_order', 'city'));
         } else {
             return redirect('/cart');
         }
@@ -300,18 +296,22 @@ class MainController extends Controller
 
     public function create_order_handler(Request $request)
     {
+        // dd(\Illuminate\Validation\Rule::requiredIf($request->input('delivery') == 'russian-post'));
+        
         $validated = $request->validate([
             'delivery' => 'required',
             'first-name'=> 'required|min:3|max:20',
             'last-name'=> 'required|min:3|max:30',
             'phone'=> 'required|size:18',
             'email'=> 'required|min:5|max:50',
+            'postcode' => 'required_if:delivery,russian-post|nullable|digits:6',
+            'cdek-pvz' => 'required_if:delivery,cdek|nullable',
             'address'=> 'required|min:5|max:150',
             'payment' => 'required',
             'summ' => 'required|numeric',
         ]);
 
-        // Телефон из строки в цисло
+        // Телефон из строки в число
         $phone = \App\Services\Common::phone_to_int($validated['phone']);
 
         // Получение аутентифицированного пользователя
@@ -320,15 +320,14 @@ class MainController extends Controller
         // Получение id города
         $city = json_decode(\Illuminate\Support\Facades\Cookie::get('city'), true);
 
-        $city_id = !$city ? '41' : $city['id'];
-
         // Создаю новую модель Order и получаю id новой записи
         $order_id = \App\Models\Order::insertGetId([
             'first_name' => $validated['first-name'],
             'last_name' => $validated['last-name'],
             'phone'=> $phone,
             'email'=> $validated['email'],
-            'city_id' => $city_id,
+            'city_id' => $city['id'],
+            'postcode' => $validated['postcode'],
             'address'=> $validated['address'],
             'price' => $validated['summ'],
             'user_id' => $user ? $user->id : NULL,

@@ -79,9 +79,7 @@ Route::post('/yookassa-redirect', [YookassaController::class, 'redirect'])->name
 // Удаление штрихкода из описания товаров
 Route::get('/remove-barcode-from-text-html', [MainController::class, 'remove_barcode_from_text_html']);
 
-Route::get('/rp-test', [\App\Http\Controllers\Admin\RussianPostController::class, 'test']);
-
-Route::any('/test-test', [\App\Http\Controllers\Admin\RussianPostController::class, 'test_test']);
+Route::get('/rp-test', [\App\Http\Controllers\Admin\RussianPostController::class, 'create_order']);
 
 // Sitemap
 Route::get('/sitemap.xml', [MainController::class, 'sitemap']);
@@ -108,7 +106,9 @@ Route::post('/ajax/testimonial', [AjaxController::class, 'ajax_testimonial']);
 
 Route::get('/ajax/we-use-cookie', [AjaxController::class, 'ajax_we_use_cookie']);
 
-Route::post('/ajax/sdek', [DeliveryController::class, 'sdek']);
+Route::post('/ajax/cdek', [DeliveryController::class, 'cdek']);
+
+Route::get('/ajax/cdek-get-offices', [AjaxController::class, 'ajax_cdek_get_offices']);
 
 Route::post('/ajax/russian-post', [DeliveryController::class, 'russian_post']);
 

@@ -25,10 +25,11 @@
 
   <div class="catalog-sort">
     <div class="catalog-sort-text">Сортировка:</div>
-    <form id="catalog-sort-form" action="/akcii" method="get">
-      <select name="price" id="catalog-sort-select">
-        <option value="desc" {{ request()->price == "desc" ? "selected" : "" }}>Сначала дорогие</option>
-        <option value="asc" {{ request()->price == "asc" ? "selected" : "" }}>Сначала дешевые</option>
+    <form id="catalog-sort-form" class="catalog-sort-form" action="/catalog/{{ $category->slug }}" method="get">
+      <select name="sort" id="catalog-sort-select" class="catalog-sort-select">
+        <option value="alfabet">По алфавиту</option>
+        <option value="asc" {{ request()->sort == "asc" ? "selected" : "" }}>Сначала дешевые</option>
+        <option value="desc" {{ request()->sort == "desc" ? "selected" : "" }}>Сначала дорогие</option>
       </select>
     </form>
   </div>

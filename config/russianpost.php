@@ -4,14 +4,15 @@ return [
 
     /*
     |--------------------------------------------------------------------------
-    | SDEK API Key
+    | CDEK API Key
     |--------------------------------------------------------------------------
     | 
     | https://otpravka.pochta.ru/specification#/authorization-token
     |
     */
 
-    'application_token' => env('RUSSIANPOST_APPLICATION_TOKEN', ''),
-    'user_key' => env('RUSSIANPOST_USER_KEY', '')
+    'login' => env('RUSSIANPOST_LOGIN', ''),
+    'password' => env('RUSSIANPOST_PASSWORD', ''),
+    'access_token' => env('RUSSIANPOST_ACCESS_TOKEN', '')
 
 ];

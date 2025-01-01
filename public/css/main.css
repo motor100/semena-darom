@@ -159,7 +159,7 @@ p {
 .green-text {
   color: var(--m-main-green);
 }
-.red-text {
+.orange-text {
   color: var(--m-magenta) !important;
 }
 .text-uppercase {
@@ -1735,7 +1735,7 @@ p {
 .dostavka-i-oplata .payment .payment-title {
   color: var(--m-main-green);  
 }
-.dostavka-i-oplata .payment .sdek-logo {
+.dostavka-i-oplata .payment .cdek-logo {
   width: 123px;
   height: 29px;
   flex-shrink: 0;

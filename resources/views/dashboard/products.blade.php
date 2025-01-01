@@ -29,7 +29,7 @@
           <th>{{ $loop->index + 1 }}</th>
           <td>{{ $pr->title }}</td>
           <td class="table-button">
-            <a href="/catalog/{{ $pr->slug }}" class="btn btn-success" target="_blank">
+            <a href="/catalog/{{ $pr->category->slug }}/{{ $pr->slug }}" class="btn btn-success" target="_blank">
               <i class="fas fa-eye"></i>
             </a>
             <a href="{{ route('products-edit', $pr->id) }}" class="btn btn-primary">

@@ -662,7 +662,7 @@ function addToCart(elem) {
       str += '<div class="products-item__title">' + item.title + '</div>';
       str += '<div class="products-item-price-wrapper">';
       if (item.promo_price) {
-        str += '<div class="products-item__price products-item__promo-price red-text">';
+        str += '<div class="products-item__price products-item__promo-price orange-text">';
         str += '<span class="products-item__value">' + item.promo_price + '</span>';
         str += '<span class="products-item__currency">&#8381;</span>';
         str += '</div>';
@@ -1136,19 +1136,16 @@ if (createOrderPage) {
   let summ = summCalc(productItems);
   summBeforeDiscountCalc(productItems);
 
-  sdekDelivery();
-  russianPostDelivery();
-
   // Стоимость доставки СДЕК
-  function sdekDelivery() {
+  function cdekDelivery() {
 
-    function setSdekDeliverySumm(str) {
-      let sdekDeliverySumm = document.querySelector('#sdek-delivery-summ');
-      sdekDeliverySumm.innerText = str;
+    function setCdekDeliverySumm(str) {
+      let cdekDeliverySumm = document.querySelector('#cdek-delivery-summ');
+      cdekDeliverySumm.innerText = str;
       return false;
     }
 
-    fetch('/ajax/sdek', {
+    fetch('/ajax/cdek', {
       method: 'POST',
       headers: {'Content-Type':'application/x-www-form-urlencoded'},
       cache: 'no-cache',
@@ -1156,7 +1153,7 @@ if (createOrderPage) {
     })
     .then((response) => response.text())
     .then((text) => {
-      setSdekDeliverySumm(text);
+      setCdekDeliverySumm(text);
     })
     .catch((error) => {
       console.log(error);
@@ -1191,6 +1188,9 @@ if (createOrderPage) {
     return false;
   }
 
+  cdekDelivery();
+  russianPostDelivery();
+
   // Скрытое поле Сумма
   document.querySelector('#hidden-input-summ').value = summ;
 
@@ -1200,32 +1200,53 @@ if (createOrderPage) {
 
   function checkRequiredFields(form) {
 
-    let inputFirstName = form.querySelector('#first-name');
+    const inputFirstName = form.querySelector('#first-name');
     if (inputFirstName.value.length < 3 || inputFirstName.value.length > 20) {
       inputFirstName.classList.add('required');
     } else {
       inputFirstName.classList.remove('required');
     }
 
-    let inputLastName = form.querySelector('#last-name');
+    const inputLastName = form.querySelector('#last-name');
     if (inputLastName.value.length < 3 || inputLastName.value.length > 30) {
       inputLastName.classList.add('required');
     } else {
       inputLastName.classList.remove('required');
     }
 
-    let inputPhone = form.querySelector('#phone');
+    const inputPhone = form.querySelector('#phone');
     if (inputPhone.value.length != 18) {
       inputPhone.classList.add('required');
     } else {
       inputPhone.classList.remove('required');
     }
 
-    let inputEmail = form.querySelector('#email');
+    const inputEmail = form.querySelector('#email');
     if (inputEmail.value.length < 5 || inputEmail.value.length > 50) {
       inputEmail.classList.add('required');
     } else {
       inputEmail.classList.remove('required');
+    }
+
+    const inputCity = form.querySelector('#city');
+    if (inputCity.value.length < 3 || inputCity.value.length > 50) {
+      inputCity.classList.add('required');
+    } else {
+      inputCity.classList.remove('required');
+    }
+
+    const inputPostcode = form.querySelector('#postcode');
+    if (inputPostcode.required && inputPostcode.value.length != 6) {
+      inputPostcode.classList.add('required');
+    } else {
+      inputPostcode.classList.remove('required');
+    }
+
+    const inputAddress = form.querySelector('#address');
+    if (inputAddress.value.length < 5 || inputAddress.value.length > 150) {
+      inputAddress.classList.add('required');
+    } else {
+      inputAddress.classList.remove('required');
     }
 
     return false;
@@ -1235,32 +1256,101 @@ if (createOrderPage) {
     checkRequiredFields(placeOrderForm);
   }
 
+  // Название города в поле Город
+  const inputCity = document.querySelector('#city');
+
+  inputCity.onclick = function () {
+    modalWindowOpen(selectCityModal);
+  }
+
+
+  /**
+   * Функция инициализации slim select на элементе id cdek-pvz-select
+   * @returns void
+   */
+  function slimSelectPvzCdek() {
+    new SlimSelect({
+      select: '#cdek-pvz-select',
+      showSearch: true,
+      searchFocus: false,
+      searchText: 'Не найдено',
+      searchPlaceholder: 'Поиск',
+    });
+  }
+
+  slimSelectPvzCdek();
+
+
+  // Функция добавление option в select ПВЗ СДЕК
+  function cdekPvzSelectFill(pvzArray) {
+    let cdekPvzSelect = document.getElementById('cdek-pvz-select');
+    let fragment = document.createDocumentFragment();
+
+    for(let i = 0; i < pvzArray.length; i++) {
+      let option = new Option(pvzArray[i].address, pvzArray[i].uuid);
+      fragment.appendChild(option);
+    }
+    cdekPvzSelect.appendChild(fragment);
+  }
+
+  // Функция отправки запроса AJAX для получения списка ПВЗ СДЕК
+  function cdek_get_offices() {
+    fetch('/ajax/cdek-get-offices')
+    .then((response) => response.json())
+    .then((json) => {
+      // Если в ответе нет ключа error, то добавляю option
+      if(!json.error) {
+        cdekPvzSelectFill(json);
+      }
+    })
+    .catch((error) => {
+      console.log(error);
+    })
+  }
+
+  cdek_get_offices();
+  
   /**
    * Зависимость метода оплаты от метода доставки
-   * Если выбрана доставка сдек, то оплата сдек и юкасса
-   * Если выбрана доставка почта, то оплата почта и юкасса
+   * Если выбрана доставка сдек, то оплата сдек и юкасса. Индекс не обязательное поле и появляется выбор ПВЗ СДЕК.
+   * Если выбрана доставка почта, то оплата почта и юкасса. Индекс обязательное поле.
    */
   function paymentMethod() {
     // Методы доставки
     const shippingMethods = document.querySelectorAll('.js-shipping-method'); // методы доставки
-    const deliverySdek = document.getElementById('delivery-sdek'); // доставка сдек
+    const deliveryCdek = document.getElementById('delivery-cdek'); // доставка сдек
 
     // Методы оплаты
-    const paymentSdek = document.getElementById('payment-sdek'); // оплата сдек
+    const paymentCdek = document.getElementById('payment-cdek'); // оплата сдек
     const paymentRussianPost = document.getElementById('payment-russian-post'); // оплата почта
+    const cdekPvzWrapper = document.getElementById('cdek-pvz-wrapper'); // пункты выдачи заказов СДЕК
+    const postcode = document.getElementById('postcode'); // индекс Почты России
+    const postcodeRequired = document.getElementById('postcode-required') // звездочка обязательно индекс Почты России
 
     // По умолчанию выбрана доставка сдек и отключена оплата почта
-    deliverySdek.checked = true;
+    deliveryCdek.checked = true;
     paymentRussianPost.disabled = true;
 
     shippingMethods.forEach((item) => {
       item.onchange = function() {
-        if (deliverySdek.checked) { // Если выбрана доставка сдек, то оплата сдек и юкасса
+        // Если выбрана доставка сдек, то оплата сдек и юкасса
+        // Поле Индекс необязательно, скрывается звездочка
+        // Показывается поле ПВЗ СДЕК
+        if (deliveryCdek.checked) { 
           paymentRussianPost.disabled = true;
-          paymentSdek.disabled = false;
-        } else { // Если выбрана доставка почта, то оплата почта и юкасса
-          paymentSdek.disabled = true;
+          paymentCdek.disabled = false;
+          postcode.required = false;
+          postcodeRequired.classList.remove('active');
+          cdekPvzWrapper.classList.add('active');
+          // Если выбрана доставка почта, то оплата почта и юкасса
+          // Поле Индекс обязательно, показывается звездочка
+          // Скрывается поле ПВЗ СДЕК
+        } else {
+          paymentCdek.disabled = true;
           paymentRussianPost.disabled = false;
+          postcode.required = true;
+          postcodeRequired.classList.add('active');
+          cdekPvzWrapper.classList.remove('active');
         }
       }
     });

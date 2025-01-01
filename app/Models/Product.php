@@ -23,7 +23,7 @@ class Product extends Model
         'retail_price',
         'promo_price',
         'weight',
-        'brand',
+        'brand_id',
         'property',
         'position',
     ];
@@ -43,6 +43,14 @@ class Product extends Model
     public function galleries()
     {
         return $this->hasMany(Gallery::class);
+    }
+
+    /**
+     * Получить производителя товара.
+     */
+    public function brand()
+    {
+        return $this->belongsTo(Brand::class);
     }
 
     /**

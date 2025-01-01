@@ -5,3 +5,7 @@ body {
 .mb-30 {
   margin-bottom: 30px;
 }
+
+td {
+  padding: 0 5px;
+}

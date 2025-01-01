@@ -132,7 +132,7 @@
         </div>
         <div class="advantages-item">
           <div class="advantages-item__image">
-            <img src="/img/header-sdek.png" alt="">
+            <img src="/img/header-cdek.png" alt="">
           </div>
           <div class="advantages-item__text">CDEK курьер</div>
         </div>
@@ -165,7 +165,7 @@
           </div>
           <div class="swiper-slide advantages-item">
             <div class="advantages-item__image">
-              <img src="/img/header-sdek.png" alt="">
+              <img src="/img/header-cdek.png" alt="">
             </div>
             <div class="advantages-item__text">CDEK курьер</div>
           </div>
@@ -266,8 +266,8 @@
               <div class="cart-total-aside-item">
                 <div class="cart-total-aside-text">Скидка</div>
                 <div class="cart-total-aside-value">
-                  <span class="cart-total-aside__counter red-text js-summary-discount">0</span>
-                  <span class="cart-total-aside__currency red-text">&#8381;</span>
+                  <span class="cart-total-aside__counter orange-text js-summary-discount">0</span>
+                  <span class="cart-total-aside__currency orange-text">&#8381;</span>
                 </div>                
               </div>
               <div class="grey-line"></div>
@@ -304,7 +304,7 @@
                         <div class="products-item__title">{{ $product->title }}</div>
                         <div class="products-item-price-wrapper">
                           @if($product->promo_price)
-                            <div class="products-item__price products-item__promo-price red-text">
+                            <div class="products-item__price products-item__promo-price orange-text">
                               <span class="products-item__value">{{ $product->promo_price }}</span>
                               <span class="products-item__currency">&#8381;</span>
                             </div>
@@ -718,12 +718,6 @@
       }
 
       function loadMetrica( e ) {
-
-        if ( e && e.type ) {
-          console.log( e.type );
-        } else {
-          console.log( 'DOMContentLoaded' );
-        }
 
         if ( loadedMetrica ) {
           return;
