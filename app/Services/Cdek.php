@@ -12,7 +12,7 @@ class Cdek
     // const TARIFF_CODE = 136 // Посылка склад-склад
     const TARIFF_CODE = 139; // Посылка дверь-дверь
     const CURRENCY = 1; // Валюта Российский рубль
-    const FROM_POSTAL_CODE = "456320"; // Индекс отправителя
+    const FROM_POSTCODE = "456320"; // Индекс отправителя
     const COUNTRY_CODE = "RU"; // Страна
     const FROM_REGION = "Челябинская область"; // Регион отправителя
     const FROM_CITY = "Миасс"; // Город отправителя
@@ -65,7 +65,7 @@ class Cdek
             "currency" => self::CURRENCY,
             "tariff_code" => self::TARIFF_CODE,
             "from_location" => [
-                "postal_code" => self::FROM_POSTAL_CODE,
+                "postal_code" => self::FROM_POSTCODE,
                 "country_code" => self::COUNTRY_CODE,
             ],
             "to_location" => [
@@ -133,7 +133,7 @@ class Cdek
             "from_location" => [
                 "code" => self::FROM_CODE,
                 "fias_guid" => "",
-                "postal_code" => self::FROM_POSTAL_CODE,
+                "postal_code" => self::FROM_POSTCODE,
                 "longitude" => "",
                 "latitude" => "",
                 "country_code" => self::COUNTRY_CODE,
@@ -286,7 +286,7 @@ class Cdek
 
         $params = [
             "city" => $city->title,
-            "postal_code" => $city->postal_code
+            "postal_code" => $city->postcode
         ];
         
         $response = Http::withToken($token)->get($url, $params);
@@ -300,10 +300,10 @@ class Cdek
      * Метод предназначен для получения списка действующих офисов СДЭК.
      * Документация https://api-docs.cdek.ru/36982648.html
      * 
-     * @param string postal_code индекс города
+     * @param string postcode индекс города
      * @return array
      */
-    public function get_offices($postal_code): array
+    public function get_offices($postcode): array
     {
         // Получение токена
         $token = $this->get_token();
@@ -312,7 +312,7 @@ class Cdek
         $url = "https://api.cdek.ru/v2/deliverypoints";
 
         $params = [
-            "postal_code" => $postal_code,
+            "postal_code" => $postcode,
             "type" => "PVZ", // только ПВЗ
         ];
         

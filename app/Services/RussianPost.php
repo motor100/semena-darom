@@ -6,7 +6,7 @@ use Illuminate\Support\Facades\Http;
 
 class RussianPost
 {
-    const FROM_POSTAL_CODE = '456320'; // Индекс отправителя
+    const FROM_POSTCODE = '456320'; // Индекс отправителя
 
     const OBJECT = '4020'; // 4020 Физлицо или 23030 Организация
 
@@ -29,7 +29,7 @@ class RussianPost
         // Параметры: вес, город получателя, объявленная ценность (сумма всех товаров * 100)
         $params = [
             'object' => self::OBJECT,
-            'from' => self::FROM_POSTAL_CODE,
+            'from' => self::FROM_POSTCODE,
             'to' => (new \App\Services\City)->get_postcode_from_cookie(),
             'weight' => (new \App\Services\ProductWeight)->weight_cart(), // Вес всех товаров в корзине в граммах. Метод weight_cart() получает товары из куки
             // 'pack' => '40', // Упаковка
@@ -81,7 +81,7 @@ class RussianPost
                 "middle-name" => "", // отчество необязательно
                 "order-num" => $order->id, // номер заказа
                 // "place-to" => (new \App\Services\City())->get_city_from_cookie(), // населенный пункт
-                "postoffice-code" => self::FROM_POSTAL_CODE, // индекс отправителя (места приема)
+                "postoffice-code" => self::FROM_POSTCODE, // индекс отправителя (места приема)
                 // "region-to" => (new \App\Services\City())->get_region_from_cookie(),
                 "room-to" => "",
                 "street-to" => $order->address,

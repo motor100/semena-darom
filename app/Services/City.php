@@ -96,11 +96,11 @@ class City
 
         if ($cookie_city) {
             $city = \App\Models\City::find($cookie_city["id"]);
-            return $city->postal_code;
+            return $city->postcode;
         }
 
         // По умолчанию 000000
-        return 000000;
+        return 101000;
     }
 
 }

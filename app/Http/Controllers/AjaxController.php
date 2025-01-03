@@ -289,7 +289,7 @@ class AjaxController extends Controller
 
             $cdek = new \App\Services\Cdek();
 
-            $cdek_offices = $cdek->get_offices($city->postal_code);
+            $cdek_offices = $cdek->get_offices($city->postcode);
             
             // Если такого индекса не cуществует, то в ответе приходит ошибка  
             if (isset($cdek_offices["errors"])) {

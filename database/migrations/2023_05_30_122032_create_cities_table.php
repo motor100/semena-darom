@@ -15,8 +15,8 @@ return new class extends Migration
             $table->id();
             $table->string('city')->index();
             $table->string('region');
-            $table->integer('postal_code')->unique();
-            $table->smallInteger('visible')->nullable();
+            $table->integer('postcode')->unique();
+            $table->unsignedTinyInteger('search')->default(0);
             $table->timestamps();
         });
     }
