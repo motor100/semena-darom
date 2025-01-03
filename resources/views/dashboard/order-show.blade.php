@@ -104,18 +104,18 @@
     @if($order->delivery == 'cdek')
       <p>Сформировать заказ, отправить в СДЕК и получить квитанцию.</p>
       <p>Кнопка для скачивания появится когда квитанция будет готова.</p>
-      <form class="form mb-1" action="{{ route('admin.cdek-create-order', $order->id) }}">
+      <form class="form mb-1" action="{{ route('admin.cdek-create-order', $order->id) }}" method="get">
         <button type="submit" class="btn btn-primary">Отправить в СДЕК</button>
       </form>
       @if($is_waybill)
-        <form class="form mb-1" action="{{ route('admin.cdek-download-waybill', $order->id) }}">
+        <form class="form mb-1" action="{{ route('admin.cdek-download-waybill', $order->id) }}" method="get">
           <button type="submit" class="btn btn-success">Скачать квитанцию</button>
         </form>
       @endif
 
     @else
       <p>Сформировать заказ, отправить в Почту и получить квитанцию.</p>
-      <form class="form mb-1" action="{{ route('admin.russianpost-create-order', $order->id) }}">
+      <form class="form mb-1" action="{{ route('admin.russianpost-create-order', $order->id) }}" method="get">
         <button type="submit" class="btn btn-primary">Отправить в Почту</button>
       </form>
     @endif

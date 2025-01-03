@@ -140,7 +140,7 @@
             <div class="col-sm-6">
               <div class="form-group">
                 <label for="city" class="label">Город <span class="orange-text" title="обязательно">*</span></label>
-                <input type="text" name="city" id="city" class="input-field" required min="3" max="50" readonly value="{{ $city['city'] }}">
+                <input type="text" name="city" id="city" class="input-field" required min="3" max="50" readonly value="{{ $city['title'] }}">
               </div>
             </div>
             <div class="col-sm-6">

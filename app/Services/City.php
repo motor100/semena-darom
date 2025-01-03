@@ -55,7 +55,7 @@ class City
 
         if ($cookie_city) {
             $city = \App\Models\City::find($cookie_city["id"]);
-            return $city->city;
+            return $city->title;
         }
 
         // По умолчанию пустая строка

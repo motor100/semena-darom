@@ -123,8 +123,9 @@ class Cdek
 
         // Рабочая ссылка
         $url = "https://api.cdek.ru/v2/orders";
-
+        
         // Формирую параметры заказа
+        // Код ПВЗ Краснодар Комарова 21/1 корп 4. "dbee858c-24b9-44f9-a243-5da6b684403e"
         $order_params = [
             "type" => self::TYPE,
             "number" => $order->id . "-" . mt_rand(), // уникальный номер заказа. Номер заказа + случайное число
@@ -142,7 +143,8 @@ class Cdek
                 "kladr_code" => "",
                 "address" => ""
             ],
-            "to_location" => [],
+            "delivery_point" => "dbee858c-24b9-44f9-a243-5da6b684403e",
+            // "to_location" => [],
             "packages" => [
                 "number" => $order->id, // Номер упаковки. Можно вставить номер заказа
                 "weight" => (new \App\Services\ProductWeight)->weight_order($order), // вес всех товаров в заказе в граммах. Метод weight_order() получает товары из заказа
@@ -156,17 +158,17 @@ class Cdek
             // 1 способ. Создать квитанцию вместе с заказом. Как сейчас
             // 2 способ. Создать квитанцию отдельным методом. Документация https://api-docs.cdek.ru/36967276.html
         ];
-
+        
         // Формирую город получателя
         // Тут вопрос
 
-        $cdek_city = $this->get_offices($order->city_id);
+        // $cdek_city = $this->get_offices($order->city_id);
 
 
         // Тут вопрос
         
-        $order_params["to_location"] = $cdek_city[0];
-        $order_params["to_location"]["address"] = $order->address;
+        // $order_params["to_location"] = $cdek_city[0];
+        // $order_params["to_location"]["address"] = $order->address;
 
         // Формирую товары в заказе
         foreach($order->products as $product) {
@@ -187,7 +189,7 @@ class Cdek
         // Формирую получателя
         $order_params["recipient"]["name"] = $order->first_name . " " . $order->last_name;
         $order_params["recipient"]["phones"]["number"] = "+" . $order->phone;
-
+        
         // Запрос API СДЕК
         $response = Http::withToken($token)->post($url, $order_params);
         
@@ -283,7 +285,7 @@ class Cdek
         $url = "https://api.cdek.ru/v2/location/cities";
 
         $params = [
-            "city" => $city->city,
+            "city" => $city->title,
             "postal_code" => $city->postal_code
         ];
         

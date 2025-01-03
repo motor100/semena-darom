@@ -482,7 +482,7 @@ class MainController extends Controller
 
             $city_array = [
                 'id' => $city["id"],
-                'city' => $city["city"]
+                'title' => $city["title"]
             ];
 
             $city_json = json_encode($city_array);

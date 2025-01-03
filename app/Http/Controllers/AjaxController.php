@@ -202,6 +202,12 @@ class AjaxController extends Controller
         return false;
     }
 
+    /**
+     * Поиск города модель City
+     * 
+     * @param Illuminate\Http\Request
+     * @return Illuminate\Http\JsonResponse
+     */
     public function ajax_city_select(Request $request): JsonResponse
     {
         if (!$request->has('city')) {
@@ -215,7 +221,7 @@ class AjaxController extends Controller
 
             $city = htmlspecialchars($city);
 
-            $cities = \App\Models\City::where('city', 'like', "%{$city}%")->get();
+            $cities = \App\Models\City::where('title', 'like', "%{$city}%")->where('search', '1')->get();
         }
 
         return response()->json($cities);

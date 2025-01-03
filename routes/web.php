@@ -92,7 +92,7 @@ Route::get('/ajax/product-search', [AjaxController::class, 'ajax_product_search'
 
 Route::post('/ajax/city', [AjaxController::class, 'ajax_city']);
 
-Route::post('/ajax/city-select', [AjaxController::class, 'ajax_city_select']);
+Route::get('/ajax/city-select', [AjaxController::class, 'ajax_city_select']);
 
 Route::post('/ajax/addtocart', [AjaxController::class, 'ajax_add_to_cart']);
 

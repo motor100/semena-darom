@@ -50,9 +50,26 @@ class ViewServiceProvider extends ServiceProvider
             $city = json_decode(\Illuminate\Support\Facades\Cookie::get('city'), true);
 
             if ($city) {
-                $city_name = $city['city'];
+                $city_name = $city['title'];
             } else {
                 $city_name = (new \App\Services\City())->get_city_from_ip();
+
+                // Записываю новый массив в куки через фасад Cookie метод queue
+                // \Illuminate\Support\Facades\Cookie::queue('city', $city, 525600);
+
+                $city = \App\Models\City::where('title', $city_name)
+                                            ->where('search', '1')
+                                            ->first();
+
+                $city_array = [
+                    'id' => $city["id"],
+                    'title' => $city["title"]
+                ];
+    
+                $city_json = json_encode($city_array);
+    
+                // Установка куки через фасад Cookie метод queue
+                \Illuminate\Support\Facades\Cookie::queue('city', $city_json, 525600);
             }
 
             $view->with('city_name', $city_name);

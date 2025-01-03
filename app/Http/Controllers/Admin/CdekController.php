@@ -18,7 +18,7 @@ class CdekController extends Controller
     {
         // Получаю модель заказа
         $order = \App\Models\Order::findOrFail($id);
-        
+
         // Формирую заказ
         $cdek_order = (new \App\Services\Cdek())->create_order($order);
 

@@ -209,9 +209,9 @@ function citySelectOnInput() {
         }
 
         // Ограничение количества выводимых результатов
-        if (arr.length > 6) {
-          arr.length = 6;
-        }
+        // if (arr.length > 6) {
+        //   arr.length = 6;
+        // }
 
         arr.forEach((item) => {
           let tmpEl = document.createElement('div');
@@ -220,7 +220,7 @@ function citySelectOnInput() {
           str += '<input type="hidden" name="city_id" value="' + item.id + '">';
           str += '<input type="hidden" name="_token" value="' + token + '">';
           str += '<button type="submit" class="city-item-submit-btn">';
-          str += '<span class="city-item__city">' + item.city + '</span>';
+          str += '<span class="city-item__city">' + item.title + '</span>';
           str += '<span class="city-item__region">' + ' ' + item.region + '</span>';
           str += '</button>';
           tmpEl.innerHTML = str;
@@ -229,12 +229,7 @@ function citySelectOnInput() {
       }
     }
 
-    fetch('/ajax/city-select', {
-      method: 'POST',
-      headers: {'Content-Type':'application/x-www-form-urlencoded'},
-      cache: 'no-cache',
-      body: 'city=' + encodeURIComponent(citySelectInput.value) + '&_token=' + encodeURIComponent(token),
-    })
+    fetch('/ajax/city-select?city=' + encodeURIComponent(citySelectInput.value))
     .then((response) => response.json())
     .then((json) => {
       citySelect(json)
