@@ -294,6 +294,12 @@ class MainController extends Controller
         }
     }
 
+    /**
+     * Оформление заказа обработка
+     * 
+     * @param  @param \Illuminate\Http\Request $request;
+     * @return mixed
+     */
     public function create_order_handler(Request $request)
     {
         $validated = $request->validate([
@@ -325,7 +331,7 @@ class MainController extends Controller
             'phone'=> $phone,
             'email'=> $validated['email'],
             'city_id' => $city['id'],
-            // 'postcode' => $validated['postcode'],
+            'postcode' => isset($validated['postcode']) ? $validated['postcode'] : NULL, // Если выбрана доставка Почта, то записываю индекс. Для доставки СДЕК, индекс не нужен. 
             'address'=> $validated['address'],
             'price' => $validated['summ'],
             'user_id' => $user ? $user->id : NULL,
@@ -354,6 +360,17 @@ class MainController extends Controller
 
         // Создание моделей OrderProduct
         \App\Models\OrderProduct::insert($insert_array);
+
+        // Если есть код ПВЗ СДЕК, то создаю модель CdekOrder
+        if(isset($validated['cdek-pvz'])) {
+            \App\Models\CdekOrder::create([
+                'order_id' => $order_id,
+                'cdek_pvz_uuid' => $validated['cdek-pvz'],
+                'cdek_order_uuid' => '0',
+                'waybill_id' => '0',
+                'waybill_uuid' => '0'
+            ]);
+        }
 
         // Удаление куки
         \Illuminate\Support\Facades\Cookie::queue(\Illuminate\Support\Facades\Cookie::forget('cart'));

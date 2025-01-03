@@ -23,7 +23,9 @@ class CdekOrder extends Model
      */
     protected $fillable = [
         'order_id',
-        'uuid',
-        'waybill_uuid'
+        'cdek_pvz_uuid',
+        'cdek_order_uuid',
+        'waybill_id',
+        'waybill_uuid',        
     ];
 }
